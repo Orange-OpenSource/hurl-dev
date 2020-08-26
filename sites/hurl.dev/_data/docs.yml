@@ -1,0 +1,126 @@
+- title: Getting Started
+  items:
+    - title: Man Page
+      items:
+          - title: NAME
+          - title: SYNOPSIS
+          - title: DESCRIPTION
+          - title: HURL FILE FORMAT
+          - title: OPTIONS
+          - title: ENVIRONMENT
+          - title: EXIT CODES
+          - title: WWW
+          - title: SEE ALSO
+    - title: Installation
+      items:
+        - title: Linux
+        - title: macOS
+        - title: Windows
+        - title: Building
+        - title: Hurl - JVM Based
+    - title: Samples
+      items:
+        - title: Getting Data
+          items:
+            - title: Query Params
+        - title: Sending Data
+          items:
+            - title: Sending HTML Form Datas
+            - title: Sending Multipart Form Datas
+            - title: Posting a JSON Body
+            - title: Templating a JSON/XML Body
+        - title: Testing Response
+          items:
+            - title: Testing REST Apis
+            - title: Testing HTML Response
+        - title: Others
+          items:
+            - title: Using SOAP Apis
+            - title: Capturing and Using a CSRF Token
+    - title: Frequently Asked Questions
+      items:
+        - title: Why "Hurl" ?
+        - title: Yet Another Tool, I already use X
+- title: File Format
+  items:
+    - title: Hurl File
+      items:
+        - title: Character Encoding
+        - title: File Extension
+        - title: Special Characters in String
+        - title: Comments
+    - title: Grammar
+      items:
+        - title: Definitions
+        - title: Syntax Grammar
+    - title: Entry
+      items:
+        - title: Definitions
+        - title: Example
+        - title: Description
+          items:
+            - title: Cookie storage
+            - title: Redirects
+    - title: Request
+      items:
+        - title: Definitions
+        - title: Example
+        - title: Description
+          items:
+            - title: Method
+            - title: URL
+            - title: Headers
+            - title: Query parameters
+            - title: Form parameters
+            - title: Multipart Form Data
+            - title: Cookies
+            - title: Body
+              items:
+                - title: JSON body
+                - title: XML body
+                - title: Raw string body
+                - title: Base64 body
+                - title: File body
+    - title: Response
+      items:
+        - title: Definitions
+        - title: Example
+        - title: Capture and Assertion
+    - title: Capturing Response
+      items:
+        - title: Captures
+          items:
+            - title: Status capture
+            - title: Header capture
+            - title: Cookie capture
+            - title: Body capture
+            - title: XPath capture
+            - title: JSONPath capture
+            - title: Regex capture
+            - title: Variable capture
+            - title: Subquery
+    - title: Asserting Response
+      items:
+        - title: Version - Status
+        - title: Headers
+        - title: Asserts
+          items:
+            - title: Predicates
+            - title: Status assert
+            - title: Header assert
+            - title: Cookie assert
+            - title: Body assert
+            - title: XPath assert
+            - title: JSONPath assert
+            - title: Regex assert
+            - title: Variable capture
+        - title: Body
+          items:
+            - title: JSON body
+            - title: XML body
+            - title: Raw string body
+            - title: Base64 body
+            - title: File body
+    - title: Templates
+      items:
+        - Templating Body

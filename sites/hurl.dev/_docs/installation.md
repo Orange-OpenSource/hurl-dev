@@ -1,0 +1,60 @@
+---
+layout: doc
+title: Installation
+hurl-version: 0.99.11
+---
+# {{ page.title }}
+
+## Linux {#linux}
+
+Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-linux.tar.gz](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-linux.tar.gz)
+
+```
+INSTALL_DIR=/tmp
+curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
+export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
+
+hurl --version
+hurl {{page.hurl-version}}
+```
+
+### Debian / Ubuntu
+
+For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
+
+```
+curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl_{{page.hurl-version}}_amd64.deb
+sudo dpkg -i hurl_{{page.hurl-version}}_amd64.deb
+```
+
+
+## macOS {#macos}
+
+Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-osx.tar.gz](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-osx.tar.gz)
+
+Hurl can also be installed with [Homebrew](https://brew.sh):
+
+```
+brew tap jcamiel/hurl
+brew install hurl
+
+hurl --version
+hurl {{page.hurl-version}}
+```
+
+## Windows {#windows}
+
+Installation for Windows is not yet available, contributions are welcome!
+
+
+## Building {#building}
+
+Hurl can be build from source (available in [GitHub](https://github.com/Orange-OpenSource/hurl))
+
+
+## Hurl - JVM Based {#hurl-jvm-based}
+
+A jvm flavour is also available as a standalone fat JAR at [Hurl JVM](https://github.com/Orange-OpenSource/hurl-jvm).
+
+
+

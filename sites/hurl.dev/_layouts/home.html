@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+    <head>
+        {% include head.html %}
+    </head>
+    <body>
+        {% include common-nav.html docs=site.data.docs title=page.title%}
+
+        <div class="home-content">
+            {{ content }}
+        </div>
+        {% include common-footer.html %}
+    </body>
+</html>

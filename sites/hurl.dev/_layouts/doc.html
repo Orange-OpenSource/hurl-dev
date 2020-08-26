@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        {% include head.html %}
+    </head>
+    <body>
+        <div class="doc-wrapper">
+
+            {% include common-nav.html docs=site.data.docs title=page.title%}
+
+            <div class="doc-nav">
+                <div class="toc-toplevel">
+                    {% for li0 in site.data.docs %}
+                    <h3>{{ li0.title }}</h3>
+                    <ul>
+                        {% for li1 in li0.items %}
+                        <li>
+                            {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                            <a {% if li1.title == page.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="doc-content">
+                {{ content }}
+
+                <div class="edit-page">
+                    <a href="https://github.com/fabricereix/hurl-dev/edit/master/sites/hurl.dev/{{ page.path }}">Edit this page</a>
+                </div>
+
+                <div class="doc-browse">
+
+                {% assign cur = false %}
+                {% assign prev = false %}
+                {% assign next = false %}
+                {% for li0 in site.data.docs %}
+                    {% for li1 in li0.items %}
+
+                        {% if cur and next == false %}
+                            {% assign next = li1 %}
+                            {% capture next_url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                        {% endif %}
+
+                        {% if li1.title == page.title %}
+                            {% assign cur = li1 %}
+                        {% endif %}
+
+                        {% unless cur %}
+                            {% assign prev = li1 %}
+                            {% capture prev_url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                        {% endunless %}
+
+                    {% endfor %}
+                {% endfor %}
+
+                    {% if prev %}
+                    <div class="previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
+                    {% endif %}
+                    {% if next %}
+                    <div class="next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+            <div class="doc-toc">
+                    {% for li0 in site.data.docs %}
+                        {% for li1 in li0.items %}
+                            {% if li1.title != page.title %}
+                                {% continue %}
+                            {% endif %}
+                            {% unless li1.items %}
+                                {% continue %}
+                            {% endunless %}
+                <h3>TABLE OF CONTENTS</h3>
+                <ul>
+                            {% for li2 in li1.items %}
+                    <li>
+                                {% capture li2_url %}/docs/{{ li1.title | slugify }}.html#{{ li2.title | slugify }}{% endcapture %}
+
+                        <a href="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</a>
+
+                                {% unless li2.items %}
+                    </li>
+                                    {% continue %}
+                                {% endunless %}
+                        <ul>
+                                {% for li3 in li2.items %}
+
+                                    {% capture li3_url %}/docs/{{ li1.title | slugify }}.html#{{ li3.title | slugify }}{% endcapture %}
+
+                            <li><a href="{{ li3_url | prepend: site.baseurl }}">{{ li3.title }}</a>
+
+                                    {% unless li3.items %}
+                            </li>       {% continue %}
+                                    {% endunless %}
+
+                                    <ul>
+                                    {% for li4 in li3.items %}
+                                        {% capture li4_url %}/docs/{{ li1.title | slugify }}.html#{{ li4.title | slugify }}{% endcapture %}
+                                        <li><a href="{{ li4_url | prepend: site.baseurl }}">{{ li4.title }}</a></li>
+                                    {% endfor %}
+                                    </ul>
+                            </li>
+                                {% endfor %}
+                        </ul>
+                    </li>
+                            {% endfor %}
+                </ul>
+                        {% endfor %}
+                    {% endfor %}
+            </div>
+
+        </div>
+
+        {% include common-footer.html %}
+
+    </body>
+</html>

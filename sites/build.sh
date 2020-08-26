@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -e
+
+rm -rfd hurl.dev/_site/*
+
+export CI_COMMIT_SHORT_SHA
+CI_COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)
+
+# Build the grammar html from our spec.
+echo 'Building grammar...'
+echo '-------------------'
+echo '{% raw %}' > hurl.dev/_includes/grammar.html
+python3 grammar2html.py >> hurl.dev/_includes/grammar.html
+echo '{% endraw %}' >> hurl.dev/_includes/grammar.html
+
+echo 'First pass static build...'
+echo '-------------------'
+# First pass, build static site with grammar and git commit.
+jekyll build --source hurl.dev --destination hurl.dev/_site
+
+echo 'Search index build...'
+echo '-------------------'
+# Then build search index from the first pass.
+mkdir hurl.dev/assets/data/
+python3 build_index.py > hurl.dev/assets/data/index.json
+
+echo 'Second pass static build...'
+echo '-------------------'
+# Second pass to take the rebuilt search index into account.
+jekyll build --source hurl.dev --destination hurl.dev/_site
+
+echo 'Highlight code snippets...'
+echo '-------------------'
+# Second pass to take the rebuilt search index into account.
+# Highlight Hurl snippet.
+python3 highlight.py
+
+
+
+# Run local site
+# jekyll serve --source hurl.dev --destination hurl.dev/_site

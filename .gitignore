@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+.mypy_cache/
+.idea/
+
+# Jekyll stuff
+.sass-cache
+.jekyll-cache/
+_site/
+
+# Python stuf
+.venv/
