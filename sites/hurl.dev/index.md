@@ -14,9 +14,9 @@ title: Hurl
 
 # What's Hurl?
 
-Hurl is a command line tool and a simple plain text format for describing an HTTP session.
+Hurl is a command line tool that performs HTTP requests defined in a simple plain text format.
 
-Hurl is used in command lines or scripts to run HTTP sessions. Hurl can performs requests, capture values 
+Hurl is used in command lines and scripts to run HTTP sessions. It can performs requests, capture values 
 and evaluate queries on headers and body response. Hurl is very versatile: it can be used to get HTTP data and 
 also to test HTTP sessions.
 
@@ -122,7 +122,7 @@ HTTP/1.1 200
 
 [License]({% link license.md %})
 
-[Documentation]({% link _docs/installation.md %})
+[Documentation]({% link _docs/man-page.md %})
 
 [GitHub](https://github.com/Orange-OpenSource/hurl)
 
