@@ -16,9 +16,8 @@ title: Hurl
 
 Hurl is a command line tool that performs HTTP requests defined in a simple plain text format.
 
-Hurl is used in command lines and scripts to run HTTP sessions. It can performs requests, capture values 
-and evaluate queries on headers and body response. Hurl is very versatile: it can be used to get HTTP data and 
-also to test HTTP sessions.
+It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very versatile: 
+it can be used for both fetching data and testing HTTP sessions.
 
 {% raw %}
 ```hurl

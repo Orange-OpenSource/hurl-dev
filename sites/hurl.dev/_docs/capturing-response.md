@@ -7,12 +7,12 @@ title: Capturing Response
 
 ## Captures {#captures}
 
-Optional list of values to capture from the HTTP response, in a named variable. Captures can be the response
-status code, part or the entire of the body, and response headers.
+Captures are optional values to capture from the HTTP response, in a named variable. Captures can be the
+ response status code, part or the entire of the body, and response headers.
 
 Captured variables are available through a run session; each new value of a given variable overrides the last value.
 
-Captures allow to use data from one request to another request, when working with 
+Captures allow using data from one request to another request, when working with 
 [CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery) for instance. Variables can also be initialized 
 at the start of the session, by passing variable values [to the runners]({% link _docs/installation.md %}#hurl-native-usage), 
 or can used in [templates]({% link _docs/templates.md %})
@@ -48,6 +48,10 @@ Structure of a capture:
 </div>
 
 A capture consists of a variable name, followed by `:` and a query. The captures section starts with `[Captures]`.
+
+
+### Query {#query}
+
 Query can be of the following type:
 
 - [`status`](#status-capture)
@@ -89,6 +93,39 @@ next_url: header "Location"
 ```
 
 ### Cookie capture {#cookie-capture}
+
+Capture a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header from the received 
+HTTP response headers. Cookie capture consists of a variable name, followed by a `:`, then the keyword `cookie` and a
+ cookie name.
+
+```hurl
+GET http://example.net/cookies/set
+
+HTTP/1.0 200
+[Captures]
+session-id: cookie "LSID" 
+```
+
+Cookie attributes value can also be captured by using the following format: `<cookie-name>[cookie-attribute]`. The
+ following attributes are supported: `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and
+ `SameSite`.
+
+```hurl
+GET http://example.net/cookies/set
+
+HTTP/1.0 200
+[Captures]
+value1: cookie "LSID"
+value2: cookie "LSID[Value]"     # Equivalent to the previous capture
+expires: cookie "LSID[Expires]"
+max-age: cookie "LSID[Max-Age]"
+domain: cookie "LSID[Domain]"
+path: cookie "LSID[Path]"
+secure: cookie "LSID[Secure]"
+http-only: cookie "LSID[HttpOnly]"
+same-site: cookie "LSID[SameSite]"
+```
+
 
 ### Body capture {#body-capture}
 

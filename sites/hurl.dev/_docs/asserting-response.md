@@ -171,6 +171,39 @@ header "Location" contains "www.example.net"
 
 ### Cookie assert {#cookie-assert}
 
+Check value or attributes of a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+) response header. Cookie assert consists of the keyword `cookie`, followed by the cookie name (and optionally a cookie
+attribute), a predicate function and value.
+
+Cookie attributes value can be checked by using the following format: `<cookie-name>[cookie-attribute]`. The
+ following attributes are supported: `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and
+ `SameSite`.
+
+```hurl
+GET http://localhost:8000/cookies/set
+
+HTTP/1.0 200
+
+# Explicit check of Set-Cookie header value. If the attributes are
+# not in this excat order, this assert will fail. 
+Set-Cookie: LSID=DQAAAKEaem_vYg; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/accounts
+Set-Cookie: HSID=AYQEVnDKrdst; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; HttpOnly; Path=/
+Set-Cookie: SSID=Ap4PGTEq; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/
+
+# Using cookie assert, one can check cookie value and various attributes.
+[Asserts]
+cookie "LSID" equals "DQAAAKEaem_vYg"
+cookie "LSID[Value]" equals "DQAAAKEaem_vYg"
+cookie "LSID[Expires]" exists
+cookie "LSID[Expires]" contains "Wed, 13 Jan 2021"
+cookie "LSID[Max-Age]" not exists
+cookie "LSID[Domain]" not exists
+cookie "LSID[Path]" equals "/accounts"
+cookie "LSID[Secure]" equals true
+cookie "LSID[HttpOnly]" equals true
+cookie "LSID[SameSite]" not exists
+```
+
 ### Body assert {#body-assert}
 
 Check the value of the received HTTP response body when decoded as a string. Body assert consists of the keyword `body` 

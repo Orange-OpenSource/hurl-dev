@@ -90,6 +90,7 @@
       items:
         - title: Captures
           items:
+            - title: Query
             - title: Status capture
             - title: Header capture
             - title: Cookie capture
