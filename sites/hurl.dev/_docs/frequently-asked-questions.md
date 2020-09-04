@@ -58,7 +58,7 @@ Scenario: create and retrieve a cat
 
 Given url 'http://myhost.com/v1/cats'
 And request { name: 'Billie' }
-when method post
+When method post
 Then status 201
 And match response == { id: '#notnull', name: 'Billie }
 
@@ -89,11 +89,13 @@ HTTP/* 200
 A key point of Hurl is to work on the HTTP domain. In particular, there is no Javascript runtime, Hurl works on the 
 raw HTTP requests/responses, and not on a DOM managed by a HTML engine. For security, this can be seen as a feature:
 let's say you want to test backend validation, you want to be able to bypass the browser or javascript validations and 
-directly test a backend endpoint. Finally, with no headless browser and working on the raw HTTP data, Hurl is also
+directly test a backend endpoint. 
+
+Finally, with no headless browser and working on the raw HTTP data, Hurl is also
 really reliable with a very small probability of false positives. Integration tests with tools like 
 [Selenium](https://www.selenium.dev) can, in this regard, be challenging to maintain.
 
-Finally, just use what is convenient for you. In our case, it's Hurl!
+Just use what is convenient for you. In our case, it's Hurl!
  
  
 

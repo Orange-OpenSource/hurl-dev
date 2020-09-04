@@ -450,4 +450,4 @@ file,data.bin;
 ```
 
 File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}) to specify the root directory of all file nodes.
+[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.

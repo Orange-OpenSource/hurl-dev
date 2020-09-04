@@ -59,7 +59,7 @@ HTTP/1.1 200
 xpath "normalize-space(//head/title)" equals "Hello world!"
 ```
  
-and is well adapted for REST/json apis 
+It is well adapted for REST/json apis 
 
 ```hurl
 POST https://api.example.net/tests

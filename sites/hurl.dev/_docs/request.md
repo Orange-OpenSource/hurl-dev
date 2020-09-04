@@ -147,13 +147,13 @@ field3: file,example.zip; application/zip
 ```
 
 Files are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}) to specify the root directory of all file nodes.
+[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.
 
-Content type is can be specified or inferred based on the filename extension:
+Content type can be specified or inferred based on the filename extension:
 
 - `.gif`: `image/gif`,
 - `.jpg`: `image/jpeg`,
-- `jpeg`: `image/jpeg`,
+- `.jpeg`: `image/jpeg`,
 - `.png`: `image/png`,
 - `.svg`: `image/svg+xml`,
 - `.txt`: `text/plain`,
@@ -318,4 +318,4 @@ file,data.bin;
 ```
 
 File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}) to specify the root directory of all file nodes.
+[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.

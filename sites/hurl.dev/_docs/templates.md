@@ -44,7 +44,7 @@ jsonpath "$.errors[{{index}}].id" equals "error"
 In this second example, we capture the body in a variable `index`, and reuse this value in the query 
 {% raw %}`jsonpath "$.errors[{{index}}].id"`{% endraw %}.
 
-Variables can also be injected in a Hurl file, by using `--variable` option :
+Variables can also be injected in a Hurl file, by using [`--variable` option]({% link _docs/man-page.md %}#variable) :
 
 ```
 $ hurl --variable host=example.net test.hurl
@@ -65,9 +65,8 @@ HTTP/1.1 200
 ## Templating Body
 
 Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml
--body)
- is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request.md %}#raw
- -string-body) with variables to send a JSON or XML body:
+-body) is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request
+.md %}#raw-string-body) with variables to send a JSON or XML body:
 
 {% raw %}
 ~~~hurl
