@@ -18,6 +18,7 @@ $marked-text-light: #333;
 $hurl-string-light: darkgreen;
 $hurl-number-light: blue;
 $hurl-boolean-light: blue;
+$hurl-null-light: blue;
 $hurl-url-light: darkblue;
 $hurl-method-light: #333;
 $hurl-version-light: #333;
@@ -40,6 +41,7 @@ $marked-text-dark: #333;
 $hurl-string-dark: forestgreen;
 $hurl-number-dark: dodgerblue;
 $hurl-boolean-dark: dodgerblue;
+$hurl-null-dark: dodgerblue;
 $hurl-url-dark: cyan;
 $hurl-method-dark: orange;
 $hurl-version-dark: white;
@@ -79,6 +81,7 @@ $font6: 12px;
   --hurl-string: #{$hurl-string-light};
   --hurl-number: #{$hurl-number-light};
   --hurl-boolean: #{$hurl-boolean-light};
+  --hurl-null: #{$hurl-null-light};
   --hurl-url: #{$hurl-url-light};
   --hurl-method: #{$hurl-method-light};
   --hurl-version: #{$hurl-version-light};
@@ -102,6 +105,7 @@ $font6: 12px;
     --hurl-string: #{$hurl-string-dark};
     --hurl-number: #{$hurl-number-dark};
     --hurl-boolean: #{$hurl-boolean-dark};
+    --hurl-null: #{$hurl-null-dark};
     --hurl-url: #{$hurl-url-dark};
     --hurl-method: #{$hurl-method-dark};
     --hurl-version: #{$hurl-version-dark};
@@ -469,10 +473,13 @@ pre code {
     color: $hurl-boolean-light;
     color: var(--hurl-boolean);
   }
+  .null {
+    color: $hurl-null-light;
+    color: var(--hurl-null);
+  }
   .url {
     color: $hurl-url-light;
     color: var(--hurl-url);
-
   }
   .method {
     color: $hurl-method-light;
