@@ -71,6 +71,17 @@ Connection: keep-alive
 > Headers directly follow url, without any section name, contray to query parameters, form parameters
 > or cookies
 
+Note that header usually don't start with double quotes. If the header value starts with double quotes, the double
+quotes will be part of the header value:
+
+```hurl
+PATCH https://example.org/file.txt
+If-Match: "e0023aa4e"
+```
+
+`If-Match` request header will be sent will the following value `"e0023aa4e"` (started and ended with double quotes).
+
+
 ### Query parameters {#query-parameters}
 
 Optional list of query parameters

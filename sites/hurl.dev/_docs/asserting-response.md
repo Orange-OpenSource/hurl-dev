@@ -71,10 +71,11 @@ can be one of :
 Predicates consist of a predicate function, and a predicate value. Predicate functions are:
 
 - `equals`: check equality of query and predicate value,
-- `countEquals`: check equality of query collections and predicate value,
-- `startsWith`: check that query starts with the predicate value,
-- `contains`: check that query contains the predicate value.
-- `matches`: check that query matches the regex pattern described by the predicate value,
+- `countEquals`: check equality of query size collections,
+- `startsWith`: check that query string starts with the predicate value,
+- `contains`: check that query string contains the predicate value,
+- `includes`: check that query collections includes the predicate value,
+- `matches`: check that query string matches the regex pattern described by the predicate value,
 - `exists`: check that query return a value,
 
 Each predicate can be negated by prefixing it with `not` (for instance, `not contains` or `not exists`)
@@ -87,8 +88,10 @@ Each predicate can be negated by prefixing it with `not` (for instance, `not con
  </div>
 
 
-Predicate value are typed, and can be a string, a boolean or a number. Note that `"true"` is a string, whereas `true` is a boolean. 
-For instance, to test the presence of a h1 node in a HTML response, the following assert can be used:
+A predicate values is typed, and can be a string, a boolean, a number, `null` or a collection. Note that `"true"` is a
+ string, whereas `true` is a boolean.
+  
+For instance, to test the presence of a h1 node in an HTML response, the following assert can be used:
 
 ```hurl
 GET https://example.net/home
@@ -308,6 +311,9 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.slideshow.author" equals "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
+jsonpath "$.slideshow.slides" countEquals 42
+jsonpath "$.slideshow.date" not equals null
+jsonpath "$.slideshow.slides[*].title" includes "Ming Blowing!"
 ```
 
 > Explain that the value selected by the JSONPath is coerced to a string when only one node is selected.

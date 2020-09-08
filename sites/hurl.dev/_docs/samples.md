@@ -159,6 +159,7 @@ jsonpath "$.userInfo.firstName" equals "Franck"
 jsonpath "$.userInfo.lastName" equals "Herbert"
 jsonpath "$.hasDevice" equals false
 jsonpath "$.links" countEquals 12
+jsonpath "$.state" not equals null
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
