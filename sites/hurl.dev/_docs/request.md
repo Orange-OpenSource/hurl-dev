@@ -68,7 +68,7 @@ Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 ```
 
-> Headers directly follow url, without any section name, contray to query parameters, form parameters
+> Headers directly follow url, without any section name, contrary to query parameters, form parameters
 > or cookies
 
 Note that header usually don't start with double quotes. If the header value starts with double quotes, the double
