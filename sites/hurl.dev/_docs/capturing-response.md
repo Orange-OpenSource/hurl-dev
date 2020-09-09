@@ -14,7 +14,7 @@ Captured variables are available through a run session; each new value of a give
 
 Captures allow using data from one request to another request, when working with 
 [CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery) for instance. Variables can also be initialized 
-at the start of the session, by passing variable values [to the runners]({% link _docs/installation.md %}#hurl-native-usage), 
+at the start of the session, by passing [variable values]({% link _docs/man-page.md %}#variable), 
 or can used in [templates]({% link _docs/templates.md %})
 
 {% raw %}
