@@ -15,8 +15,12 @@
                     <ul>
                         {% for li1 in li0.items %}
                         <li>
-                            {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
-                            <a {% if li1.title == page.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
+                            {% if li1.url %}
+                                <a href="{{ li1.url }}">{{ li1.title }}</a>
+                            {% else %}
+                                {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                                <a {% if li1.title == page.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
@@ -57,10 +61,14 @@
                 {% endfor %}
 
                     {% if prev %}
-                    <div class="previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
+                        {% unless prev.url %}
+                        <div class="previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
+                        {% endunless %}
                     {% endif %}
                     {% if next %}
-                    <div class="next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
+                        {% unless next.url %}
+                        <div class="next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
+                        {% endunless %}
                     {% endif %}
                 </div>
 

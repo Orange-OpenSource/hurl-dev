@@ -125,3 +125,8 @@
     - title: Templates
       items:
         - Templating Body
+- title: Resources
+  items:
+    - title: License
+    - title: GitHub
+      url: https://github.com/Orange-OpenSource/hurl

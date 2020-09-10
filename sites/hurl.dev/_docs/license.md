@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: doc
 title: License
 ---
 

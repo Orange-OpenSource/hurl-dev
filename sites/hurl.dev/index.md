@@ -119,7 +119,7 @@ HTTP/1.1 200
 
 # Resources
 
-[License]({% link license.md %})
+[License]({% link _docs/license.md %})
 
 [Documentation]({% link _docs/man-page.md %})
 
