@@ -4,6 +4,8 @@ title: Templates
 ---
 # {{ page.title }}
 
+
+## Variables {#variables}
 In Hurl file, you can generate value using two curly braces, i.e {% raw %}`{{my_variable}}`{% endraw %}. For instance, if you want to 
 reuse a value from a HTTP response in the next entries, you can capture this value in a variable and reuse it in a 
 template.
@@ -44,6 +46,74 @@ jsonpath "$.errors[{{index}}].id" equals "error"
 In this second example, we capture the body in a variable `index`, and reuse this value in the query 
 {% raw %}`jsonpath "$.errors[{{index}}].id"`{% endraw %}.
 
+## Types {#types}
+
+Variable are typed, and can be either string, bool, number, `null` or collections. Depending on the variable type, the 
+template can be rendered differently. Let's say we have captured an integer value into a variable named
+ `count`:
+
+```hurl
+GET https://sample/counter
+HTTP/* 200
+[Captures]
+count: jsonpath "$.results[0]"
+```
+
+The following entry:
+
+{% raw %}
+```hurl
+GET https://sample/counter/{{counter}} 
+HTTP/* 200
+[Assert]
+jsonpath "$.id" equals "{{counter}}"
+```
+{% endraw %}
+
+will be rendered at runtime to:
+
+```hurl
+GET https://sample/counter/458 
+HTTP/* 200
+[Assert]
+jsonpath "$.id" equals "458"
+```
+
+resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert)
+expression and a string value.
+
+On the other hand, the following assert:
+
+{% raw %}
+```hurl
+GET https://sample/counter/{{counter}} 
+HTTP/* 200
+[Assert]
+jsonpath "$.index" equals {{counter}}
+```
+{% endraw %}
+
+will be rendered at runtime to:
+
+```hurl
+GET https://sample/counter/458 
+HTTP/* 200
+[Assert]
+jsonpath "$.index" equals 458
+```
+
+resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert) expression 
+and an integer value.
+
+So if you want to use typed values (in asserts for instances), you can use `{{my_var}}`. If you're interested in the
+ string representation of a variable, you can surround the variable with double quotes, as in `"{{my_var}}"`.
+
+> When there is no possible ambiguities, like using a variable in a url, or 
+> in a header, you can omit the double quotes. The value will always be rendered 
+> as a string.
+
+## Injecting Variables {#injecting-variables}
+
 Variables can also be injected in a Hurl file, by using [`--variable` option]({% link _docs/man-page.md %}#variable) :
 
 ```
@@ -62,7 +132,7 @@ HTTP/1.1 200
 ```
 {% endraw %}
 
-## Templating Body
+## Templating Body {#templating-body}
 
 Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml
 -body) is not currently supported in Hurl. Besides, you can use templates in

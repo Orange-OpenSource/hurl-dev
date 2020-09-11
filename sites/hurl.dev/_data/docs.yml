@@ -124,7 +124,10 @@
             - title: File body
     - title: Templates
       items:
-        - Templating Body
+        - title: Variables
+        - title: Types
+        - title: Injecting Variables
+        - title: Templating Body
 - title: Resources
   items:
     - title: License

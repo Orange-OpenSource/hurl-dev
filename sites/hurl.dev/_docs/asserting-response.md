@@ -272,7 +272,7 @@ xpath "//h2" not exists                             # Similar assert for h2
 
 ### JSONPath assert {#jsonpath-assert}
 
-Check the value of a [JSONPath](https://en.wikipedia.org/wiki/XPath) query on the received HTTP body decoded as a JSON
+Check the value of a [JSONPath](https://goessner.net/articles/JsonPath/) query on the received HTTP body decoded as a JSON
 document. Body assert consists of the keyword `jsonpath` followed by a predicate function and value. 
 
 Let's say we want to check this JSON response:
