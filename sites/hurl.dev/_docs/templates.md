@@ -65,7 +65,7 @@ The following entry:
 ```hurl
 GET https://sample/counter/{{counter}} 
 HTTP/* 200
-[Assert]
+[Asserts]
 jsonpath "$.id" equals "{{counter}}"
 ```
 {% endraw %}
@@ -75,7 +75,7 @@ will be rendered at runtime to:
 ```hurl
 GET https://sample/counter/458 
 HTTP/* 200
-[Assert]
+[Asserts]
 jsonpath "$.id" equals "458"
 ```
 
@@ -88,7 +88,7 @@ On the other hand, the following assert:
 ```hurl
 GET https://sample/counter/{{counter}} 
 HTTP/* 200
-[Assert]
+[Asserts]
 jsonpath "$.index" equals {{counter}}
 ```
 {% endraw %}
@@ -98,7 +98,7 @@ will be rendered at runtime to:
 ```hurl
 GET https://sample/counter/458 
 HTTP/* 200
-[Assert]
+[Asserts]
 jsonpath "$.index" equals 458
 ```
 
