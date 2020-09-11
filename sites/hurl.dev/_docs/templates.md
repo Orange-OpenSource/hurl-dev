@@ -105,10 +105,11 @@ jsonpath "$.index" equals 458
 resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert) expression 
 and an integer value.
 
-So if you want to use typed values (in asserts for instances), you can use `{{my_var}}`. If you're interested in the
- string representation of a variable, you can surround the variable with double quotes, as in `"{{my_var}}"`.
+So if you want to use typed values (in asserts for instances), you can use {% raw %}`{{my_var}}`{% endraw %}.
+ If you're interested in the string representation of a variable, you can surround the variable with double quotes
+ , as in {% raw %}`"{{my_var}}"`{% endraw %}.
 
-> When there is no possible ambiguities, like using a variable in a url, or 
+> When there is no possible ambiguities, like using a variable in an url, or 
 > in a header, you can omit the double quotes. The value will always be rendered 
 > as a string.
 
