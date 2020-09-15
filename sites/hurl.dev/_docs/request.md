@@ -6,8 +6,9 @@ title: Request
 
 ## Definition {#definition}
 
-Describes a HTTP request, with mandatory [method](#hmethod) and [url](#url), followed by optional [headers](#headers),
-[query parameters](#query-parameters), [form parameters](#form-parameters), [cookies](#cookies) and [body](#body).
+Describes a HTTP request, with mandatory [method](#method) and [url](#url), followed by optional [headers](#headers),
+[query parameters](#query-parameters), [form parameters](#form-parameters), [multipart form datas](#multipart-form-data), 
+[cookies](#cookies) and [body](#body).
 
 ## Example {#example}
 
@@ -28,7 +29,7 @@ Mandatory HTTP request method, one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `C
 
 Mandatory HTTP request url.
 
-Url can contain query parameters, even if using a query parameters section is preferred.
+Url can contain query parameters, even if using a [query parameters section](#query-parameters) is preferred.
 
 ```hurl
 # A request with url containing query parameters.
@@ -46,7 +47,6 @@ order: newest
 When query parameters are present in the url and in a query parameters section, the resulting request will
 have both parameters.
 
-
 {% raw %}
 ```hurl
 POST {{baseurl}}/something
@@ -55,7 +55,7 @@ POST {{baseurl}}/something
 
 ### Headers {#headers}
 
-Optional list of HTTP request header.
+Optional list of HTTP request headers.
 
 A header consists of a name, followed by a `:` and a value.
 
@@ -84,11 +84,11 @@ If-Match: "e0023aa4e"
 
 ### Query parameters {#query-parameters}
 
-Optional list of query parameters
+Optional list of query parameters.
 
-A query parameter consists of a field, followed by a `:` and a value. The
-query parameters section starts with `[QueryStringParams]`. Contrary to query parameters in the url,
-each value in the query parameters section is not url encoded.
+A query parameter consists of a field, followed by a `:` and a value. The query parameters section starts with
+ `[QueryStringParams]`. Contrary to query parameters in the url, each value in the query parameters section is not
+ url encoded.
 
 {% raw %}
 ```hurl
@@ -105,9 +105,10 @@ If there are any parameters in the url, the resulted request will have both para
 
 ### Form parameters {#form-parameters}
 
-A form parameters section can be used to send data, like [HTML form](https://developer.mozilla.org/en-US/docs/Learn/Forms)
-. This section contains an optional list of key values, each key followed by a `:` and a value. Key values will be 
-encoded in key-value tupple separated by '&', with a '=' between the key and the value, and sent in the body request. 
+A form parameters section can be used to send data, like [HTML form](https://developer.mozilla.org/en-US/docs/Learn/Forms). 
+
+This section contains an optional list of key values, each key followed by a `:` and a value. Key values will be 
+encoded in key-value tuple separated by '&', with a '=' between the key and the value, and sent in the body request. 
 The content type of the request is `application/x-www-form-urlencoded`. The form parameters section starts 
 with `[FormParams]`.
 
@@ -146,7 +147,9 @@ When both [body section](#body) and form parameters section are present, only th
 ### Multipart Form Data {#multipart-form-data}
 
 A multipart form data section can be used to send data, with key / value and file content (see [multipart/form-data
- on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)).
+ on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)). 
+ 
+The form parameters section starts with `[MultipartFormData]`.
 
 ```hurl
 POST https://example.net/upload
@@ -180,9 +183,9 @@ By default, content type is `application/octet-stream`.
 
 Optional list of session cookies for this request.
 
-A cookie consists of a name, followed by a `: ` and a value. The cookies section starts with `[Cookies]`.
-Cookies are sent per request, and are not added to the cookie storage session, contrary to a cookie
-set in a header response. (for instance `Set-Cookie: theme=light`).
+A cookie consists of a name, followed by a `: ` and a value. Cookies are sent per request, and are not added to 
+the cookie storage session, contrary to a cookie set in a header response. (for instance `Set-Cookie: theme=light`). The 
+cookies section starts with `[Cookies]`.
 
 ```hurl
 GET https://example.net/index.html
@@ -207,11 +210,13 @@ Cookie: theme=light; sessionToken=abc123
 
 ### Body {#body}
 
-Optional HTTP body request. If the body of the request is a [JSON](https://www.json.org) string or a
-[XML](https://en.wikipedia.org/wiki/XML) string, the value can be directly inserted without any modification.
-For a text based body that is not JSON nor XML, one can use multiline string that starts with <code>&#96;&#96;&#96;</code>
-and ends with <code>&#96;&#96;&#96;</code>. For a precise byte control of the request body, a [Base64](https://en.wikipedia.org/wiki/Base64)
-encoded string can be used to describe exactly the body byte content.
+Optional HTTP body request. 
+
+If the body of the request is a [JSON](https://www.json.org) string or a [XML](https://en.wikipedia.org/wiki/XML
+) string, the value can be directly inserted without any modification. For a text based body that is not JSON nor XML
+, one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96
+;</code>. For a precise byte control of the request body, a [Base64](https://en.wikipedia.org/wiki/Base64) encoded
+ string can be used to describe exactly the body byte content.
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 
