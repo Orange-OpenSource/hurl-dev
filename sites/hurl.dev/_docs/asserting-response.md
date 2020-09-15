@@ -313,7 +313,7 @@ jsonpath "$.slideshow.author" equals "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
 jsonpath "$.slideshow.slides" countEquals 42
 jsonpath "$.slideshow.date" not equals null
-jsonpath "$.slideshow.slides[*].title" includes "Ming Blowing!"
+jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 ```
 
 > Explain that the value selected by the JSONPath is coerced to a string when only one node is selected.

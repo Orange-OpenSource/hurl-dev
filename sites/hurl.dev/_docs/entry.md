@@ -44,7 +44,7 @@ Requests in the same Hurl file share the cookie storage, enabling, for example, 
 
 ### Redirects {#redirects}
 
-Hurl runner doesn't follow redirection. To effectively run a redirection, entries should describe each step
+By default, Hurl doesn't follow redirection. To effectively run a redirection, entries should describe each step
 of the redirection, allowing insertion of asserts in each response.
 
 ```hurl
@@ -58,5 +58,15 @@ Location: http://www.google.fr/
 # Second entry, the 200 OK response
 GET http://www.google.fr
 
+HTTP/1.1 200
+``` 
+
+Alternatively, one can use [`--location`]({% link _docs/man-page.md %}#location) option to force redirection
+to be followed. In this case, asserts are executed on the last received response. Optionally, the number of 
+redirection can be limited with [`--max-redirs`]({% link _docs/man-page.md %}#max-redirs).
+
+```hurl
+# Running hurl --location google.hurl
+GET http://google.fr
 HTTP/1.1 200
 ``` 
