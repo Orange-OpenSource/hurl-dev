@@ -135,9 +135,9 @@ HTTP/1.1 200
 
 ## Templating Body {#templating-body}
 
-Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml
--body) is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request
-.md %}#raw-string-body) with variables to send a JSON or XML body:
+Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml-body) 
+is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request.md%}#raw-string-body) 
+with variables to send a JSON or XML body:
 
 {% raw %}
 ~~~hurl
