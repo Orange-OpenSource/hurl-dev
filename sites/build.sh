@@ -21,7 +21,7 @@ jekyll build --source hurl.dev --destination hurl.dev/_site
 echo 'Search index build...'
 echo '-------------------'
 # Then build search index from the first pass.
-mkdir hurl.dev/assets/data/
+mkdir -p hurl.dev/assets/data/
 python3 build_index.py > hurl.dev/assets/data/index.json
 
 echo 'Second pass static build...'

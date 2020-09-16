@@ -67,6 +67,43 @@ def build_file_index(f: Path) -> List[Hit]:
     return all_hits
 
 
+non_significant_words = [
+    "all",
+    "also",
+    "and",
+    "any",
+    "are",
+    "both",
+    "but",
+    "can",
+    "doc",
+    "does",
+    "etc",
+    "for",
+    "from",
+    "has",
+    "have",
+    "into",
+    "one",
+    "only",
+    "let",
+    "may",
+    "say",
+    "see",
+    "set",
+    "the",
+    "this",
+    "than",
+    "that",
+    "use",
+    "yet",
+    "you",
+    "very",
+    "when",
+    "will",
+    "with",
+]
+
 def build_tag_index(url: str, title: str, soup: BeautifulSoup, tag: Tag) -> List[Hit]:
     """Build serach hit from a p tag."""
     anchor_tag = find_anchor(tag)
@@ -89,8 +126,11 @@ def build_tag_index(url: str, title: str, soup: BeautifulSoup, tag: Tag) -> List
     hits: List[Hit] = []
     for res in re.finditer(r"\w+", text):
         match = res[0]
-        if len(match) < 3:
+        if len(match) < 3 or match.lower() in non_significant_words:
             continue
+        #if len(match) == 4:
+        #    sys.stderr.write(f"-> {match}\n")
+
         start = res.start()
         end = res.end()
         if start < span:
