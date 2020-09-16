@@ -10,7 +10,7 @@ A Hurl file is a list of entry, each entry being a mandatory [request]({% link _
 optionally followed by a [response]({% link _docs/response.md %}). 
 
 Responses are not mandatory, a Hurl file consisting only of requests is perfectly valid. To sum up, responses can be used 
-to [capture values](({% link _docs/capturing-response.md %}) to perform subsequent requests, or [add asserts to HTTP
+to [capture values]({% link _docs/capturing-response.md %}) to perform subsequent requests, or [add asserts to HTTP
  responses]({% link _docs/asserting-response.md %}).
 
 ## Example {#example}
