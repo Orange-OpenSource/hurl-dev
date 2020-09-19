@@ -59,9 +59,11 @@ The Hurl file format is fully documented in [https://hurl.dev/docs/hurl-file.htm
 
 It consists of one or several HTTP requests
 
-    GET http:/example.net/endpoint1
-    GET http:/example.net/endpoint2
 
+```hurl
+GET http:/example.net/endpoint1
+GET http:/example.net/endpoint2
+```
 
 
 ### Capturing values
@@ -70,16 +72,19 @@ A value from an HTTP response can be-reused for successive HTTP requests.
 
 A typical example occurs with csrf tokens.
 
-    GET https://example.net
-    HTTP/1.1 200
-    # Capture the CSRF token value from html body.
-    [Captures]
-    csrf_token: xpath "normalize-space(//meta[@name='_csrf_token']/@content)"
+{% raw %}
+```hurl
+GET https://example.net
+HTTP/1.1 200
+# Capture the CSRF token value from html body.
+[Captures]
+csrf_token: xpath "normalize-space(//meta[@name='_csrf_token']/@content)"
 
-    # Do the login !
-    POST https://example.net/login?user=toto&password=1234
-    X-CSRF-TOKEN: {{csrf_token}}
-
+# Do the login !
+POST https://example.net/login?user=toto&password=1234
+X-CSRF-TOKEN: {{csrf_token}}
+```
+{% endraw %}
 
 ### Asserts
 
@@ -87,24 +92,27 @@ The HTTP response defined in the Hurl session are used to make asserts.
 
 At the minimum, the response includes the asserts on the HTTP version and status code.
 
-    GET http:/google.com
-    HTTP/1.1 302
-
+```hurl
+GET http:/google.com
+HTTP/1.1 302
+```
 
 It can also include asserts on the response headers
 
-    GET http:/google.com
-    HTTP/1.1 302
-    Location: http://www.google.com
-
+```hurl
+GET http:/google.com
+HTTP/1.1 302
+Location: http://www.google.com
+```
 
 You can also include explicit asserts combining query and predicate
 
-    GET http:/google.com
-    HTTP/1.1 302
-    [Asserts]
-    xpath "//title" equals "301 Moved"
-
+```hurl
+GET http:/google.com
+HTTP/1.1 302
+[Asserts]
+xpath "//title" equals "301 Moved"
+```
 
 Thanks to asserts, Hurl can be used as a testing tool to run scenarii.
 
