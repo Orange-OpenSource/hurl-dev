@@ -183,7 +183,7 @@ By default, content type is `application/octet-stream`.
 
 Optional list of session cookies for this request.
 
-A cookie consists of a name, followed by a `: ` and a value. Cookies are sent per request, and are not added to 
+A cookie consists of a name, followed by a `:` and a value. Cookies are sent per request, and are not added to 
 the cookie storage session, contrary to a cookie set in a header response. (for instance `Set-Cookie: theme=light`). The 
 cookies section starts with `[Cookies]`.
 
@@ -214,9 +214,9 @@ Optional HTTP body request.
 
 If the body of the request is a [JSON](https://www.json.org) string or a [XML](https://en.wikipedia.org/wiki/XML
 ) string, the value can be directly inserted without any modification. For a text based body that is not JSON nor XML
-, one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96
-;</code>. For a precise byte control of the request body, a [Base64](https://en.wikipedia.org/wiki/Base64) encoded
- string can be used to describe exactly the body byte content.
+, one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96;</code>. 
+For a precise byte control of the request body, a [Base64](https://en.wikipedia.org/wiki/Base64) encoded string 
+can be used to describe exactly the body byte content.
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 

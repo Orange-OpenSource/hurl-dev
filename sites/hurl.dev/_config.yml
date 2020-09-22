@@ -3,3 +3,4 @@ collections:
     output: true
   docs:
     output: true
+highlighter: none
