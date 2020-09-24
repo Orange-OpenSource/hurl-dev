@@ -7,7 +7,7 @@ title: Templates
 
 ## Variables {#variables}
 In Hurl file, you can generate value using two curly braces, i.e {% raw %}`{{my_variable}}`{% endraw %}. For instance, if you want to 
-reuse a value from a HTTP response in the next entries, you can capture this value in a variable and reuse it in a 
+reuse a value from an HTTP response in the next entries, you can capture this value in a variable and reuse it in a 
 template.
 
 {% raw %}
