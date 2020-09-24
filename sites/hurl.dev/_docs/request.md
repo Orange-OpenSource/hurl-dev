@@ -6,7 +6,7 @@ title: Request
 
 ## Definition {#definition}
 
-Describes a HTTP request, with mandatory [method](#method) and [url](#url), followed by optional [headers](#headers),
+Describes an HTTP request, with mandatory [method](#method) and [url](#url), followed by optional [headers](#headers),
 [query parameters](#query-parameters), [form parameters](#form-parameters), [multipart form datas](#multipart-form-data), 
 [cookies](#cookies) and [body](#body).
 
