@@ -35,6 +35,7 @@
             - title: Testing HTML Response
         - title: Others
           items:
+            - title: Testing Set-Cookie Attributes
             - title: Using SOAP Apis
             - title: Capturing and Using a CSRF Token
     - title: Frequently Asked Questions

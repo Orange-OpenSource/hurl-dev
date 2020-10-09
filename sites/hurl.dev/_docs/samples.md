@@ -185,6 +185,24 @@ xpath "//h2" not exists                             # Similar assert for h2
 
 ## Others {#others}
 
+### Testing Set-Cookie Attributes {#testing-set-cookie-attributes}
+
+```hurl
+GET http://myserver.com/home
+
+HTTP/1.0 200
+[Asserts]
+cookie "JSESSIONID" equals "8400BAFE2F66443613DC38AE3D9D6239"
+cookie "LSID[Value]" equals "8400BAFE2F66443613DC38AE3D9D6239"
+cookie "LSID[Expires]" contains "Wed, 13 Jan 2021"
+cookie "LSID[Secure]" exists
+cookie "LSID[HttpOnly]" exists
+cookie "LSID[SameSite]" equals "Lax"
+```
+
+[Doc]({% link _docs/asserting-response.md %}#cookie-assert)
+
+
 ### Using SOAP Apis {#using-soap-apis}
 
 ```hurl

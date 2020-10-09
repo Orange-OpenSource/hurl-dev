@@ -189,7 +189,7 @@ HTTP/1.0 200
 
 # Explicit check of Set-Cookie header value. If the attributes are
 # not in this excat order, this assert will fail. 
-Set-Cookie: LSID=DQAAAKEaem_vYg; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/accounts
+Set-Cookie: LSID=DQAAAKEaem_vYg; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/accounts; SameSite=Lax;
 Set-Cookie: HSID=AYQEVnDKrdst; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; HttpOnly; Path=/
 Set-Cookie: SSID=Ap4PGTEq; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/
 
@@ -202,11 +202,15 @@ cookie "LSID[Expires]" contains "Wed, 13 Jan 2021"
 cookie "LSID[Max-Age]" not exists
 cookie "LSID[Domain]" not exists
 cookie "LSID[Path]" equals "/accounts"
-cookie "LSID[Secure]" equals true
-cookie "LSID[HttpOnly]" equals true
-cookie "LSID[SameSite]" not exists
+cookie "LSID[Secure]" exists
+cookie "LSID[HttpOnly]" exists
+cookie "LSID[SameSite]" equals "Lax"
 ```
 
+> `Secure` and `HttpOnly` attributes can only be tested with `exists` or `not exists` predicate
+> (the query `<cookie-name>[HttpOnly]` and `<cookie-name>[Secure]` don't return boolean) to reflect
+> to reflect the [Set-Cookie header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) semantic.
+ 
 ### Body assert {#body-assert}
 
 Check the value of the received HTTP response body when decoded as a string. Body assert consists of the keyword `body` 
