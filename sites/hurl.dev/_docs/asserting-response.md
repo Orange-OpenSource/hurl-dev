@@ -207,10 +207,10 @@ cookie "LSID[HttpOnly]" exists
 cookie "LSID[SameSite]" equals "Lax"
 ```
 
-> `Secure` and `HttpOnly` attributes can only be tested with `exists` or `not exists` predicate
-> (the query `<cookie-name>[HttpOnly]` and `<cookie-name>[Secure]` don't return boolean) to reflect
+> `Secure` and `HttpOnly` attributes can only be tested with `exists` or `not exists` predicates
 > to reflect the [Set-Cookie header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) semantic.
- 
+> (in other words, queries `<cookie-name>[HttpOnly]` and `<cookie-name>[Secure]` don't return boolean) 
+
 ### Body assert {#body-assert}
 
 Check the value of the received HTTP response body when decoded as a string. Body assert consists of the keyword `body` 
