@@ -1,19 +1,18 @@
 <!doctype html>
 <html>
     <head>
-            {% include head.html %}
-            <script type="text/javascript" src="{{ '/assets/js/search.js' | prepend:site.baseurl }}"></script>
+        {% include head.html %}
+        <script type="text/javascript" src="{{ '/assets/js/search.js' | prepend:site.baseurl }}"></script>
     </head>
     <body>
 
-        {% include common-nav.html docs=site.data.docs title=page.title%}
-
-        <div class="doc-wrapper">
-            <div class="doc-content">
+        <div class="wrapper">
+            {% include top-nav.html docs=site.data.docs title=page.title%}
+            <div class="search">
                 {{ content }}
             </div>
         </div>
 
-        {% include common-footer.html %}
+        {% include footer.html %}
     </body>
 </html>

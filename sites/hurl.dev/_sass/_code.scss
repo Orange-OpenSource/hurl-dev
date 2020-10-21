@@ -1,0 +1,69 @@
+pre {
+  background-color: $code-background-color-light;
+  background-color: var(--code-background-color);
+  // Wrapping long code line inside code.
+  white-space: pre-wrap; /* css-3 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  margin: $m2 0;
+  padding: $m2;
+  @media only screen and (max-width: $sm) {
+    padding: $m1;
+  }
+}
+
+pre, code {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono"," Courier New", monospace;
+  font-size: 1rem; /* 16px */
+  @media only screen and (max-width: $sm) {
+    font-size: 13px;
+  }
+}
+
+.language-hurl {
+  color: $body-text-light;
+  color: var(--body-text);
+  .string {
+    color: $hurl-string-light;
+    color: var(--hurl-string);
+  }
+  .number {
+    color: $hurl-number-light;
+    color: var(--hurl-number);
+  }
+  .boolean {
+    color: $hurl-boolean-light;
+    color: var(--hurl-boolean);
+  }
+  .null {
+    color: $hurl-null-light;
+    color: var(--hurl-null);
+  }
+  .url {
+    color: $hurl-url-light;
+    color: var(--hurl-url);
+  }
+  .method {
+    color: $hurl-method-light;
+    color: var(--hurl-method);
+  }
+  .version {
+    color: $hurl-version-light;
+    color: var(--hurl-version);
+  }
+  .section-header {
+    color: $hurl-section-header-light;
+    color: var(--hurl-section-header);
+  }
+  .query-type {
+    color: $hurl-query-type-light;
+    color: var(--hurl-query-type);
+  }
+  .predicate-type {
+    color: $hurl-predicate-type-light;
+    color: var(--hurl-predicate-type);
+  }
+  .comment {
+    color: $hurl-comment-light;
+    color: var(--hurl-comment);
+  }
+}

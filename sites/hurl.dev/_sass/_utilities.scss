@@ -1,0 +1,26 @@
+@import "variables";
+
+.u-d-block-md {
+  display: none;
+  @media only screen and (min-width: $md) {
+    display: block;
+  }
+}
+
+.u-d-block-lg {
+  display: none;
+  @media only screen and (min-width: $lg) {
+    display: block;
+  }
+}
+
+.u-d-none-md {
+  display: block;
+  @media only screen and (min-width: $md) {
+    display: none;
+  }
+}
+
+.u-d-none {
+  display: none;
+}

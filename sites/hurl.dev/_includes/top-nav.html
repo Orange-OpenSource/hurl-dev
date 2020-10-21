@@ -1,0 +1,56 @@
+<div class="top-nav">
+
+    <div class="top-nav-header">
+        {% if page.url != "/" %}
+        <div class="top-nav-logo">
+            <a href="{{ "/" | relative_url }}" alt="Hurl">
+                <picture>
+                    <source srcset="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="80px">
+                    <img src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}" width="120px">
+                </picture>
+            </a>
+        </div>
+        {% endif %}
+
+        <nav>
+            <div class="top-nav-links">
+                <div class="top-nav-link u-d-block-md">
+                    <a href="{{ "/" | relative_url }}" aria-selected={% if page.url == "/" %}"true"{% else %}"false"{% endif %} alt="Home">Home</a>
+                </div>
+                <div class="top-nav-link u-d-block-md">
+                    <a href="{{ "/docs/man-page.html" | relative_url }}" aria-selected={% if page.url contains "/docs" %}"true"{% else %}"false"{% endif %} alt="Docs">Docs</a>
+                </div>
+                <div class="top-nav-link u-d-block-md">
+                    <a href="https://github.com/Orange-OpenSource/hurl" alt="GitHub">GitHub</a>
+                </div>
+                <div class="top-nav-link">
+                    <a class="search_link" href="{{ "/search.html" | relative_url }}" aria-selected={% if page.url contains "/search" %}"true"{% else %}"false"{% endif %} alt="Search"><i class="fa fa-search">&nbsp;</i>Search</a>
+                </div>
+                <div class="top-nav-link u-d-none-md">
+                    <a class="menu_link" href="#" alt="Menu" onclick="toggleMenu()"><i class="fa fa-bars"></i>&nbsp;Menu</a>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div id="top-nav-toc" class="top-nav-toc u-d-none">
+        {% for li0 in include.docs %}
+        <h3>{{ li0.title }}</h3>
+        <ul>
+            {% for li1 in li0.items %}
+            <li>
+                {% if li1.url %}
+                    <a href="{{ li1.url }}">{{ li1.title }}</a>
+                {% else %}
+                    {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                    <a {% if li1.title == include.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+
+    </div>
+
+</div>
