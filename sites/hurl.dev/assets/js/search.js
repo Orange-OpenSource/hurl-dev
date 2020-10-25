@@ -113,7 +113,7 @@ class Search {
 
 }
 
-let search = new Search("search_input", "search_results", "results");
+let search = new Search("search-input", "search-results", "results");
 search.loadIndex();
 window.hurl = {};
 window.hurl.search = search;

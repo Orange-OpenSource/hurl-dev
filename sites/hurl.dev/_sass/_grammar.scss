@@ -1,0 +1,24 @@
+.grammar {
+  font-family: Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  margin-top: $m4;
+  margin-bottom: $m4;
+  .rule {
+    display: table;
+    margin-bottom: 20px;
+  }
+  .non-terminal {
+    display: table-cell;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  .terminal {
+    color: #009c00;
+  }
+  .definition {
+    color: darkcyan;
+  }
+  .tokens {
+    display: table-cell;
+    width: 100%;
+  }
+}

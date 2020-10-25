@@ -3,7 +3,7 @@ layout: home
 title: Hurl - Run and Test HTTP Requests
 ---
 
-<div class="logo">
+<div class="home-logo">
 <picture>
     <source srcset="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="264px">
     <img src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}" width="264px" />

@@ -1,0 +1,100 @@
+/* Colors */
+
+$dark-grey: #8c8c8c;
+$medium-grey: #b3b3b3;
+$light-grey: #f0f0f0;
+
+/* Light theme - default */
+$background-color-light: #fff;
+$primary-color-light: #ff0288;
+$secondary-color-light: royalblue;
+$body-text-light: #222;
+$footer-background-color-light: #f0f0f0;
+$code-background-color-light: #f5f5f5;
+$separator-color-light: #b3b3b3;
+$marked-background-light: #fdff00;
+$marked-text-light: #222;
+
+$hurl-string-light: darkgreen;
+$hurl-number-light: blue;
+$hurl-boolean-light: blue;
+$hurl-null-light: blue;
+$hurl-url-light: darkblue;
+$hurl-method-light: #222;
+$hurl-version-light: #222;
+$hurl-section-header-light: darkmagenta;
+$hurl-query-type-light: teal;
+$hurl-predicate-type-light: darkblue;
+$hurl-comment-light: dimgray;
+
+/* Dark theme - default */
+$background-color-dark: #19191c;
+$primary-color-dark: #ff0288;
+$secondary-color-dark: #34a7ff;
+$body-text-dark: #c2c2c2;
+$footer-background-color-dark: #0a0a0a;
+$code-background-color-dark: #27272c;
+$separator-color-dark: #444;
+$marked-background-dark: #fdff00;
+$marked-text-dark: #222;
+
+$hurl-string-dark: forestgreen;
+$hurl-number-dark: dodgerblue;
+$hurl-boolean-dark: dodgerblue;
+$hurl-null-dark: dodgerblue;
+$hurl-url-dark: cyan;
+$hurl-method-dark: orange;
+$hurl-version-dark: white;
+$hurl-section-header-dark: magenta;
+$hurl-query-type-dark: cyan;
+$hurl-predicate-type-dark: orange;
+$hurl-comment-dark: dimgray;
+
+:root {
+  color-scheme: light dark;
+  --background-color: #{$background-color-light};
+  --primary-color: #{$primary-color-light};
+  --body-text: #{$body-text-light};
+  --secondary-color: #{$secondary-color-light};
+  --code-background-color: #{$code-background-color-light};
+  --footer-background-color: #{$footer-background-color-light};
+  --separator-color: #{$separator-color-light};
+  --hurl-string: #{$hurl-string-light};
+  --hurl-number: #{$hurl-number-light};
+  --hurl-boolean: #{$hurl-boolean-light};
+  --hurl-null: #{$hurl-null-light};
+  --hurl-url: #{$hurl-url-light};
+  --hurl-method: #{$hurl-method-light};
+  --hurl-version: #{$hurl-version-light};
+  --hurl-section-header: #{$hurl-section-header-light};
+  --hurl-query-type: #{$hurl-query-type-light};
+  --hurl-predicate-type: #{$hurl-predicate-type-light};
+  --hurl-comment: #{$hurl-comment-light};
+  --marked-background: #{$marked-background-light};
+  --marked-text: #{$marked-text-light};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #{$background-color-dark};
+    --primary-color: #{$primary-color-dark};
+    --body-text: #{$body-text-dark};
+    --secondary-color: #{$secondary-color-dark};
+    --code-background-color: #{$code-background-color-dark};
+    --footer-background-color: #{$footer-background-color-dark};
+    --separator-color: #{$separator-color-dark};
+    --hurl-string: #{$hurl-string-dark};
+    --hurl-number: #{$hurl-number-dark};
+    --hurl-boolean: #{$hurl-boolean-dark};
+    --hurl-null: #{$hurl-null-dark};
+    --hurl-url: #{$hurl-url-dark};
+    --hurl-method: #{$hurl-method-dark};
+    --hurl-version: #{$hurl-version-dark};
+    --hurl-section-header: #{$hurl-section-header-dark};
+    --hurl-query-type: #{$hurl-query-type-dark};
+    --hurl-predicate-type: #{$hurl-predicate-type-dark};
+    --hurl-comment: #{$hurl-comment-dark};
+    --marked-background: #{$marked-background-dark};
+    --marked-text: #{$marked-text-dark};
+  }
+}
