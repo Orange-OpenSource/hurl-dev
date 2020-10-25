@@ -5,8 +5,8 @@ pre {
   background-color: $code-background-color-light;
   background-color: var(--code-background-color);
   // Wrapping long code line inside code.
-  white-space: pre-wrap; /* css-3 */
-  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; // css-3
+  word-wrap: break-word; // Internet Explorer 5.5+
   margin: $m2 0;
   padding: $m2;
   @media only screen and (max-width: $sm) {
@@ -16,7 +16,7 @@ pre {
 
 pre, code {
   font-family: Menlo, Monaco, Consolas, "Liberation Mono"," Courier New", monospace;
-  font-size: 1rem; /* 16px */
+  font-size: 1rem; // 16px
   @media only screen and (max-width: $sm) {
     font-size: 13px;
   }
