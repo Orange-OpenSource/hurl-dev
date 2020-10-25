@@ -55,6 +55,9 @@ def build_file_index(f: Path) -> List[Hit]:
     all_hits: List[Hit] = []
     all_tags: List[Tag] = []
     root = soup.find("div", class_=re.compile("content"))
+    if not root:
+        sys.stderr.write(f"No content in path {f}\n")
+        return []
     all_tags.extend(root.find_all("p"))
     all_tags.extend(root.find_all("ul"))
     all_tags.extend(root.find_all("h2"))
