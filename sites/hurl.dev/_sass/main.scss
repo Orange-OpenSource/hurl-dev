@@ -82,7 +82,7 @@ blockquote {
 }
 
 .top-nav {
-  padding: $m2 $m4 $m2 $m2;
+  padding: $m2;
 }
 
 .top-nav-header {
@@ -92,6 +92,15 @@ blockquote {
 
 .top-nav-logo {
   margin-right: auto;
+}
+
+.top-nav-logo-img {
+  source, img {
+    width: 120px;
+    @media only screen and (max-width: 320px) {
+      width: 80px;
+    }
+  }
 }
 
 .top-nav-links {
@@ -132,7 +141,7 @@ footer {
   display:flex;
   max-width: 1200px;
   margin: 0 auto;
-  padding: $m4;
+  padding: $m2;
 }
 
 .footer-dev-by {

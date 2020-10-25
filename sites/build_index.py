@@ -54,9 +54,9 @@ def build_file_index(f: Path) -> List[Hit]:
     # en agrégeant tous les tags contenant du text "significatif"
     all_hits: List[Hit] = []
     all_tags: List[Tag] = []
-    root = soup.find("div", class_=re.compile("content"))
+    root = soup.find("div", class_=re.compile("indexed"))
     if not root:
-        sys.stderr.write(f"No content in path {f}\n")
+        sys.stderr.write(f"No indexed content in path {f}\n")
         return []
     all_tags.extend(root.find_all("p"))
     all_tags.extend(root.find_all("ul"))

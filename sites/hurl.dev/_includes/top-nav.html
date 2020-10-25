@@ -4,9 +4,9 @@
         {% if page.url != "/" %}
         <div class="top-nav-logo">
             <a href="{{ "/" | relative_url }}" alt="Hurl">
-                <picture>
-                    <source srcset="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="80px">
-                    <img src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}" width="120px">
+                <picture class="top-nav-logo-img">
+                    <source srcset="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)">
+                    <img src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}">
                 </picture>
             </a>
         </div>
