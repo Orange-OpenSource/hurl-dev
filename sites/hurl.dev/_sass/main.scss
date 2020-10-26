@@ -121,6 +121,7 @@ blockquote {
   }
   ul li {
     list-style-type: none;
+    margin-bottom: $m1;
   }
   border-bottom: 1px solid;
   border-bottom-color: $separator-color-light;
@@ -138,6 +139,7 @@ blockquote {
   }
   ul li {
     list-style-type: none;
+    margin-bottom: $m1;
   }
   padding: $m2 $m2 $m2 0;
 }
