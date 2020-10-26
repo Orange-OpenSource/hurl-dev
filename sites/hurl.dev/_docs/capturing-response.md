@@ -7,7 +7,7 @@ title: Capturing Response
 
 ## Captures {#captures}
 
-Captures are optional values to capture from the HTTP response, in a named variable. Captures can be the
+Captures are optional values captured from the HTTP response, in a named variable. Captures can be the
  response status code, part or the entire of the body, and response headers.
 
 Captured variables are available through a run session; each new value of a given variable overrides the last value.
