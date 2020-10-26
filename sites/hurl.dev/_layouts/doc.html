@@ -8,28 +8,11 @@
             {% include top-nav.html docs=site.data.docs title=page.title%}
 
             <div class="doc">
-                <div class="doc-nav u-d-block-md">
-                    <div class="doc-nav-toc-toplevel">
-                        {% for li0 in site.data.docs %}
-                        <h3>{{ li0.title }}</h3>
-                        <ul>
-                            {% for li1 in li0.items %}
-                            <li>
-                                {% if li1.url %}
-                                <a href="{{ li1.url }}">{{ li1.title }}</a>
-                                {% else %}
-                                {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
 
-                                <a aria-selected={% if li1.title == page.title %}"true"{% else %}"false"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endfor %}
-                    </div>
-                </div>
+                {% include side-nav.html docs=site.data.docs title=page.title%}
 
                 <div class="doc-content indexed">
+
                     {{ content }}
 
                     <div class="doc-content-edit-page">
@@ -72,7 +55,6 @@
                         {% endunless %}
                         {% endif %}
                     </div>
-
 
                 </div>
 

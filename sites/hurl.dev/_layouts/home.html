@@ -6,9 +6,18 @@
     <body>
         <div class="wrapper">
             {% include top-nav.html docs=site.data.docs title=page.title%}
-            <div class="home indexed">
-                {{ content }}
+
+            <div class="home">
+
+                {% include side-nav.html docs=site.data.docs title=page.title%}
+
+                <div class="home-content indexed">
+                    {{ content }}
+                </div>
+
+
             </div>
+
         </div>
         {% include footer.html %}
     </body>

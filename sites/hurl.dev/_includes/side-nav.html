@@ -1,0 +1,20 @@
+<div class="side-nav u-d-block-md">
+    <div class="side-nav-toc-toplevel">
+        {% for li0 in include.docs %}
+        <h3>{{ li0.title }}</h3>
+        <ul>
+            {% for li1 in li0.items %}
+            <li>
+                {% if li1.url %}
+                <a href="{{ li1.url }}">{{ li1.title }}</a>
+                {% else %}
+                {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+
+                <a aria-selected={% if li1.title == include.title %}"true"{% else %}"false"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+</div>

@@ -7,9 +7,9 @@
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 1.125rem; /* 18 px */
-  @media only screen and (max-width: $sm) {
-    font-size: 1rem;
-  }
+  //@media only screen and (max-width: $sm) {
+  //  font-size: 1rem;
+  //}
   line-height: 1.4;
   background-color: $background-color-light;
   background-color: var(--background-color);
@@ -64,6 +64,7 @@ p {
 
 ul, ol {
   padding-left: 40px;
+  margin-bottom: $m2;
 }
 
 blockquote {
@@ -127,6 +128,25 @@ blockquote {
   padding-bottom: $m2;
 }
 
+.side-nav {
+  width: 20%;
+  h3:first-child{
+    margin-top: 0;
+  }
+  ul {
+    padding: 0;
+  }
+  ul li {
+    list-style-type: none;
+  }
+  padding: $m2 0;
+}
+
+.side-nav-toc-toplevel {
+  top: 0;
+  position: sticky;
+}
+
 footer {
   border-top: 1px solid;
   border-top-color: $separator-color-light;
@@ -141,7 +161,7 @@ footer {
   display:flex;
   max-width: 1200px;
   margin: 0 auto;
-  padding: $m2;
+  padding: $m4 $m2;
 }
 
 .footer-dev-by {
@@ -149,33 +169,22 @@ footer {
 }
 
 .home {
-  max-width: 728px;
-  margin: 0 auto;
+  display: flex;
   padding: $m2;
+}
+
+.home-content {
+  padding: 0;
+  width: 100%;
+  @media only screen and (min-width: $md) {
+    padding: $m2;
+    width: 768px;
+  }
 }
 
 .doc {
   display: flex;
   padding: $m2;
-}
-
-.doc-nav{
-  width: 20%;
-  h3:first-child{
-    margin-top: 0;
-  }
-  ul {
-    padding: 0;
-  }
-  ul li {
-    list-style-type: none;
-  }
-  padding: $m2 0;
-}
-
-.doc-nav-toc-toplevel {
-  top: 0;
-  position: sticky;
 }
 
 .doc-content {

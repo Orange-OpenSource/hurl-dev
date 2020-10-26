@@ -9,17 +9,17 @@ pre {
   word-wrap: break-word; // Internet Explorer 5.5+
   margin: $m2 0;
   padding: $m2;
-  @media only screen and (max-width: $sm) {
-    padding: $m1;
-  }
+  //@media only screen and (max-width: $sm) {
+  //  padding: $m1;
+  //}
 }
 
 pre, code {
   font-family: Menlo, Monaco, Consolas, "Liberation Mono"," Courier New", monospace;
   font-size: 1rem; // 16px
-  @media only screen and (max-width: $sm) {
-    font-size: 13px;
-  }
+  //@media only screen and (max-width: $sm) {
+  //  font-size: 13px;
+  //}
 }
 
 .language-hurl {
