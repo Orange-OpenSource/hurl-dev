@@ -19,14 +19,17 @@ hurl - run and test HTTP requests.
 
 Hurl is very versatile, it enables to chain HTTP requests, capture values from HTTP responses and make asserts.
 
-
-    $ hurl session.hurl
-
+{% raw %}
+```
+$ hurl session.hurl
+```
+{% endraw %}
 
 If no input-files are specified, input is read from stdin.
 
-
-    $ echo GET http://httpbin.org/get | hurl
+{% raw %}
+```
+$ echo GET http://httpbin.org/get | hurl
     {
       "args": {},
       "headers": {
@@ -40,13 +43,18 @@ If no input-files are specified, input is read from stdin.
       "origin": "1.2.3.4",
       "url": "http://httpbin.org/get"
     }
-
+```
+{% endraw %}
 
 
 Output goes to stdout by default.  For output to a file, use the -o option:
 
+{% raw %}
+```
+$ hurl -o output input.hurl
+```
+{% endraw %}
 
-    $ hurl -o output input.hurl
 
 
 By default, Hurl executes all the HTTP requests and output the response body of the last http call.
@@ -59,11 +67,12 @@ The Hurl file format is fully documented in [https://hurl.dev/docs/hurl-file.htm
 
 It consists of one or several HTTP requests
 
-
+{% raw %}
 ```hurl
 GET http:/example.net/endpoint1
 GET http:/example.net/endpoint2
 ```
+{% endraw %}
 
 
 ### Capturing values
@@ -92,27 +101,33 @@ The HTTP response defined in the Hurl session are used to make asserts.
 
 At the minimum, the response includes the asserts on the HTTP version and status code.
 
+{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 302
 ```
+{% endraw %}
 
 It can also include asserts on the response headers
 
+{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 302
 Location: http://www.google.com
 ```
+{% endraw %}
 
 You can also include explicit asserts combining query and predicate
 
+{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 302
 [Asserts]
 xpath "//title" equals "301 Moved"
 ```
+{% endraw %}
 
 Thanks to asserts, Hurl can be used as a testing tool to run scenarii.
 
@@ -142,6 +157,17 @@ Read cookies from file (using the Netscape cookie file format).
 
 Combined with [-c, \-\-cookie-jar](#cookie-jar), you can simulate a cookie storage between successive Hurl runs.
 
+
+### \-\-compressed
+
+Request a compressed response using one of the algorithms br, gzip, deflate and automatically decompress the content.
+
+
+### \-\-connect-timeout &lt;seconds> {#connect-timeout}
+
+Maximum time in seconds that you allow hurl's connection to take.
+
+See also [-m, \-\-max-time](#max-time) option.
 
 
 ### -c, \-\-cookie-jar &lt;filename> {#cookie-jar}
@@ -212,6 +238,12 @@ This option explicitly allows Hurl to perform "insecure" SSL connections and tra
 Follow redirect.  You can limit the amount of redirects to follow by using the [\-\-max-redirs](#max-redirs) option.
 
 
+### -m, \-\-max-time &lt;seconds> {#ax-time}
+
+Maximum time in seconds that you allow a request/response to take. This is the standard timeout.
+
+See also [\-\-connect-timeout](#connect-timeout) option.
+
 
 ### \-\-max-redirs &lt;num> {#max-redirs}
 
@@ -249,6 +281,9 @@ Write output to &lt;file> instead of stdout.
 
 Use the specified proxy.
 
+### -u, \-\-user &lt;user:password> {#user}
+
+Add basic Authentication header to each request.
 
 
 ### \-\-variable &lt;name=value> {#variable}
@@ -329,4 +364,5 @@ Assert Error.
 ## SEE ALSO {#see-also}
 
 curl(1)  hurlfmt(1)
+
 
