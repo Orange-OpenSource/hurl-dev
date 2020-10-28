@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Installation
-hurl-version: 0.99.12
+hurl-version: 0.99.13
 ---
 # {{ page.title }}
 
