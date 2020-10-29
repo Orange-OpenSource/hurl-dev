@@ -20,7 +20,7 @@ hurl {{page.hurl-version}}
 
 {%comment%}
 
-### Debian / Ubuntu
+### Debian / Ubuntu {#debian-ubuntu}
 
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
 

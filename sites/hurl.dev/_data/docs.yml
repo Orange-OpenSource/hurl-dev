@@ -87,6 +87,8 @@
         - title: Definitions
         - title: Example
         - title: Capture and Assertion
+          items:
+            - title: Body compression
     - title: Capturing Response
       items:
         - title: Captures

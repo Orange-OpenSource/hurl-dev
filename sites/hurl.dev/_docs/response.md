@@ -26,12 +26,12 @@ xpath "normalize-space(//head/title)" startsWith "Welcome"
 xpath "//li" countEquals 18
 ```
 
-## Capture and Assertion
+## Capture and Assertion {#capture-and-assertion}
 
 With the response section, one can optionaly [capture value from headers, body]({% link _docs/capturing-response.md %}),
  or [add assert on status code, body or headers]({% link _docs/asserting-response.md %}).
  
-### Body Compression
+### Body compression {#body-compression}
 
 Hurl outputs the raw HTTP body to stdout by default. If response body is compressed (using [br, gzip, deflate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)),
  the binary stream is output, without any modification. One can use [`--compressed` option]({% link _docs/man-page.md
