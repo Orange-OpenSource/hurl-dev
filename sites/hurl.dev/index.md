@@ -14,7 +14,7 @@ title: Hurl - Run and Test HTTP Requests
 
 # What's Hurl?
 
-Hurl is a command line tool that performs HTTP requests defined in a simple plain text format.
+Hurl is a command line tool that runs HTTP requests defined in a simple plain text format.
 
 It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very versatile: 
 it can be used for both fetching data and testing HTTP sessions.
@@ -93,6 +93,12 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 
 HTTP/1.1 200
 ```
+
+# Powered by curl
+
+Under the hood, Hurl HTTP engine is powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and
+ reliable file transfer library. With its text file format, Hurl adds syntaxic sugar to run and tests HTTP requests, 
+ but it's still the curl that we love.   
 
 # Hurl is Fast
 

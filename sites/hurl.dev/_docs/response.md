@@ -30,3 +30,12 @@ xpath "//li" countEquals 18
 
 With the response section, one can optionaly [capture value from headers, body]({% link _docs/capturing-response.md %}),
  or [add assert on status code, body or headers]({% link _docs/asserting-response.md %}).
+ 
+### Body Compression
+
+Hurl outputs the raw HTTP body to stdout by default. If response body is compressed (using [br, gzip, deflate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)),
+ the binary stream is output, without any modification. One can use [`--compressed` option]({% link _docs/man-page.md
+  %}#compressed) to request a compressed response and automatically get the decompressed body. 
+
+Captures and asserts work automatically on the decompressed body, so you can request compressed data (using [`Accept-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)
+ header by example) and add assert and captures on the decoded body as if there weren't any compression.   
