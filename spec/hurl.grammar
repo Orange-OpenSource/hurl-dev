@@ -26,7 +26,7 @@ method = "GET"
        | "TRACE"
        | "PATCH"
 
-url = <[a-zA-Z0-9:/{}*,]+>
+url = <[a-zA-Z0-9:/{}*,@]+>
 
 version = "HTTP/1.0" | "HTTP/1.1" | "HTTP/2" | "HTTP/*"
 
