@@ -1,0 +1,38 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up build env
+        run: |
+          java -version
+          python3 --version
+          pip3 --version
+          sudo apt-get install python3-setuptools python3-pip
+          pip3 install --user bs4
+          sudo gem install jekyll
+      - name: Publish
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          export PRIVATE_KEY_FILE="$PWD/key"
+          echo "$PRIVATE_KEY" > "$PRIVATE_KEY_FILE"
+          chmod 600 "$PRIVATE_KEY_FILE"
+          cd sites
+          ./build.sh
+          ./deploy.sh
