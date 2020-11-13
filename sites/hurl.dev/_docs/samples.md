@@ -175,10 +175,10 @@ Content-Type: text/html; charset=UTF-8
 
 [Asserts]
 xpath "string(/html/head/title)" contains "Example" # Check title
-xpath "count(//p)" equals 2                         # Check the number of p
-xpath "//p" countEquals 2                           # Similar assert for p
-xpath "boolean(count(//h2))" equals false           # Check there is no h2  
-xpath "//h2" not exists                             # Similar assert for h2
+xpath "count(//p)" equals 2  # Check the number of p
+xpath "//p" countEquals 2  # Similar assert for p
+xpath "boolean(count(//h2))" equals false  # Check there is no h2  
+xpath "//h2" not exists  # Similar assert for h2
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#xpath-assert)
