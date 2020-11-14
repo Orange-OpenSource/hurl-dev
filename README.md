@@ -1,4 +1,4 @@
-[![deploy status](https://travis-ci.org/Orange-OpenSource/hurl-dev.svg?branch=master)](https://travis-ci.org/Orange-OpenSource/hurl-dev/)
+[![deploy status](https://github.com/Orange-OpenSource/hurl-dev/workflows/CI/badge.svg)](https://github.com/Orange-OpenSource/hurl/actions)
 
 # hurl.dev
 
