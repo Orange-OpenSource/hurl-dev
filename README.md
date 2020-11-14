@@ -1,4 +1,4 @@
-[![deploy status](https://github.com/Orange-OpenSource/hurl-dev/workflows/CI/badge.svg)](https://github.com/Orange-OpenSource/hurl/actions)
+[![deploy status](https://github.com/Orange-OpenSource/hurl-dev/workflows/publish/badge.svg)](https://github.com/Orange-OpenSource/hurl-dev/actions)
 
 # hurl.dev
 
