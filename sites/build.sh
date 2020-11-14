@@ -35,6 +35,11 @@ echo '-------------------'
 # Highlight Hurl snippet.
 python3 highlight.py
 
+echo 'Add title anchors...'
+echo '-------------------'
+# Second pass to take the rebuilt search index into account.
+# Highlight Hurl snippet.
+python3 build_anchors.py
 
 
 # Run local site

@@ -5,13 +5,13 @@ pre {
   background-color: $code-background-color-light;
   background-color: var(--code-background-color);
   // Wrapping long code line inside code.
-  white-space: pre-wrap; // css-3
-  word-wrap: break-word; // Internet Explorer 5.5+
+  //white-space: pre-wrap; // css-3
+  //word-wrap: break-word; // Internet Explorer 5.5+
   margin: $m2 0;
   padding: $m2;
-  //@media only screen and (max-width: $sm) {
-  //  padding: $m1;
-  //}
+  word-wrap: normal;
+  overflow-x: auto;
+  white-space: pre;
 }
 
 pre, code {

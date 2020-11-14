@@ -7,7 +7,7 @@ from typing import List
 
 
 def main():
-    print(f"Highlighting hurl snippets...")
+    print(f"Highlighting Hurl snippets...")
 
     for filename in Path("hurl.dev", "_site").glob('**/*.html'):
         print(f"Processing {filename}...")

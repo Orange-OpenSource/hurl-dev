@@ -18,7 +18,7 @@ A simple GET with headers:
 
 ```hurl
 GET https://example.net/news
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
+User-Agent: Mozilla/5.0 
 Accept: */*
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
@@ -31,7 +31,6 @@ Connection: keep-alive
 
 ```hurl
 GET https://example.net/news
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
 [QueryStringParams]
 order: newest
 search: something to search
@@ -42,7 +41,6 @@ Or:
 
 ```hurl
 GET https://example.net/news?order=newest&search=something%20to%20search&count=100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
 ```
 
 [Doc]({% link _docs/request.md %}#query-parameters)
@@ -128,7 +126,11 @@ Content-Type: application/json
 Variables can be initialized via command line:
 
 ```bash
-$ hurl --variable key0=apple --variable key1=true --variable key2=null --variable key3=42 test.hurl
+$ hurl --variable key0=apple \
+       --variable key1=true \
+       --variable key2=null \
+       --variable key3=42 \
+       test.hurl
 ```
 
 Resulting in a PUT request with the following JSON body:

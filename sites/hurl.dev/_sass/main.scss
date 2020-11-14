@@ -17,15 +17,7 @@ body {
   color: var(--body-text);
 }
 
-a,
-a:visited {
-  color: $secondary-color-light;
-  color: var(--secondary-color);
-}
-
-a:focus,
-a:hover,
-a:active {
+a, a:visited, a:focus, a:hover, a:active{
   color: $secondary-color-light;
   color: var(--secondary-color);
 }
@@ -34,6 +26,23 @@ a[aria-selected="true"] {
   color: $primary-color-light;
   color: var(--primary-color);
 }
+
+// Make title all linkable
+h1 {
+  a, a:visited, a:focus, a:hover, a:active {
+    color: $primary-color-light;
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+}
+h2, h3, h4, h5, h6 {
+  a, a:visited, a:focus, a:hover, a:active {
+    color: $body-text-light;
+    color: var(--body-text);
+    text-decoration: none;
+  }
+}
+
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
@@ -233,13 +242,7 @@ footer {
   ul li ul li {
     margin-left: $m1;
   }
-  a,
-  a:visited {
-    color: $dark-grey;
-  }
-  a:focus,
-  a:hover,
-  a:active {
+  a, a:visited, a:focus, a:hover, a:active {
     color: $dark-grey;
   }
 }
