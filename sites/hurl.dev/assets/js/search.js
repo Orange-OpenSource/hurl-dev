@@ -88,7 +88,7 @@ class Search {
         let {page_title, page_url, anchor_title, anchor_url, content, search, start} = hit;
         let li = document.createElement("li");
         let contentMarked = this.highlightPos(content, query, start);
-        li.innerHTML = `<h3><a href="${anchor_url}">${page_title} &gt; ${anchor_title}</a></h3>
+        li.innerHTML = `<p class="search-result-link"><a href="${anchor_url}">${page_title} &gt; ${anchor_title}</a></p>
                         <p>${contentMarked}</p>`;
 
         //let json = JSON.stringify(hit, null, 4);

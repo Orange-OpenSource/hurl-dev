@@ -255,11 +255,17 @@ footer {
   }
   ul li {
     list-style-type: none;
+    margin-bottom: $m5;
   }
 }
 
 .search-results {
   max-width: 768px;
+}
+
+.search-result-link {
+  font-size: 1.375rem;
+  font-weight: bold;
 }
 
 #search-input {
