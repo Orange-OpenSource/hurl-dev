@@ -151,7 +151,7 @@ Colorize Output
 
 
 
-### -b, \-\-cookie &lt;filename> {#cookie}
+### -b, \-\-cookie &lt;file> {#cookie}
 
 Read cookies from file (using the Netscape cookie file format).
 
@@ -165,12 +165,12 @@ Request a compressed response using one of the algorithms br, gzip, deflate and 
 
 ### \-\-connect-timeout &lt;seconds> {#connect-timeout}
 
-Maximum time in seconds that you allow hurl's connection to take.
+Maximum time in seconds that you allow Hurl's connection to take.
 
 See also [-m, \-\-max-time](#max-time) option.
 
 
-### -c, \-\-cookie-jar &lt;filename> {#cookie-jar}
+### -c, \-\-cookie-jar &lt;file> {#cookie-jar}
 
 Write cookies to FILE after running the session (only for one session).
 The file will be written using the Netscape cookie file format.
@@ -184,9 +184,9 @@ Combined with [-b, \-\-cookie](#cookie),you can simulate a cookie storage betwee
 Continue executing requests to the end of the Hurl file even when an assert error occurs.
 By default, Hurl exits after an assert error in the HTTP response.
 
-Note that this option does not affect the behavior with mutiple input Hurl files.
+Note that this option does not affect the behavior with multiple input Hurl files.
 
-All the input files are executed independently. The result of one file does not affect the excecution of the other Hurl files.
+All the input files are executed independently. The result of one file does not affect the execution of the other Hurl files.
 
 
 ### \-\-file-root &lt;dir> {#file-root}
@@ -213,7 +213,7 @@ If you want to combine results from different Hurl executions in a unique html r
 
 ### -i, \-\-include {#include}
 
-Include the HTTP headers in the output.
+Include the HTTP headers in the output (last entry).
 
 
 
@@ -238,7 +238,7 @@ This option explicitly allows Hurl to perform "insecure" SSL connections and tra
 Follow redirect.  You can limit the amount of redirects to follow by using the [\-\-max-redirs](#max-redirs) option.
 
 
-### -m, \-\-max-time &lt;seconds> {#ax-time}
+### -m, \-\-max-time &lt;seconds> {#max-time}
 
 Maximum time in seconds that you allow a request/response to take. This is the standard timeout.
 
