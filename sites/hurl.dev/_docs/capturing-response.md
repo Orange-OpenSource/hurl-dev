@@ -12,9 +12,9 @@ Captures are optional values captured from the HTTP response, in a named variabl
 
 Captured variables are available through a run session; each new value of a given variable overrides the last value.
 
-Captures allow using data from one request to another request, when working with 
-[CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery) for instance. Variables can also be initialized 
-at the start of the session, by passing [variable values]({% link _docs/man-page.md %}#variable), 
+Captures allow using data from one request to another request, when working with
+[CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery) for instance. Variables can also be initialized
+at the start of the session, by passing [variable values]({% link _docs/man-page.md %}#variable),
 or can used in [templates]({% link _docs/templates.md %})
 
 {% raw %}
@@ -65,8 +65,8 @@ Query can be of the following type:
 
 ### Status capture {#status-capture}
 
-Capture the received HTTP response status code. Status capture consists of a variable name, followed by a `:`, and the 
-keyword `status`. 
+Capture the received HTTP response status code. Status capture consists of a variable name, followed by a `:`, and the
+keyword `status`.
 
 ```hurl
 GET https://example.net
@@ -79,7 +79,7 @@ my_status: status
 ### Header capture {#header-capture}
 
 Capture a header from the received HTTP response headers. Header capture consists of a variable name, followed by a `:`,
- then the keyword `header` and a header name. 
+ then the keyword `header` and a header name.
 
 ```hurl
 POST https://example.net/login
@@ -94,7 +94,7 @@ next_url: header "Location"
 
 ### Cookie capture {#cookie-capture}
 
-Capture a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header from the received 
+Capture a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header from the received
 HTTP response headers. Cookie capture consists of a variable name, followed by a `:`, then the keyword `cookie` and a
  cookie name.
 
@@ -103,7 +103,7 @@ GET http://example.net/cookies/set
 
 HTTP/1.0 200
 [Captures]
-session-id: cookie "LSID" 
+session-id: cookie "LSID"
 ```
 
 Cookie attributes value can also be captured by using the following format: `<cookie-name>[cookie-attribute]`. The
@@ -141,7 +141,7 @@ my_body: body
 
 ### XPath capture {#xpath-capture}
 
-Capture a [XPath](https://en.wikipedia.org/wiki/XPath) query from the received HTTP body dedoded as a string. 
+Capture a [XPath](https://en.wikipedia.org/wiki/XPath) query from the received HTTP body decoded as a string.
 Currently, only XPath 1.0 expression can be used.
 
 {% raw %}
@@ -164,7 +164,7 @@ XPath captures are not limited to node values (like string, or boolean); any val
 and assert with variable asserts.
 
 ```hurl
-# Test that the XML endpoint return 200 pets 
+# Test that the XML endpoint return 200 pets
 GET https://api.example.net/pets
 HTTP/* 200
 [Captures]
@@ -173,7 +173,7 @@ pets: xpath "//pets"
 variable "pets" countEquals 200
 ```
 
- 
+
 ### JSONPath capture {#jsonpath-capture}
 
 Capture a [JSONPath](https://goessner.net/articles/JsonPath/) query from the received HTTP body.
@@ -227,7 +227,7 @@ an_integer: jsonpath "$['an_integer']"
 a_float:    jsonpath "$['a_float']"
 a_bool:     jsonpath "$['a_bool']"
 a_string:   jsonpath "$['a_string']"
-all:        jsonpath "$" 
+all:        jsonpath "$"
 ```
 
 
@@ -246,7 +246,7 @@ name: regex "Hello ([a-zA-Z]+)!"
 ```
 
 Pattern of the regex query must have at least one capture group, otherwise the capture will fail.
-Special characters beginning with a backslash in the pattern (like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` 
+Special characters beginning with a backslash in the pattern (like `\d`, `\s`) must be escaped: `regex "(\\d+)!"`
 will capture one or more digit.
 
 > raw string for specifying pattern could be used in a future version.
@@ -263,5 +263,5 @@ Optionally, the query can be refined using a subquery. Currently, only `regex` a
      <img src="{{ '/assets/img/subquery-light.svg' | prepend:site.baseurl }}" width="400px"/>
  </picture>
  </div>
- 
- 
+
+

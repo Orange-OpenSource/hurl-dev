@@ -6,10 +6,10 @@ title: Entry
 
 ## Definition {#definition}
 
-A Hurl file is a list of entry, each entry being a mandatory [request]({% link _docs/request.md %}), 
-optionally followed by a [response]({% link _docs/response.md %}). 
+A Hurl file is a list of entry, each entry being a mandatory [request]({% link _docs/request.md %}),
+optionally followed by a [response]({% link _docs/response.md %}).
 
-Responses are not mandatory, a Hurl file consisting only of requests is perfectly valid. To sum up, responses can be used 
+Responses are not mandatory, a Hurl file consisting only of requests is perfectly valid. To sum up, responses can be used
 to [capture values]({% link _docs/capturing-response.md %}) to perform subsequent requests, or [add asserts to HTTP
  responses]({% link _docs/asserting-response.md %}).
 
@@ -60,14 +60,14 @@ Location: http://www.google.fr/
 GET http://www.google.fr
 
 HTTP/1.1 200
-``` 
+```
 
 Alternatively, one can use [`--location`]({% link _docs/man-page.md %}#location) option to force redirection
-to be followed. In this case, asserts are executed on the last received response. Optionally, the number of 
-redirection can be limited with [`--max-redirs`]({% link _docs/man-page.md %}#max-redirs).
+to be followed. In this case, asserts are executed on the last received response. Optionally, the number of
+redirections can be limited with [`--max-redirs`]({% link _docs/man-page.md %}#max-redirs).
 
 ```hurl
 # Running hurl --location google.hurl
 GET http://google.fr
 HTTP/1.1 200
-``` 
+```

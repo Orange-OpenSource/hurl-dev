@@ -16,7 +16,7 @@ title: Hurl - Run and Test HTTP Requests
 
 Hurl is a command line tool that runs HTTP requests defined in a simple plain text format.
 
-It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very versatile: 
+It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very versatile:
 it can be used for both fetching data and testing HTTP sessions.
 
 {% raw %}
@@ -47,8 +47,8 @@ GET https://api.example.net/health
 
 # Also an HTTP Test Tool
 
-Hurl can run HTTP requests but can also be used to test HTTP responses. 
-Different type of queries and predicates are supported, from [XPath](https://en.wikipedia.org/wiki/XPath) 
+Hurl can run HTTP requests but can also be used to test HTTP responses.
+Different types of queries and predicates are supported, from [XPath](https://en.wikipedia.org/wiki/XPath)
 and [JSONPath](https://goessner.net/articles/JsonPath/) on body response, to assert on status code and response headers.
 
 ```hurl
@@ -58,8 +58,8 @@ HTTP/1.1 200
 [Asserts]
 xpath "normalize-space(//head/title)" equals "Hello world!"
 ```
- 
-It is well adapted for REST/json apis 
+
+It is well adapted for REST/json apis
 
 ```hurl
 POST https://api.example.net/tests
@@ -97,13 +97,13 @@ HTTP/1.1 200
 # Powered by curl
 
 Under the hood, Hurl HTTP engine is powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and
- reliable file transfer library. With its text file format, Hurl adds syntaxic sugar to run and tests HTTP requests, 
- but it's still the curl that we love.   
+ reliable file transfer library. With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests,
+ but it's still the curl that we love.
 
 # Hurl is Fast
 
-Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org), and a Java based 
-implementation is also available. Hurl is free and [open source](https://github.com/Orange-OpenSource/hurl), and can be used 
+Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org), and a Java based
+implementation is also available. Hurl is free and [open source](https://github.com/Orange-OpenSource/hurl), and can be used
 in CI/CD pipelines to monitor web services, integration tests suites etc...
 
 # Installation
