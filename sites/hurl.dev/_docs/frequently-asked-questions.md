@@ -7,13 +7,18 @@ title: Frequently Asked Questions
 
 1. [Why "Hurl"?](#why-hurl)
 2. [Yet Another Tool, I already use X](#yet-another-tool-i-already-use-x)
+3. [Hurl is build on top of libcurl, but what is added?](#on-top-of-libcurl)
+4. [Why shouldn't I use Hurl?](#why-shouldnot-i-use-hurl)
+5. [I have a large numbers of tests, how to run just specific tests?](#run-specific-tests)
+6. [How to report results in a CI pipeline?](#ci-pipeline-report)
  
+ 
+
 
 ## Why "Hurl"? {#why-hurl}
 
-The name Hurl is a tribute to the awesome [curl](https://curl.haxx.se), and also an artifact of Hurl early 
-[Haskell](https://www.haskell.org) implementation. While it informal meaning is not particularly elegant, 
-[other eminent tools](https://git.wiki.kernel.org/index.php/GitFaq#Why_the_.27Git.27_name.3F) have set a precedence in naming.
+The name Hurl is a tribute to the awesome [curl](https://curl.haxx.se), with a focus on the HTTP protocol.
+While it may have an informal meaning not particularly elegant, [other eminent tools](https://git.wiki.kernel.org/index.php/GitFaq#Why_the_.27Git.27_name.3F) have set a precedence in naming.
 
 ## Yet Another Tool, I already use X {#yet-another-tool-i-already-use-x}
 
@@ -98,4 +103,71 @@ really reliable with a very small probability of false positives. Integration te
 Just use what is convenient for you. In our case, it's Hurl!
  
  
+## Hurl is build on top of libcurl, but what is added? {#on-top-of-libcurl}
+
+Hurl has 2 main functionalities on top of curl:
+
+1) Chain several requests.
+
+With its captures, it enables to inject data received from a response into folloing requests. CSRF tokens are the typical
+examples in a standard web session.
+
+2) Test http responses
+
+With its Asserts, responses can be easily tested.
+ 
+
+
+
+## Why shouldn't I use Hurl {#why-shouldnot-i-use-hurl}
+ 
+if you need a GUI.
+Currently, Hurl does not offer a GUI version (like POSTMAN). While we think that it can be useful, we prefer to focus 
+for the time-being on the core, keeping something simple and fast.
+Contributions to build a GUI are welcome.
+ 
+  
+ 
+## I have a large numbers of tests, how to run just specific tests? {#run-specific-tests}
+
+By convention, you can organize hurl files into different folders or prefix them.
+ 
+for example, you can split your tests into 2 folders critical and additional.
+```
+critical/test1.hurl
+critical/test2.hurl
+additional/test1.hurl
+additional/test2.hurl
+```
+
+You can simply run your critical tests with
+
+```
+hurl critical/*.hurl
+```
+ 
+ 
+ 
+## How to report results in a CI pipeline? {#ci-pipeline-report}
+
+Hurl can generate an html report with the option --html
+```
+ hurl tests/*.hurl --html output_folder
+```
+
+Note that in the previous step, all the hurl files are run together successively.
+
+In some setup, we may want to execute arbitrary commands between each hurl test.
+In this case, you need to append test results into a common file.
+ 
+For example
+```
+hurl --json /tmp/tests.json --append --html /tmp/html_report file1.hurl
+hurl --json /tmp/tests.json --append --html /tmp/html_report file2.hurl
+hurl --json /tmp/tests.json --append --html /tmp/html_report file3.hurl
+``` 
+
+ 
+ 
+
 
