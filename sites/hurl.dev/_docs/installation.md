@@ -18,7 +18,6 @@ hurl --version
 hurl {{page.hurl-version}}
 ```
 
-{%comment%}
 
 ### Debian / Ubuntu {#debian-ubuntu}
 
@@ -28,7 +27,6 @@ For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in 
 curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl_{{page.hurl-version}}_amd64.deb
 sudo dpkg -i hurl_{{page.hurl-version}}_amd64.deb
 ```
-{%endcomment%}
 
 ## macOS {#macos}
 
