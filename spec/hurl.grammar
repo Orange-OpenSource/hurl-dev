@@ -136,6 +136,10 @@ assert = lt*
 predicate = ("not" sp sp*)? predicate-func
 
 predicate-func = equal-predicate
+               | greater-predicate
+               | greater-or-equal-predicate
+               | less-predicate
+               | less-or-equal-predicate
                | count-predicate
                | start-with-predicate
                | contain-predicate
@@ -144,6 +148,14 @@ predicate-func = equal-predicate
                | include-predicate
 
 equal-predicate = "equals" sp sp* (null | float | integer | boolean | quoted-string | expr)
+
+greater-predicate = "greaterThan" sp sp* (integer | float)
+
+greater-or-equal-predicate = "greaterThanOrEquals" sp sp* (integer | float)
+
+less-predicate = "lessThan" sp sp* (integer | float)
+
+less-or-equal-predicate = "lessThanOrEquals" sp sp* (integer | float)
 
 count-predicate = "countEquals" sp sp* integer
 
