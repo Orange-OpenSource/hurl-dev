@@ -105,6 +105,7 @@ query = status-query
       | jsonpath-query
       | regex-query
       | variable-query
+      | duration-query
 
 status-query = "status"
 
@@ -121,6 +122,8 @@ jsonpath-query = "jsonpath" sp sp* quoted-string
 regex-query = "regex" sp sp* quoted-string
 
 variable-query = "variable" sp sp* quoted-string
+
+duration = "duration"
 
 
 subquery = regex-subquery
