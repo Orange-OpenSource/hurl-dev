@@ -11,8 +11,8 @@ title: Frequently Asked Questions
 4. [Why shouldn't I use Hurl?](#why-shouldnot-i-use-hurl)
 5. [I have a large numbers of tests, how to run just specific tests?](#run-specific-tests)
 6. [How to report results in a CI pipeline?](#ci-pipeline-report)
- 
- 
+7. [How can I use my hurl files outside hurl?](#hurl-outside-hurl)
+8. [Using integer versus float in the predicate](#integer-vs-float-in-predicate)
 
 
 ## Why "Hurl"? {#why-hurl}
@@ -168,6 +168,106 @@ hurl --json /tmp/tests.json --append --html /tmp/html_report file3.hurl
 ``` 
 
  
- 
+## How can I use my hurl files outside hurl? {#hurl-outside-hurl}
+
+The hurl file can be exported to a json file with hurlfmt. 
+This json file can then be easily parsed for converting a different format, getting ad-hoc information,...
+
+For example, the hurl file
+
+```hurl
+GET http://example.com/api/users/1
+User-Agent: Custom
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.name" equals "Bob"
+
+```
+
+will be converted to json with the following command:
+
+```
+hurlfmt test.hurl --format json | jq
+{
+  "entries": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "http://example.com/api/users/1",
+        "headers": [
+          {
+            "name": "User-Agent",
+            "value": "Custom"
+          }
+        ]
+      },
+      "response": {
+        "version": "HTTP/1.1",
+        "status": 200,
+        "asserts": [
+          {
+            "query": {
+              "type": "jsonpath",
+              "expr": "$.name"
+            },
+            "predicate": {
+              "type": "equal",
+              "value": "Bob"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+
+## Using integer versus float in a predicate {#integer-vs-float-in-predicate}
+
+
+Case 1: Value returned from the query is a float
+
+```hurl
+GET http://example.com/api/products/1
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.price" equals 10
+jsonpath "$.price" equals 10.0
+```
+
+The jsonpath query returns a float. You can use for the expected value either an integer or a float without ambiguity.
+The integer version might be more readable.
+
+
+Case 2: Value returned from the query is an integer
+
+```hurl
+GET http://example.com/api/products/1
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.id" equals 111
+jsonpath "$.id" equals 111.0
+```
+
+In this case, The query returns an integer. There is no point using a float for the expected value.
+Hurl prefers to fail on purpose.
+
+
+Case 3: Parsing error
+
+Predicates might not accept a float at all (for example `countEquals`).
+Tt will simply fail at parsing.
+
+
+
+
+
+
+
+
 
 
