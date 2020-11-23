@@ -12,7 +12,6 @@ title: Frequently Asked Questions
 5. [I have a large numbers of tests, how to run just specific tests?](#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests)
 6. [How to report results in a CI pipeline?](#how-to-report-results-in-a-ci-pipeline)
 7. [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
-8. [Using integer versus float in predicate](#using-integer-versus-float-in-predicate)
 
 
 ## Why "Hurl"? {#why-hurl}
@@ -221,52 +220,6 @@ hurlfmt test.hurl --format json | jq
   ]
 }
 ```
-
-
-## Using integer versus float in predicate {#using-integer-versus-float-in-predicate}
-
-
-Case 1: Value returned from the query is a float
-
-```hurl
-GET http://example.com/api/products/1
-
-HTTP/1.1 200
-[Asserts]
-jsonpath "$.price" equals 10
-jsonpath "$.price" equals 10.0
-```
-
-The jsonpath query returns a float. You can use for the expected value either an integer or a float without ambiguity.
-The integer version might be more readable.
-
-
-Case 2: Value returned from the query is an integer
-
-```hurl
-GET http://example.com/api/products/1
-
-HTTP/1.1 200
-[Asserts]
-jsonpath "$.id" equals 111
-jsonpath "$.id" equals 111.0
-```
-
-In this case, The query returns an integer. There is no point using a float for the expected value.
-Hurl prefers to fail on purpose.
-
-
-Case 3: Parsing error
-
-Predicates might not accept a float at all (for example `countEquals`).
-Tt will simply fail at parsing.
-
-
-
-
-
-
-
 
 
 

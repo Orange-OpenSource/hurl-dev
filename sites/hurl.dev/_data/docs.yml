@@ -47,7 +47,6 @@
         - title: I have a large numbers of tests, how to run just specific tests?
         - title: How to report results in a CI pipeline?
         - title: How can I use my Hurl files outside Hurl?
-        - title: Using integer versus float in predicate
 - title: File Format
   items:
     - title: Hurl File
