@@ -80,7 +80,7 @@ Set-Cookie: theme=light
 ```
 
 > if you want to test specifically the number of headers returned for a given header name
-> you can use the explic [header assert](#header-assert)
+> you can use the explicit [header assert](#header-assert)
 
 
 
@@ -217,6 +217,7 @@ HTTP/1.1 302
 [Asserts]
 header "Location" contains "www.example.net"
 ```
+
 
 ### Cookie assert {#cookie-assert}
 
