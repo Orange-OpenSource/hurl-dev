@@ -154,7 +154,6 @@ Use implicit response asserts to test header values:
 
 ```hurl
 GET http://www.example.org/index.html
-Host: www.example.org
 
 HTTP/1.0 200
 Set-Cookie: theme=light
