@@ -39,6 +39,52 @@ HTTP/1.1 302
 Location: https://example.net/home
 ```
 
+> Quotes in the header value are part of the value itself.
+>
+> This is used by the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) Header
+> ```
+> ETag: W/"<etag_value>"
+> ETag: "<etag_value>"
+> ```
+
+
+Testing duplicated headers is also possible.
+
+For example with the Set-Cookie header:
+ 
+```
+Set-Cookie: theme=light
+Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
+```
+
+You can either test the two header values:
+
+```hurl
+GET /index.html
+Host: www.example.org
+
+HTTP/1.0 200
+Set-Cookie: theme=light
+Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
+
+```
+
+Or only one:
+
+```hurl
+GET /index.html 
+Host: www.example.org
+
+HTTP/1.0 200
+Set-Cookie: theme=light
+```
+
+> if you want to test specifically the number of headers returned for a given header name
+> you can use the explic [header assert](#header-assert)
+
+
+
+
 ## Asserts {#asserts}
 
 Optional list of assertions on the HTTP response. Assertions can describe checks on status code, 
