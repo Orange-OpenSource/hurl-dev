@@ -66,7 +66,6 @@ Host: www.example.org
 HTTP/1.0 200
 Set-Cookie: theme=light
 Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
-
 ```
 
 Or only one:
@@ -79,10 +78,9 @@ HTTP/1.0 200
 Set-Cookie: theme=light
 ```
 
-> if you want to test specifically the number of headers returned for a given header name
-> you can use the explicit [header assert](#header-assert)
-
-
+If you want to test specifically the number of headers returned for a given header name, or
+if you want to test header value with [predicates](#predicates) (like `startsWith`, `contains`, `exists`) 
+you can use the explicit [header assert](#header-assert).
 
 
 ## Asserts {#asserts}

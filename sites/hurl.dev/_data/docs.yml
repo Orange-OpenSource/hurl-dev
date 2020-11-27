@@ -31,6 +31,7 @@
             - title: Templating a JSON/XML Body
         - title: Testing Response
           items:
+            - title: Testing Response Headers
             - title: Testing REST Apis
             - title: Testing HTML Response
             - title: Testing Set-Cookie Attributes

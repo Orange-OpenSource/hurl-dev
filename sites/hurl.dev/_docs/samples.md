@@ -148,6 +148,35 @@ Resulting in a PUT request with the following JSON body:
 
 ## Testing Response {#testing-response}
 
+### Testing Response Headers {#testing-response-headers}
+
+Use implicit response asserts to test header values:
+
+```hurl
+GET http://www.example.org/index.html
+Host: www.example.org
+
+HTTP/1.0 200
+Set-Cookie: theme=light
+Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
+```
+
+[Doc]({% link _docs/asserting-response.md %}#headers)
+
+
+Or use explicit response asserts with [predicates]({% link _docs/asserting-response.md %}#predicates):
+
+```hurl
+GET https://example.net
+
+HTTP/1.1 302
+[Asserts]
+header "Location" contains "www.example.net"
+```
+
+[Doc]({% link _docs/asserting-response.md %}#header-assert)
+
+
 ### Testing REST Apis {#testing-rest-apis}
 
 ```hurl
