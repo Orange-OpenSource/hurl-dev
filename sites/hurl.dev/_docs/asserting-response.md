@@ -120,7 +120,7 @@ Predicates consist of a predicate function, and a predicate value. Predicate fun
 - `contains`: check that query string contains the predicate value,
 - `includes`: check that query collections includes the predicate value,
 - `matches`: check that query string matches the regex pattern described by the predicate value,
-- `exists`: check that query return a value,
+- `exists`: check that query returns a value,
 
 Each predicate can be negated by prefixing it with `not` (for instance, `not contains` or `not exists`)
 
