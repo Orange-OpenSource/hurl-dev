@@ -149,6 +149,11 @@ predicate-func = equal-predicate
                | match-predicate
                | exist-predicate
                | include-predicate
+               | integer-predicate
+               | float-predicate
+               | boolean-predicate
+               | string-predicate
+               | collection-predicate
 
 equal-predicate = "equals" sp sp* (null | float | integer | boolean | quoted-string | expr)
 
@@ -171,6 +176,16 @@ match-predicate = "matches" sp sp* quoted-string
 exist-predicate = "exists"
 
 include-predicate = "includes" sp sp* (null |float | integer | boolean | quoted-string | expr)
+
+integer-predicate = "isInteger"
+
+float-predicate = "isFloat"
+
+boolean-predicate = "isBoolean"
+
+string-predicate = "isString"
+
+collection-predicate = "isCollection"
 
 
 # Primitives
