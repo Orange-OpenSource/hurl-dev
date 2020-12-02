@@ -48,7 +48,7 @@ In this second example, we capture the body in a variable `index`, and reuse thi
 
 ## Types {#types}
 
-Variable are typed, and can be either string, bool, number, `null` or collections. Depending on the variable type,  
+Variable are typed, and can be either string, bool, number, `null` or collections. Depending on the variable type, 
 templates can be rendered differently. Let's say we have captured an integer value into a variable named
  `count`:
 
