@@ -35,7 +35,7 @@ def unescape_html(text: str) -> str:
 
 
 def hurl_to_html(snippet: str) -> str:
-    cmd = ["java", "-jar", "hurlfmt-1.0.36.jar", "--format", "html", "-"]
+    cmd = ["java", "-jar", "hurlfmt-1.0.43-SNAPSHOT.jar", "--format", "html", "-"]
     try:
         ret = subprocess.run(
             args=cmd,
