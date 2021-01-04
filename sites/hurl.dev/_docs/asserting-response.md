@@ -60,7 +60,7 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 You can either test the two header values:
 
 ```hurl
-GET /index.html
+GET http://www.example.org/index.html
 Host: www.example.org
 
 HTTP/1.0 200
@@ -71,7 +71,7 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 Or only one:
 
 ```hurl
-GET /index.html 
+GET http://www.example.org/index.html 
 Host: www.example.org
 
 HTTP/1.0 200
