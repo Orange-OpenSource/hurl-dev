@@ -40,9 +40,9 @@ Chaining multiple requests is easy:
 
 ```hurl
 GET https://api.example.net/health
-GET https://api.example.net/health
-GET https://api.example.net/health
-GET https://api.example.net/health
+GET https://api.example.net/step1
+GET https://api.example.net/step2
+GET https://api.example.net/step3
 ```
 
 # Also an HTTP Test Tool
@@ -92,6 +92,16 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 </soap:Envelope>
 
 HTTP/1.1 200
+```
+
+Hurl can also be used to test HTTP endpoints performances:
+
+```hurl
+GET http://api.example.org/v1/pets
+
+HTTP/1.0 200
+[Asserts]
+duration lessThan 1000  # Duration in ms
 ```
 
 # Powered by curl
