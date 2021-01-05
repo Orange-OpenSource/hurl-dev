@@ -109,18 +109,29 @@ can be one of :
 - [`jsonpath`](#jsonpath-assert)
 - [`regex`](#regex-assert)
 - [`variable`](#variable-assert)
+- [`duration`](#duration-assert)
 
 ### Predicates {#predicates}
 
 Predicates consist of a predicate function, and a predicate value. Predicate functions are:
 
-- `equals`: check equality of query and predicate value,
-- `countEquals`: check equality of query size collections,
-- `startsWith`: check that query string starts with the predicate value,
-- `contains`: check that query string contains the predicate value,
-- `includes`: check that query collections includes the predicate value,
-- `matches`: check that query string matches the regex pattern described by the predicate value,
-- `exists`: check that query returns a value,
+- `equals`: check equality of query and predicate value
+- `greaterThan`: check that query number is greater than predicate value  
+- `greaterThanOrEquals`: check that query number is greater than or equal to the predicate value
+- `lessThan`: check that query number is less than that predicate value
+- `lessThanOrEquals`: check that query number is less than or equal to the predicate value   
+- `countEquals`: check equality of query size collections
+- `startsWith`: check that query string starts with the predicate value
+- `contains`: check that query string contains the predicate value
+- `includes`: check that query collections includes the predicate value
+- `matches`: check that query string matches the regex pattern described by the predicate value
+- `exists`: check that query returns a value
+- `isInteger`: check that query returns an integer
+- `isFloat`: check that query returns a float
+- `isBoolean`: check that query returns a boolean
+- `isString`: check that query returns a string
+- `isCollection`: check that query returns a collection
+
 
 Each predicate can be negated by prefixing it with `not` (for instance, `not contains` or `not exists`)
 
@@ -379,6 +390,16 @@ HTTP/* 200
 pets: xpath "//pets"
 [Asserts]
 variable "pets" countEquals 200
+```
+
+### Duration assert {#duration-assert}
+
+```hurl
+GET https://sample.org/helloworld
+
+HTTP/1.0 200
+[Asserts]
+duration lessThan 1000   # Check that response time is less than one second
 ```
 
 ## Body {#body}

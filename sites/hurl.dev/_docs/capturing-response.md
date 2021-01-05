@@ -62,6 +62,8 @@ Query can be of the following type:
 - [`jsonpath`](#jsonpath-capture)
 - [`regex`](#regex-capture)
 - [`variable`](#variable-capture)
+- [`duration`](#duration-capture)
+
 
 ### Status capture {#status-capture}
 
@@ -263,5 +265,17 @@ Optionally, the query can be refined using a subquery. Currently, only `regex` a
      <img src="{{ '/assets/img/subquery-light.svg' | prepend:site.baseurl }}" width="400px"/>
  </picture>
  </div>
+
+### Duration capture {#duration-capture}
+
+Capture the response time of the request in ms.
+
+```hurl
+GET https://sample.org/helloworld
+
+HTTP/1.0 200
+[Captures]
+duration_in_ms: duration
+```
 
 
