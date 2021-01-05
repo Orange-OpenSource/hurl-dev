@@ -18,7 +18,7 @@ GET http://example.net/404.html
 HTTP/1.0 404
 ```
 
-Wildcard keywords (`HTTP/*, `*`) can be used to disable tests on protocol version and status:
+Wildcard keywords (`HTTP/*`, `*`) can be used to disable tests on protocol version and status:
 
 ```hurl
 GET http://api/.example.net/pets
