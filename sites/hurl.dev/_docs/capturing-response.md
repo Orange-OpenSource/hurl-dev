@@ -255,6 +255,18 @@ will capture one or more digit.
 
 ### Variable capture {#variable-capture}
 
+### Duration capture {#duration-capture}
+
+Capture the response time of the request in ms.
+
+```hurl
+GET https://sample.org/helloworld
+
+HTTP/1.0 200
+[Captures]
+duration_in_ms: duration
+
+```
 ### Subquery {#subquery}
 
 Optionally, the query can be refined using a subquery. Currently, only `regex` are supported:
@@ -266,16 +278,5 @@ Optionally, the query can be refined using a subquery. Currently, only `regex` a
  </picture>
  </div>
 
-### Duration capture {#duration-capture}
-
-Capture the response time of the request in ms.
-
-```hurl
-GET https://sample.org/helloworld
-
-HTTP/1.0 200
-[Captures]
-duration_in_ms: duration
-```
 
 

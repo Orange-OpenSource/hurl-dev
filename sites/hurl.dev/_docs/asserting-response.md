@@ -18,6 +18,19 @@ GET http://example.net/404.html
 HTTP/1.0 404
 ```
 
+Wildcard keywords (`HTTP/*, `*`) can be used to disable tests on protocol version and status:
+
+```hurl
+GET http://api/.example.net/pets
+
+HTTP/1.0 *
+# Check that response status code is > 400 and <= 500
+[Asserts]
+status greaterThan 400
+status lessThanOrEquals 500
+```
+ 
+
 ## Headers {#headers} 
 
 Optional list of the expected HTTP response headers that must be in the received response. 
@@ -207,12 +220,10 @@ function and value.
 ```hurl
 GET https://example.net
 
-HTTP/1.1 200
+HTTP/1.1 *
 [Asserts]
-status equals 200
+status lessThan 300
 ```
-
-> Mettre un exemple moins trivial (ici l'assert est rendondant), avec un greaterThan par exemple.
 
 ### Header assert {#header-assert}
 
@@ -226,7 +237,6 @@ HTTP/1.1 302
 [Asserts]
 header "Location" contains "www.example.net"
 ```
-
 
 ### Cookie assert {#cookie-assert}
 
@@ -394,6 +404,8 @@ variable "pets" countEquals 200
 
 ### Duration assert {#duration-assert}
 
+Check the total duration (sending plus receiving time) of the HTTP transaction.
+ 
 ```hurl
 GET https://sample.org/helloworld
 

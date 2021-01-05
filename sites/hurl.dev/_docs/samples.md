@@ -232,6 +232,18 @@ cookie "JSESSIONID[SameSite]" equals "Lax"
 
 ## Others {#others}
 
+### Testing Endpoint Performance {#testing-endpoint-performance}
+
+```hurl
+GET https://sample.org/helloworld
+
+HTTP/* *
+[Asserts]
+duration lessThan 1000   # Check that response time is less than one second
+```
+
+[Doc]({% link _docs/asserting-response.md %}#duration-assert)
+
 ### Using SOAP Apis {#using-soap-apis}
 
 ```hurl
