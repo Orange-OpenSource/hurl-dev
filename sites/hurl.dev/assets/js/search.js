@@ -27,16 +27,16 @@ class Search {
     }
 
     onKeyup(event) {
-        let query = event.target.value.toLowerCase().trim();
-        this.searchQuery(query);
+        this.searchQuery(event.target.value);
     }
 
     searchQuery(query) {
         if (this.index === undefined) {
             return
         }
-        let hits = this.index.hits[query];
-        let resultElmt = document.getElementById(this.resultListId);
+        const queryNormalized = query.toLowerCase().trim();
+        const hits = this.index.hits[queryNormalized];
+        const resultElmt = document.getElementById(this.resultListId);
         resultElmt.textContent = "";
         if (hits === undefined) {
             this.updateResultText(0);
@@ -49,8 +49,8 @@ class Search {
         resultElmt.appendChild(ul);
 
         for (let i = 0; i < hits.length; i++) {
-            let ref = this.index.refs[hits[i]];
-            let li = this.buildResultNode(ref, query);
+            const ref = this.index.refs[hits[i]];
+            const li = this.buildResultNode(ref, query);
             ul.appendChild(li);
         }
     }
@@ -65,7 +65,7 @@ class Search {
     }
 
     loadIndex() {
-        let xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
         xhr.open("GET", "/assets/data/index.json", true);
         xhr.onload = (e) => {
             if (xhr.readyState === 4) {
@@ -85,9 +85,9 @@ class Search {
     }
 
     buildResultNode(hit, query) {
-        let {page_title, page_url, anchor_title, anchor_url, content, search, start} = hit;
-        let li = document.createElement("li");
-        let contentMarked = this.highlightPos(content, query, start);
+        const {page_title, page_url, anchor_title, anchor_url, content, search, start} = hit;
+        const li = document.createElement("li");
+        const contentMarked = this.highlightPos(content, query, start);
         li.innerHTML = `<p class="search-result-link"><a href="${anchor_url}">${page_title} &gt; ${anchor_title}</a></p>
                         <p>${contentMarked}</p>`;
 
@@ -98,12 +98,12 @@ class Search {
     }
 
     highlight(str, query) {
-        let re = new RegExp(`(${query})`, "gi");
+        const re = new RegExp(`(${query})`, "gi");
         return str.replace(re, `<span class="marked">$1</span>`);
     }
 
     highlightPos(str, query, start) {
-        let count = query.length,
+        const count = query.length,
             end = start + count,
             prefix = str.slice(0, start),
             mark = str.slice(start, end),
@@ -113,7 +113,7 @@ class Search {
 
 }
 
-let search = new Search("search-input", "search-results", "results");
+const search = new Search("search-input", "search-results", "results");
 search.loadIndex();
 window.hurl = {};
 window.hurl.search = search;
