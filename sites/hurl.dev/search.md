@@ -5,7 +5,7 @@ title: Search
 
 # Search
 
-<form>
+<form action="#">
     <label for="search-input">
     <input type="text" name="query" id="search-input" placeholder="Search documentation" autofocus>
     </label>
