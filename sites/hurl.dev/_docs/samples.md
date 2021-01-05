@@ -178,6 +178,8 @@ header "Location" contains "www.example.net"
 
 ### Testing REST Apis {#testing-rest-apis}
 
+Asserting JSON body response with [JSONPath](https://goessner.net/articles/JsonPath/):
+
 ```hurl
 GET https//example.org/order
 screencapability: low
@@ -193,6 +195,28 @@ jsonpath "$.state" not equals null
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
+
+Testing status code:
+
+```hurl
+GET https//example.org/order/435
+
+HTTP/1.1 200
+```
+
+[Doc]({% link _docs/asserting-response.md %}#version-status)
+
+```hurl
+GET https//example.org/order/435
+
+# Testing status code is in a 200-300 range
+HTTP/1.1 *
+[Asserts]
+status greaterThanOrEquals 200
+status lessThan 300
+```
+
+[Doc]({% link _docs/asserting-response.md %}#status-assert)
 
 
 ### Testing HTML Response {#testing-html-response}
