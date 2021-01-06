@@ -28,6 +28,11 @@ curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl
 sudo dpkg -i hurl_{{page.hurl-version}}_amd64.deb
 ```
 
+### Arch Linux / Manjaro (via [AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository)) {#arch}
+
+`hurl-bin` [package](https://aur.archlinux.org/packages/hurl-bin/) for Arch Linux and derived distros.
+
+
 ## macOS {#macos}
 
 Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-osx.tar.gz](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-osx.tar.gz)
