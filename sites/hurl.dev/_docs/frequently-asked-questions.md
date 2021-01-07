@@ -52,8 +52,7 @@ curl --header "Content-Type: application/json" \
 
 
 [Karate](https://github.com/intuit/karate), a tool combining API test automation, mocking, performance-testing, has
- similar features but offers also much more at a cost of an increased complexity (Karate is ~ 33,000 line of Java
-  code, while Hurl-JVM is around 6,600 line of Kotlin code).
+ similar features but offers also much more at a cost of an increased complexity.
   
 Comparing Karate file format:
 
