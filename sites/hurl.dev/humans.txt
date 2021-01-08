@@ -1,0 +1,38 @@
+Hurl⇄ by CCMD Team
+===================
+
+Documentation: https://hurl.dev
+GitHub: https://github.com/Orange-OpenSource/hurl
+
+Hurl is a command line tool that runs HTTP requests defined in a simple plain text format.
+
+A simple sample with multiple request :
+
+    # First request, create a contact, and 
+    # capture its id:
+    # ------------------------------------
+    
+    POST https://example.net/api/contacts
+    [FormParams]
+    token: {{token}}
+    email: toto@rookie.net
+
+    HTTP/1.1 201
+    [Captures]
+    contact-id: jsonpath "$.id"
+
+    # Second request, a simple GET on this contact
+    # with an assert on its properties:
+    # ------------------------------------
+
+    GET https://example.net/api/contacts/{{contact-id}}
+
+    HTTP/1.1 200
+    [Asserts]
+    jsonpath "$.id" equals "toto@rookie.net"
+
+    # Third request, delete it!
+    # ------------------------------------
+
+    DELETE https://example.net/api/contacts/{{contact-id}}
+    HTTP/1.1 200
