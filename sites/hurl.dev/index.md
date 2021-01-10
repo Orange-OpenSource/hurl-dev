@@ -106,15 +106,16 @@ duration lessThan 1000  # Duration in ms
 
 # Powered by curl
 
-Under the hood, Hurl HTTP engine is powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and
- reliable file transfer library. With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests,
- but it's still the curl that we love.
+Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org). Under the hood, Hurl HTTP engine is
+ powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and reliable file transfer library
+ . With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, but it's still the curl that
+  we love.
 
-# Hurl is Fast
+# Why Hurl?
 
-Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org), and a Java based
-implementation is also available. Hurl is free and [open source](https://github.com/Orange-OpenSource/hurl), and can be used
-in CI/CD pipelines to monitor web services, integration tests suites etc...
+- Text format for both devops and developers
+- Fast command-line for both local dev and continuous integration
+- Single binary, easy to install, with no runtime required
 
 # Installation
 
@@ -122,7 +123,8 @@ See the [the installation section]({% link _docs/installation.md %}).
 
 # Feedbacks
 
-Hurl file format and runners are still in beta, any feedback, suggestion, bugs or improvements are welcome.
+Hurl file format and runners are still in beta, any [feedback, suggestion, bugs or improvements](https://github.com/Orange-OpenSource/hurl/issues)
+ are welcome.
 
 ```hurl
 POST https://hurl.dev/api/feedback
