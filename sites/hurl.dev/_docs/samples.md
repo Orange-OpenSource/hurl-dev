@@ -4,6 +4,17 @@ title: Samples
 ---
 # {{ page.title }}
 
+To run a sample, you can edit a file with the sample content, and use Hurl:
+
+```
+$ vi sample.hurl
+
+GET https://example.net
+
+$ hurl sample.hurl
+```
+
+
 ## Getting Data {#getting-data}
 
 A simple GET:
