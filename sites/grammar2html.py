@@ -35,6 +35,17 @@ class Parser:
                 break
         return self.buffer[offset:self.offset]
 
+    def read_while_prev(self, f) -> str:
+        offset = self.offset
+        while self.left() > 0:
+            c = self.peek()
+            prev = self.buffer[self.offset-1]
+            if f(c, prev):
+                _ = self.read()
+            else:
+                break
+        return self.buffer[offset:self.offset]
+
     def read_count(self, count):
         ret = self.buffer[self.offset:self.offset + count]
         self.offset = self.offset + count
@@ -181,9 +192,11 @@ class GrammarParser(Parser):
         return Rule(non_terminal=non_terminal, tokens=tokens)
 
     def parse_definition(self) -> Definition:
+        def is_not_definition_end(current, prev):
+            return not (current == ">" and prev != "\"")
         c = self.read()
         assert c == "<"
-        name = self.read_while(lambda it: it != ">")
+        name = self.read_while_prev(is_not_definition_end)
         c = self.read()
         assert c == ">"
         return Definition(value=name)

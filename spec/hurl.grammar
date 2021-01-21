@@ -91,7 +91,7 @@ file-contenttype = <(alphanum | "/" | ";" | "=" | " ")+  without leading/trailin
 cookie = lt*
          sp* key-string sp* ":" sp* cookie-value lt
 
-cookie-value =  <(alphanum | "_" | "-" | "/" | "%" | "[" | "]" | ".")*>
+cookie-value =  <(alphanum | "_" | "-" | "/" | "%" | "[" | "]" | "." | "<" | ">")*>
 
 capture = lt*
           sp* key-string sp* ":" sp* query (sp sp* subquery)? lt
