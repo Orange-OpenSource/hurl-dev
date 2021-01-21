@@ -26,7 +26,7 @@ method = "GET"
        | "TRACE"
        | "PATCH"
 
-url = <[a-zA-Z0-9:/{}*,@]+>
+url = <(alphanum | ":" | "/" | "{" | "}" | "*" | "," | "@" | "]")+>
 
 version = "HTTP/1.0" | "HTTP/1.1" | "HTTP/2" | "HTTP/*"
 
@@ -91,7 +91,10 @@ file-contenttype = <(alphanum | "/" | ";" | "=" | " ")+  without leading/trailin
 cookie = lt*
          sp* key-string sp* ":" sp* cookie-value lt
 
-cookie-value =  <(alphanum | "_" | "-" | "/" | "%" | "[" | "]" | "." | "<" | ">")*>
+cookie-value =  <(alphanum | "!" | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" 
+                           | "-" | "." | "/" | ":" | "<" | "=" | ">" | "?" | "@" | "[" 
+                           | "]" | "^" | "_" | "`" | "~" )* >
+
 
 capture = lt*
           sp* key-string sp* ":" sp* query (sp sp* subquery)? lt
@@ -235,7 +238,7 @@ newline = "\n" | "\r\n"
 
 sp = " " | "\t"
 
-filename = <[A-Za-z0-9.]+>
+filename = <(alphanum | ".")+>
 
 integer = <-?[1-9][0-9]*>
 
