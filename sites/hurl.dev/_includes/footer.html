@@ -1,7 +1,11 @@
 <footer>
     <div class="footer">
-        <div class="footer-rev">Build rev. {{site.env.CI_COMMIT_SHORT_SHA}}</div>
+        <div class="footer-rev">Build rev. {{site.env.CI_COMMIT_SHORT_SHA}}<br>
+            <span id="theme-toggle" onclick="modeSwitcher()('dark')"></span>
+        </div>
         <div class="footer-dev-by">Hurl&RightArrowLeftArrow; by CCMD Team</div>
     </div>
 </footer>
+
+<script type="text/javascript" src="{{ '/assets/js/common.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
 

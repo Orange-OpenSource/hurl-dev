@@ -4,10 +4,10 @@
         {% if page.url != "/" %}
         <div class="top-nav-logo">
             <a href="{{ "/" | relative_url }}" alt="Hurl">
-                <picture class="top-nav-logo-img">
-                    <source srcset="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)">
-                    <img src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}">
-                </picture>
+                <div class="top-nav-logo-img">
+                    <img class="light-img" src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}">
+                    <img class="dar-img" src="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}">
+                </div>
             </a>
         </div>
         {% endif %}

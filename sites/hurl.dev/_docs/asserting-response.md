@@ -104,10 +104,8 @@ on the received body (or part of it) and on response headers.
 Structure of an assert:
 
  <div class="drawing">
- <picture>
-     <source srcset="{{ '/assets/img/assert-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="400px">
-     <img src="{{ '/assets/img/assert-light.svg' | prepend:site.baseurl }}" width="400px"/>
- </picture>
+     <img class="light-img" src="{{ '/assets/img/assert-light.svg' | prepend:site.baseurl }}" width="400px"/>
+     <img class="dark-img" src="{{ '/assets/img/assert-dark.svg' | prepend:site.baseurl }}" width="400px"/>
  </div>
 
 
@@ -149,10 +147,8 @@ Predicates consist of a predicate function, and a predicate value. Predicate fun
 Each predicate can be negated by prefixing it with `not` (for instance, `not contains` or `not exists`)
 
  <div class="drawing">
- <picture>
-     <source srcset="{{ '/assets/img/assert-not-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="400px">
-     <img src="{{ '/assets/img/assert-not-light.svg' | prepend:site.baseurl }}" width="400px"/>
- </picture>
+     <img class="light-img" src="{{ '/assets/img/assert-not-light.svg' | prepend:site.baseurl }}" width="400px"/>
+     <img class="dark-img" src="{{ '/assets/img/assert-not-dark.svg' | prepend:site.baseurl }}" width="400px"/>
  </div>
 
 

@@ -41,10 +41,8 @@ HTTP/1.1 302
 Structure of a capture:
 
 <div class="drawing">
-<picture>
-    <source srcset="{{ '/assets/img/capture-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="300px">
-    <img src="{{ '/assets/img/capture-light.svg' | prepend:site.baseurl }}" width="300px"/>
-</picture>
+    <img class="light-img" src="{{ '/assets/img/capture-light.svg' | prepend:site.baseurl }}" width="300px"/>
+    <img class="dark-img" src="{{ '/assets/img/capture-dark.svg' | prepend:site.baseurl }}" width="300px"/>
 </div>
 
 A capture consists of a variable name, followed by `:` and a query. The captures section starts with `[Captures]`.
@@ -272,10 +270,8 @@ duration_in_ms: duration
 Optionally, the query can be refined using a subquery. Currently, only `regex` are supported:
 
  <div class="drawing">
- <picture>
-     <source srcset="{{ '/assets/img/subquery-dark.svg' | prepend:site.baseurl }}" media="(prefers-color-scheme: dark)" width="400px">
-     <img src="{{ '/assets/img/subquery-light.svg' | prepend:site.baseurl }}" width="400px"/>
- </picture>
+     <img class="light-img" src="{{ '/assets/img/subquery-light.svg' | prepend:site.baseurl }}" width="400px"/>
+     <img class="dark-img" src="{{ '/assets/img/subquery-dark.svg' | prepend:site.baseurl }}" width="400px"/>
  </div>
 
 
