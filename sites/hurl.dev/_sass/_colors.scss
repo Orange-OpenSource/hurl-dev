@@ -50,8 +50,7 @@ $hurl-query-type-dark: cyan;
 $hurl-predicate-type-dark: orange;
 $hurl-comment-dark: dimgray;
 
-:root {
-  color-scheme: light dark;
+html, html[data-theme="light"] {
   --background-color: #{$background-color-light};
   --primary-color: #{$primary-color-light};
   --body-text: #{$body-text-light};
@@ -72,10 +71,45 @@ $hurl-comment-dark: dimgray;
   --hurl-comment: #{$hurl-comment-light};
   --marked-background: #{$marked-background-light};
   --marked-text: #{$marked-text-light};
+  .light-img {
+    display: inline-block;
+  }
+  .dark-img {
+    display: none;
+  }
+}
+
+html[data-theme="dark"] {
+  --background-color: #{$background-color-dark};
+  --primary-color: #{$primary-color-dark};
+  --body-text: #{$body-text-dark};
+  --secondary-color: #{$secondary-color-dark};
+  --code-background-color: #{$code-background-color-dark};
+  --footer-background-color: #{$footer-background-color-dark};
+  --separator-color: #{$separator-color-dark};
+  --hurl-string: #{$hurl-string-dark};
+  --hurl-number: #{$hurl-number-dark};
+  --hurl-boolean: #{$hurl-boolean-dark};
+  --hurl-null: #{$hurl-null-dark};
+  --hurl-url: #{$hurl-url-dark};
+  --hurl-method: #{$hurl-method-dark};
+  --hurl-version: #{$hurl-version-dark};
+  --hurl-section-header: #{$hurl-section-header-dark};
+  --hurl-query-type: #{$hurl-query-type-dark};
+  --hurl-predicate-type: #{$hurl-predicate-type-dark};
+  --hurl-comment: #{$hurl-comment-dark};
+  --marked-background: #{$marked-background-dark};
+  --marked-text: #{$marked-text-dark};
+  .light-img {
+    display: none;
+  }
+  .dark-img {
+    display: inline-block;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  html, html[data-theme="dark"] {
     --background-color: #{$background-color-dark};
     --primary-color: #{$primary-color-dark};
     --body-text: #{$body-text-dark};
@@ -96,5 +130,40 @@ $hurl-comment-dark: dimgray;
     --hurl-comment: #{$hurl-comment-dark};
     --marked-background: #{$marked-background-dark};
     --marked-text: #{$marked-text-dark};
+    .light-img {
+      display: none;
+    }
+    .dark-img {
+      display: inline-block;
+    }
+  }
+
+  html[data-theme="light"] {
+    --background-color: #{$background-color-light};
+    --primary-color: #{$primary-color-light};
+    --body-text: #{$body-text-light};
+    --secondary-color: #{$secondary-color-light};
+    --code-background-color: #{$code-background-color-light};
+    --footer-background-color: #{$footer-background-color-light};
+    --separator-color: #{$separator-color-light};
+    --hurl-string: #{$hurl-string-light};
+    --hurl-number: #{$hurl-number-light};
+    --hurl-boolean: #{$hurl-boolean-light};
+    --hurl-null: #{$hurl-null-light};
+    --hurl-url: #{$hurl-url-light};
+    --hurl-method: #{$hurl-method-light};
+    --hurl-version: #{$hurl-version-light};
+    --hurl-section-header: #{$hurl-section-header-light};
+    --hurl-query-type: #{$hurl-query-type-light};
+    --hurl-predicate-type: #{$hurl-predicate-type-light};
+    --hurl-comment: #{$hurl-comment-light};
+    --marked-background: #{$marked-background-light};
+    --marked-text: #{$marked-text-light};
+    .light-img {
+      display: inline-block;
+    }
+    .dark-img {
+      display: none;
+    }
   }
 }
