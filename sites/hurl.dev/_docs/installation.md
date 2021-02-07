@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Installation
-hurl-version: 1.0.0
+hurl-version: 1.1.0
 ---
 # {{ page.title }}
 
@@ -49,7 +49,7 @@ hurl {{page.hurl-version}}
 
 ## Windows {#windows}
 
-Installation for Windows is not yet available, contributions are welcome!
+Installation for Windows is coming soon (next release).
 
 
 ## Building {#building}
