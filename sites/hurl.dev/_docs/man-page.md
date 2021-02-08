@@ -216,6 +216,11 @@ If you want to combine results from different Hurl executions in a unique html r
 Include the HTTP headers in the output (last entry).
 
 
+### \-\-interactive {#interactive}
+
+Stop between requests.
+This is similar to a break point, You can then continue (Press C) or quit (Press Q).
+
 
 ### \-\-json &lt;file> {#json}
 
@@ -291,6 +296,14 @@ Add basic Authentication header to each request.
 Define variable (name/value) to be used in Hurl templates.
 Only string values can be defined.
 
+
+### \-\-variables-file &lt;file> {#variables-file}
+
+Set properties file in which your define your variables.
+
+Each variable is defined as name=value exactly as with [\-\-variable](#variable) option.
+
+Note that defining a variable twice produces an error.
 
 
 ### -v, \-\-verbose {#verbose}
