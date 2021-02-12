@@ -7,7 +7,7 @@ title: Hurl File
 ## Character Encoding {#character-encoding}
 
 Hurl text should be encoded in UTF-8, without byte order mark to the beginning of a
-Hurl text (while Hurl runner may ignore the presence of a byte order mark
+Hurl text (while Hurl ignores the presence of a byte order mark
 rather than treating it as an error)
 
 ## File Extension {#extension}
