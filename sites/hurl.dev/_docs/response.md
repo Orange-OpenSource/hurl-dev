@@ -8,11 +8,12 @@ title: Response
 
 Responses can be used to capture values to perform subsequent requests, or add asserts to HTTP responses.
 
-A response describes the expected HTTP response, with mandatory [version and status](#url), followed by optional [headers](#headers), 
-[captures](#captures), [asserts](#asserts) and [body](#body). Assertions in the expected HTTP response describe values
-of the received HTTP response. Captures capture values from the received HTTP response and populate a set of named
-variables.
-
+A response describes the expected HTTP response, with mandatory [version and status]({% link _docs/asserting-response.md %}#url), 
+followed by optional [headers]({% link _docs/asserting-response.md %}#headers), [captures]({% link 
+_docs/capturing-response.md %}#captures),
+[asserts]({% link _docs/asserting-response.md %}#asserts) and [body]({% link _docs/asserting-response.md %}#body). 
+Assertions in the expected HTTP response describe values of the received HTTP response. Captures capture values from the
+received HTTP response and populate a set of named variables.
 
 ## Example {#example}
 
