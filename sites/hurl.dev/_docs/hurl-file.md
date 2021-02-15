@@ -6,7 +6,7 @@ title: Hurl File
 
 ## Character Encoding {#character-encoding}
 
-Hurl text should be encoded in UTF-8, without byte order mark to the beginning
+Hurl file should be encoded in UTF-8, without byte order mark to the beginning
 (while Hurl ignores the presence of a byte order mark
 rather than treating it as an error)
 
