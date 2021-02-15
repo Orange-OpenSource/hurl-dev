@@ -377,7 +377,7 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.slideshow.author" equals "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
-jsonpath "$.slideshow.slides" countEquals 42
+jsonpath "$.slideshow.slides" countEquals 2
 jsonpath "$.slideshow.date" not equals null
 jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 ```
