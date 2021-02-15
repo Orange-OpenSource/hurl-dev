@@ -12,7 +12,7 @@ Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-linux.tar.
 ```
 INSTALL_DIR=/tmp
 curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
-export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
+export PATH=$INSTALL_DIR/hurl-{{page.hurl-version}}:$PATH
 
 hurl --version
 hurl {{page.hurl-version}}
