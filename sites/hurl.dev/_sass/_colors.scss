@@ -14,6 +14,9 @@ $code-background-color-light: #f5f5f5;
 $separator-color-light: #b3b3b3;
 $marked-background-light: #fdff00;
 $marked-text-light: #222;
+$row-n0-light: #f5f5f5;
+$row-n1-light: $background-color-light;
+
 
 $hurl-string-light: darkgreen;
 $hurl-number-light: blue;
@@ -37,6 +40,8 @@ $code-background-color-dark: #27272c;
 $separator-color-dark: #444;
 $marked-background-dark: #fdff00;
 $marked-text-dark: #222;
+$row-n0-dark: #27272c;
+$row-n1-dark: $background-color-dark;
 
 $hurl-string-dark: forestgreen;
 $hurl-number-dark: dodgerblue;
@@ -71,6 +76,8 @@ html, html[data-theme="light"] {
   --hurl-comment: #{$hurl-comment-light};
   --marked-background: #{$marked-background-light};
   --marked-text: #{$marked-text-light};
+  --row-n0: #{$row-n0-light};
+  --row-n1: #{$row-n1-light};
   .light-img {
     display: inline-block;
   }
@@ -100,6 +107,8 @@ html[data-theme="dark"] {
   --hurl-comment: #{$hurl-comment-dark};
   --marked-background: #{$marked-background-dark};
   --marked-text: #{$marked-text-dark};
+  --row-n0: #{$row-n0-dark};
+  --row-n1: #{$row-n1-dark};
   .light-img {
     display: none;
   }
@@ -130,6 +139,8 @@ html[data-theme="dark"] {
     --hurl-comment: #{$hurl-comment-dark};
     --marked-background: #{$marked-background-dark};
     --marked-text: #{$marked-text-dark};
+    --row-n0: #{$row-n0-dark};
+    --row-n1: #{$row-n1-dark};
     .light-img {
       display: none;
     }
@@ -159,6 +170,8 @@ html[data-theme="dark"] {
     --hurl-comment: #{$hurl-comment-light};
     --marked-background: #{$marked-background-light};
     --marked-text: #{$marked-text-light};
+    --row-n0: #{$row-n0-light};
+    --row-n1: #{$row-n1-light};
     .light-img {
       display: inline-block;
     }
