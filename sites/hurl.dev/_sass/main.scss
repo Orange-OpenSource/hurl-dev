@@ -287,10 +287,45 @@ footer {
   source, img {
     max-width: 100%;
     @media only screen and (max-width: 320px) {
-
     }
   }
 }
+
+table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-width: 1px;
+  border-style: solid;
+  border-color: $separator-color-light;
+  border-color: var(--separator-color);
+}
+
+th {
+  background-color: $row-n0-light;
+  background-color: var(--row-n0);
+  padding: $m2;
+}
+
+td {
+  padding: $m2;
+}
+
+table tr:nth-child(2n) {
+  background-color: $row-n0-light;
+  background-color: var(--row-n0);
+}
+
+table tr:nth-child(2n+1) {
+  background-color: $row-n1-light;
+  background-color: var(--row-n1);
+}
+
 
 @import "code";
 @import "grammar";
