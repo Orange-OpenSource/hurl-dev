@@ -1,7 +1,7 @@
 ---
 layout: doc
 title: Installation
-hurl-version: 1.1.0
+hurl-version: 1.2.0
 ---
 # {{ page.title }}
 
@@ -49,7 +49,7 @@ hurl {{page.hurl-version}}
 
 ## Windows {#windows}
 
-Installation for Windows is coming soon (next release).
+An installer is available at [hurl_{{page.hurl-version}}-win64.zip](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl_{{page.hurl-version}}_win64.zip)
 
 
 ## Building {#building}
