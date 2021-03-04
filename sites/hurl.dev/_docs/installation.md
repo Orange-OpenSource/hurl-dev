@@ -49,7 +49,10 @@ hurl {{page.hurl-version}}
 
 ## Windows {#windows}
 
-An installer is available at [hurl_{{page.hurl-version}}-win64.zip](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl_{{page.hurl-version}}_win64.zip)
+An installer is available at [hurl-{{page.hurl-version}}-win64-installer.exe](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64-installer.exe)
+
+Hurl can also be installed from a standalone zip file [hurl-{{page.hurl-version}}-win64.zip](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64.zip).
+You will need to update your PATH variable.
 
 
 ## Building {#building}
