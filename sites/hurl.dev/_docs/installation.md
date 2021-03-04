@@ -55,6 +55,15 @@ Hurl can also be installed from a standalone zip file [hurl-{{page.hurl-version}
 You will need to update your PATH variable.
 
 
+## Cargo
+
+If you're a Rust programmer, Hurl can be installed with cargo.
+
+```
+cargo install hurl
+```
+
+
 ## Building {#building}
 
 Hurl can be build from source (available in [GitHub](https://github.com/Orange-OpenSource/hurl))

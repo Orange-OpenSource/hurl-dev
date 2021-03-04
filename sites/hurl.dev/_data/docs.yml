@@ -16,6 +16,7 @@
         - title: Linux
         - title: macOS
         - title: Windows
+        - title: Cargo
         - title: Building
         - title: Hurl - JVM Based
     - title: Samples
