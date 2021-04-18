@@ -4,7 +4,8 @@ from pathlib import Path
 from typing import Optional
 
 import sys
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
+
 
 class Option:
     def __init__(self, id_, name) -> None:
@@ -90,7 +91,13 @@ def main(man_page: Path) -> Optional[str]:
     h2_new = BeautifulSoup(h2_html, "html.parser")
     h2_old.replace_with(h2_new)
     [t.extract() for t in tags]
-    return str(soup)
+    html = soup.decode(formatter=None)
+
+    # Beautiful seems to have a bug with some html entitities...
+    # https://bugs.launchpad.net/beautifulsoup/+bug/1924908
+    html = html.replace("Hurl&RightArrowLeftArrow by CCMD Team", "Hurl&RightArrowLeftArrow; by CCMD Team")
+
+    return html
 
 
 if __name__ == "__main__":
