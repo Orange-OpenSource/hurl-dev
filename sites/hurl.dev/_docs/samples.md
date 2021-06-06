@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Samples
+section: Getting Started
 ---
 # {{ page.title }}
 

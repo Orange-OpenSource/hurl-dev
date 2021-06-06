@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: License
+section: Resources
 ---
 
 # {{ page.title }}

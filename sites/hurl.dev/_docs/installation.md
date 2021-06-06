@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Installation
+section: Getting Started
 hurl-version: 1.2.0
 ---
 # {{ page.title }}

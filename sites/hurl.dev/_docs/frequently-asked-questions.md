@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Frequently Asked Questions
+section: Getting Started
 ---
 
 # {{ page.title }}
