@@ -139,10 +139,24 @@ blockquote {
 }
 
 .side-nav {
-  width: 20%;
-  h3:first-child{
+  details summary {
+    cursor: pointer;
+  }
+
+  details summary > * {
+    display: inline;
+  }
+  details {
+    margin: $m5 0 $m2;
+  }
+  details summary {
+    margin-bottom: $m2;
+  }
+  details:first-child{
     margin-top: 0;
   }
+
+  width: 20%;
   ul {
     padding: 0;
   }
