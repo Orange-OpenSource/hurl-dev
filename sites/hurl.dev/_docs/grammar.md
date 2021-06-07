@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Grammar
+section: File Format
 ---
 # {{ page.title }}
 

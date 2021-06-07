@@ -1,5 +1,42 @@
 'use strict';
 
+function groupBy(xs, key) {
+    const map = new Map()
+    for (const x of xs) {
+        if (map.has(x[key])) {
+            map.get(x[key]).push(x);
+        } else {
+            map.set(x[key], [x]);
+        }
+    }
+    return map
+}
+
+/**
+ * This class implements a local search for the documentation.
+ * When searching query on the documentation, there is no server involved
+ * and the whole search is processed locally in the browser.
+ * To do so, a search index is loaded (/assets/data/index.json). The search index has the following structure:
+ * - hits: a key/value dictionary where key is a search token and value a list of search results (id of ref)
+ * - refs: search results
+ * - pages: indexed pages
+ * - anchors: index anchors
+ *
+ * Ref structure:
+ * - anchor: id of the anchor
+ * - content: text content of the search result
+ * - page: id of the page
+ * - start: start index of the result in the content
+ *
+ * Page structure:
+ * - section: name of the section containing this page
+ * - title: page title
+ * - url: page url
+ *
+ * Anchor structire:
+ * - title: anchor title
+ * - url: anchor url
+ */
 class Search {
 
     constructor(inputId, resultListId, resultTextId) {
@@ -48,11 +85,36 @@ class Search {
         let ul = document.createElement("ul");
         resultElmt.appendChild(ul);
 
-        for (let i = 0; i < hits.length; i++) {
-            const ref = this.index.refs[hits[i]];
-            const li = this.buildResultNode(ref, query);
-            ul.appendChild(li);
-        }
+        // Denormalized hits:
+        const {anchors, pages, refs} = this.index;
+        const results = hits.map(
+            it => {
+                const ref = refs[it];
+                const anchorId = ref.anchor;
+                const pageId = ref.page;
+                const anchor = anchors[anchorId];
+                const page = pages[pageId];
+                return {
+                    anchorTitle: anchor.title,
+                    anchorUrl: anchor.url,
+                    content: ref.content,
+                    pageTitle: page.title,
+                    pageSection: page.section,
+                    pageUrl: page.url,
+                    start: ref.start
+                }
+            });
+        // Group results by section:
+        const resultsMap = groupBy(results, "pageSection");
+        resultsMap.forEach((value, key) => {
+            const h3 = document.createElement("h3");
+            h3.innerHTML = `${key} (${value.length})`;
+            ul.appendChild(h3);
+            for(const result of value) {
+                const li = this.buildResultNode(result, query);
+                ul.appendChild(li);
+            }
+        });
     }
 
     updateResultText(count) {
@@ -84,11 +146,10 @@ class Search {
         xhr.send(null);
     }
 
-    buildResultNode(hit, query) {
-        const {page_title, page_url, anchor_title, anchor_url, content, search, start} = hit;
+    buildResultNode(result, query) {
         const li = document.createElement("li");
-        const contentMarked = this.highlightPos(content, query, start);
-        li.innerHTML = `<p class="search-result-link"><a href="${anchor_url}">${page_title} &gt; ${anchor_title}</a></p>
+        const contentMarked = this.highlightPos(result.content, query, result.start);
+        li.innerHTML = `<p class="search-result-link"><a href="${result.anchorUrl}">${result.pageTitle} &gt; ${result.anchorTitle}</a></p>
                         <p>${contentMarked}</p>`;
 
         //let json = JSON.stringify(hit, null, 4);

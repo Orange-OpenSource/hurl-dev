@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Asserting Response
+section: File Format
 ---
 
 # {{ page.title }}

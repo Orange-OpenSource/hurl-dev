@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Templates
+section: File Format
 ---
 # {{ page.title }}
 

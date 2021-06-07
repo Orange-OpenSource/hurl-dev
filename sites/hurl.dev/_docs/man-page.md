@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Man Page
+section: Getting Started
 ---
 # {{ page.title }}
 ## NAME {#name}

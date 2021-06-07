@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Hurl File
+section: File Format
 ---
 # {{ page.title }}
 

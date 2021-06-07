@@ -11,7 +11,7 @@
 
                 {% include side-nav.html docs=site.data.docs title=page.title%}
 
-                <div class="home-content indexed">
+                <div class="home-content" data-section="{{ page.section }}" data-indexed="true">
                     {{ content }}
                 </div>
 

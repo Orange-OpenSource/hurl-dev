@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Capturing Response
+section: File Format
 ---
 
 # {{ page.title }}

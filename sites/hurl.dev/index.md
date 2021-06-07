@@ -1,6 +1,7 @@
 ---
 layout: home
 title: Hurl - Run and Test HTTP Requests
+section: Home
 ---
 
 <div class="home-logo">

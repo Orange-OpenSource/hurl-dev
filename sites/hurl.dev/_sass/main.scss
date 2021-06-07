@@ -189,6 +189,10 @@ footer {
   padding: $m4 $m2;
 }
 
+.footer-rev {
+  cursor: pointer;
+}
+
 .footer-dev-by {
   margin-left: auto;
 }
@@ -271,6 +275,7 @@ footer {
   ul li {
     list-style-type: none;
     margin-bottom: $m5;
+    margin-left: $m4;
   }
 }
 
