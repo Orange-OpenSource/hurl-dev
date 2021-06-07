@@ -138,14 +138,15 @@ blockquote {
   padding-bottom: $m2;
 }
 
-.side-nav {
-  details summary {
-    cursor: pointer;
-  }
+details summary {
+  cursor: pointer;
+}
 
-  details summary > * {
-    display: inline;
-  }
+details summary > * {
+  display: inline;
+}
+
+.side-nav {
   details {
     margin: $m5 0 $m2;
   }
@@ -281,6 +282,10 @@ footer {
 
 .search-results {
   max-width: 768px;
+  summary{
+    margin-top: $m4;
+    margin-bottom: $m4;
+  }
 }
 
 .search-result-link {

@@ -82,8 +82,8 @@ class Search {
 
         this.updateResultText(hits.length);
 
-        let ul = document.createElement("ul");
-        resultElmt.appendChild(ul);
+        let div = document.createElement("div");
+        resultElmt.appendChild(div);
 
         // Denormalized hits:
         const {anchors, pages, refs} = this.index;
@@ -107,9 +107,20 @@ class Search {
         // Group results by section:
         const resultsMap = groupBy(results, "pageSection");
         resultsMap.forEach((value, key) => {
+            const details = document.createElement("details");
+            details.setAttribute("open", "");
+            div.appendChild(details);
+
+            const summary = document.createElement("summary");
+            details.appendChild(summary);
+
             const h3 = document.createElement("h3");
             h3.innerHTML = `${key} (${value.length})`;
-            ul.appendChild(h3);
+            summary.appendChild(h3);
+
+            const ul = document.createElement("ul");
+            details.appendChild(ul);
+
             for(const result of value) {
                 const li = this.buildResultNode(result, query);
                 ul.appendChild(li);
