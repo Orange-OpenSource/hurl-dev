@@ -113,6 +113,7 @@ blockquote {
 
 .top-nav-logo {
   margin-right: auto;
+  line-height: 44px;
 }
 
 .top-nav-logo-img {
@@ -260,6 +261,11 @@ footer {
   margin-top: 72px;
 }
 
+.home-logo {
+  margin-top: $m4;
+  margin-bottom: $m4;
+}
+
 .home-content {
   padding: 0;
   margin-left: 0;
@@ -333,7 +339,7 @@ footer {
 }
 
 .search {
-  margin: 0 auto;
+  margin: 72px auto 0 auto;
   padding: $m2;
   ul {
     padding: 0;
@@ -343,7 +349,7 @@ footer {
     margin-bottom: $m5;
     margin-left: $m4;
   }
-  min-height: calc(100vh - 156px);
+  min-height: calc(100vh - 205px);
 }
 
 .search-results {
