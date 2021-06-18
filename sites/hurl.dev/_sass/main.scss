@@ -93,7 +93,9 @@ blockquote {
 
 .top-nav {
   padding: $m2;
-  position: fixed;
+  @media only screen and (min-width: $md) {
+    position: fixed;
+  }
   top: 0;
   width: 100%;
   max-width: 1200px;
@@ -157,7 +159,7 @@ details summary > * {
 
 .side-nav {
   position: fixed;
-  width: 222px;
+  width: 202px;
   height: calc(100vh - 90px);
   overflow-y: auto;
 
@@ -223,11 +225,11 @@ footer {
   background-color: $footer-background-color-light;
   background-color: var(--footer-background-color);
   @media only screen and (min-width: $md) {
-    margin-left: 216px;
+    margin-left: 208px;
     width: calc(100% - 200px);
   }
   @media only screen and (min-width: $lg) {
-    margin-left: 216px;
+    margin-left: 208px;
     width: calc(85% - 200px);
   }
 }
@@ -235,7 +237,7 @@ footer {
 .home-footer .footer-content {
   @media only screen and (min-width: $md) {
     max-width: 768px;
-    width: calc(100% - 216px);
+    width: calc(100% - 208px);
   }
 }
 
@@ -258,7 +260,10 @@ footer {
 .home {
   display: flex;
   padding: $m2;
-  margin-top: 72px;
+
+  @media only screen and (min-width: $md) {
+    margin-top: 72px;
+  }
 }
 
 .home-logo {
@@ -271,17 +276,19 @@ footer {
   margin-left: 0;
   width: 100%;
   @media only screen and (min-width: $md) {
-    margin-left: 216px;
+    margin-left: 208px;
     padding: $m2;
     max-width: 768px;
-    width: calc(100% - 216px);
+    width: calc(100% - 208px);
   }
 }
 
 .doc {
   display: flex;
   padding: $m2 $m2 0 $m2;
-  margin-top: 72px;
+  @media only screen and (min-width: $md) {
+    margin-top: 72px;
+  }
 }
 
 .doc-content {
@@ -290,12 +297,12 @@ footer {
   width: 100%;
   min-height: calc(100vh - 244px);
   @media only screen and (min-width: $md) {
-    margin-left: 216px;
+    margin-left: 208px;
     padding: $m2;
     width: calc(100% - 200px);
   }
   @media only screen and (min-width: $lg) {
-    margin-left: 216px;
+    margin-left: 208px;
     padding: $m2;
     width: calc(85% - 200px);
   }
@@ -339,7 +346,10 @@ footer {
 }
 
 .search {
-  margin: 72px auto 0 auto;
+  margin: 0 auto;
+  @media only screen and (min-width: $md) {
+    margin-top: 72px
+  }
   padding: $m2;
   ul {
     padding: 0;
