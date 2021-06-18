@@ -93,11 +93,22 @@ blockquote {
 
 .top-nav {
   padding: $m2;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: $background-color-light;
+  background-color: var(--background-color);
+  //border-bottom: 1px solid $separator-color-light;
+  //border-bottom: 1px solid var(--separator-color);
+  box-shadow: 0 4px 8px -8px gray;
 }
 
 .top-nav-header {
   display: flex;
   justify-content: flex-end;
+  height: 37px;
 }
 
 .top-nav-logo {
@@ -116,6 +127,7 @@ blockquote {
 .top-nav-links {
   display: flex;
   font-weight: bold;
+  line-height: 37px;
   color: $secondary-color-light;
   color: var(--secondary-color);
 }
@@ -132,10 +144,6 @@ blockquote {
     list-style-type: none;
     margin-bottom: $m1;
   }
-  border-bottom: 1px solid;
-  border-bottom-color: $separator-color-light;
-  border-bottom-color: var(--separator-color);
-  padding-bottom: $m2;
 }
 
 details summary {
@@ -147,6 +155,11 @@ details summary > * {
 }
 
 .side-nav {
+  position: fixed;
+  width: 222px;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+
   details {
     margin: $m5 0 $m2;
   }
@@ -157,7 +170,6 @@ details summary > * {
     margin-top: 0;
   }
 
-  width: 20%;
   ul {
     padding: 0;
   }
@@ -169,10 +181,9 @@ details summary > * {
 }
 
 .side-nav-toc-toplevel {
-  top: 0;
-  position: sticky;
 }
 
+/*
 footer {
   border-top: 1px solid;
   border-top-color: $separator-color-light;
@@ -181,14 +192,59 @@ footer {
   background-color: $footer-background-color-light;
   background-color: var(--footer-background-color);
   margin-top: $m5;
+}*/
+
+footer {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .footer {
-  display:flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: $m4 $m2;
+  padding-left: 0;
+  padding-right: 0;
+
+  @media only screen and (min-width: $md) {
+    padding-left: $m2;
+    padding-right: $m2;
+  }
 }
+
+.footer-content {
+  display:flex;
+  margin-left: 0;
+  margin-top: $m5;
+  padding: $m4 $m2;
+  width: 100%;
+  color: $dark-grey;
+  border-top: 1px solid;
+  border-top-color: $separator-color-light;
+  border-top-color: var(--separator-color);
+  background-color: $footer-background-color-light;
+  background-color: var(--footer-background-color);
+  @media only screen and (min-width: $md) {
+    margin-left: 216px;
+    width: calc(100% - 200px);
+  }
+  @media only screen and (min-width: $lg) {
+    margin-left: 216px;
+    width: calc(85% - 200px);
+  }
+}
+
+.home-footer .footer-content {
+  @media only screen and (min-width: $md) {
+    max-width: 768px;
+    width: calc(100% - 216px);
+  }
+}
+
+.search-footer .footer-content {
+  margin-left: 0;
+  max-width: 768px;
+  width: 100%;
+}
+
+
 
 .footer-rev {
   cursor: pointer;
@@ -201,32 +257,41 @@ footer {
 .home {
   display: flex;
   padding: $m2;
+  margin-top: 72px;
 }
 
 .home-content {
   padding: 0;
+  margin-left: 0;
   width: 100%;
   @media only screen and (min-width: $md) {
+    margin-left: 216px;
     padding: $m2;
-    width: 768px;
+    max-width: 768px;
+    width: calc(100% - 216px);
   }
 }
 
 .doc {
   display: flex;
-  padding: $m2;
+  padding: $m2 $m2 0 $m2;
+  margin-top: 72px;
 }
 
 .doc-content {
+  margin-left: 0;
   padding: 0;
   width: 100%;
+  min-height: calc(100vh - 244px);
   @media only screen and (min-width: $md) {
+    margin-left: 216px;
     padding: $m2;
-    width: 80%;
+    width: calc(100% - 200px);
   }
   @media only screen and (min-width: $lg) {
+    margin-left: 216px;
     padding: $m2;
-    width: 70%;
+    width: calc(85% - 200px);
   }
 }
 
@@ -278,6 +343,7 @@ footer {
     margin-bottom: $m5;
     margin-left: $m4;
   }
+  min-height: calc(100vh - 156px);
 }
 
 .search-results {

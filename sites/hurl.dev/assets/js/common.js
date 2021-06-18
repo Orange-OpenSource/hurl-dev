@@ -12,8 +12,8 @@ function toggleMenu() {
 // Courtesy of https://derekkedziora.com/blog/dark-mode-revisited
 // Source code from: https://github.com/derekkedziora/jekyll-demo
 
-const lightElem = "Theme <i class='fas fa-sun'></i>";
-const darkElem = "Theme <i class='fas fa-moon'></i>";
+const lightElem = "<i class='fas fa-sun'></i> Theme";
+const darkElem = "<i class='fas fa-moon'></i> Theme";
 
 
 // This checks whether system dark mode is set
