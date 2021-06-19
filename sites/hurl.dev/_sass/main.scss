@@ -4,6 +4,13 @@
 @import "boxsizing";
 @import "utilities";
 
+html {
+  scroll-padding-top: 16px; /* add some space to the anchor */
+  @media only screen and (min-width: $md) {
+    scroll-padding-top: 85px; /* height of sticky header */
+  }
+}
+
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 1.125rem; /* 18 px */
@@ -431,7 +438,6 @@ table tr:nth-child(2n+1) {
   background-color: $row-n1-light;
   background-color: var(--row-n1);
 }
-
 
 @import "code";
 @import "grammar";

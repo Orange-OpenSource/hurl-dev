@@ -22,13 +22,13 @@
                     <a href="https://github.com/Orange-OpenSource/hurl" alt="GitHub">GitHub</a>
                 </div>
                 <div class="top-nav-link u-d-block-md">
-                    <a class="menu_link" role="button" href="#" alt="Theme" id="theme-toggle" onclick="modeSwitcher()('dark')"></a>
+                    <a class="menu_link u-underline u-pointer" role="button" alt="Theme" id="theme-toggle" onclick="modeSwitcher()"></a>
                 </div>
                 <div class="top-nav-link">
                     <a class="search_link" href="{{ "/search.html" | relative_url }}" aria-selected={% if page.url contains "/search" %}"true"{% else %}"false"{% endif %} alt="Search"><i class="fa fa-search">&nbsp;</i>Search</a>
                 </div>
                 <div class="top-nav-link u-d-none-md">
-                    <a class="menu_link" role="button" href="#" alt="Menu" onclick="toggleMenu()"><i class="fa fa-bars">&nbsp;</i>Menu</a>
+                    <a class="menu_link u-underline u-pointer" role="button" alt="Menu" onclick="toggleMenu()"><i class="fa fa-bars">&nbsp;</i>Menu</a>
                 </div>
             </div>
         </nav>
