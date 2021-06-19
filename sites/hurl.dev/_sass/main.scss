@@ -259,8 +259,6 @@ footer {
   width: 100%;
 }
 
-
-
 .footer-dev-by {
   margin-left: auto;
 }
@@ -289,6 +287,39 @@ footer {
     max-width: 768px;
     width: calc(100% - 208px);
   }
+}
+
+.showcase-container {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.showcase-item {
+  width: 100%;
+  margin: 0;
+  @media only screen and (min-width: $md) {
+    width: 31%;
+    margin-left: $m1;
+    margin-right: $m1;
+  }
+}
+
+.showcase-item:first-child {
+  @media only screen and (min-width: $md) {
+    margin-left: 0;
+  }
+}
+
+.showcase-item:last-child {
+  @media only screen and (min-width: $md) {
+    margin-right: 0;
+  }
+}
+
+.showcase-item-title {
+  margin-top: $m2;
 }
 
 .doc {

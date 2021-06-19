@@ -103,6 +103,16 @@ HTTP/1.0 200
 duration lessThan 1000  # Duration in ms
 ```
 
+# Why Hurl?
+
+<ul class="showcase-container">
+ <li class="showcase-item"><h2 class="showcase-item-title">Text Format</h2>For both devops and developers</li>
+ <li class="showcase-item"><h2 class="showcase-item-title">Fast CLI</h2>A command line for local dev and continuous 
+integration</li>
+ <li class="showcase-item"><h2 class="showcase-item-title">Single Binary</h2>Easy to install, with no runtime 
+required</li>
+</ul>
+
 # Powered by curl
 
 Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org). Under the hood, Hurl HTTP engine is
@@ -110,11 +120,7 @@ Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org). Under
  With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, but it's still the [curl](https://curl.se)
  that we love.
 
-# Why Hurl?
 
-- Text format for both devops and developers
-- Fast command-line for both local dev and continuous integration
-- Single binary, easy to install, with no runtime required
 
 # Installation
 
