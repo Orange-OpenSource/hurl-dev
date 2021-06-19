@@ -93,6 +93,10 @@ blockquote {
   margin-bottom: $m3;
 }
 
+small {
+  color: $dark-grey;
+}
+
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -241,6 +245,7 @@ footer {
   }
 }
 
+
 .home-footer .footer-content {
   @media only screen and (min-width: $md) {
     max-width: 768px;
@@ -255,10 +260,6 @@ footer {
 }
 
 
-
-.footer-rev {
-  cursor: pointer;
-}
 
 .footer-dev-by {
   margin-left: auto;
@@ -331,7 +332,7 @@ footer {
 
 .doc-toc {
   font-size: 0.9rem;
-  padding: $m2;
+  padding: $m2 0 $m2 $m2;
   color: $medium-grey;
   width: 15%;
   h3:first-child{

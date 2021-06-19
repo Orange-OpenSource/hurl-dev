@@ -107,8 +107,8 @@ duration lessThan 1000  # Duration in ms
 
 Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org). Under the hood, Hurl HTTP engine is
  powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and reliable file transfer library.
- With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, but it's still the curl that
-  we love.
+ With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, but it's still the [curl](https://curl.se)
+ that we love.
 
 # Why Hurl?
 
