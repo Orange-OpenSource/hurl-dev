@@ -44,7 +44,7 @@
                 {% if li1.url %}
                     <a href="{{ li1.url }}">{{ li1.title }}</a>
                 {% else %}
-                    {% capture url %}/docs/{{ li1.title | slugify }}.html{% endcapture %}
+                    {% capture url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
                     <a {% if li1.title == include.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
                 {% endif %}
             </li>

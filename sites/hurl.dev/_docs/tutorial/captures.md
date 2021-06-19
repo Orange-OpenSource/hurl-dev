@@ -311,7 +311,7 @@ of a redirection.
 [CSRF token]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
 [`403 Forbidden`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
 [`302 Found`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302
-[Adding asserts tutorial part]: {% link _docs/adding-asserts.md %}#structure-of-an-assert
+[Adding asserts tutorial part]: {% link _docs/tutorial/adding-asserts.md %}#structure-of-an-assert
 [XPath capture]: {% link _docs/capturing-response.md %}#xpath-capture
 [JSONPath capture]: {% link _docs/capturing-response.md %}#jsonpath-capture
 [capture cookie value]: {% link _docs/capturing-response.md %}#cookie-capture

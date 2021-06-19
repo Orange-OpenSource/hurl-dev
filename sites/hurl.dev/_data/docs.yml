@@ -1,4 +1,5 @@
 - title: Getting Started
+  path: /docs/
   items:
     - title: Man Page
       items:
@@ -51,6 +52,7 @@
         - title: How to report results in a CI pipeline?
         - title: How can I use my Hurl files outside Hurl?
 - title: File Format
+  path: /docs/
   items:
     - title: Hurl File
       items:
@@ -142,6 +144,7 @@
         - title: Injecting Variables
         - title: Templating Body
 - title: Tutorial
+  path: /docs/tutorial/
   items:
     - title: Your First Hurl File
       items:
@@ -176,6 +179,7 @@
         - title: Recap
     - title: CI/CD Integration
 - title: Resources
+  path: /docs/
   items:
     - title: License
     - title: GitHub
