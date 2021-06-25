@@ -48,6 +48,10 @@ echo 'Add title anchors...'
 echo '-------------------'
 python3 build_anchors.py
 
+echo 'Generating sitemap...'
+echo '-------------------'
+python3 build_sitemap.py > hurl.dev/_site/sitemap.txt
+
 
 # Run local site
 # jekyll serve --source hurl.dev --destination hurl.dev/_site
