@@ -11,7 +11,15 @@
 
                 {% include side-nav.html docs=site.data.docs title=page.title%}
 
-                <div class="doc-content" data-section="{{ page.section }}" data-indexed="true">
+                {% if page.indexed == nil %}
+                    {% assign indexed = "true" %}
+                {% elsif page.indexed %}
+                    {% assign indexed = "true" %}
+                {% else %}
+                    {% assign indexed = "false" %}
+                {% endif %}
+
+                <div class="doc-content" data-section="{{ page.section }}" data-indexed="{{ indexed }}">
 
                     {{ content }}
 
