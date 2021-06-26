@@ -13,10 +13,10 @@ section: Home
 
 # What's Hurl?
 
-Hurl is a command line tool that runs HTTP requests defined in a simple plain text format.
+Hurl is a command line tool that runs <b>HTTP requests</b> defined in a simple <b>plain text format</b>.
 
-It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very versatile:
-it can be used for both fetching data and testing HTTP sessions.
+It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very 
+versatile: it can be used for both <b>fetching data</b> and <b>testing HTTP</b> sessions.
 
 {% raw %}
 ```hurl
@@ -46,19 +46,11 @@ GET https://api.example.net/step3
 
 # Also an HTTP Test Tool
 
-Hurl can run HTTP requests but can also be used to test HTTP responses.
-Different types of queries and predicates are supported, from [XPath](https://en.wikipedia.org/wiki/XPath)
-and [JSONPath](https://goessner.net/articles/JsonPath/) on body response, to assert on status code and response headers.
+Hurl can run HTTP requests but can also be used to <b>test HTTP responses</b>.
+Different types of queries and predicates are supported, from [XPath] and [JSONPath] on body response, 
+to assert on status code and response headers.
 
-```hurl
-GET https://example.net
-
-HTTP/1.1 200
-[Asserts]
-xpath "normalize-space(//head/title)" equals "Hello world!"
-```
-
-It is well adapted for REST/json apis
+It is well adapted for <b>REST / JSON apis</b>
 
 ```hurl
 POST https://api.example.net/tests
@@ -72,6 +64,16 @@ HTTP/1.1 200
 jsonpath "$.status" equals "RUNNING"      # Check the status code
 jsonpath "$.tests" countEquals 25         # Check the number of items
 
+```
+
+<b>HTML content</b>
+
+```hurl
+GET https://example.net
+
+HTTP/1.1 200
+[Asserts]
+xpath "normalize-space(//head/title)" equals "Hello world!"
 ```
 
 and even SOAP apis
@@ -115,21 +117,19 @@ required</li>
 
 # Powered by curl
 
-Hurl is a lightweight binary written in [Rust](https://www.rust-lang.org). Under the hood, Hurl HTTP engine is
- powered by [libcurl](https://curl.haxx.se/libcurl/), one of the most powerful and reliable file transfer library.
- With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, but it's still the [curl](https://curl.se)
- that we love.
-
-
+Hurl is a lightweight binary written in [Rust]. Under the hood, Hurl HTTP engine is 
+powered by [libcurl], one of the most powerful and reliable file transfer library. 
+With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, 
+but it's still the [curl] that we love.
 
 # Installation
 
-See the [the installation section]({% link _docs/installation.md %}).
+See the [the installation section].
 
 # Feedbacks
 
-Hurl file format and runners are still in beta, any [feedback, suggestion, bugs or improvements](https://github.com/Orange-OpenSource/hurl/issues)
- are welcome.
+Hurl file format and runners are still in beta, any [feedback, suggestion, bugs or improvements] 
+are welcome.
 
 ```hurl
 POST https://hurl.dev/api/feedback
@@ -142,9 +142,18 @@ HTTP/1.1 200
 
 # Resources
 
-[License]({% link _docs/license.md %})
+[License]
 
-[Documentation]({% link _docs/man-page.md %})
+[Documentation]
 
-[GitHub](https://github.com/Orange-OpenSource/hurl)
+[GitHub]
 
+[XPath]: https://en.wikipedia.org/wiki/XPath
+[JSONPath]: https://goessner.net/articles/JsonPath/
+[Rust]: https://www.rust-lang.org
+[curl]: https://curl.se
+[the installation section]: {% link _docs/installation.md %}
+[feedback, suggestion, bugs or improvements]: https://github.com/Orange-OpenSource/hurl/issues
+[License]: {% link _docs/license.md %}
+[Documentation]: {% link _docs/man-page.md %}
+[GitHub]: https://github.com/Orange-OpenSource/hurl
