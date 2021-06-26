@@ -157,3 +157,4 @@ HTTP/1.1 200
 [License]: {% link _docs/license.md %}
 [Documentation]: {% link _docs/man-page.md %}
 [GitHub]: https://github.com/Orange-OpenSource/hurl
+[libcurl]: https://curl.se/libcurl/
