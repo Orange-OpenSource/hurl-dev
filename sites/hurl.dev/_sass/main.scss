@@ -14,9 +14,6 @@ html {
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 1.125rem; /* 18 px */
-  //@media only screen and (max-width: $sm) {
-  //  font-size: 1rem;
-  //}
   line-height: 1.4;
   background-color: $background-color-light;
   background-color: var(--background-color);
@@ -471,5 +468,8 @@ table tr:nth-child(2n+1) {
   background-color: var(--row-n1);
 }
 
+
+
 @import "code";
 @import "grammar";
+@import "schema";

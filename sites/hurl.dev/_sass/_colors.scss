@@ -30,6 +30,11 @@ $hurl-query-type-light: teal;
 $hurl-predicate-type-light: darkblue;
 $hurl-comment-light: dimgray;
 
+$schema-token-1-light: #0000ff;
+$schema-token-2-light: #009900;
+$schema-token-3-light: #ff8000;
+
+
 // Dark theme
 $background-color-dark: #19191c;
 $primary-color-dark: #ff0288;
@@ -55,6 +60,11 @@ $hurl-query-type-dark: cyan;
 $hurl-predicate-type-dark: orange;
 $hurl-comment-dark: dimgray;
 
+$schema-token-1-dark: #007fff;
+$schema-token-2-dark: #009900;
+$schema-token-3-dark: #ff8000;
+
+
 html, html[data-theme="light"] {
   --background-color: #{$background-color-light};
   --primary-color: #{$primary-color-light};
@@ -78,6 +88,10 @@ html, html[data-theme="light"] {
   --marked-text: #{$marked-text-light};
   --row-n0: #{$row-n0-light};
   --row-n1: #{$row-n1-light};
+  --schema-token-1: #{$schema-token-1-light};
+  --schema-token-2: #{$schema-token-2-light};
+  --schema-token-3: #{$schema-token-3-light};
+
   .light-img {
     display: inline-block;
   }
@@ -109,6 +123,10 @@ html[data-theme="dark"] {
   --marked-text: #{$marked-text-dark};
   --row-n0: #{$row-n0-dark};
   --row-n1: #{$row-n1-dark};
+  --schema-token-1: #{$schema-token-1-dark};
+  --schema-token-2: #{$schema-token-2-dark};
+  --schema-token-3: #{$schema-token-3-dark};
+
   .light-img {
     display: none;
   }
@@ -141,6 +159,10 @@ html[data-theme="dark"] {
     --marked-text: #{$marked-text-dark};
     --row-n0: #{$row-n0-dark};
     --row-n1: #{$row-n1-dark};
+    --schema-token-1: #{$schema-token-1-dark};
+    --schema-token-2: #{$schema-token-2-dark};
+    --schema-token-3: #{$schema-token-3-dark};
+
     .light-img {
       display: none;
     }
@@ -172,6 +194,10 @@ html[data-theme="dark"] {
     --marked-text: #{$marked-text-light};
     --row-n0: #{$row-n0-light};
     --row-n1: #{$row-n1-light};
+    --schema-token-1: #{$schema-token-1-light};
+    --schema-token-2: #{$schema-token-2-light};
+    --schema-token-3: #{$schema-token-3-light};
+
     .light-img {
       display: inline-block;
     }

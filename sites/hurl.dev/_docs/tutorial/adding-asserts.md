@@ -33,10 +33,13 @@ the same structure. So, let's look how to write a [XPath asserts].
 ## HTML Body Test
 
 ### Structure of an assert
- 
-<div class="drawing">
-    <img class="light-img" src="{{ '/assets/img/assert-light.svg' | prepend:site.baseurl }}" width="400px"/>
-    <img class="dark-img" src="{{ '/assets/img/assert-dark.svg' | prepend:site.baseurl }}" width="400px"/>
+
+<div class="schema-container schema-container u-font-size-1 u-font-size-2-sm u-font-size-3-md">
+ <div class="schema">
+   <span class="schema-token schema-color-2">xpath "string(//h1)"<span class="schema-label">query</span></span>
+   <span class="schema-token schema-color-1">contains<span class="schema-label">predicate type</span></span>
+   <span class="schema-token schema-color-3">"Hello"<span class="schema-label">predicate value</span></span>
+ </div>
 </div>
 
 An assert consists of a query and a predicate. As we want to test the value of the HTML title tag, we're 

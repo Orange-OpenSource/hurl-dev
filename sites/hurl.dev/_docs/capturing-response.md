@@ -41,9 +41,12 @@ HTTP/1.1 302
 
 Structure of a capture:
 
-<div class="drawing">
-    <img class="light-img" src="{{ '/assets/img/capture-light.svg' | prepend:site.baseurl }}" width="300px"/>
-    <img class="dark-img" src="{{ '/assets/img/capture-dark.svg' | prepend:site.baseurl }}" width="300px"/>
+<div class="schema-container schema-container u-font-size-2 u-font-size-3-sm">
+ <div class="schema">
+   <span class="schema-token schema-color-1">my_var<span class="schema-label">variable</span></span>
+   <span> : </span>
+   <span class="schema-token schema-color-2">xpath "string(//h1)"<span class="schema-label">query</span></span>
+ </div>
 </div>
 
 A capture consists of a variable name, followed by `:` and a query. The captures section starts with `[Captures]`.
@@ -270,10 +273,12 @@ duration_in_ms: duration
 
 Optionally, the query can be refined using a subquery. Currently, only `regex` are supported:
 
- <div class="drawing">
-     <img class="light-img" src="{{ '/assets/img/subquery-light.svg' | prepend:site.baseurl }}" width="400px"/>
-     <img class="dark-img" src="{{ '/assets/img/subquery-dark.svg' | prepend:site.baseurl }}" width="400px"/>
+<div class="schema-container u-font-size-0 u-font-size-1-sm u-font-size-3-md">
+ <div class="schema">
+   <span class="schema-token schema-color-1">my_var<span class="schema-label">variable</span></span>
+   <span> : </span>
+   <span class="schema-token schema-color-2">xpath "string(//h1)"<span class="schema-label">query</span></span>
+   <span class="schema-token">regex "(\\d+)"<span class="schema-label">subquery (optionnel)</span></span>
  </div>
-
-
+</div>
 
