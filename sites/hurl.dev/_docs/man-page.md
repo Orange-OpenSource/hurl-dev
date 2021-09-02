@@ -1,7 +1,6 @@
 ---
 layout: doc
 title: Man Page
-section: Getting Started
 ---
 # {{ page.title }}
 ## NAME {#name}
@@ -39,7 +38,7 @@ $ echo GET http://httpbin.org/get | hurl
         "Content-Length": "0",
         "Host": "httpbin.org",
         "User-Agent": "hurl/0.99.10",
-        "X-Amzn-Trace-Id": "Root=1-5eedf4c7-520814d64e2f9249ea44e0f0"
+        "X-Amzn-Trace-Id": "Root=1-5eedf4c7-520814d64e2f9249ea44e0"
       },
       "origin": "1.2.3.4",
       "url": "http://httpbin.org/get"
@@ -281,6 +280,19 @@ Ignore the remaining of the file. It is useful for debugging a session.
 
 Write output to &lt;file> instead of stdout.
 
+
+### \-\-progress {#progress}
+
+Print filename and status for each test
+
+
+### \-\-summary {#summary}
+
+Print test metrics at the end of the run
+
+### \-\-test {#test}
+
+Activate test mode; equals \-\-output /dev/null \-\-progress \-\-summary
 
 
 ### -x, \-\-proxy [protocol://]host[:port] {#proxy}
