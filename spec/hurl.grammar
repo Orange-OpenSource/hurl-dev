@@ -97,18 +97,21 @@ cookie-value =  <(alphanum | "!" | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*"
 
 
 capture = lt*
-          sp* key-string sp* ":" sp* query (sp sp* subquery)? lt
+          sp* key-string sp* ":" sp* query lt
 
+query = main-query (sp sp* subquery)?
 
-query = status-query
-      | header-query
-      | cookie-query
-      | body-query
-      | xpath-query
-      | jsonpath-query
-      | regex-query
-      | variable-query
-      | duration-query
+main-query = status-query
+           | header-query
+           | cookie-query
+           | body-query
+           | xpath-query
+           | jsonpath-query
+           | regex-query
+           | variable-query
+           | duration-query
+           | bytes-query
+           | sha256-query
 
 status-query = "status"
 
@@ -128,11 +131,15 @@ variable-query = "variable" sp sp* quoted-string
 
 duration = "duration"
 
+sha256-query = "sha256"
 
-subquery = regex-subquery
+bytes-query = "bytes"
+
+subquery = regex-subquery | count-subquery
 
 regex-subquery = "regex" sp sp* quoted-string
 
+count-subquery = "count"
 
 
 assert = lt*
@@ -142,12 +149,13 @@ assert = lt*
 predicate = ("not" sp sp*)? predicate-func
 
 predicate-func = equal-predicate
+               | not-equal-predicate
                | greater-predicate
                | greater-or-equal-predicate
                | less-predicate
                | less-or-equal-predicate
-               | count-predicate
                | start-with-predicate
+               | end-with-predicate
                | contain-predicate
                | match-predicate
                | exist-predicate
@@ -158,19 +166,22 @@ predicate-func = equal-predicate
                | string-predicate
                | collection-predicate
 
-equal-predicate = "equals" sp sp* (null | float | integer | boolean | quoted-string | expr)
 
-greater-predicate = "greaterThan" sp sp* (integer | float)
+equal-predicate = ("equals" | "==") sp sp* (null | float | integer | boolean | quoted-string | raw-string | hex | base64 | expr)
 
-greater-or-equal-predicate = "greaterThanOrEquals" sp sp* (integer | float)
+not-equal-predicate = ("notEquals" | "!=") sp sp* (null | float | integer | boolean | quoted-string | raw-string | hex | base64 | expr)
 
-less-predicate = "lessThan" sp sp* (integer | float)
+greater-predicate = ("greaterThan" | ">") sp sp* (integer | float)
 
-less-or-equal-predicate = "lessThanOrEquals" sp sp* (integer | float)
+greater-or-equal-predicate = ("greaterThanOrEquals" | ">=") sp sp* (integer | float)
 
-count-predicate = "countEquals" sp sp* integer
+less-predicate = ("lessThan" | "<") sp sp* (integer | float)
 
-start-with-predicate = "startsWith" sp sp* quoted-string
+less-or-equal-predicate = ("lessThanOrEquals" | "<=") sp sp* (integer | float)
+
+start-with-predicate = "startsWith" sp sp* (quoted-string | hex | base64)
+
+end-with-predicate = "endsWith" sp sp* (quoted-string | hex | base64)
 
 contain-predicate = "contains" sp sp* quoted-string
 
@@ -222,13 +233,15 @@ bytes = json
       | raw-string
       | base64
       | file
+      | hex
 
 raw-string = "```" (sp* newline)? (any characters) "```"
-
 
 base64 = "base64," <base64 encoding with optional whitesp/padding> ";"
 
 file = "file," sp* filename sp* ";"
+
+hex = "hex," sp* hexdigit* sp* ";"
 
 lt = sp* comment? (newline | eof)
 
