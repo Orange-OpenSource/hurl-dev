@@ -61,8 +61,8 @@ POST https://api.example.net/tests
 
 HTTP/1.1 200
 [Asserts]
-jsonpath "$.status" equals "RUNNING"      # Check the status code
-jsonpath "$.tests" countEquals 25         # Check the number of items
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
 
 ```
 
@@ -73,7 +73,7 @@ GET https://example.net
 
 HTTP/1.1 200
 [Asserts]
-xpath "normalize-space(//head/title)" equals "Hello world!"
+xpath "normalize-space(//head/title)" == "Hello world!"
 ```
 
 and even SOAP apis
@@ -102,7 +102,7 @@ GET http://api.example.org/v1/pets
 
 HTTP/1.0 200
 [Asserts]
-duration lessThan 1000  # Duration in ms
+duration < 1000  # Duration in ms
 ```
 
 # Why Hurl?

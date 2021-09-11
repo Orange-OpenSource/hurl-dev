@@ -208,7 +208,7 @@ HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 [Asserts]
-xpath "//comment" countEquals 0     # Check that we don't leak comments
+xpath "//comment" count == 0     # Check that we don't leak comments
 
 # ...
 ```
@@ -235,7 +235,7 @@ HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 [Asserts]
-xpath "//comment" countEquals 0     # Check that we don't leak comments
+xpath "//comment" count == 0     # Check that we don't leak comments
 
 # Create a new quiz, using the captured CSRF token.
 POST http://localhost:8080/new-quiz

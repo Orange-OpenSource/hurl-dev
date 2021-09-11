@@ -27,8 +27,8 @@ GET http://api/.example.net/pets
 HTTP/1.0 *
 # Check that response status code is > 400 and <= 500
 [Asserts]
-status greaterThan 400
-status lessThanOrEquals 500
+status > 400
+status <= 500
 ```
  
 
@@ -169,7 +169,7 @@ GET https://example.net/home
 
 HTTP/1.1 200
 [Asserts]
-xpath "boolean(count(//h1))" equals true
+xpath "boolean(count(//h1))" == true
 xpath "//h1" exists # Equivalent but simpler
 ```
 
@@ -192,7 +192,7 @@ GET https://example.net/home
 
 HTTP/1.1 200
 [Asserts]
-xpath "string(//article/@data-visible)" equals "true"
+xpath "string(//article/@data-visible)" == "true"
 ```
 
 In this case, the XPath query `string(//article/@data-visible)` returns a string, so the predicate value must be a
@@ -208,10 +208,10 @@ GET https://example.net/home
 HTTP/1.1 200
 [Asserts]
 header "Content-Type" contains "text/html"
-header "Last-Modified" equals "Wed, 21 Oct 2015 07:28:00 GMT"
+header "Last-Modified" == "Wed, 21 Oct 2015 07:28:00 GMT"
 xpath "//h1" exists  # Check we've at least one h1
 xpath "normalize-space(//h1)" contains "Welcome"
-xpath "//h2" countEquals 13
+xpath "//h2" count == 13
 xpath "string(//article/@data-id)" startsWith "electric"
 ```
 
@@ -225,7 +225,7 @@ GET https://example.net
 
 HTTP/1.1 *
 [Asserts]
-status lessThan 300
+status < 300
 ```
 
 ### Header assert {#header-assert}
@@ -264,13 +264,13 @@ Set-Cookie: SSID=Ap4PGTEq; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 
 
 # Using cookie assert, one can check cookie value and various attributes.
 [Asserts]
-cookie "LSID" equals "DQAAAKEaem_vYg"
-cookie "LSID[Value]" equals "DQAAAKEaem_vYg"
+cookie "LSID" == "DQAAAKEaem_vYg"
+cookie "LSID[Value]" == "DQAAAKEaem_vYg"
 cookie "LSID[Expires]" exists
 cookie "LSID[Expires]" contains "Wed, 13 Jan 2021"
 cookie "LSID[Max-Age]" not exists
 cookie "LSID[Domain]" not exists
-cookie "LSID[Path]" equals "/accounts"
+cookie "LSID[Path]" == "/accounts"
 cookie "LSID[Secure]" exists
 cookie "LSID[HttpOnly]" exists
 cookie "LSID[SameSite]" equals "Lax"
@@ -337,9 +337,9 @@ Content-Type: text/html; charset=UTF-8
 
 [Asserts]
 xpath "string(/html/head/title)" contains "Example" # Check title
-xpath "count(//p)" equals 2                         # Check the number of p
-xpath "//p" countEquals 2                           # Similar assert for p
-xpath "boolean(count(//h2))" equals false           # Check there is no h2  
+xpath "count(//p)" == 2                             # Check the number of p
+xpath "//p" count == 2                              # Similar assert for p
+xpath "boolean(count(//h2))" == false               # Check there is no h2  
 xpath "//h2" not exists                             # Similar assert for h2 
 ```
 
@@ -382,10 +382,10 @@ GET http://httpbin.org/json
 HTTP/1.1 200
 
 [Asserts]
-jsonpath "$.slideshow.author" equals "Yours Truly"
+jsonpath "$.slideshow.author" == "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
-jsonpath "$.slideshow.slides" countEquals 2
-jsonpath "$.slideshow.date" not equals null
+jsonpath "$.slideshow.slides" count == 2
+jsonpath "$.slideshow.date" not == null
 jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 ```
 
@@ -402,7 +402,7 @@ HTTP/* 200
 [Captures]
 pets: xpath "//pets"
 [Asserts]
-variable "pets" countEquals 200
+variable "pets" count == 200
 ```
 
 ### Duration assert {#duration-assert}
@@ -414,7 +414,7 @@ GET https://sample.org/helloworld
 
 HTTP/1.0 200
 [Asserts]
-duration lessThan 1000   # Check that response time is less than one second
+duration < 1000   # Check that response time is less than one second
 ```
 
 ## Body {#body}

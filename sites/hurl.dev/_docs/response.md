@@ -25,7 +25,7 @@ HTTP/1.1 200
 Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
 [Asserts]
 xpath "normalize-space(//head/title)" startsWith "Welcome"
-xpath "//li" countEquals 18
+xpath "//li" count == 18
 ```
 
 ## Capture and Assertion {#capture-and-assertion}
