@@ -83,7 +83,7 @@ HTTP/* 201
 [Captures]
 cat_id: jsonpath "$.id"
 [Asserts]
-jsonpath "$.name" equals "Billie"
+jsonpath "$.name" == "Billie"
 
 GET http://myshost.com/v1/cats/{{cat_id}}
 HTTP/* 200

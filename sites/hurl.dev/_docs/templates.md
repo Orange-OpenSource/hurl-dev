@@ -40,7 +40,7 @@ index: body
 GET http://api.example.net/status
 HTTP/* 200
 [Asserts]
-jsonpath "$.errors[{{index}}].id" equals "error"
+jsonpath "$.errors[{{index}}].id" == "error"
 ```
 {% endraw %}
 
@@ -67,7 +67,7 @@ The following entry:
 GET https://sample/counter/{{counter}} 
 HTTP/* 200
 [Asserts]
-jsonpath "$.id" equals "{{counter}}"
+jsonpath "$.id" == "{{counter}}"
 ```
 {% endraw %}
 
@@ -77,7 +77,7 @@ will be rendered at runtime to:
 GET https://sample/counter/458 
 HTTP/* 200
 [Asserts]
-jsonpath "$.id" equals "458"
+jsonpath "$.id" == "458"
 ```
 
 resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert)
@@ -90,7 +90,7 @@ On the other hand, the following assert:
 GET https://sample/counter/{{counter}} 
 HTTP/* 200
 [Asserts]
-jsonpath "$.index" equals {{counter}}
+jsonpath "$.index" == {{counter}}
 ```
 {% endraw %}
 
@@ -100,7 +100,7 @@ will be rendered at runtime to:
 GET https://sample/counter/458 
 HTTP/* 200
 [Asserts]
-jsonpath "$.index" equals 458
+jsonpath "$.index" == 458
 ```
 
 resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert) expression 

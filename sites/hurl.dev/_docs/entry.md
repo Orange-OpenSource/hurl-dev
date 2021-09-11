@@ -22,7 +22,7 @@ GET https://acmecorp.net
 
 HTTP/1.1 200
 [Asserts]
-xpath "normalize-space(//head/title)" equals "Hello world!"
+xpath "normalize-space(//head/title)" == "Hello world!"
 
 # Get some news, response description is optional
 GET https://acmecorp.net/news

@@ -125,7 +125,7 @@ You can also include explicit asserts combining query and predicate
 GET http:/google.com
 HTTP/1.1 302
 [Asserts]
-xpath "//title" equals "301 Moved"
+xpath "//title" == "301 Moved"
 ```
 {% endraw %}
 

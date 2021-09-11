@@ -47,8 +47,8 @@ HTTP/1.1 200
 
 # The following assert are equivalent:
 [Asserts]
-jsonpath "$.slideshow.title" equals "A beautiful ✈!"
-jsonpath "$.slideshow.title" equals "A beautiful \u{2708}!"
+jsonpath "$.slideshow.title" == "A beautiful ✈!"
+jsonpath "$.slideshow.title" == "A beautiful \u{2708}!"
 
 ```
 

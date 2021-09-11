@@ -53,7 +53,7 @@ going to use the [XPath expression] `string(//head/title)`.
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
+xpath "string(//head/title)" == "Welcome to Quiz!"
 ```
 
 {:start="2"}
@@ -84,7 +84,7 @@ We get the content of the page and there is no error so everything is good!
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quaz!"
+xpath "string(//head/title)" == "Welcome to Quaz!"
 ```
 
 {:start="4"}
@@ -95,7 +95,7 @@ $ hurl basic.hurl
 error: Assert Failure
   --> integration/basic.hurl:6:0
    |
- 6 | xpath "string(//head/title)" equals "Welcome to Quaz!"
+ 6 | xpath "string(//head/title)" == "Welcome to Quaz!"
    |   actual:   string <Welcome to Quiz!>
    |   expected: string <Welcome to Quaz!>
    |
@@ -105,16 +105,16 @@ Hurl has failed now and provides informations on which assert is not valid.
 
 ### Typed predicate
 
-If we decompose our assert, `xpath "string(//head/title)"` is the XPath query and `equals "Welcome to Quiz!"` is our 
+If we decompose our assert, `xpath "string(//head/title)"` is the XPath query and `== "Welcome to Quiz!"` is our 
 predicate to test the query against. You can note that predicates values are typed:    
-- `xpath "string(//head/title)" equals "true"`    
+- `xpath "string(//head/title)" == "true"`    
 tests that the XPath expression is returning a string, and    
-- `xpath "boolean(//head/title)" equals true`     
+- `xpath "boolean(//head/title)" == true`     
 tests that the XPath expression is returning a boolean
 
 Some queries can also return collections. For instance, the XPath expression `//button` is returning all the button 
 elements present in the [DOM]. We can use it to ensure that we have exactly two buttons on our home page,
-with a [`countEquals` predicate].
+with `count`:
 
 1. Add a new assert in `basic.hurl` to check the number of buttons:
 
@@ -123,8 +123,8 @@ with a [`countEquals` predicate].
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 ```
 
 {:start="2"}
@@ -135,8 +135,8 @@ xpath "//button" countEquals 2
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 ```
@@ -175,12 +175,12 @@ As our endpoint is serving UTF-8 encoded HTML content, we can check the value of
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing HTTP response headers:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 ```
 
 > Our HTTP response has only one `Content-Type` header, so we're testing this header value as string. 
@@ -202,8 +202,8 @@ HTTP/1.1 200
 # Implicitely testing response headers:
 Content-Type: text/html;charset=UTF-8
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 ```
@@ -226,12 +226,12 @@ So to test it, we can modify our Hurl file with another header assert.
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing HTTP response headers:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 header "Set-Cookie" startsWith "JSESSIONID="
 ```
 
@@ -253,12 +253,12 @@ So to test that our server is responding a `HttpOnly` session cookie, we can mod
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing content type:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 # Testing session cookie:
 cookie "JSESSIONID" exists
 cookie "JSESSIONID[HttpOnly]" exists
@@ -305,7 +305,6 @@ In the next session, we're going to see how we chain request tests, and how we a
 [JSONPath asserts]: {% link _docs/asserting-response.md %}#jsonpath-assert
 [XPath expression]: https://en.wikipedia.org/wiki/XPath
 [DOM]: https://en.wikipedia.org/wiki/Document_Object_Model
-[`countEquals` predicate]: {% link _docs/asserting-response.md %}#predicates
 [`header` asserts]: {% link _docs/asserting-response.md %}#header-assert
 [`Content-Type` response header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
 [implicit header assert]: {% link _docs/asserting-response.md %}#headers

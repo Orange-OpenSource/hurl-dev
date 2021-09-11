@@ -198,12 +198,12 @@ screencapability: low
 
 HTTP/1.1 200
 [Asserts]
-jsonpath "$.validated" equals true
-jsonpath "$.userInfo.firstName" equals "Franck"
-jsonpath "$.userInfo.lastName" equals "Herbert"
-jsonpath "$.hasDevice" equals false
-jsonpath "$.links" countEquals 12
-jsonpath "$.state" not equals null
+jsonpath "$.validated" == true
+jsonpath "$.userInfo.firstName" == "Franck"
+jsonpath "$.userInfo.lastName" == "Herbert"
+jsonpath "$.hasDevice" == false
+jsonpath "$.links" count == 12
+jsonpath "$.state" not == null
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
@@ -224,8 +224,8 @@ GET https//example.org/order/435
 # Testing status code is in a 200-300 range
 HTTP/1.1 *
 [Asserts]
-status greaterThanOrEquals 200
-status lessThan 300
+status >= 200
+status < 300
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#status-assert)
@@ -241,9 +241,9 @@ Content-Type: text/html; charset=UTF-8
 
 [Asserts]
 xpath "string(/html/head/title)" contains "Example" # Check title
-xpath "count(//p)" equals 2  # Check the number of p
-xpath "//p" countEquals 2  # Similar assert for p
-xpath "boolean(count(//h2))" equals false  # Check there is no h2  
+xpath "count(//p)" == 2  # Check the number of p
+xpath "//p" count == 2  # Similar assert for p
+xpath "boolean(count(//h2))" == false  # Check there is no h2  
 xpath "//h2" not exists  # Similar assert for h2
 ```
 
@@ -256,12 +256,12 @@ GET http://myserver.com/home
 
 HTTP/1.0 200
 [Asserts]
-cookie "JSESSIONID" equals "8400BAFE2F66443613DC38AE3D9D6239"
-cookie "JSESSIONID[Value]" equals "8400BAFE2F66443613DC38AE3D9D6239"
+cookie "JSESSIONID" == "8400BAFE2F66443613DC38AE3D9D6239"
+cookie "JSESSIONID[Value]" == "8400BAFE2F66443613DC38AE3D9D6239"
 cookie "JSESSIONID[Expires]" contains "Wed, 13 Jan 2021"
 cookie "JSESSIONID[Secure]" exists
 cookie "JSESSIONID[HttpOnly]" exists
-cookie "JSESSIONID[SameSite]" equals "Lax"
+cookie "JSESSIONID[SameSite]" == "Lax"
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#cookie-assert)
@@ -275,7 +275,7 @@ GET https://sample.org/helloworld
 
 HTTP/* *
 [Asserts]
-duration lessThan 1000   # Check that response time is less than one second
+duration < 1000   # Check that response time is less than one second
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#duration-assert)

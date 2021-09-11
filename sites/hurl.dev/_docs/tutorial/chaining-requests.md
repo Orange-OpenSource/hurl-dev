@@ -14,12 +14,12 @@ Our basic Hurl file is for the moment:
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing content type:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 # Testing session cookie:
 cookie "JSESSIONID" exists
 cookie "JSESSIONID[HttpOnly]" exists
@@ -38,12 +38,12 @@ request following our first request. Let's say we want to test that we have a [4
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing content type:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 # Testing session cookie:
 cookie "JSESSIONID" exists
 cookie "JSESSIONID[HttpOnly]" exists
@@ -52,8 +52,8 @@ cookie "JSESSIONID[HttpOnly]" exists
 GET http://localhost:8080/not-found
 HTTP/1.1 404
 [Asserts]
-header "Content-Type" equals "text/html;charset=UTF-8"
-xpath "string(//h1)" equals "Error 404, Page not Found!"
+header "Content-Type" == "text/html;charset=UTF-8"
+xpath "string(//h1)" == "Error 404, Page not Found!"
 ```
 
 Now, we have two entries in our Hurl file: each entry is composed of one request and one expected response 
@@ -155,9 +155,9 @@ followed by a predicate. [JsonPath query] are simple expressions to inspect a JS
 GET http://localhost:8080/api/health
 HTTP/1.1 200
 [Asserts]
-header "Content-Type" equals "application/json"
-jsonpath "$.status" equals "RUNNING"
-jsonpath "$.healthy" equals true
+header "Content-Type" == "application/json"
+jsonpath "$.status" == "RUNNING"
+jsonpath "$.healthy" == true
 jsonpath "$.operationId" exists
 ```
 
@@ -184,10 +184,10 @@ through the api endpoint.
 GET http://localhost:8080/api/questions?offset=0&size=20&sort=oldest
 HTTP/1.1 200
 [Asserts]
-header "Content-Type" equals "application/json"
-jsonpath "$" countEquals 20
-jsonpath "$[0].id" equals "c0d80047"
-jsonpath "$[0].title" equals "What is a pennyroyal?"
+header "Content-Type" == "application/json"
+jsonpath "$" count == 20
+jsonpath "$[0].id" == "c0d80047"
+jsonpath "$[0].title" == "What is a pennyroyal?"
 ```
 
 > To keep things simple in this tutorial, we have hardcoded mocked data
@@ -223,10 +223,10 @@ size: 20
 sort: oldest
 HTTP/1.1 200
 [Asserts]
-header "Content-Type" equals "application/json"
-jsonpath "$" countEquals 20
-jsonpath "$[0].id" equals "c0d80047"
-jsonpath "$[0].title" equals "What is a pennyroyal?"
+header "Content-Type" == "application/json"
+jsonpath "$" count == 20
+jsonpath "$[0].id" == "c0d80047"
+jsonpath "$[0].title" == "What is a pennyroyal?"
 ```
 
 Finally, our basic Hurl file, with four requests, looks like:
@@ -236,12 +236,12 @@ Finally, our basic Hurl file, with four requests, looks like:
 GET http://localhost:8080
 HTTP/1.1 200
 [Asserts]
-xpath "string(//head/title)" equals "Welcome to Quiz!"
-xpath "//button" countEquals 2
+xpath "string(//head/title)" == "Welcome to Quiz!"
+xpath "//button" count == 2
 xpath "string((//button)[1])" contains "Play"
 xpath "string((//button)[2])" contains "Create"
 # Testing content type:
-header "Content-Type" equals "text/html;charset=UTF-8"
+header "Content-Type" == "text/html;charset=UTF-8"
 # Testing session cookie:
 cookie "JSESSIONID" exists
 cookie "JSESSIONID[HttpOnly]" exists
@@ -250,16 +250,16 @@ cookie "JSESSIONID[HttpOnly]" exists
 GET http://localhost:8080/not-found
 HTTP/1.1 404
 [Asserts]
-header "Content-Type" equals "text/html;charset=UTF-8"
-xpath "string(//h1)" equals "Error 404, Page not Found!"
+header "Content-Type" == "text/html;charset=UTF-8"
+xpath "string(//h1)" == "Error 404, Page not Found!"
 
 # Check our health api:
 GET http://localhost:8080/api/health
 HTTP/1.1 200
 [Asserts]
-header "Content-Type" equals "application/json"
-jsonpath "$.status" equals "RUNNING"
-jsonpath "$.healthy" equals true
+header "Content-Type" == "application/json"
+jsonpath "$.status" == "RUNNING"
+jsonpath "$.healthy" == true
 jsonpath "$.operationId" exists
 
 # Check question api:
@@ -270,10 +270,10 @@ size: 20
 sort: oldest
 HTTP/1.1 200
 [Asserts]
-header "Content-Type" equals "application/json"
-jsonpath "$" countEquals 20
-jsonpath "$[0].id" equals "c0d80047"
-jsonpath "$[0].title" equals "What is a pennyroyal?"
+header "Content-Type" == "application/json"
+jsonpath "$" count == 20
+jsonpath "$[0].id" == "c0d80047"
+jsonpath "$[0].title" == "What is a pennyroyal?"
 ```
 
 {:start="5"}
