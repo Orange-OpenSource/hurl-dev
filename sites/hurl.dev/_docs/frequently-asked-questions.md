@@ -13,6 +13,7 @@ section: Getting Started
 5. [I have a large numbers of tests, how to run just specific tests?](#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests)
 6. [How to report results in a CI pipeline?](#how-to-report-results-in-a-ci-pipeline)
 7. [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
+8. [Can I do calculation within a Hurl file?](#can-i-do-calculation-within-a-hurl-file)
 
 
 ## Why "Hurl"? {#why-hurl}
@@ -222,4 +223,15 @@ hurlfmt test.hurl --format json | jq
 ```
 
 
+## Can I do calculation within a Hurl file? {#can-i-do-calculation-within-a-hurl-file}
 
+Currently, the templating is very simple, only accessing variables.
+Calculations can be done beforehand, before running the Hurl File.
+
+For exemple, with date calculations, variables `now` and `tomorrow` can be used as param or expected value.
+
+```
+TODAY=$(date '+%y%m%d')
+TOMORROW=$(date '+%y%m%d' -d"+1days")
+hurl --variable "today=$TODAY" --variable "tomorrow=$TOMORROW" test.hurl
+```
