@@ -30,6 +30,14 @@ pre, code {
     color: $hurl-string-light;
     color: var(--hurl-string);
   }
+  .name {
+    color: $hurl-name-light;
+    color: var(--hurl-name);
+  }
+  .raw {
+    color: $hurl-raw-light;
+    color: var(--hurl-raw);
+  }
   .number {
     color: $hurl-number-light;
     color: var(--hurl-number);
@@ -41,6 +49,22 @@ pre, code {
   .null {
     color: $hurl-null-light;
     color: var(--hurl-null);
+  }
+  .json {
+    color: $hurl-json-light;
+    color: var(--hurl-json);
+  }
+  .xml {
+    color: $hurl-xml-light;
+    color: var(--hurl-xml);
+  }
+  .base64 {
+    color: $hurl-base64-light;
+    color: var(--hurl-base64);
+  }
+  .filename {
+    color: $hurl-filename-light;
+    color: var(--hurl-filename);
   }
   .url {
     color: $hurl-url-light;
@@ -61,6 +85,14 @@ pre, code {
   .query-type {
     color: $hurl-query-type-light;
     color: var(--hurl-query-type);
+  }
+  .subquery-type {
+    color: $hurl-subquery-type-light;
+    color: var(--hurl-subquery-type);
+  }
+  .not {
+    color: $hurl-not-light;
+    color: var(--hurl-not);
   }
   .predicate-type {
     color: $hurl-predicate-type-light;
