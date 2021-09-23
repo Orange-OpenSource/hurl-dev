@@ -103,8 +103,8 @@ html, html[data-theme="light"] {
   --hurl-method: #{$hurl-method-light};
   --hurl-version: #{$hurl-version-light};
   --hurl-section-header: #{$hurl-section-header-light};
-  --hurl-subquery-type: #{$hurl-subquery-type-light};
   --hurl-query-type: #{$hurl-query-type-light};
+  --hurl-subquery-type: #{$hurl-subquery-type-light};
   --hurl-not: #{$hurl-not-light};
   --hurl-predicate-type: #{$hurl-predicate-type-light};
   --hurl-comment: #{$hurl-comment-light};
@@ -191,6 +191,7 @@ html[data-theme="dark"] {
     --hurl-version: #{$hurl-version-dark};
     --hurl-section-header: #{$hurl-section-header-dark};
     --hurl-query-type: #{$hurl-query-type-dark};
+    --hurl-subquery-type: #{$hurl-subquery-type-dark};
     --hurl-not: #{$hurl-not-dark};
     --hurl-predicate-type: #{$hurl-predicate-type-dark};
     --hurl-comment: #{$hurl-comment-dark};
@@ -233,6 +234,7 @@ html[data-theme="dark"] {
     --hurl-version: #{$hurl-version-light};
     --hurl-section-header: #{$hurl-section-header-light};
     --hurl-query-type: #{$hurl-query-type-light};
+    --hurl-subquery-type: #{$hurl-subquery-type-light};
     --hurl-not: #{$hurl-not-light};
     --hurl-predicate-type: #{$hurl-predicate-type-light};
     --hurl-comment: #{$hurl-comment-light};
