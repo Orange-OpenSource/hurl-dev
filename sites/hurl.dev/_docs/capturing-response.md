@@ -236,6 +236,7 @@ We can capture the following paths:
 
 ```hurl
 GET http://sample.org/captures-json
+
 HTTP/1.0 200
 [Captures]
 an_object:  jsonpath "$['an_object']"
