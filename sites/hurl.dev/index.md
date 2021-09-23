@@ -109,10 +109,10 @@ And responses bytes content
 
 ```hurl
 GET http://example.org/data.tar.gz
-HTTP/1.0 200
 
+HTTP/1.0 200
 [Asserts]
-sha256 equals hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
+sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 ```
 
 
