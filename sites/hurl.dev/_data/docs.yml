@@ -42,6 +42,7 @@
             - title: Testing Endpoint Performance
             - title: Using SOAP Apis
             - title: Capturing and Using a CSRF Token
+            - title: Checking Byte Order Mark (BOM) in Response Body
     - title: Frequently Asked Questions
       items:
         - title: Why "Hurl" ?

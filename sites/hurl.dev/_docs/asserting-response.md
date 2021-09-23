@@ -302,7 +302,7 @@ body contains "<h1>Welcome!</h1>"
 Check the value of the received HTTP response body as a bytestream. Body assert consists of the keyword `bytes`
 followed by a predicate function and value.
 
-```
+```hurl
 GET https://example.net/data.bin
 
 HTTP/* 200
