@@ -203,7 +203,7 @@ jsonpath "$.userInfo.firstName" == "Franck"
 jsonpath "$.userInfo.lastName" == "Herbert"
 jsonpath "$.hasDevice" == false
 jsonpath "$.links" count == 12
-jsonpath "$.state" not == null
+jsonpath "$.state" != null
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
@@ -319,3 +319,11 @@ HTTP/* 302
 {% endraw %}
 
 [Doc]({% link _docs/capturing-response.md %}#xpath-capture)
+
+### Checking that Body Starts with a BOM 
+
+```
+GET https://
+
+bytes startsWith hex,01;
+```

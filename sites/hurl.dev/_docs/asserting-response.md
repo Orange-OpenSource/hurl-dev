@@ -135,8 +135,8 @@ Predicates consist of a predicate function, and a predicate value. Predicate fun
 - `greaterThanOrEquals`: check that query number is greater than or equal to the predicate value
 - `lessThan`: check that query number is less than that predicate value
 - `lessThanOrEquals`: check that query number is less than or equal to the predicate value   
-- `countEquals`: check equality of query size collections
 - `startsWith`: check that query string starts with the predicate value
+- `endsWith`: check that query string ends with the predicate value
 - `contains`: check that query string contains the predicate value
 - `includes`: check that query collections includes the predicate value
 - `matches`: check that query string matches the regex pattern described by the predicate value
@@ -385,7 +385,7 @@ HTTP/1.1 200
 jsonpath "$.slideshow.author" == "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
 jsonpath "$.slideshow.slides" count == 2
-jsonpath "$.slideshow.date" not == null
+jsonpath "$.slideshow.date" != null
 jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 ```
 

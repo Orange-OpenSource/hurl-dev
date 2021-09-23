@@ -174,7 +174,7 @@ HTTP/* 200
 [Captures]
 pets: xpath "//pets"
 [Asserts]
-variable "pets" countEquals 200
+variable "pets" count == 200
 ```
 
 
