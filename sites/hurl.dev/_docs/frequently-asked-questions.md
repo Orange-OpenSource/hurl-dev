@@ -228,7 +228,7 @@ hurlfmt test.hurl --format json | jq
 Currently, the templating is very simple, only accessing variables.
 Calculations can be done beforehand, before running the Hurl File.
 
-For exemple, with date calculations, variables `now` and `tomorrow` can be used as param or expected value.
+For example, with date calculations, variables `now` and `tomorrow` can be used as param or expected value.
 
 ```
 TODAY=$(date '+%y%m%d')
