@@ -322,7 +322,7 @@ HTTP/* 302
 
 ### Checking that Body Starts with a [BOM] 
 
-```
+```hurl
 GET https://example.net/data.bin
 
 HTTP/* 200
