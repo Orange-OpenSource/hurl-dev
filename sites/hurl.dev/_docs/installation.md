@@ -2,7 +2,7 @@
 layout: doc
 title: Installation
 section: Getting Started
-hurl-version: 1.3.0
+hurl-version: 1.3.1
 ---
 # {{ page.title }}
 
