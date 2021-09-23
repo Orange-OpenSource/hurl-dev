@@ -108,6 +108,7 @@
             - title: Header capture
             - title: Cookie capture
             - title: Body capture
+            - title: Bytes capture
             - title: XPath capture
             - title: JSONPath capture
             - title: Regex capture
@@ -125,6 +126,7 @@
             - title: Header assert
             - title: Cookie assert
             - title: Body assert
+            - title: Bytes assert
             - title: XPath assert
             - title: JSONPath assert
             - title: Regex assert

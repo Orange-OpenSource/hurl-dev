@@ -60,6 +60,7 @@ Query can be of the following type:
 - [`header`](#header-capture)
 - [`cookie`](#cookie-capture)
 - [`body`](#body-capture)
+- [`bytes`](#bytes-capture)
 - [`xpath`](#xpath-capture)
 - [`jsonpath`](#jsonpath-capture)
 - [`regex`](#regex-capture)
@@ -142,6 +143,19 @@ HTTP/1.1 200
 [Captures]
 my_body: body
 ```
+
+### Bytes capture {#bytes-capture}
+
+Capture the entire body (as a raw bytestream) from the received HTTP response
+
+```hurl
+GET https://example.net/data.bin
+
+HTTP/1.1 200
+[Captures]
+my_data: bytes
+```
+
 
 ### XPath capture {#xpath-capture}
 

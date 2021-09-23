@@ -320,10 +320,16 @@ HTTP/* 302
 
 [Doc]({% link _docs/capturing-response.md %}#xpath-capture)
 
-### Checking that Body Starts with a BOM 
+### Checking that Body Starts with a [BOM] 
 
 ```
-GET https://
+GET https://example.net/data.bin
 
-bytes startsWith hex,01;
+HTTP/* 200
+[Asserts]
+bytes startsWith hex,efbbbf;
 ```
+
+[Doc]({% link _docs/asserting-response.md %}#bytes-assert)
+
+[Bom]: https://en.wikipedia.org/wiki/Byte_order_mark

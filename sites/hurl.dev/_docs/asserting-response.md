@@ -120,6 +120,7 @@ can be one of :
 - [`header`](#header-assert)
 - [`cookie`](#cookie-assert)
 - [`body`](#body-assert)
+- [`bytes`](#bytes-assert)
 - [`xpath`](#xpath-assert)
 - [`jsonpath`](#jsonpath-assert)
 - [`regex`](#regex-assert)
@@ -295,6 +296,20 @@ body contains "<h1>Welcome!</h1>"
 ```
 
 > Precise the encoding used to decode the text body. 
+
+### Bytes assert {#bytes-assert}
+
+Check the value of the received HTTP response body as a bytestream. Body assert consists of the keyword `bytes`
+followed by a predicate function and value.
+
+```
+GET https://example.net/data.bin
+
+HTTP/* 200
+[Asserts]
+bytes startsWith hex,efbbbf;
+```
+
 
 ### XPath assert {#xpath-assert}
 
