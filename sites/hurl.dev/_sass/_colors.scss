@@ -26,6 +26,7 @@ $hurl-boolean-light: blue;
 $hurl-null-light: blue;
 $hurl-json-light: darkgreen;
 $hurl-xml-light: darkgreen;
+$hurl-hex-light: darkgreen;
 $hurl-base64-light: darkgreen;
 $hurl-filename-light: darkgreen;
 $hurl-url-light: darkblue;
@@ -64,6 +65,7 @@ $hurl-boolean-dark: dodgerblue;
 $hurl-null-dark: dodgerblue;
 $hurl-json-dark: forestgreen;
 $hurl-xml-dark: forestgreen;
+$hurl-hex-dark: forestgreen;
 $hurl-base64-dark: forestgreen;
 $hurl-filename-dark: forestgreen;
 $hurl-url-dark: cyan;
@@ -97,6 +99,7 @@ html, html[data-theme="light"] {
   --hurl-null: #{$hurl-null-light};
   --hurl-json: #{$hurl-json-light};
   --hurl-xml: #{$hurl-xml-light};
+  --hurl-hex: #{$hurl-hex-light};
   --hurl-base64: #{$hurl-base64-light};
   --hurl-filename: #{$hurl-filename-light};
   --hurl-url: #{$hurl-url-light};
@@ -140,6 +143,7 @@ html[data-theme="dark"] {
   --hurl-null: #{$hurl-null-dark};
   --hurl-json: #{$hurl-json-dark};
   --hurl-xml: #{$hurl-xml-dark};
+  --hurl-hex: #{$hurl-hex-dark};
   --hurl-base64: #{$hurl-base64-dark};
   --hurl-filename: #{$hurl-filename-dark};
   --hurl-url: #{$hurl-url-dark};
@@ -184,6 +188,7 @@ html[data-theme="dark"] {
     --hurl-null: #{$hurl-null-dark};
     --hurl-json: #{$hurl-json-dark};
     --hurl-xml: #{$hurl-xml-dark};
+    --hurl-hex: #{$hurl-hex-dark};
     --hurl-base64: #{$hurl-base64-dark};
     --hurl-filename: #{$hurl-filename-dark};
     --hurl-url: #{$hurl-url-dark};
@@ -227,6 +232,7 @@ html[data-theme="dark"] {
     --hurl-null: #{$hurl-null-light};
     --hurl-json: #{$hurl-json-light};
     --hurl-xml: #{$hurl-xml-light};
+    --hurl-hex: #{$hurl-hex-light};
     --hurl-base64: #{$hurl-base64-light};
     --hurl-filename: #{$hurl-filename-light};
     --hurl-url: #{$hurl-url-light};

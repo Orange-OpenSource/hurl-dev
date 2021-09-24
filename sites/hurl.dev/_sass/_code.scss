@@ -58,6 +58,10 @@ pre, code {
     color: $hurl-xml-light;
     color: var(--hurl-xml);
   }
+  .hex {
+    color: $hurl-hex-light;
+    color: var(--hurl-hex);
+  }
   .base64 {
     color: $hurl-base64-light;
     color: var(--hurl-base64);
