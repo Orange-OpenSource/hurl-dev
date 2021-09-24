@@ -48,12 +48,6 @@ order: newest
 When query parameters are present in the url and in a query parameters section, the resulting request will
 have both parameters.
 
-{% raw %}
-```hurl
-POST {{baseurl}}/something
-```
-{% endraw %}
-
 ### Headers {#headers}
 
 Optional list of HTTP request headers.
@@ -216,12 +210,14 @@ Optional HTTP body request.
 If the body of the request is a [JSON](https://www.json.org) string or a [XML](https://en.wikipedia.org/wiki/XML
 ) string, the value can be directly inserted without any modification. For a text based body that is not JSON nor XML
 , one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96;</code>. 
-For a precise byte control of the request body, a [Base64](https://en.wikipedia.org/wiki/Base64) encoded string 
-can be used to describe exactly the body byte content.
+For a precise byte control of the request body, [Base64](https://en.wikipedia.org/wiki/Base64) encoded string, 
+[hexadecimal string](#hex-body) or [included file](#file-body) can be used to describe exactly the body byte content. 
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 
 #### JSON body {#json-body}
+
+JSON body is used to set a literal JSON as the request body.
 
 ```hurl
 # Create a new doggy thing with JSON body:
@@ -239,6 +235,8 @@ POST https://example.net/api/dogs
 When using JSON body, the content type `application/json` is automatically set.
 
 #### XML body {#xml-body}
+
+XML body is used to set a literal XML as the request body.
 
 ~~~hurl
 # Create a new soapy thing XML body:
@@ -311,6 +309,8 @@ is evaluated as "line".
 
 #### Base64 body {#base64-body}
 
+Base64 body is used to set binary data as the request body.
+
 Base64 body starts with `base64,` and end with `;`. MIME's Base64 encoding is supported (newlines and white spaces may be
  present anywhere but are to be ignored on decoding), and `=` padding characters might be added.
 
@@ -322,6 +322,19 @@ FkaXBpc2NpbmcgZWxpdC4gSW4gbWFsZXN1YWRhLCBuaXNsIHZlbCBkaWN0dW0g
 aGVuZHJlcml0LCBlc3QganVzdG8gYmliZW5kdW0gbWV0dXMsIG5lYyBydXRydW
 0gdG9ydG9yIG1hc3NhIGlkIG1ldHVzLiA=;
 ```
+
+#### Hex body {#hex-body}
+
+Hex body is used to set binary data as the request body.
+
+Hex body starts with `hex,` and end with `;`. 
+
+```hurl
+PUT https://example.net
+# Send a café, encoded in UTF-8
+hex,636166c3a90a;
+```
+
 
 #### File body {#file-body}
 

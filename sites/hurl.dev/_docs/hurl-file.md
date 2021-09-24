@@ -11,7 +11,7 @@ Hurl file should be encoded in UTF-8, without byte order mark to the beginning
 (while Hurl ignores the presence of a byte order mark
 rather than treating it as an error)
 
-## File Extension {#extension}
+## File Extension {#file-extension}
 
 Hurl file extension is `.hurl`
 
@@ -32,7 +32,7 @@ header "Location" exists
 header "Location" contains "login"  # Check that we are redirected to the login page
 ```
 
-## Special Characters in String {#special-character-instring}
+## Special Characters in Strings {#special-character-in-strings}
 
 String can include the following special characters:
 
@@ -49,7 +49,6 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.slideshow.title" == "A beautiful ✈!"
 jsonpath "$.slideshow.title" == "A beautiful \u{2708}!"
-
 ```
 
 In some case, (in headers value, etc..), you will also need to escape # to distinguish from a comment.

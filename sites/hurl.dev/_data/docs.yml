@@ -60,7 +60,7 @@
       items:
         - title: Character Encoding
         - title: File Extension
-        - title: Special Characters in String
+        - title: Special Characters in Strings
         - title: Comments
     - title: Grammar
       items:
@@ -93,6 +93,7 @@
                 - title: XML body
                 - title: Raw string body
                 - title: Base64 body
+                - title: Hex body
                 - title: File body
     - title: Response
       items:
