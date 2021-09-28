@@ -43,7 +43,19 @@
             - title: Using SOAP Apis
             - title: Capturing and Using a CSRF Token
             - title: Checking Byte Order Mark (BOM) in Response Body
+    - title: Running Tests
+      items:
+        - title: Generating an HTML report
     - title: Frequently Asked Questions
+      items:
+        - title: Why "Hurl" ?
+        - title: Yet Another Tool, I already use X
+        - title: Hurl is build on top of libcurl, but what is added?
+        - title: Why shouldn't I use Hurl?
+        - title: I have a large numbers of tests, how to run just specific tests?
+        - title: How to report results in a CI pipeline?
+        - title: How can I use my Hurl files outside Hurl?
+        - title: Can I do calculation within a Hurl file?
       items:
         - title: Why "Hurl" ?
         - title: Yet Another Tool, I already use X
