@@ -124,6 +124,7 @@ can be one of :
 - [`xpath`](#xpath-assert)
 - [`jsonpath`](#jsonpath-assert)
 - [`regex`](#regex-assert)
+- [`sha256`](#sha256-assert)  
 - [`variable`](#variable-assert)
 - [`duration`](#duration-assert)
 
@@ -131,14 +132,15 @@ can be one of :
 
 Predicates consist of a predicate function, and a predicate value. Predicate functions are:
 
-- `equals`: check equality of query and predicate value
-- `greaterThan`: check that query number is greater than predicate value  
-- `greaterThanOrEquals`: check that query number is greater than or equal to the predicate value
-- `lessThan`: check that query number is less than that predicate value
-- `lessThanOrEquals`: check that query number is less than or equal to the predicate value   
-- `startsWith`: check that query string starts with the predicate value
-- `endsWith`: check that query string ends with the predicate value
-- `contains`: check that query string contains the predicate value
+- `==` (`equals`): check equality of query and predicate value
+- `!=`: check that query and predicate value are different 
+- `>` (`greaterThan`): check that query number is greater than predicate value  
+- `>=` (`greaterThanOrEquals`): check that query number is greater than or equal to the predicate value
+- `<` (`lessThan`): check that query number is less than that predicate value
+- `<=` (`lessThanOrEquals`): check that query number is less than or equal to the predicate value   
+- `startsWith`: check that query starts with the predicate value (query can return a string or a binary content) 
+- `endsWith`: check that query ends with the predicate value (query can return a string or a binary content)
+- `contains`: check that query contains the predicate value (query can return a string or a binary content)
 - `includes`: check that query collections includes the predicate value
 - `matches`: check that query string matches the regex pattern described by the predicate value
 - `exists`: check that query returns a value
@@ -160,8 +162,8 @@ Each predicate can be negated by prefixing it with `not` (for instance, `not con
 </div>
 
 
-A predicate values is typed, and can be a string, a boolean, a number, `null` or a collection. Note that `"true"` is a
- string, whereas `true` is a boolean.
+A predicate values is typed, and can be a string, a boolean, a number, a bytestream, `null` or a collection. Note that 
+`"true"` is a string, whereas `true` is a boolean.
   
 For instance, to test the presence of a h1 node in an HTML response, the following assert can be used:
 
