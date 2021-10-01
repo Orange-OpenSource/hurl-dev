@@ -12,15 +12,17 @@
                 {% include side-nav.html docs=site.data.docs title=page.title%}
 
                 <div class="home-content" data-section="{{ page.section }}" data-indexed="true">
-                    {{ content }}
+                    <div class="home-content-col">
+                        {{ content }}
+                        <div class="home-footer">
+                            {% include footer.html %}
+                        </div>
+                    </div>
                 </div>
 
 
             </div>
 
-        </div>
-        <div class="home-footer">
-            {% include footer.html %}
         </div>
     </body>
 </html>

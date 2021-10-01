@@ -21,51 +21,58 @@
 
                 <div class="doc-content" data-section="{{ page.section }}" data-indexed="{{ indexed }}">
 
-                    {{ content }}
+                    <div class="doc-content-col">
 
-                    <div class="doc-content-edit-page">
-                        <a href="https://github.com/Orange-OpenSource/hurl-dev/edit/master/sites/hurl.dev/{{ page.path }}">Edit this page</a>
-                    </div>
+                        {{ content }}
 
-                    <div class="doc-content-browse">
+                        <div class="doc-content-edit-page">
+                            <a href="https://github.com/Orange-OpenSource/hurl-dev/edit/master/sites/hurl.dev/{{ page.path }}">Edit this page</a>
+                        </div>
 
-                        {% assign cur = false %}
-                        {% assign prev = false %}
-                        {% assign next = false %}
+                        <div class="doc-content-browse">
 
-                        {% for li0 in site.data.docs %}
+                            {% assign cur = false %}
+                            {% assign prev = false %}
+                            {% assign next = false %}
+
+                            {% for li0 in site.data.docs %}
                             {% for li1 in li0.items %}
 
-                                {% if cur and next == false %}
-                                    {% assign next = li1 %}
-                                    {% capture next_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
-                                {% endif %}
+                            {% if cur and next == false %}
+                            {% assign next = li1 %}
+                            {% capture next_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
+                            {% endif %}
 
-                                {% if li1.title == page.title %}
-                                    {% assign cur = li1 %}
-                                {% endif %}
+                            {% if li1.title == page.title %}
+                            {% assign cur = li1 %}
+                            {% endif %}
 
-                                {% unless cur %}
-                                    {% assign prev = li1 %}
-                                    {% capture prev_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
-                                {% endunless %}
+                            {% unless cur %}
+                            {% assign prev = li1 %}
+                            {% capture prev_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
+                            {% endunless %}
 
                             {% endfor %}
-                        {% endfor %}
+                            {% endfor %}
 
-                        {% if prev %}
+                            {% if prev %}
                             {% unless prev.url %}
-                        <div class="doc-content-browse-previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
+                            <div class="doc-content-browse-previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
                             {% endunless %}
-                        {% endif %}
-                        {% if next %}
+                            {% endif %}
+                            {% if next %}
                             {% unless next.url %}
-                        <div class="doc-content-browse-next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
+                            <div class="doc-content-browse-next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
                             {% endunless %}
-                        {% endif %}
-                    </div>
+                            {% endif %}
+                        </div>
 
+                        <div class="doc-footer">
+                            {% include footer.html %}
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="doc-toc u-d-block-lg">
                     {% for li0 in site.data.docs %}
@@ -117,9 +124,6 @@
             </div>
         </div>
 
-        <div class="doc-footer">
-            {% include footer.html %}
-        </div>
 
     </body>
 </html>

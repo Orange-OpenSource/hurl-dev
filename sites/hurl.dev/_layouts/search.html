@@ -9,12 +9,15 @@
         <div class="wrapper">
             {% include top-nav.html docs=site.data.docs title=page.title%}
             <div class="search">
-                {{ content }}
+                <div class="search-content">
+                    {{ content }}
+                </div>
+
+                <div class="search-footer">
+                    {% include footer.html %}
+                </div>
             </div>
         </div>
 
-        <div class="search-footer">
-            {% include footer.html %}
-        </div>
     </body>
 </html>
