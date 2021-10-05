@@ -1,6 +1,6 @@
 ---
 layout: doc
-title: Running tests
+title: Running Tests
 section: Getting Started
 ---
 
@@ -11,14 +11,14 @@ Hurl is run by default as an HTTP client, returning the body of the last HTTP re
 For testing, we are only interested in the asserts results.
 Several options relating to testing can be used:
 
-- do not output response body (`--output /dev/null`)
-- show progress (`--progress`)
-- print summary (`--summary`)
+- do not output response body ([`--output /dev/null`]({% link _docs/man-page.md %}#output))
+- show progress ([`--progress`]({% link _docs/man-page.md %}#progress))
+- print summary ([`--summary`]({% link _docs/man-page.md %}#summary))
 
 For convenience, all these options can also be set with the unique option `--test`.
 
 ```
-hurl --test hello.hurl error_assert_status.hurl 
+> hurl --test hello.hurl error_assert_status.hurl 
 hello.hurl: running [1/2]
 hello.hurl: success
 error_assert_status.hurl: running [2/2]
