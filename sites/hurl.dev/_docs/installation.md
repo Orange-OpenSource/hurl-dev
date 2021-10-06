@@ -61,7 +61,7 @@ You will need to update your PATH variable.
 <span style="color:red">**!! There is an ongoing [issue](https://github.com/Orange-OpenSource/hurl/issues/267) with current installer [hurl-{{page.hurl-version}}-win64-installer.exe](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64-installer.exe) 
 for environment with PATH greater tham 1MB. You should probably save your PATH in this case !!**</span>
 
-It should be fixed in the release.
+It should be fixed in the next release.
 
 
 
