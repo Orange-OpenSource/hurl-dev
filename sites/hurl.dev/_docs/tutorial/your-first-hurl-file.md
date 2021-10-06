@@ -46,7 +46,7 @@ just run in a shell:
 
 ```
 $ docker pull ghcr.io/jcamiel/quiz:latest
-$ docker run -dp 8080:8080 ghcr.io/jcamiel/quiz:latest
+$ docker run --name hurl-quiz --rm --detach --publish 8080:8080 ghcr.io/jcamiel/quiz:latest
 ```
 
 And check that the container is running with:
