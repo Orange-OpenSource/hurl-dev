@@ -11,9 +11,8 @@ section: Getting Started
 3. [Hurl is build on top of libcurl, but what is added?](#hurl-is-build-on-top-of-libcurl-but-what-is-added)
 4. [Why shouldn't I use Hurl?](#why-shouldn-t-i-use-hurl)
 5. [I have a large numbers of tests, how to run just specific tests?](#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests)
-6. [How to report results in a CI pipeline?](#how-to-report-results-in-a-ci-pipeline)
-7. [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
-8. [Can I do calculation within a Hurl file?](#can-i-do-calculation-within-a-hurl-file)
+6. [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
+7. [Can I do calculation within a Hurl file?](#can-i-do-calculation-within-a-hurl-file)
 
 
 ## Why "Hurl"? {#why-hurl}
@@ -142,30 +141,6 @@ You can simply run your critical tests with
 ```
 hurl critical/*.hurl
 ```
- 
- 
- 
-## How to report results in a CI pipeline? {#how-to-report-results-in-a-ci-pipeline}
-
-Hurl can generate a html report with the [`--html` option]({% link _docs/man-page.md %}#html)
-
-```
- hurl tests/*.hurl --html output_folder
-```
-
-Note that in the previous step, all Hurl files are run together successively.
-
-In some setup, we may want to execute arbitrary commands between each Hurl test.
-In this case, you need to append test results into a common file.
- 
-For example
-
-```
-hurl --json /tmp/tests.json --append --html /tmp/html_report file1.hurl
-hurl --json /tmp/tests.json --append --html /tmp/html_report file2.hurl
-hurl --json /tmp/tests.json --append --html /tmp/html_report file3.hurl
-``` 
-
  
 ## How can I use my Hurl files outside Hurl? {#how-can-i-use-my-hurl-files-outside-hurl}
 
