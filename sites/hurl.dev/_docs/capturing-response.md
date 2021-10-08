@@ -272,6 +272,18 @@ will capture one or more digit.
 
 ### Variable capture {#variable-capture}
 
+Capture the value of a variable into another.
+Unseful when combined with `regex` subquery.
+
+```hurl
+GET https://sample.org/helloworld
+
+HTTP/1.0 200
+[Captures]
+in: body
+name: variable "in" regex "Hello ([a-zA-Z]+)!"
+```
+
 ### Duration capture {#duration-capture}
 
 Capture the response time of the request in ms.
