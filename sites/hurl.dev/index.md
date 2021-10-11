@@ -120,10 +120,8 @@ sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 
 <ul class="showcase-container">
  <li class="showcase-item"><h2 class="showcase-item-title">Text Format</h2>For both devops and developers</li>
- <li class="showcase-item"><h2 class="showcase-item-title">Fast CLI</h2>A command line for local dev and continuous 
-integration</li>
- <li class="showcase-item"><h2 class="showcase-item-title">Single Binary</h2>Easy to install, with no runtime 
-required</li>
+ <li class="showcase-item"><h2 class="showcase-item-title">Fast CLI</h2>A command line for local dev and continuous integration</li>
+ <li class="showcase-item"><h2 class="showcase-item-title">Single Binary</h2>Easy to install, with no runtime required</li>
 </ul>
 
 # Powered by curl

@@ -1,64 +1,104 @@
 #!/usr/bin/env python3
 # ./build_man.py ../../hurl/docs/hurl.md > hurl.dev/_docs/man-page.md
-import sys
 import re
+import sys
+from pathlib import Path
+from typing import List
+
+from markdown import parse_markdown, MarkdownDoc, Code, Header, Paragraph, Whitespace, Node
 
 
 def header():
-   return '''---
+    return '''---
 layout: doc
 title: Man Page
+section: Getting Started
 ---
 # {{ page.title }}
+
 '''
 
 
-def process_code_block(s):
-    output = ''
-    in_code = False
-    for line in s.split('\n'):
-        if not in_code and line.startswith('```'):
-            output += '{% raw %}\n'
-            output += line + '\n'
-            in_code = True
-        elif in_code and line.startswith('```'):
-            output += line + '\n'
-            output += '{% endraw %}\n'
-            in_code = False
-        else:
-            output += line + '\n'
-
-    return output
+def process_code_block(doc: MarkdownDoc) -> None:
+    codes = [child for child in doc.children if isinstance(child, Code)]
+    for code in codes:
+        code.content = f"{{% raw %}}\n{code.content}\n{{% endraw %}}\n"
 
 
-def normalize_h2(s):
-    lines = []
-    p = re.compile('^## (.*)$')
-    for line in s.split('\n'):
-        m = p.match(line)
+def normalize_h2(doc: MarkdownDoc) -> None:
+    h2s = [h for h in doc.children if isinstance(h, Header) and h.level == 2]
+    for h2 in h2s:
+        # Add exception for www acronym
+        if h2.title == "WWW":
+            continue
+        h2.title = h2.title.title()
+        h2.update_content()
+
+
+def process_table(doc: MarkdownDoc, nodes: List[Node], col_name: str) -> None:
+
+    def escape(s):
+        return s.replace('<', '&lt;').replace('>', '&gt;')
+
+    new_nodes = [
+        Whitespace(content="\n"),
+        Paragraph(content=f"{col_name} | Description\n --- | --- \n"),
+    ]
+
+    h3s = [n for n in nodes if isinstance(n, Header)]
+    for h3 in h3s:
+        name_raw = h3.title
+
+        # Try to match name and anchor
+        r = re.compile("""(.+) \{#(.+)}""")
+        m = r.match(name_raw)
         if m:
-            value = m.group(1).title()
-            # Add exception for www acronym
-            if value == "Www":
-                value = "WWW"
-            lines.append('## ' + value)
+            _id = m.group(2)
+            text = escape(m.group(1))
+            name = f'<a href="#{_id}" id="{_id}"><code>{text}</code></a>'
         else:
-            lines.append(line)
-    return '\n'.join(lines)
+            name = f"`{name_raw}`"
 
+        next_h = doc.find_first(lambda it: isinstance(it, Header), start=doc.next_node(h3))
+        paragraphs = [p.content.replace("\n", "") for p in doc.slice(h3, next_h) if isinstance(p, Paragraph)]
+        description = "<br/><br/>".join(paragraphs)
+        new_node = Paragraph(content=f"{name} | {description}\n")
+        new_nodes.append(new_node)
 
-def escape(s):
-    return s.replace('<', '&lt;').replace('--', '\\-\\-')
+    # Delete all previous options:
+    doc.insert_nodes(start=doc.previous_node(nodes[0]), nodes=new_nodes)
+    doc.remove_nodes(nodes)
 
 
 def main():
     input_file = sys.argv[1]
-    lines = open(input_file).readlines()
-    s = ''.join(lines)
-    s = escape(s)
-    s = normalize_h2(s)
-    s = process_code_block(s)
-    print(header() + s)
+    src = Path(input_file).read_text()
+
+    man = parse_markdown(text=src, use_front_matter=False)
+
+    process_code_block(man)
+    normalize_h2(man)
+
+    # Transform all h3 options, environment var and exit code to tables
+
+    options_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Options")
+    environment_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Environment")
+    exit_codes_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Exit Codes")
+    www_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "WWW")
+
+    first_option_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=options_h2)
+    options = man.slice(first_option_h3, environment_h2)
+    process_table(doc=man, nodes=options, col_name="Option")
+
+    first_env_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=environment_h2)
+    envs = man.slice(first_env_h3, exit_codes_h2)
+    process_table(doc=man, nodes=envs, col_name="Variable")
+
+    first_exit_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=exit_codes_h2)
+    exits = man.slice(first_exit_h3, www_h2)
+    process_table(doc=man, nodes=exits, col_name="Value")
+
+    print(header() + man.to_text())
 
 
 if __name__ == '__main__':

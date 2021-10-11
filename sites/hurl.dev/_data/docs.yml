@@ -40,7 +40,7 @@
             - title: Sending HTML Form Datas
             - title: Sending Multipart Form Datas
             - title: Posting a JSON Body
-            - title: Templating a JSON/XML Body
+            - title: Templating a JSON / XML Body
         - title: Testing Response
           items:
             - title: Testing Response Headers
