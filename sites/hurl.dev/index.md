@@ -133,10 +133,6 @@ powered by [libcurl], one of the most powerful and reliable file transfer librar
 With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, 
 but it's still the [curl] that we love.
 
-# Installation
-
-See the [the installation section].
-
 # Feedbacks
 
 Hurl file format and runners are still in beta, any [feedback, suggestion, bugs or improvements] 

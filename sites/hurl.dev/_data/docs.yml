@@ -14,12 +14,22 @@
           - title: SEE ALSO
     - title: Installation
       items:
-        - title: Linux
-        - title: macOS
-        - title: Windows
-        - title: Cargo
-        - title: Building
-        - title: Hurl - JVM Based
+        - title: Binaries Installation
+          items:
+            - title: Linux
+              items:
+                - title: Debian / Ubuntu
+                - title: Arch Linux / Manjaro (via AUR)
+            - title: macOS
+            - title: Windows
+              items:
+                - title: Zip File
+                - title: Installer
+            - title: Cargo
+        - title: Building From Sources
+          items:
+            - title: Build on Linux, macOS
+            - title: Build on Windows
     - title: Samples
       items:
         - title: Getting Data
