@@ -16,7 +16,7 @@ $ hurl sample.hurl
 ```
 
 
-## Getting Data {#getting-data}
+## Getting Data
 
 A simple GET:
 
@@ -39,7 +39,7 @@ Connection: keep-alive
 
 [Doc]({% link _docs/request.md %}#headers)
 
-### Query Params {#query-params}
+### Query Params
 
 ```hurl
 GET https://example.net/news
@@ -57,9 +57,9 @@ GET https://example.net/news?order=newest&search=something%20to%20search&count=1
 
 [Doc]({% link _docs/request.md %}#query-parameters)
 
-## Sending Data {#sending-data}
+## Sending Data
 
-### Sending HTML Form Datas {#sending-html-form-datas}
+### Sending HTML Form Datas
 
 {% raw %}
 ```hurl
@@ -74,7 +74,7 @@ number: 33611223344
 
 [Doc]({% link _docs/request.md %}#form-parameters)
 
-### Sending Multipart Form Datas {#sending-multipart-form-datas}
+### Sending Multipart Form Datas
 
 {% raw %}
 ```hurl
@@ -89,7 +89,7 @@ field3: file,example.zip; application/zip
 
 [Doc]({% link _docs/request.md %}#multipart-form-data)
 
-### Posting a JSON Body {#posting-a-json-body}
+### Posting a JSON Body
 
 With an inline JSON:
 
@@ -113,7 +113,7 @@ file,data.json;
 
 [Doc]({% link _docs/request.md %}#file-body)
 
-### Templating a JSON/XML Body {#templating-a-json-xml-body}
+### Templating a JSON/XML Body
 
 Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml
 -body)
@@ -158,9 +158,9 @@ Resulting in a PUT request with the following JSON body:
 
 [Doc]({% link _docs/request.md %}#raw-string-body)
 
-## Testing Response {#testing-response}
+## Testing Response
 
-### Testing Response Headers {#testing-response-headers}
+### Testing Response Headers
 
 Use implicit response asserts to test header values:
 
@@ -188,7 +188,7 @@ header "Location" contains "www.example.net"
 [Doc]({% link _docs/asserting-response.md %}#header-assert)
 
 
-### Testing REST Apis {#testing-rest-apis}
+### Testing REST Apis
 
 Asserting JSON body response with [JSONPath](https://goessner.net/articles/JsonPath/):
 
@@ -231,7 +231,7 @@ status < 300
 [Doc]({% link _docs/asserting-response.md %}#status-assert)
 
 
-### Testing HTML Response {#testing-html-response}
+### Testing HTML Response
 
 ```hurl
 GET https://example.com
@@ -249,7 +249,7 @@ xpath "//h2" not exists  # Similar assert for h2
 
 [Doc]({% link _docs/asserting-response.md %}#xpath-assert)
 
-### Testing Set-Cookie Attributes {#testing-set-cookie-attributes}
+### Testing Set-Cookie Attributes
 
 ```hurl
 GET http://myserver.com/home
@@ -266,9 +266,9 @@ cookie "JSESSIONID[SameSite]" == "Lax"
 
 [Doc]({% link _docs/asserting-response.md %}#cookie-assert)
 
-## Others {#others}
+## Others
 
-### Testing Endpoint Performance {#testing-endpoint-performance}
+### Testing Endpoint Performance
 
 ```hurl
 GET https://sample.org/helloworld
@@ -280,7 +280,7 @@ duration < 1000   # Check that response time is less than one second
 
 [Doc]({% link _docs/asserting-response.md %}#duration-assert)
 
-### Using SOAP Apis {#using-soap-apis}
+### Using SOAP Apis
 
 ```hurl
 POST https://example.net/InStock
@@ -301,7 +301,7 @@ HTTP/1.1 200
 
 [Doc]({% link _docs/request.md %}#xml-body)
 
-### Capturing and Using a CSRF Token {#capturing-and-using-a-csrf-token}
+### Capturing and Using a CSRF Token
 
 {% raw %}
 ```hurl
