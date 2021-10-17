@@ -3,15 +3,15 @@
   items:
     - title: Man Page
       items:
-          - title: NAME
-          - title: SYNOPSIS
-          - title: DESCRIPTION
-          - title: HURL FILE FORMAT
-          - title: OPTIONS
-          - title: ENVIRONMENT
-          - title: EXIT CODES
+          - title: Name
+          - title: Synopsis
+          - title: Description
+          - title: Hurl File Format
+          - title: Options
+          - title: Environment
+          - title: Exit Codes
           - title: WWW
-          - title: SEE ALSO
+          - title: See Also
     - title: Installation
       items:
         - title: Binaries Installation
