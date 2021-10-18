@@ -2,7 +2,7 @@
 layout: doc
 title: Installation
 section: Getting Started
-hurl-version: 1.3.1
+hurl-version: 1.4.0
 ---
 # {{ page.title }}
 
@@ -59,10 +59,8 @@ You will need to update your PATH variable.
 
 #### Installer
 
-<span style="color:red">**!! There is an ongoing [issue](https://github.com/Orange-OpenSource/hurl/issues/267) with current installer [hurl-{{page.hurl-version}}-win64-installer.exe](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64-installer.exe) 
-for environment with PATH greater tham 1MB. You should probably save your PATH in this case !!**</span>
+An installer [hurl-{{page.hurl-version}}-win64-installer.exe](https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64-installer.exe) is also available. 
 
-It should be fixed in the next release.
 
 ### Cargo
 
