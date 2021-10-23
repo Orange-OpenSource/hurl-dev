@@ -19,7 +19,7 @@
             - title: Linux
               items:
                 - title: Debian / Ubuntu
-                - title: Arch Linux / Manjaro (via AUR)
+                - title: Arch Linux / Manjaro
             - title: macOS
             - title: Windows
               items:

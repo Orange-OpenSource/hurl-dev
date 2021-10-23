@@ -31,7 +31,12 @@ def add_anchors(text: str) -> str:
         r'</(?P=tag)>'                # closing header tag
     )
     p = re.compile(pattern)
-    replacement = r'<\g<tag> id="\g<id>"><a href="#\g<id>">\g<title></a></\g<tag>>'
+
+    def replacement(match):
+        tag = match.group("tag")
+        _id = match.group("id").replace("--", "-")
+        title = match.group("title")
+        return f'<{tag} id="{_id}"><a href="#{_id}">{title}</a></{tag}>'
 
     text_anchored = p.sub(replacement, text)
     return text_anchored
