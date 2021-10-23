@@ -108,7 +108,7 @@ cargo build --release
 
 ### Build on Windows
 
-Please follow the [contrib/windows section.
+Please follow the [contrib/windows section].
 
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [hurl-{{page.hurl-version}}-win64.zip]: https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64.zip
