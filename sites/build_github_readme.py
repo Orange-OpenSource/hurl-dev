@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ./build_github_readme.py > ../../hurl/README.md
 import re
 from pathlib import Path
 from textwrap import dedent
