@@ -10,15 +10,15 @@ hurl-version: 1.4.0
 
 ### Linux
 
-Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-linux.tar.gz]:
+Precompiled binary is available at [hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz]:
 
 ```shell
 INSTALL_DIR=/tmp
-curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
-export PATH=$INSTALL_DIR/hurl-{{page.hurl-version}}:$PATH
+curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
+export PATH=$INSTALL_DIR/hurl-{{ page.hurl-version }}:$PATH
 
 hurl --version
-hurl {{page.hurl-version}}
+hurl {{ page.hurl-version }}
 ```
 
 
@@ -27,8 +27,8 @@ hurl {{page.hurl-version}}
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
 
 ```shell
-curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl_{{page.hurl-version}}_amd64.deb
-sudo dpkg -i hurl_{{page.hurl-version}}_amd64.deb
+curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl_{{ page.hurl-version }}_amd64.deb
+sudo dpkg -i hurl_{{ page.hurl-version }}_amd64.deb
 ```
 
 #### Arch Linux / Manjaro
@@ -37,7 +37,7 @@ sudo dpkg -i hurl_{{page.hurl-version}}_amd64.deb
 
 ### macOS
 
-Precompiled binary is available at [hurl-{{page.hurl-version}}-x86_64-osx.tar.gz].
+Precompiled binary is available at [hurl-{{ page.hurl-version }}-x86_64-osx.tar.gz].
 
 Hurl can also be installed with [Homebrew]:
 
@@ -46,19 +46,19 @@ brew tap jcamiel/hurl
 brew install hurl
 
 hurl --version
-hurl {{page.hurl-version}}
+hurl {{ page.hurl-version }}
 ```
 
 ### Windows
 
 #### Zip File
 
-Hurl can be installed from a standalone zip file [hurl-{{page.hurl-version}}-win64.zip]. You will need to update your `PATH` variable.
+Hurl can be installed from a standalone zip file [hurl-{{ page.hurl-version }}-win64.zip]. You will need to update your `PATH` variable.
 
 
 #### Installer
 
-An installer [hurl-{{page.hurl-version}}-win64-installer.exe] is also available. 
+An installer [hurl-{{ page.hurl-version }}-win64-installer.exe] is also available. 
 
 
 ### Cargo
@@ -108,19 +108,19 @@ cargo build --release
 
 ### Build on Windows
 
-Please follow the [contrib/windows section].
+Please follow the [contrib on Windows section].
 
 [GitHub]: https://github.com/Orange-OpenSource/hurl
-[hurl-{{page.hurl-version}}-win64.zip]: https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64.zip
-[hurl-{{page.hurl-version}}-win64-installer.exe]: https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-win64-installer.exe
-[hurl-{{page.hurl-version}}-x86_64-osx.tar.gz]: https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-osx.tar.gz
-[hurl-{{page.hurl-version}}-x86_64-linux.tar.gz]: https://github.com/Orange-OpenSource/hurl/releases/download/{{page.hurl-version}}/hurl-{{page.hurl-version}}-x86_64-linux.tar.gz
+[hurl-{{ page.hurl-version }}-win64.zip]: https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-win64.zip
+[hurl-{{ page.hurl-version }}-win64-installer.exe]: https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-win64-installer.exe
+[hurl-{{ page.hurl-version }}-x86_64-osx.tar.gz]: https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-x86_64-osx.tar.gz
+[hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz]: https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz
 [Homebrew]: https://brew.sh
 [AUR]: https://wiki.archlinux.org/index.php/Arch_User_Repository
 [`hurl-bin` package]: https://aur.archlinux.org/packages/hurl-bin/
 [install]: https://www.rust-lang.org/tools/install
 [Rust]: https://www.rust-lang.org
-[contrib/windows section]: https://github.com/Orange-OpenSource/hurl/contrib/windows/README.md
+[contrib on Windows section]: https://github.com/Orange-OpenSource/hurl/blob/master/contrib/windows/README.md
 
 
 

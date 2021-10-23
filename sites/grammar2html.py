@@ -3,56 +3,7 @@ from pathlib import Path
 from typing import List, Optional
 import re
 import sys
-
-
-class Parser:
-    buffer: str
-    offset: int
-
-    def __init__(self, buffer) -> None:
-        self.buffer = buffer
-        self.offset = 0
-
-    def read(self) -> str:
-        if self.left() == 0:
-            return ""
-        ret = self.buffer[self.offset]
-        self.offset += 1
-        return ret
-
-    def peek(self) -> str:
-        if self.left() == 0:
-            return ""
-        return self.buffer[self.offset]
-
-    def read_while(self, f) -> str:
-        offset = self.offset
-        while self.left() > 0:
-            c = self.peek()
-            if f(c):
-                _ = self.read()
-            else:
-                break
-        return self.buffer[offset:self.offset]
-
-    def read_while_prev(self, f) -> str:
-        offset = self.offset
-        while self.left() > 0:
-            c = self.peek()
-            prev = self.buffer[self.offset-1]
-            if f(c, prev):
-                _ = self.read()
-            else:
-                break
-        return self.buffer[offset:self.offset]
-
-    def read_count(self, count):
-        ret = self.buffer[self.offset:self.offset + count]
-        self.offset = self.offset + count
-        return ret
-
-    def left(self) -> int:
-        return len(self.buffer) - self.offset
+from parser import Parser
 
 
 class Token:
@@ -227,7 +178,7 @@ class GrammarParser(Parser):
         while self.left() > 0:
             c = self.peek()
             if c == "\\":
-                _ = self.read_count(2)
+                _ = self.read(2)
             elif c == "\"" and (self.offset != offset):
                 break
             else:

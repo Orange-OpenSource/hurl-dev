@@ -18,11 +18,6 @@ echo '-------------------'
 # First pass, build static site with grammar and git commit.
 jekyll build --source hurl.dev --destination hurl.dev/_site
 
-echo 'Postprocess options table build...'
-echo '-------------------'
-python3 build_options_table.py
-
-
 echo 'Search index build...'
 echo '-------------------'
 # Then build search index from the first pass.
@@ -33,10 +28,6 @@ echo 'Second pass static build...'
 echo '-------------------'
 # Second pass to take the rebuilt search index into account.
 jekyll build --source hurl.dev --destination hurl.dev/_site
-
-echo 'Postprocess options table build...'
-echo '-------------------'
-python3 build_options_table.py
 
 echo 'Highlight code snippets...'
 echo '-------------------'

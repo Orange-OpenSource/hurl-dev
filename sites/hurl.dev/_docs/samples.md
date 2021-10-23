@@ -113,12 +113,10 @@ file,data.json;
 
 [Doc]({% link _docs/request.md %}#file-body)
 
-### Templating a JSON/XML Body
+### Templating a JSON / XML Body
 
-Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml
--body)
- is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request.md %}#raw
- -string-body) with variables to send a JSON or XML body:
+Using templates with [JSON body] or [XML body] is not currently supported in Hurl. 
+Besides, you can use templates in [raw string body] with variables to send a JSON or XML body:
  
 {% raw %}
 ~~~hurl
@@ -175,7 +173,7 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 [Doc]({% link _docs/asserting-response.md %}#headers)
 
 
-Or use explicit response asserts with [predicates]({% link _docs/asserting-response.md %}#predicates):
+Or use explicit response asserts with [predicates]:
 
 ```hurl
 GET https://example.net
@@ -190,7 +188,7 @@ header "Location" contains "www.example.net"
 
 ### Testing REST Apis
 
-Asserting JSON body response with [JSONPath](https://goessner.net/articles/JsonPath/):
+Asserting JSON body response with [JSONPath]:
 
 ```hurl
 GET https//example.org/order
@@ -331,3 +329,10 @@ bytes startsWith hex,efbbbf;
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#bytes-assert)
+
+
+[JSON body]: {% link _docs/request.md %}#json-body
+[XML body]: {% link _docs/request.md %}#xml-body
+[raw string body]: {% link _docs/request.md %}#raw-string-body
+[predicates]: {% link _docs/asserting-response.md %}#predicates
+[JSONPath]: https://goessner.net/articles/JsonPath/
