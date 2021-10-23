@@ -33,7 +33,7 @@ sudo dpkg -i hurl_{{ page.hurl-version }}_amd64.deb
 
 #### Arch Linux / Manjaro
 
-[`hurl-bin` package] for Arch Linux and derived distros ar available via [AUR].
+[`hurl-bin` package] for Arch Linux and derived distros are available via [AUR].
 
 ### macOS
 
