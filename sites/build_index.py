@@ -154,6 +154,7 @@ def build_file_index(page: Page, anchors: Anchors) -> List[Token]:
         sys.stderr.write(f"No indexed content in path {page.path}\n")
         return []
     tags.extend(root.find_all("p"))
+    tags.extend(root.find_all("td"))
     tags.extend(root.find_all("ul"))
     tags.extend(root.find_all("h2"))
     tags.extend(root.find_all("h3"))
@@ -252,6 +253,12 @@ def build_tag_index(page: Page, tag: Tag, anchors: Anchors) -> List[Token]:
 
 
 def find_anchor(tag: Optional[Any]) -> Optional[Tag]:
+    # Special case for options:
+    if isinstance(tag, Tag) and tag.name == "td":
+        child = tag.a
+        if child and child.get("id"):
+            return child
+
     if isinstance(tag, Tag) and tag.get("id"):
         return tag
     else:
