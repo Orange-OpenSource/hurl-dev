@@ -60,8 +60,15 @@ def process_table(doc: MarkdownDoc, nodes: List[Node], col_name: str) -> None:
             name = f"`{name_raw}`"
 
         next_h = doc.find_first(lambda it: isinstance(it, Header), start=doc.next_node(h3))
-        paragraphs = [p.content.replace("\n", "") for p in doc.slice(h3, next_h) if isinstance(p, Paragraph)]
-        description = "<br/><br/>".join(paragraphs)
+        first_p = doc.find_first(lambda it: isinstance(it, Paragraph), start=doc.next_node(h3))
+        last_p = next_h
+        while not isinstance(last_p, Paragraph):
+            last_p = doc.previous_node(last_p)
+        paragraphs = doc.slice(first_p, doc.next_node(last_p))
+        paragraphs = [p.content for p in paragraphs]
+        description = "".join(paragraphs)
+        description = description.replace("\n", "<br/>")
+
         new_node = Paragraph(content=f"{name} | {description}\n")
         new_nodes.append(new_node)
 
