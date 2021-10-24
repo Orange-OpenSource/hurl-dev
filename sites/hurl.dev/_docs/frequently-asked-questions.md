@@ -6,31 +6,36 @@ section: Getting Started
 
 # {{ page.title }}
 
-1. [Why "Hurl"?](#why-hurl)
-2. [Yet Another Tool, I already use X](#yet-another-tool-i-already-use-x)
-3. [Hurl is build on top of libcurl, but what is added?](#hurl-is-build-on-top-of-libcurl-but-what-is-added)
-4. [Why shouldn't I use Hurl?](#why-shouldn-t-i-use-hurl)
-5. [I have a large numbers of tests, how to run just specific tests?](#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests)
-6. [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
-7. [Can I do calculation within a Hurl file?](#can-i-do-calculation-within-a-hurl-file)
+- [General](#general)
+    - [Why "Hurl"?](#why-hurl)
+    - [Yet Another Tool, I already use X](#yet-another-tool-i-already-use-x)
+    - [Hurl is build on top of libcurl, but what is added?](#hurl-is-build-on-top-of-libcurl-but-what-is-added)
+    - [Why shouldn't I use Hurl?](#why-shouldnt-i-use-hurl)
+    - [I have a large numbers of tests, how to run just specific tests?](#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests)
+    - [How can I use my Hurl files outside Hurl?](#how-can-i-use-my-hurl-files-outside-hurl)
+    - [Can I do calculation within a Hurl file?](#can-i-do-calculation-within-a-hurl-file)
+- [macOS](#macos)
+    - [How can I use a custom libcurl (from Homebrew by instance)?](#how-can-i-use-a-custom-libcurl-from-homebrew-by-instance)
+    - [Hurl error: SSL certificate has expired](#hurl-error-ssl-certificate-has-expired)
 
+## General
 
-## Why "Hurl"? {#why-hurl}
+### Why "Hurl"?
 
-The name Hurl is a tribute to the awesome [curl](https://curl.haxx.se), with a focus on the HTTP protocol.
-While it may have an informal meaning not particularly elegant, [other eminent tools](https://git.wiki.kernel.org/index.php/GitFaq#Why_the_.27Git.27_name.3F) have set a precedence in naming.
+The name Hurl is a tribute to the awesome [curl], with a focus on the HTTP protocol.
+While it may have an informal meaning not particularly elegant, [other eminent tools] have set a precedent in naming.
 
-## Yet Another Tool, I already use X {#yet-another-tool-i-already-use-x}
+### Yet Another Tool, I already use X
 
 We think that Hurl has some advantages compared to similar tools.
 
 Hurl is foremost a command line tool and should be easy to use on a local computer, or in a CI/CD pipeline. Some
- tools in the same space as Hurl ([Postman](https://www.postman.com) for instance), are GUI oriented and we find it
- less attractive than CLI. As a command line tool, Hurl can be used to get HTTP datas (like [curl](https://curl.haxx.se)), 
+ tools in the same space as Hurl ([Postman] for instance), are GUI oriented, and we find it
+ less attractive than CLI. As a command line tool, Hurl can be used to get HTTP datas (like [curl]), 
  but also as a test tool for HTTP sessions, or even as documentation.
 
-Having a text based [file format]({% link _docs/hurl-file.md %}) is another advantage. The Hurl format is simple,
-focused on the HTTP domain, can serve as documentation and can be read or written by non technical people. 
+Having a text based [file format] is another advantage. The Hurl format is simple,
+focused on the HTTP domain, can serve as documentation and can be read or written by non-technical people. 
  
 For instance posting JSON data with Hurl can be done with this simple file:
 
@@ -42,7 +47,7 @@ POST http://localhost:3000/api/login
 }
 ```
 
-With [curl](https://curl.haxx.se):
+With [curl]:
 
 ```
 curl --header "Content-Type: application/json" \
@@ -52,7 +57,7 @@ curl --header "Content-Type: application/json" \
 ``` 
 
 
-[Karate](https://github.com/intuit/karate), a tool combining API test automation, mocking, performance-testing, has
+[Karate], a tool combining API test automation, mocking, performance-testing, has
  similar features but offers also much more at a cost of an increased complexity.
   
 Comparing Karate file format:
@@ -97,33 +102,32 @@ directly test a backend endpoint.
 
 Finally, with no headless browser and working on the raw HTTP data, Hurl is also
 really reliable with a very small probability of false positives. Integration tests with tools like 
-[Selenium](https://www.selenium.dev) can, in this regard, be challenging to maintain.
+[Selenium] can, in this regard, be challenging to maintain.
 
 Just use what is convenient for you. In our case, it's Hurl!
- 
- 
-## Hurl is build on top of libcurl, but what is added? {#hurl-is-build-on-top-of-libcurl-but-what-is-added}
 
-Hurl has two main functionalities on top of [curl](https://curl.haxx.se/):
+### Hurl is build on top of libcurl, but what is added?
+
+Hurl has two main functionalities on top of [curl]:
 
 1. Chain several requests:
 
-    With its [captures]({% link _docs/capturing-response.md %}), it enables to inject data received from a response into
-    following requests. [CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
+    With its [captures], it enables to inject data received from a response into
+    following requests. [CSRF tokens]
     are typical examples in a standard web session.
 
 2. Test HTTP responses:
 
-    With its [asserts]({% link _docs/asserting-response.md %}), responses can be easily tested.
+    With its [asserts], responses can be easily tested.
 
-## Why shouldn't I use Hurl {#why-shouldn-t-i-use-hurl}
+### Why shouldn't I use Hurl?
  
-If you need a GUI. Currently, Hurl does not offer a GUI version (like [Postman](https://www.postman.com)). While we
+If you need a GUI. Currently, Hurl does not offer a GUI version (like [Postman]). While we
 think that it can be useful, we prefer to focus for the time-being on the core, keeping something simple and fast. 
 Contributions to build a GUI are welcome.
  
   
-## I have a large numbers of tests, how to run just specific tests? {#i-have-a-large-numbers-of-tests-how-to-run-just-specific-tests}
+### I have a large numbers of tests, how to run just specific tests?
 
 By convention, you can organize Hurl files into different folders or prefix them.
  
@@ -142,7 +146,7 @@ You can simply run your critical tests with
 hurl critical/*.hurl
 ```
  
-## How can I use my Hurl files outside Hurl? {#how-can-i-use-my-hurl-files-outside-hurl}
+### How can I use my Hurl files outside Hurl?
 
 Hurl file can be exported to a json file with `hurlfmt`. 
 This json file can then be easily parsed for converting a different format, getting ad-hoc information,...
@@ -198,7 +202,7 @@ hurlfmt test.hurl --format json | jq
 ```
 
 
-## Can I do calculation within a Hurl file? {#can-i-do-calculation-within-a-hurl-file}
+### Can I do calculation within a Hurl file?
 
 Currently, the templating is very simple, only accessing variables.
 Calculations can be done beforehand, before running the Hurl File.
@@ -210,3 +214,47 @@ TODAY=$(date '+%y%m%d')
 TOMORROW=$(date '+%y%m%d' -d"+1days")
 hurl --variable "today=$TODAY" --variable "tomorrow=$TOMORROW" test.hurl
 ```
+
+## macOS
+
+### How can I use a custom libcurl (from Homebrew by instance)?
+
+No matter how you've installed Hurl (using the precompiled binary for macOS or with [Homebrew])
+Hurl is linked against the built-in system libcurl. If you want to use another libcurl (for instance, 
+if you've installed curl with Homebrew and want Hurl to use Homebrew's libcurl), you can patch Hurl with 
+the following command:
+
+```shell
+sudo install_name_tool -change /usr/lib/libcurl.4.dylib PATH_TO_CUSTOM_LIBCURL PATH_TO_HURL_BIN
+```
+
+For instance:
+
+```shell
+# /usr/local/opt/curl/lib/libcurl.4.dylib is installed by `brew install curl`
+sudo install_name_tool -change /usr/lib/libcurl.4.dylib /usr/local/opt/curl/lib/libcurl.4.dylib /usr/local/bin/hurl
+```
+
+### Hurl error: SSL certificate has expired
+
+If you have a `SSL certificate has expired` error on valid certificates with Hurl, it can be due to the macOS libcurl certificates
+not updated. On Mojave, the built-in curl (`/usr/bin/curl`) relies on the `/etc/ssl/cert.pem` file for root CA verification, 
+and some certificates has expired. To solve this problem:
+
+1. Edit `/etc/ssl/cert.pem` and remove the expired certificate (for instance, the `DST Root CA X3` has expired)
+2. Use a recent curl (installed with Homebrew) and [configure Hurl to use it].
+
+
+
+
+[curl]: https://curl.haxx.se
+[other eminent tools]: https://git.wiki.kernel.org/index.php/GitFaq#Why_the_.27Git.27_name.3F
+[Postman]: https://www.postman.com
+[file format]: {% link _docs/hurl-file.md %}
+[Karate]: https://github.com/intuit/karate
+[Selenium]: https://www.selenium.dev
+[captures]: {% link _docs/capturing-response.md %}
+[CSRF tokens]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
+[asserts]: {% link _docs/asserting-response.md %}
+[configure Hurl to use it]: #how-can-i-use-a-custom-libcurl-from-homebrew-by-instance
+[Homebrew]: https://brew.sh
