@@ -133,7 +133,7 @@ but it's still the [curl] that we love.
 
 # Feedbacks
 
-Hurl file format and runners are still in beta, any [feedback, suggestion, bugs or improvements] 
+Hurl is still in beta, any [feedback, suggestion, bugs or improvements] 
 are welcome.
 
 ```hurl
