@@ -46,6 +46,7 @@ Several options relating to testing can be used:
 
 - print summary ([`--summary`])
 
+      $ hurl --summary hello.hurl assert_json.hurl
       Hello World![
       { "id": 1, "name": "Bob"},
       { "id": 2, "name": "Bill"}
