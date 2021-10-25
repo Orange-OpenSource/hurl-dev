@@ -13,7 +13,7 @@ $ hurl hello.hurl
 Hello World!
 ```
 
-When Provided multiple input file, Hurl will ouput the body of the last HTTP response of each file.
+When multiple input files are provided, Hurl outputs the body of the last HTTP response of each file.
 
 ```
 $ hurl hello.hurl assert_json.hurl
@@ -27,12 +27,12 @@ Hello World![
 For testing, we are only interested in the asserts results, we don't need body response.
 Several options relating to testing can be used:
 
-- do not output response body ([`--output /dev/null`]({% link _docs/man-page.md %}#output))
+- do not output response body ([`--output /dev/null`])
 
         $ hurl --output /dev/null hello.hurl assert_json.hurl
         
 
-- show progress ([`--progress`]({% link _docs/man-page.md %}#progress))
+- show progress ([`--progress`])
 
         $ hurl --progress /dev/null hello.hurl assert_json.hurl
         hello.hurl: RUNNING [1/2]
@@ -44,7 +44,7 @@ Several options relating to testing can be used:
         { "id": 2, "name": "Bill"}
         ]
 
-- print summary ([`--summary`]({% link _docs/man-page.md %}#summary))
+- print summary ([`--summary`])
 
         Hello World![
         { "id": 1, "name": "Bob"},
@@ -57,9 +57,9 @@ Several options relating to testing can be used:
         Duration:  134ms
 
 
-For convenience, all these options can also be set with the unique option `--test`.
+For convenience, all these options can also be set with the unique option [`--test`].
 
-```
+```shell
 $ hurl --test hello.hurl error_assert_status.hurl 
 hello.hurl: RUNNING [1/2]
 hello.hurl: SUCCESS
@@ -82,7 +82,7 @@ Duration:  52ms
 
 ## Generating an HTML report
 
-Hurl can also generates an HTML by using the `--html HTML_DIR` option.
+Hurl can also generates an HTML by using the [`--html HTML_DIR`] option.
 
 If the HTML report already exists, the test results will be appended to it.
 
@@ -92,3 +92,9 @@ The input Hurl files (HTML version) are also included and are easily accessed fr
 
 <img src="/assets/img/hurl-html-file.png"  width="380" height="206" alt="Hurl HTML file">
 
+
+[`--output /dev/null`]: {% link _docs/man-page.md %}#output
+[`--progress`]: {% link _docs/man-page.md %}#progress
+[`--summary`]: {% link _docs/man-page.md %}#summary
+[`--test`]: {% link _docs/man-page.md %}#test
+[`--html HTML_DIR`]: {% link _docs/man-page.md %}#html
