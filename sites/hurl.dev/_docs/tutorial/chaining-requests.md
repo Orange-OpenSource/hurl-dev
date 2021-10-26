@@ -109,7 +109,7 @@ So, first, we'll remove the standard output (if a test is broken, we'll still ha
 $ hurl basic.hurl > /dev/null
 ```
 
-Then, we can also use [--progress] and [--summary] option to give us some feedback on 
+Then, we can also use [`--progress`] and [`--summary`] option to give us some feedback on 
 our tests progression and a simple summary:
 
 {:start="4"}
