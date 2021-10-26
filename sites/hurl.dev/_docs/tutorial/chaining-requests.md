@@ -100,7 +100,7 @@ the content of our 404 page). This is useful when you want to get data from a se
 perform additional steps (like login, confirmation etc...) before being able to call your last request. 
 
 In our tutorial, we're simply interested to verify the success or failure of our integration tests.
-So, from now, we'll remove the standard output (if a test is broken, we'll still have the error output).
+So, first, we'll remove the standard output (if a test is broken, we'll still have the error output).
 
 {:start="3"}
 3. Run `basic.hurl` while redirecting the standard ouput to `/dev/null`:
@@ -108,6 +108,42 @@ So, from now, we'll remove the standard output (if a test is broken, we'll still
 ```
 $ hurl basic.hurl > /dev/null
 ```
+
+Then, we can also use [--progress] and [--summary] option to give us some feedback on 
+our tests progression and a simple summary:
+
+{:start="4"}
+4. Run `basic.hurl` with `--progress` and `--summary` options:
+
+```
+$ hurl --progress --summary basic.hurl > /dev/null
+basic.hurl: RUNNING [1/1]
+basic.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  40ms
+```
+
+Finally, we can use the [`--test`] option that is a shortcut for redirecting the standard output, 
+, using [`--progress`] and [`--summary`] options:
+
+{:start="5"}
+5. Run `basic.hurl` with `--test` option:
+
+```
+$ hurl --test basic.hurl
+basic.hurl: RUNNING [1/1]
+basic.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  40ms
+```
+
+From now on, we will always use `--test` to run our tests files.
 
 ## Test REST Api
 
@@ -280,7 +316,14 @@ jsonpath "$[0].title" == "What is a pennyroyal?"
 5. Run `basic.hurl` and check that every assert of every request has been successful:
 
 ```
-$ hurl basic.hurl > /dev/null
+$ hurl --test basic.hurl
+basic.hurl: RUNNING [1/1]
+basic.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  33ms
 ```
 
 ## Recap
@@ -293,3 +336,6 @@ for your applications.
 [JsonPath assert]: {% link _docs/asserting-response.md %}#jsonpath-assert
 [JsonPath query]: https://goessner.net/articles/JsonPath/
 [query parameter section]: {% link _docs/request.md %}#query-parameters
+[`--progress`]: {% link _docs/man-page.md %}#progress
+[`--summary`]: {% link _docs/man-page.md %}#summary
+[`--test`]: {% link _docs/man-page.md %}#test

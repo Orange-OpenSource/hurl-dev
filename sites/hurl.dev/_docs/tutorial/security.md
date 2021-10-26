@@ -177,7 +177,14 @@ HTTP/1.1 403
 4. Run `create-quiz.hurl` and verify everything is ok:
 
 ```
-$ hurl create-quiz.hurl > /dev/null
+$ hurl --test create-quiz.hurl
+create-quiz.hurl: RUNNING [1/1]
+create-quiz.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  33ms
 ```
 
 ## Comments
@@ -219,7 +226,14 @@ xpath "//comment" count == 0     # Check that we don't leak comments
 2. Run `create-quiz.hurl` and verify everything is ok:
 
 ```
-$ hurl create-quiz.hurl > /dev/null
+$ hurl --test create-quiz.hurl
+create-quiz.hurl: RUNNING [1/1]
+create-quiz.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  33ms
 ```
 
 ## Recap

@@ -69,13 +69,20 @@ HTTP/1.1 302
 2. Run `create-quiz.hurl`:
 
 ```
-$ hurl create-quiz.hurl > /dev/null
+$ hurl --test create-quiz.hurl
+create-quiz.hurl: RUNNING [1/1]
 error: Assert Status
   --> integration/create-quiz.hurl:9:10
    |
  9 | HTTP/1.1 302
    |          ^^^ actual value is <403>
    |
+create-quiz.hurl: FAILURE
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 0 (0.0%)
+Failed:    1 (100.0%)
+Duration:  13ms
 ```
 
 This is unexpected! Our test is failing, we're not redirected to the new quiz detail page.
@@ -165,7 +172,14 @@ HTTP/1.1 302
 3. Run `create-quiz.hurl` and verify everything is ok:
 
 ```
-$ hurl create-quiz.hurl > /dev/null
+$ hurl --test create-quiz.hurl
+create-quiz.hurl: RUNNING [1/1]
+create-quiz.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  33ms
 ```
 
 ## Follow Redirections
@@ -256,7 +270,14 @@ HTTP/1.1 200
 4. Run `create-quiz.hurl` and verify everything is ok:
 
 ```
-$ hurl create-quiz.hurl > /dev/null
+$ hurl --test create-quiz.hurl
+create-quiz.hurl: RUNNING [1/1]
+create-quiz.hurl: SUCCESS
+--------------------------------------------------------------------------------
+Executed:  1
+Succeeded: 1 (100.0%)
+Failed:    0 (0.0%)
+Duration:  41ms
 ```
 
 
