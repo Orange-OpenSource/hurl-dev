@@ -137,9 +137,9 @@ class Search {
         }
     }
 
-    loadIndex() {
+    loadIndex(version) {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/assets/data/index.json", true);
+        xhr.open("GET", `/assets/data/index.json?${version}`, true);
         xhr.onload = (e) => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
@@ -185,7 +185,4 @@ class Search {
 
 }
 
-const search = new Search("search-input", "search-results", "results");
-search.loadIndex();
-window.hurl = {};
-window.hurl.search = search;
+

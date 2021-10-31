@@ -3,6 +3,13 @@
     <head>
         {% include head.html %}
         <script type="text/javascript" src="{{ '/assets/js/search.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
+        <script type="text/javascript">
+            const version = "{{site.env.CI_COMMIT_SHORT_SHA}}";
+            const search = new Search("search-input", "search-results", "results");
+            search.loadIndex(version);
+            window.hurl = {};
+            window.hurl.search = search;
+        </script>
     </head>
     <body>
 
