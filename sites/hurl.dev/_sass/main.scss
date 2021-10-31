@@ -159,13 +159,19 @@ small {
   }
 }
 
-.top-nav-link-a-icon {
+.top-nav-link-a {
   display: flex;
+  text-decoration: none;
 }
 
 .top-nav-link-icon {
   margin-top: 3px;
 }
+
+.top-nav-link-text {
+  text-decoration: underline;
+}
+
 
 details summary {
   cursor: pointer;
