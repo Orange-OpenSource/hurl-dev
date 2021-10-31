@@ -2,7 +2,7 @@
 
     <div class="top-nav-header">
         <div class="top-nav-logo">
-            <a href="{{ "/" | relative_url }}" alt="Hurl">
+            <a href="{{ "/" | relative_url }}" alt="Hurl home page">
                 <div class="top-nav-logo-img">
                     <img class="light-img" src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}">
                     <img class="dark-img" src="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}">
@@ -22,13 +22,17 @@
                     <a href="https://github.com/Orange-OpenSource/hurl" alt="GitHub">GitHub</a>
                 </div>
                 <div class="top-nav-link u-d-block-md">
-                    <a class="menu_link u-underline u-pointer" role="button" alt="Theme" id="theme-toggle" onclick="modeSwitcher()"></a>
+                    <a class="top-nav-link-a-icon u-underline u-pointer" role="button" alt="Theme" id="theme-toggle" onclick="modeSwitcher()"></a>
                 </div>
                 <div class="top-nav-link">
-                    <a class="search_link" href="{{ "/search.html" | relative_url }}" aria-selected={% if page.url contains "/search" %}"true"{% else %}"false"{% endif %} alt="Search"><i class="fa fa-search">&nbsp;</i>Search</a>
+                    <a class="top-nav-link-a-icon" href="{{ "/search.html" | relative_url }}" aria-selected={% if page.url contains "/search" %}"true"{% else %}"false"{% endif %} alt="Search">
+                        <span class="top-nav-link-icon"><svg viewBox="0 0 512 512" width="18" height="18"><use href="#search"></use></svg></span><span>&nbsp;Search</span>
+                    </a>
                 </div>
                 <div class="top-nav-link u-d-none-md">
-                    <a class="menu_link u-underline u-pointer" role="button" alt="Menu" onclick="toggleMenu()"><i class="fa fa-bars">&nbsp;</i>Menu</a>
+                    <a class="top-nav-link-a-icon u-underline u-pointer" role="button" alt="Menu" onclick="toggleMenu()">
+                        <span class="top-nav-link-icon"><svg viewBox="0 0 448 512" width="18" height="18"><use href="#bar"></use></svg></span><span>&nbsp;Menu</span>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -54,4 +58,13 @@
 
     </div>
 
+    {% include search-icon.svg %}
+
+    {% include bar-icon.svg %}
+
+    {% include moon-icon.svg %}
+
+    {% include sun-icon.svg %}
 </div>
+
+

@@ -146,6 +146,7 @@ small {
 
 .top-nav-link {
   margin-left: $m2;
+  fill: currentColor;
 }
 
 .top-nav-toc {
@@ -156,6 +157,14 @@ small {
     list-style-type: none;
     margin-bottom: $m1;
   }
+}
+
+.top-nav-link-a-icon {
+  display: flex;
+}
+
+.top-nav-link-icon {
+  margin-top: 3px;
 }
 
 details summary {
@@ -449,7 +458,16 @@ table tr:nth-child(2n+1) {
   background-color: var(--row-n1);
 }
 
-
+svg.defs-only {
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
 
 @import "code";
 @import "grammar";
