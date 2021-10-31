@@ -21,7 +21,7 @@ jobs:
           python3 --version
           pip3 --version
           sudo apt-get install python3-setuptools python3-pip
-          pip3 install --user bs4
+          pip3 install --user -r sites/requirements.tx
           sudo gem install jekyll
       - name: Build
         run: |
