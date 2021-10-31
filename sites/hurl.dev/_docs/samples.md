@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Samples
+description: Various Hurl samples to show how to run and tests HTTP requests and responses.
 section: Getting Started
 ---
 # {{ page.title }}

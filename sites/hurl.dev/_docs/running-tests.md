@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Running Tests
+description: How to run multiple tests with run and generate an HTML report.
 section: Getting Started
 ---
 

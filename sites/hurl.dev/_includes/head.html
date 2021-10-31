@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
+{% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
 <title>{{ page.title }}</title>
 <link rel="stylesheet" href="{{ '/assets/css/styles.css' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">

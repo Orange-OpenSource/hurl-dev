@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Templates
+description: Hurl file format variables and templating.
 section: File Format
 ---
 # {{ page.title }}

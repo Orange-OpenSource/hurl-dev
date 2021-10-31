@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Man Page
+description: Hurl command line usage, with options descriptions.
 section: Getting Started
 ---
 # {{ page.title }}
