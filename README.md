@@ -61,13 +61,13 @@ In this mode, Hurl code snippets haven't any syntax coloring.
 [the publish GitHub action]: https://github.com/Orange-OpenSource/hurl-dev/actions/workflows/publish.yml
 [Beautiful Soup 4 package (`bs4`)]: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 [Hurl README.md]: https://github.com/Orange-OpenSource/hurl
-[`build.sh`]: blob/master/sites/build.sh
-[`build_anchors.py`]: blob/master/sites/build_anchors.py
-[`build_github_readme.py`]: blob/master/sites/build_github_readme.py
-[`build_index.py`]: blob/master/sites/build_index.py
-[`build_sitemap.py`]: blob/master/sites/build_sitemap.py
-[`deploy.sh`]: blob/master/sites/deploy.sh
-[`grammar2html.py`]: blob/master/sites/grammar2html.py
-[grammar spec]: blob/master/spec/hurl.grammar
-[`highlight.py`]: blob/master/sites/highlight.py
+[`build.sh`]: sites/build.sh
+[`build_anchors.py`]: sites/build_anchors.py
+[`build_github_readme.py`]: sites/build_github_readme.py
+[`build_index.py`]: sites/build_index.py
+[`build_sitemap.py`]: sites/build_sitemap.py
+[`deploy.sh`]: sites/deploy.sh
+[`grammar2html.py`]: sites/grammar2html.py
+[grammar spec]: spec/hurl.grammar
+[`highlight.py`]: sites/highlight.py
 
