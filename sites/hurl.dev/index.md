@@ -6,8 +6,8 @@ section: Home
 ---
 
 <div class="home-logo">
-    <img class="light-img" src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}" width="264px" alt="Hurl logo"/>
-    <img class="dark-img" src="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" width="264px" alt="Hurl logo"/>
+    <img class="light-img" src="{{ '/assets/img/logo-light.svg' | prepend:site.baseurl }}" width="277px" height="72px" alt="Hurl logo"/>
+    <img class="dark-img" src="{{ '/assets/img/logo-dark.svg' | prepend:site.baseurl }}" width="277px" height="72px" alt="Hurl logo"/>
 </div>
 
 
