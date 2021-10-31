@@ -190,6 +190,7 @@
         - title: Verbose Mode
         - title: Interactive Mode
         - title: Include Headers Like curl
+        - title: Using a Proxy
     - title: Captures
       items:
         - title: Capturing a CSRF Token

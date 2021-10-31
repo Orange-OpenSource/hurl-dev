@@ -133,7 +133,7 @@ Press Q (Quit) or C (Continue)
 
 ## Include Headers Like curl
 
-Finally, we can run our file to only output HTTP headers, with [`-i/--include` option].
+We can also run our file to only output HTTP headers, with [`-i/--include` option].
 In this mode, headers of the last entry are displayed:
 
 ```
@@ -193,7 +193,29 @@ Date: Sun, 06 Jun 2021 15:14:20 GMT
 </html>
 ```
 
+## Using a Proxy
+
+Finally, you can use a proxy between Hurl and your server to inspect requests and responses.
+
+For instance, with [mitmproxy]:
+
+1. First, launch mitmproxy, it will listen to connections on 8888 port
+
+       $ mitmweb -p 8888 --web-port 8889 --web-open-browser
+       Web server listening at http://127.0.0.1:8889/
+       Proxy server listening at http://*:8888
+
+2. Then, run Hurl with [`-x/--proxy` option]
+
+       hurl --proxy localhost:8888 basic.hurl
+
+The web interface of mitmproxy allows you to inspect, intercept any requests run by Hurl, and see
+the returned response to Hurl.
+
+
 [`-v/--verbose` option]: {% link _docs/man-page.md %}#verbose
 [`--interactive` option]: {% link _docs/man-page.md %}#interactive
 [`-i/--include` option]: {% link _docs/man-page.md %}#include
 [`--to-entry` option]: {% link _docs/man-page.md %}#to-entry
+[mitmproxy]: https://mitmproxy.org
+[`-x/--proxy` option]: {% link _docs/man-page.md %}#proxy
