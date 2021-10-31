@@ -68,8 +68,8 @@ Either you're using the Docker images ot the jar app, you can open a browser and
 typing the url <http://localhost:8080>:
 
 <div>
-     <img class="light-img" src="{{ '/assets/img/quiz-light.png' | prepend:site.baseurl }}" width="400px"/>
-     <img class="dark-img" src="{{ '/assets/img/quiz-dark.png' | prepend:site.baseurl }}" width="400px"/>
+     <img class="light-img" src="{{ '/assets/img/quiz-light.png' | prepend:site.baseurl }}" width="400px" alt="Quiz home page"/>
+     <img class="dark-img" src="{{ '/assets/img/quiz-dark.png' | prepend:site.baseurl }}" width="400px" alt="Quiz home page"/>
 </div>
 
 <small>Our quiz app: we've only secured a budget for integration tests and nothing for the site design...</small>
