@@ -207,7 +207,7 @@ For instance, with [mitmproxy]:
 
 2. Then, run Hurl with [`-x/--proxy` option]
 
-       hurl --proxy localhost:8888 basic.hurl
+       $ hurl --proxy localhost:8888 basic.hurl
 
 The web interface of mitmproxy allows you to inspect, intercept any requests run by Hurl, and see
 the returned response to Hurl.
