@@ -136,7 +136,7 @@ Content-Type: application/json
 
 Variables can be initialized via command line:
 
-```bash
+```shell
 $ hurl --variable key0=apple \
        --variable key1=true \
        --variable key2=null \

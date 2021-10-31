@@ -46,7 +46,7 @@ just run in a shell:
 
 ```
 $ docker pull ghcr.io/jcamiel/quiz:latest
-$ docker run --name hurl-quiz --rm --detach --publish 8080:8080 ghcr.io/jcamiel/quiz:latest
+$ docker run --name quiz --rm --detach --publish 8080:8080 ghcr.io/jcamiel/quiz:latest
 ```
 
 And check that the container is running with:
@@ -54,7 +54,7 @@ And check that the container is running with:
 ```
 $ docker ps
 CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS         PORTS                                       NAMES
-922d387923ec   ghcr.io/jcamiel/quiz:latest   "java -jar app/quiz.…"   8 seconds ago   Up 6 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   mystifying_jang
+922d387923ec   ghcr.io/jcamiel/quiz:latest   "java -jar app/quiz.…"   8 seconds ago   Up 6 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   quiz
 ```
 
 If you want to use the jar application, you must have Java installed locally. If it is the case, download

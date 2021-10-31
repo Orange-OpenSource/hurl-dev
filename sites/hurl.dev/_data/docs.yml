@@ -205,6 +205,10 @@
         - title: Comments
         - title: Recap
     - title: CI/CD Integration
+      items:
+        - title: Integration Script
+        - title: Running Tests with GitHub Action
+        - title: Tests Report
 - title: Resources
   path: /docs/
   items:

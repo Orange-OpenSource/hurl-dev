@@ -84,8 +84,18 @@
     font-size: 1.5rem;
   }
 }
+
 .u-font-size-3-md {
   @media only screen and (min-width: $md) {
     font-size: 1.5rem;
   }
+}
+
+.u-drop-shadow {
+  box-shadow: 0 4px 8px -8px gray;
+}
+
+.u-border {
+  border: 1px solid $separator-color-light;
+  border: 1px solid var(--separator-color);
 }
