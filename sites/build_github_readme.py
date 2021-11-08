@@ -20,7 +20,20 @@ def get_markdown_doc(src: Path) -> MarkdownDoc:
 
 def main() -> int:
 
-    presentation_md = parse_markdown("# Presentation\n\n", False)
+    header = dedent("""\
+        <a href="https://hurl.dev"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo.svg?sanitize=true" align="center" width="264px"/></a>
+        
+        <br/>
+        
+        [![deploy status](https://github.com/Orange-OpenSource/hurl/workflows/CI/badge.svg)](https://github.com/Orange-OpenSource/hurl/actions)
+        [![CircleCI](https://circleci.com/gh/lepapareil/hurl/tree/master.svg?style=shield)](https://circleci.com/gh/lepapareil/hurl/tree/master)
+        [![Crates.io](https://img.shields.io/crates/v/hurl.svg)](https://crates.io/crates/hurl)
+        [![documentation](https://img.shields.io/badge/-documentation-informational)](https://hurl.dev)
+        
+        """)
+    header_md = parse_markdown(text=header, use_front_matter=False)
+
+    presentation_md = parse_markdown(text="# Presentation\n\n", use_front_matter=False)
     home_md = get_markdown_doc(src=Path("hurl.dev/index.md"))
     samples_md = get_markdown_doc(src=Path("hurl.dev/_docs/samples.md"))
     usage_md = get_markdown_doc(src=Path("hurl.dev/_docs/man-page.md"))
@@ -35,26 +48,22 @@ def main() -> int:
     why_paragraph.content = r.sub(showcase_rep, why_paragraph.content)
     home_md.indent()
 
+    body_md = MarkdownDoc()
+    body_md.extend(samples_md)
+    body_md.extend(usage_md)
+    body_md.extend(installation_md)
+    toc = body_md.toc()
+    toc_md = parse_markdown(text=toc, use_front_matter=False)
+
     readme_md = MarkdownDoc()
+    readme_md.extend(header_md)
     readme_md.extend(presentation_md)
     readme_md.extend(home_md)
-    readme_md.extend(samples_md)
-    readme_md.extend(usage_md)
-    readme_md.extend(installation_md)
+    readme_md.extend(toc_md)
+    readme_md.extend(body_md)
 
-    header = dedent("""\
-        <a href="https://hurl.dev"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo.svg?sanitize=true" align="center" width="264px"/></a>
-        
-        <br/>
-        
-        [![deploy status](https://github.com/Orange-OpenSource/hurl/workflows/CI/badge.svg)](https://github.com/Orange-OpenSource/hurl/actions)
-        [![CircleCI](https://circleci.com/gh/lepapareil/hurl/tree/master.svg?style=shield)](https://circleci.com/gh/lepapareil/hurl/tree/master)
-        [![Crates.io](https://img.shields.io/crates/v/hurl.svg)](https://crates.io/crates/hurl)
-        [![documentation](https://img.shields.io/badge/-documentation-informational)](https://hurl.dev)
-        """)
-    toc = readme_md.toc()
-    body = readme_md.to_text()
-    readme = f"{header}\n{toc}\n{body}"
+    readme = readme_md.to_text()
+
     print(readme)
     return 0
 
