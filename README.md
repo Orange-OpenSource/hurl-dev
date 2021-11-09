@@ -9,7 +9,7 @@ Hurl source code, please check out <https://github.com/Orange-OpenSource/hurl>.
 
 ## Contributing
 
-Edits on documentation are done via pull request. Once a pul request is accepted, modifications are automatically published
+Edits on documentation are done via pull request. Once a pull request is accepted, modifications are automatically published
 to <https://hurl.dev> via [the publish GitHub action].
 
 ## Local build
