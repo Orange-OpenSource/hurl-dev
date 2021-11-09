@@ -152,7 +152,7 @@ So far, we have tested two HTML endpoints. We're going to see now how to test a 
 Our quiz application exposes a health REST resource, available at <http://localhost:8080/api/health>.
 Let's use Hurl to check it.
 
-1. In a shell, use Hurl to test the </api/heath> endpoint:
+1. In a shell, use Hurl to test the </api/health> endpoint:
 
 ```
 $ echo 'GET http://localhost:8080/api/health' | hurl
