@@ -71,6 +71,12 @@ choco install hurl
 scoop install hurl
 ```
 
+#### Windows Package Manager
+
+```
+winget install hurl
+```
+
 ### Cargo
 
 If you're a Rust programmer, Hurl can be installed with cargo.
