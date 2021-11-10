@@ -25,6 +25,8 @@
               items:
                 - title: Zip File
                 - title: Installer
+                - title: Chocolatey
+                - title: Scoop
             - title: Cargo
         - title: Building From Sources
           items:
