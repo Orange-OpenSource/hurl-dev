@@ -22,7 +22,6 @@ hurl --version
 hurl {{ page.hurl-version }}
 ```
 
-
 #### Debian / Ubuntu
 
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
@@ -56,11 +55,21 @@ hurl {{ page.hurl-version }}
 
 Hurl can be installed from a standalone zip file [hurl-{{ page.hurl-version }}-win64.zip]. You will need to update your `PATH` variable.
 
-
 #### Installer
 
-An installer [hurl-{{ page.hurl-version }}-win64-installer.exe] is also available. 
+An installer [hurl-{{ page.hurl-version }}-win64-installer.exe] is also available.
 
+#### Chocolatey
+
+```
+choco install hurl
+```
+
+#### Scoop
+
+```
+scoop install hurl
+```
 
 ### Cargo
 
