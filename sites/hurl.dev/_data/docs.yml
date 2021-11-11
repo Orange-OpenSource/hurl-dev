@@ -27,6 +27,7 @@
                 - title: Installer
                 - title: Chocolatey
                 - title: Scoop
+                - title: Windows Package Manager
             - title: Cargo
         - title: Building From Sources
           items:
