@@ -33,7 +33,6 @@ def main() -> int:
         """)
     header_md = parse_markdown(text=header, use_front_matter=False)
 
-    presentation_md = parse_markdown(text="# Presentation\n\n", use_front_matter=False)
     home_md = get_markdown_doc(src=Path("hurl.dev/index.md"))
     samples_md = get_markdown_doc(src=Path("hurl.dev/_docs/samples.md"))
     usage_md = get_markdown_doc(src=Path("hurl.dev/_docs/man-page.md"))
@@ -46,7 +45,6 @@ def main() -> int:
     why_paragraph = home_md.find_first(lambda it: '<ul class="showcase-container">'in it.content)
     r = re.compile(r'<li class="showcase-item"><h2 class="showcase-item-title">(.+?)<\/h2>(.+?)<\/li>', re.DOTALL)
     why_paragraph.content = r.sub(showcase_rep, why_paragraph.content)
-    home_md.indent()
 
     body_md = MarkdownDoc()
     body_md.extend(samples_md)
@@ -57,7 +55,7 @@ def main() -> int:
 
     readme_md = MarkdownDoc()
     readme_md.extend(header_md)
-    readme_md.extend(presentation_md)
+
     readme_md.extend(home_md)
     readme_md.extend(toc_md)
     readme_md.extend(body_md)
