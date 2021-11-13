@@ -14,11 +14,11 @@ hurl-version: 1.4.0
 Precompiled binary is available at [hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz]:
 
 ```shell
-INSTALL_DIR=/tmp
-curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
-export PATH=$INSTALL_DIR/hurl-{{ page.hurl-version }}:$PATH
+$ INSTALL_DIR=/tmp
+$ curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl-{{ page.hurl-version }}-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
+$ export PATH=$INSTALL_DIR/hurl-{{ page.hurl-version }}:$PATH
 
-hurl --version
+$ hurl --version
 hurl {{ page.hurl-version }}
 ```
 
@@ -27,8 +27,8 @@ hurl {{ page.hurl-version }}
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
 
 ```shell
-curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl_{{ page.hurl-version }}_amd64.deb
-sudo dpkg -i hurl_{{ page.hurl-version }}_amd64.deb
+$ curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/{{ page.hurl-version }}/hurl_{{ page.hurl-version }}_amd64.deb
+$ sudo dpkg -i hurl_{{ page.hurl-version }}_amd64.deb
 ```
 
 #### Arch Linux / Manjaro
@@ -42,10 +42,10 @@ Precompiled binary is available at [hurl-{{ page.hurl-version }}-x86_64-osx.tar.
 Hurl can also be installed with [Homebrew]:
 
 ```shell
-brew tap jcamiel/hurl
-brew install hurl
+$ brew tap jcamiel/hurl
+$ brew install hurl
 
-hurl --version
+$ hurl --version
 hurl {{ page.hurl-version }}
 ```
 
@@ -62,19 +62,19 @@ An installer [hurl-{{ page.hurl-version }}-win64-installer.exe] is also availabl
 #### Chocolatey
 
 ```
-choco install hurl
+$ choco install hurl
 ```
 
 #### Scoop
 
 ```
-scoop install hurl
+$ scoop install hurl
 ```
 
 #### Windows Package Manager
 
 ```
-winget install hurl
+$ winget install hurl
 ```
 
 ### Cargo
@@ -82,7 +82,7 @@ winget install hurl
 If you're a Rust programmer, Hurl can be installed with cargo.
 
 ```
-cargo install hurl
+$ cargo install hurl
 ```
 
 ## Building From Sources
@@ -107,19 +107,19 @@ pacman -Sy --noconfirm pkgconf gcc openssl libxml2
 Hurl is written in [Rust]. You should [install] the latest stable release.
 
 ```shell
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-source $HOME/.cargo/env
-rustc --version
-cargo --version
+$ curl https://sh.rustup.rs -sSf | sh -s -- -y
+$ source $HOME/.cargo/env
+$ rustc --version
+$ cargo --version
 ```
 
 Build
 
 ```shell
-git clone https://github.com/Orange-OpenSource/hurl
-cd hurl
-cargo build --release
-./target/release/hurl --version
+$ git clone https://github.com/Orange-OpenSource/hurl
+$ cd hurl
+$ cargo build --release
+$ ./target/release/hurl --version
 ```
 
 ### Build on Windows
