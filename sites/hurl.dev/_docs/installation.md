@@ -61,19 +61,19 @@ An installer [hurl-{{ page.hurl-version }}-win64-installer.exe] is also availabl
 
 #### Chocolatey
 
-```
+```shell
 $ choco install hurl
 ```
 
 #### Scoop
 
-```
+```shell
 $ scoop install hurl
 ```
 
 #### Windows Package Manager
 
-```
+```shell
 $ winget install hurl
 ```
 
@@ -81,7 +81,7 @@ $ winget install hurl
 
 If you're a Rust programmer, Hurl can be installed with cargo.
 
-```
+```shell
 $ cargo install hurl
 ```
 
