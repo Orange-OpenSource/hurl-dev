@@ -94,7 +94,7 @@ def bash_to_html(snippet: str) -> str:
     output = output.replace('class="si"', 'class="literal-string-interpol"')
 
     # FIXME: Simulate docker as built-in
-    for word in ["docker", "hurl", "wait_for_url", "sleep"]:
+    for word in ["docker", "hurl ", "wait_for_url", "sleep"]:
         output = output.replace(word, f'<span class="name-builtin">{word}</span>')
     return output
 
