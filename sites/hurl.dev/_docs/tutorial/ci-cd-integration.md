@@ -28,7 +28,7 @@ In a first step, we're going to write a bash script that will pull our Docker
 image, launch it and run Hurl tests against it. Once we have checked that this
 script runs locally, we'll see how to run it automatically in a CI/CD pipeline.
 
-### Integration Script
+## Integration Script
 
 1. First, create a directory name `quiz-project`, add [`integration/basic.hurl`]
    and [`integration/create-quiz.hurl`] from the previous tutorial to the directory.
@@ -183,7 +183,7 @@ it to ensure that new developments don't have regression. Our next step is to ru
 the integration tests automatically in a CI/CD pipeline. As an example, we're going
 to create a [GitHub Action].
 
-### Running Tests with GitHub Action
+## Running Tests with GitHub Action
 
 1. Create a new empty repository in GitHub, named `quiz-project`:
 
@@ -267,9 +267,11 @@ Finally, you can check on GitHub that our action is running:
     <img class="dark-img u-drop-shadow u-border" src="{{ '/assets/img/github-action-dark.png' | prepend:site.baseurl }}" width="100%" alt="GitHub Action"/>
 </p>
 
-### Tests Report
+## Tests Report
 
 TBD
+
+## Recap
 
 In less than half an hour, we have added a fully CI/CD pipeline to our project.
 Now, we can add more Hurl tests and start developing new features with confidence!

@@ -209,6 +209,7 @@
         - title: Integration Script
         - title: Running Tests with GitHub Action
         - title: Tests Report
+        - title: Recap
 - title: Resources
   path: /docs/
   items:
