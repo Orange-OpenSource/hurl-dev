@@ -273,7 +273,6 @@ will capture one or more digit.
 ### Variable capture {#variable-capture}
 
 Capture the value of a variable into another.
-Unseful when combined with `regex` subquery.
 
 ```hurl
 GET https://sample.org/helloworld
