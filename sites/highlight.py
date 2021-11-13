@@ -3,12 +3,20 @@ import subprocess
 from subprocess import CalledProcessError
 import re
 from pathlib import Path
-from typing import List
+from typing import List, Callable
 import platform
+from pygments import highlight
+from pygments.lexers import BashLexer
+from pygments.formatters import HtmlFormatter
 
 
-# return linux, osx or windows
-def get_os():
+def main():
+    highlight_code(language="hurl", to_html_func=hurl_to_html)
+    highlight_code(language="bash", to_html_func=bash_to_html)
+
+
+def get_os() -> str:
+    """Return linux, osx or windows."""
     if platform.system() == 'Linux':
         return 'linux'
     elif platform.system() == 'Darwin':
@@ -16,27 +24,27 @@ def get_os():
     elif platform.system() == 'Windows':
         return 'windows'
     else:
-        raise Error('Invalid Platform ' + platform.system())
+        raise EnvironmentError('Invalid Platform ' + platform.system())
 
 
-def main():
-    print(f"Highlighting Hurl snippets...")
+def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
+    print(f"Highlighting {language.title()} snippets...")
 
     for filename in Path("hurl.dev", "_site").glob('**/*.html'):
-        print(f"Processing {filename}...")
+        print(f"    Processing {filename}...")
         src = Path(filename).read_text()
-        snippets = extract_hurl_snippet(src)
+        snippets = extract_snippet(language=language, text=src)
         if not len(snippets):
             continue
 
-        print(f"Highlighting {filename}")
+        print(f"    Highlighting {filename}")
         dst = src
         for snippet in snippets:
             unescaped_snippet = unescape_html(snippet)
-            colored_snippet = hurl_to_html(unescaped_snippet)
+            colored_snippet = to_html_func(unescaped_snippet)
             dst = dst.replace(
-                f"<pre><code class=\"language-hurl\">{snippet}</code></pre>",
-                f"<pre><code class=\"language-hurl\">{colored_snippet}</code></pre>"
+                f"<pre><code class=\"language-{language}\">{snippet}</code></pre>",
+                f"<pre><code class=\"language-{language}\">{colored_snippet}</code></pre>"
             )
         Path(filename).write_text(dst)
 
@@ -71,9 +79,27 @@ def hurl_to_html(snippet: str) -> str:
     return extract(output, "<pre><code class=\"language-hurl\">", "</code></pre>")
 
 
-def extract_hurl_snippet(text: str) -> List[str]:
+def bash_to_html(snippet: str) -> str:
+    output = highlight(snippet, BashLexer(), HtmlFormatter(nowrap=True))
+    # From https://github.com/richleland/pygments-css/blob/master/default.css
+    output = output.replace('class="ch"', 'class="comment-hashbang"')
+    output = output.replace('class="k"', 'class="keyword"')
+    output = output.replace('class="m"', 'class="literal-number"')
+    output = output.replace('class="nb"', 'class="name-builtin"')
+    output = output.replace('class="nv"', 'class="name-variable"')
+    output = output.replace('class="o"', 'class="operator"')
+    output = output.replace('class="s2"', 'class="literal-string-double"')
+    output = output.replace('class="si"', 'class="literal-string-interpol"')
 
-    prefix = "<pre><code class=\"language-hurl\">"
+    # FIXME: Simulate docker as built-in
+    for word in ["docker", "wait_for_url", "sleep"]:
+        output = output.replace(word, f'<span class="name-builtin">{word}</span>')
+    return output
+
+
+def extract_snippet(language: str, text: str) -> List[str]:
+
+    prefix = f"<pre><code class=\"language-{language}\">"
     suffix = "</code></pre>"
     index = 0
 

@@ -38,6 +38,10 @@ $hurl-subquery-type-light: darkblue;
 $hurl-not-light: darkblue;
 $hurl-predicate-type-light: darkblue;
 $hurl-comment-light: dimgray;
+$bash-keyword-light: teal;
+$bash-literal-number-light: blue;
+$bash-literal-string-double-light: darkgreen;
+$bash-name-builtin-light: teal;
 
 $schema-token-1-light: #0000ff;
 $schema-token-2-light: #009900;
@@ -77,13 +81,16 @@ $hurl-subquery-type-dark: orange;
 $hurl-not-dark: orange;
 $hurl-predicate-type-dark: orange;
 $hurl-comment-dark: dimgray;
+$bash-keyword-dark: #ff8000;
+$bash-literal-number-dark: dodgerblue;
+$bash-literal-string-double-dark: forestgreen;
+$bash-name-builtin-dark: #ff8000;
 
 $schema-token-1-dark: #007fff;
 $schema-token-2-dark: #009900;
 $schema-token-3-dark: #ff8000;
 
-
-html, html[data-theme="light"] {
+@mixin light {
   --background-color: #{$background-color-light};
   --primary-color: #{$primary-color-light};
   --body-text: #{$body-text-light};
@@ -111,6 +118,10 @@ html, html[data-theme="light"] {
   --hurl-not: #{$hurl-not-light};
   --hurl-predicate-type: #{$hurl-predicate-type-light};
   --hurl-comment: #{$hurl-comment-light};
+  --bash-keyword: #{$bash-keyword-light};
+  --bash-literal-number: #{$bash-literal-number-light};
+  --bash-literal-string-double: #{$bash-literal-string-double-light};
+  --bash-name-builtin: #{$bash-name-builtin-light};
   --marked-background: #{$marked-background-light};
   --marked-text: #{$marked-text-light};
   --row-n0: #{$row-n0-light};
@@ -127,7 +138,7 @@ html, html[data-theme="light"] {
   }
 }
 
-html[data-theme="dark"] {
+@mixin dark {
   --background-color: #{$background-color-dark};
   --primary-color: #{$primary-color-dark};
   --body-text: #{$body-text-dark};
@@ -155,6 +166,10 @@ html[data-theme="dark"] {
   --hurl-not: #{$hurl-not-dark};
   --hurl-predicate-type: #{$hurl-predicate-type-dark};
   --hurl-comment: #{$hurl-comment-dark};
+  --bash-keyword: #{$bash-keyword-dark};
+  --bash-literal-number: #{$bash-literal-number-dark};
+  --bash-literal-string-double: #{$bash-literal-string-double-dark};
+  --bash-name-builtin: #{$bash-name-builtin-dark};
   --marked-background: #{$marked-background-dark};
   --marked-text: #{$marked-text-dark};
   --row-n0: #{$row-n0-dark};
@@ -171,92 +186,21 @@ html[data-theme="dark"] {
   }
 }
 
+
+html, html[data-theme="light"] {
+  @include light;
+}
+
+html[data-theme="dark"] {
+  @include dark;
+}
+
 @media (prefers-color-scheme: dark) {
   html, html[data-theme="dark"] {
-    --background-color: #{$background-color-dark};
-    --primary-color: #{$primary-color-dark};
-    --body-text: #{$body-text-dark};
-    --secondary-color: #{$secondary-color-dark};
-    --code-background-color: #{$code-background-color-dark};
-    --footer-background-color: #{$footer-background-color-dark};
-    --separator-color: #{$separator-color-dark};
-    --hurl-string: #{$hurl-string-dark};
-    --hurl-name: #{$hurl-name-dark};
-    --hurl-raw: #{$hurl-raw-dark};
-    --hurl-number: #{$hurl-number-dark};
-    --hurl-boolean: #{$hurl-boolean-dark};
-    --hurl-null: #{$hurl-null-dark};
-    --hurl-json: #{$hurl-json-dark};
-    --hurl-xml: #{$hurl-xml-dark};
-    --hurl-hex: #{$hurl-hex-dark};
-    --hurl-base64: #{$hurl-base64-dark};
-    --hurl-filename: #{$hurl-filename-dark};
-    --hurl-url: #{$hurl-url-dark};
-    --hurl-method: #{$hurl-method-dark};
-    --hurl-version: #{$hurl-version-dark};
-    --hurl-section-header: #{$hurl-section-header-dark};
-    --hurl-query-type: #{$hurl-query-type-dark};
-    --hurl-subquery-type: #{$hurl-subquery-type-dark};
-    --hurl-not: #{$hurl-not-dark};
-    --hurl-predicate-type: #{$hurl-predicate-type-dark};
-    --hurl-comment: #{$hurl-comment-dark};
-    --marked-background: #{$marked-background-dark};
-    --marked-text: #{$marked-text-dark};
-    --row-n0: #{$row-n0-dark};
-    --row-n1: #{$row-n1-dark};
-    --schema-token-1: #{$schema-token-1-dark};
-    --schema-token-2: #{$schema-token-2-dark};
-    --schema-token-3: #{$schema-token-3-dark};
-
-    .light-img {
-      display: none;
-    }
-    .dark-img {
-      display: inline-block;
-    }
+    @include dark;
   }
 
   html[data-theme="light"] {
-    --background-color: #{$background-color-light};
-    --primary-color: #{$primary-color-light};
-    --body-text: #{$body-text-light};
-    --secondary-color: #{$secondary-color-light};
-    --code-background-color: #{$code-background-color-light};
-    --footer-background-color: #{$footer-background-color-light};
-    --separator-color: #{$separator-color-light};
-    --hurl-string: #{$hurl-string-light};
-    --hurl-name: #{$hurl-name-light};
-    --hurl-raw: #{$hurl-raw-light};
-    --hurl-number: #{$hurl-number-light};
-    --hurl-boolean: #{$hurl-boolean-light};
-    --hurl-null: #{$hurl-null-light};
-    --hurl-json: #{$hurl-json-light};
-    --hurl-xml: #{$hurl-xml-light};
-    --hurl-hex: #{$hurl-hex-light};
-    --hurl-base64: #{$hurl-base64-light};
-    --hurl-filename: #{$hurl-filename-light};
-    --hurl-url: #{$hurl-url-light};
-    --hurl-method: #{$hurl-method-light};
-    --hurl-version: #{$hurl-version-light};
-    --hurl-section-header: #{$hurl-section-header-light};
-    --hurl-query-type: #{$hurl-query-type-light};
-    --hurl-subquery-type: #{$hurl-subquery-type-light};
-    --hurl-not: #{$hurl-not-light};
-    --hurl-predicate-type: #{$hurl-predicate-type-light};
-    --hurl-comment: #{$hurl-comment-light};
-    --marked-background: #{$marked-background-light};
-    --marked-text: #{$marked-text-light};
-    --row-n0: #{$row-n0-light};
-    --row-n1: #{$row-n1-light};
-    --schema-token-1: #{$schema-token-1-light};
-    --schema-token-2: #{$schema-token-2-light};
-    --schema-token-3: #{$schema-token-3-light};
-
-    .light-img {
-      display: inline-block;
-    }
-    .dark-img {
-      display: none;
-    }
+    @include light;
   }
 }

@@ -107,3 +107,25 @@ pre, code {
     color: var(--hurl-comment);
   }
 }
+
+.language-bash {
+  .comment-hashbang {
+    font-weight: bold;
+  }
+  .keyword {
+    color: $bash-keyword-light;
+    color: var(--bash-keyword);
+  }
+  .literal-number {
+    color: $bash-literal-number-light;
+    color: var(--bash-literal-number);
+  }
+  .literal-string-double {
+    color: $bash-literal-string-double-light;
+    color: var(--bash-literal-string-double);
+  }
+  .name-builtin {
+    color: $bash-name-builtin-light;
+    color: var(--bash-name-builtin);
+  }
+}
