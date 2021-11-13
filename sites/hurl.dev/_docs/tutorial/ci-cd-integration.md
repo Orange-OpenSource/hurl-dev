@@ -33,8 +33,7 @@ script runs locally, we'll see how to run it automatically in a CI/CD pipeline.
 1. First, create a directory name `quiz-project`, add [`integration/basic.hurl`]
    and [`integration/create-quiz.hurl`] from the previous tutorial to the directory.
 
-<pre>
-<code>$ mkdir quiz-project
+<pre><code class="language-shell">$ mkdir quiz-project
 $ cd quiz-project
 $ mkdir integration
 $ vi integration/basic.hurl
@@ -43,8 +42,7 @@ $ vi integration/basic.hurl
 
 $ vi integration/create-quiz.hurl
 
-# Import <a href="https://raw.githubusercontent.com/jcamiel/quiz/master/integration/create-quiz.hurl">create-quiz.hurl</a> here!</code>
-</pre>
+# Import <a href="https://raw.githubusercontent.com/jcamiel/quiz/master/integration/create-quiz.hurl">create-quiz.hurl</a> here!</code></pre>
 
 Next, we are going to write a first version of our integration script that will
 just pull the Quiz image and run it:
@@ -273,8 +271,8 @@ Finally, you can check on GitHub that our action is running:
 
 TBD
 
-In less than half an hour, we hava added a fully CI/CD pipeline to our project.
-Now, we can add more Hurl tests and star developing new features with confidence!
+In less than half an hour, we have added a fully CI/CD pipeline to our project.
+Now, we can add more Hurl tests and start developing new features with confidence!
 
 
 [`integration/basic.hurl`]: https://raw.githubusercontent.com/jcamiel/quiz/master/integration/basic.hurl

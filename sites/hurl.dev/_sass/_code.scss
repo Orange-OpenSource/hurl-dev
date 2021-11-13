@@ -112,6 +112,10 @@ pre, code {
   .comment-hashbang {
     font-weight: bold;
   }
+  .comment-single {
+    color: $bash-comment-single-light;
+    color: var(--bash-comment-single);
+  }
   .keyword {
     color: $bash-keyword-light;
     color: var(--bash-keyword);
@@ -127,5 +131,18 @@ pre, code {
   .name-builtin {
     color: $bash-name-builtin-light;
     color: var(--bash-name-builtin);
+  }
+}
+
+.language-shell {
+  .prompt {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: $shell-prompt-light;
+    color: var(--shell-prompt);
   }
 }

@@ -13,6 +13,7 @@ from pygments.formatters import HtmlFormatter
 def main():
     highlight_code(language="hurl", to_html_func=hurl_to_html)
     highlight_code(language="bash", to_html_func=bash_to_html)
+    highlight_code(language="shell", to_html_func=shell_to_html)
 
 
 def get_os() -> str:
@@ -83,6 +84,7 @@ def bash_to_html(snippet: str) -> str:
     output = highlight(snippet, BashLexer(), HtmlFormatter(nowrap=True))
     # From https://github.com/richleland/pygments-css/blob/master/default.css
     output = output.replace('class="ch"', 'class="comment-hashbang"')
+    output = output.replace('class="c1"', 'class="comment-single"')
     output = output.replace('class="k"', 'class="keyword"')
     output = output.replace('class="m"', 'class="literal-number"')
     output = output.replace('class="nb"', 'class="name-builtin"')
@@ -96,6 +98,10 @@ def bash_to_html(snippet: str) -> str:
         output = output.replace(word, f'<span class="name-builtin">{word}</span>')
     return output
 
+
+def shell_to_html(snippet: str) -> str:
+    output = snippet.replace("$ ", '<span class="prompt">$ </span>')
+    return output
 
 def extract_snippet(language: str, text: str) -> List[str]:
 
