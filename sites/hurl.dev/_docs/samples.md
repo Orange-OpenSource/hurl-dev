@@ -8,7 +8,7 @@ section: Getting Started
 
 To run a sample, you can edit a file with the sample content, and use Hurl:
 
-```
+```shell
 $ vi sample.hurl
 
 GET https://example.net
