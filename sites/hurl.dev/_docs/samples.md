@@ -192,7 +192,7 @@ header "Location" contains "www.example.net"
 Asserting JSON body response with [JSONPath]:
 
 ```hurl
-GET https//example.org/order
+GET https://example.org/order
 screencapability: low
 
 HTTP/1.1 200
@@ -210,7 +210,7 @@ jsonpath "$.state" != null
 Testing status code:
 
 ```hurl
-GET https//example.org/order/435
+GET https://example.org/order/435
 
 HTTP/1.1 200
 ```
@@ -218,7 +218,7 @@ HTTP/1.1 200
 [Doc]({% link _docs/asserting-response.md %}#version-status)
 
 ```hurl
-GET https//example.org/order/435
+GET https://example.org/order/435
 
 # Testing status code is in a 200-300 range
 HTTP/1.1 *
