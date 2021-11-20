@@ -584,3 +584,4 @@ of all file nodes.
 [XML]: https://en.wikipedia.org/wiki/XML
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [`--file-root` option]: {% link _docs/man-page.md %}#file-root
+[`count`]: {% link _docs/capturing-response.md %}#count-subquery
