@@ -34,7 +34,8 @@ def add_anchors(text: str) -> str:
 
     def replacement(match):
         tag = match.group("tag")
-        _id = match.group("id").replace("--", "-")
+        _id = match.group("id")
+        _id = re.sub(r"-{2,}", "-", _id)
         title = match.group("title")
         return f'<{tag} id="{_id}"><a href="#{_id}">{title}</a></{tag}>'
 
