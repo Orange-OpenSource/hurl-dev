@@ -37,6 +37,7 @@
       items:
         - title: Getting Data
           items:
+            - title: HTTP Headers
             - title: Query Params
         - title: Sending Data
           items:

@@ -27,6 +27,8 @@ GET https://example.net
 
 [Doc]({% link _docs/request.md %}#method)
 
+### HTTP Headers
+
 A simple GET with headers:
 
 ```hurl
@@ -39,6 +41,25 @@ Connection: keep-alive
 ```
 
 [Doc]({% link _docs/request.md %}#headers)
+
+Headers can be used to perform [Basic authentication]. Given a login `bob` 
+with password `secret`:
+
+In a shell:
+
+```shell
+$ echo -n 'bob:secret' | base64
+Ym9iOnNlY3JldA==
+```
+
+Then, use [`Authorization` header] to add basic authentication to a request:
+
+```hurl
+GET https://example.com/protected
+Authorization: Basic Ym9iOnNlY3JldA==
+```
+
+Alternatively, on can use [`--user` option].
 
 ### Query Params
 
@@ -337,3 +358,6 @@ bytes startsWith hex,efbbbf;
 [raw string body]: {% link _docs/request.md %}#raw-string-body
 [predicates]: {% link _docs/asserting-response.md %}#predicates
 [JSONPath]: https://goessner.net/articles/JsonPath/
+[Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
+[`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
+[`--user` option]: {% link _docs/man-page.md %}#user
