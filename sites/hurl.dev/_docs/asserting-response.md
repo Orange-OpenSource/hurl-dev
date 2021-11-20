@@ -6,7 +6,7 @@ section: File Format
 
 # {{ page.title }}
 
-## Version - Status {#version-status}
+## Version - Status
 
 Expected protocol version and status code of the HTTP response. 
 
@@ -32,7 +32,7 @@ status <= 500
 ```
  
 
-## Headers {#headers} 
+## Headers
 
 Optional list of the expected HTTP response headers that must be in the received response. 
 
@@ -64,7 +64,7 @@ Location: https://example.net/home
 
 Testing duplicated headers is also possible.
 
-For example with the Set-Cookie header:
+For example with the `Set-Cookie` header:
  
 ```
 Set-Cookie: theme=light
@@ -93,14 +93,14 @@ Set-Cookie: theme=light
 ```
 
 If you want to test specifically the number of headers returned for a given header name, or
-if you want to test header value with [predicates](#predicates) (like `startsWith`, `contains`, `exists`) 
-you can use the explicit [header assert](#header-assert).
+if you want to test header value with [predicates] (like `startsWith`, `contains`, `exists`) 
+you can use the explicit [header assert].
 
 
-## Asserts {#asserts}
+## Asserts
 
-Optional list of assertions on the HTTP response. Assertions can describe checks on status code, 
-on the received body (or part of it) and on response headers.
+Optional list of assertions on the HTTP response. Assertions can describe checks
+on status code, on the received body (or part of it) and on response headers.
 
 Structure of an assert:
 
@@ -113,8 +113,8 @@ Structure of an assert:
 </div>
 
 
-An assert consists of a query followed by a predicate. The format of the query is shared with [captures](#captures), and 
-can be one of :
+An assert consists of a query followed by a predicate. The format of the query 
+is shared with [captures], and can be one of :
 
 - [`status`](#status-assert)
 - [`header`](#header-assert)
@@ -128,7 +128,11 @@ can be one of :
 - [`variable`](#variable-assert)
 - [`duration`](#duration-assert)
 
-### Predicates {#predicates}
+Queries, as in captures, can be refined with subqueries. [`count`] subquery can be used 
+with various predicates to add tests on collections sizes.
+
+
+### Predicates
 
 Predicates consist of a predicate function, and a predicate value. Predicate functions are:
 
@@ -178,7 +182,7 @@ xpath "//h1" exists # Equivalent but simpler
 
 As the XPath query `boolean(count(//h1))` returns a boolean, the predicate value in the assert must be either
 `true` or `false` without double quotes. On the other side, say you have an article node and you want to check the value of some 
-[data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes):
+[data attributes]:
 
 ```xml
 <article
@@ -218,7 +222,7 @@ xpath "//h2" count == 13
 xpath "string(//article/@data-id)" startsWith "electric"
 ```
 
-### Status assert {#status-assert}
+### Status assert
 
 Check the received HTTP response status code. Status assert consists of the keyword `status` followed by a predicate
 function and value. 
@@ -231,7 +235,7 @@ HTTP/1.1 *
 status < 300
 ```
 
-### Header assert {#header-assert}
+### Header assert
 
 Check the value of a received HTTP response header. Header assert consists of the keyword `header` followed by a predicate
 function and value. 
@@ -244,15 +248,15 @@ HTTP/1.1 302
 header "Location" contains "www.example.net"
 ```
 
-### Cookie assert {#cookie-assert}
+### Cookie assert
 
-Check value or attributes of a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
-) response header. Cookie assert consists of the keyword `cookie`, followed by the cookie name (and optionally a cookie
-attribute), a predicate function and value.
+Check value or attributes of a [`Set-Cookie`] response header. Cookie assert 
+consists of the keyword `cookie`, followed by the cookie name (and optionally a 
+cookie attribute), a predicate function and value.
 
-Cookie attributes value can be checked by using the following format: `<cookie-name>[cookie-attribute]`. The
- following attributes are supported: `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and
- `SameSite`.
+Cookie attributes value can be checked by using the following format: 
+`<cookie-name>[cookie-attribute]`. The following attributes are supported: `Value`,
+`Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and `SameSite`.
 
 ```hurl
 GET http://localhost:8000/cookies/set
@@ -280,13 +284,14 @@ cookie "LSID[SameSite]" equals "Lax"
 ```
 
 > `Secure` and `HttpOnly` attributes can only be tested with `exists` or `not exists` predicates
-> to reflect the [Set-Cookie header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) semantic.
-> (in other words, queries `<cookie-name>[HttpOnly]` and `<cookie-name>[Secure]` don't return boolean) 
+> to reflect the [Set-Cookie header] semantic (in other words, queries `<cookie-name>[HttpOnly]` 
+> and `<cookie-name>[Secure]` don't return boolean).
 
-### Body assert {#body-assert}
+### Body assert
 
-Check the value of the received HTTP response body when decoded as a string. Body assert consists of the keyword `body` 
-followed by a predicate function and value. The encoding used to decode the body is based on the `charset` value in the
+Check the value of the received HTTP response body when decoded as a string. 
+Body assert consists of the keyword `body` followed by a predicate function and 
+value. The encoding used to decode the body is based on the `charset` value in the
 `Content-Type` header response.
 
 ```hurl
@@ -299,10 +304,10 @@ body contains "<h1>Welcome!</h1>"
 
 > Precise the encoding used to decode the text body. 
 
-### Bytes assert {#bytes-assert}
+### Bytes assert
 
-Check the value of the received HTTP response body as a bytestream. Body assert consists of the keyword `bytes`
-followed by a predicate function and value.
+Check the value of the received HTTP response body as a bytestream. Body assert 
+consists of the keyword `bytes` followed by a predicate function and value.
 
 ```hurl
 GET https://example.net/data.bin
@@ -313,11 +318,12 @@ bytes startsWith hex,efbbbf;
 ```
 
 
-### XPath assert {#xpath-assert}
+### XPath assert
 
-Check the value of a [XPath](https://en.wikipedia.org/wiki/XPath) query on the received HTTP body decoded as a string. 
-Currently, only XPath 1.0 expression can be used. Body assert consists of the keyword `xpath` followed by a predicate
-function and value. Values can be string, boolean or number depending on the XPath query.
+Check the value of a [XPath] query on the received HTTP body decoded as a string. 
+Currently, only XPath 1.0 expression can be used. Body assert consists of the 
+keyword `xpath` followed by a predicate function and value. Values can be string,
+boolean or number depending on the XPath query.
 
 Let's say we want to check this HTML response:
  
@@ -360,10 +366,11 @@ xpath "boolean(count(//h2))" == false               # Check there is no h2
 xpath "//h2" not exists                             # Similar assert for h2 
 ```
 
-### JSONPath assert {#jsonpath-assert}
+### JSONPath assert
 
-Check the value of a [JSONPath](https://goessner.net/articles/JsonPath/) query on the received HTTP body decoded as a JSON
-document. Body assert consists of the keyword `jsonpath` followed by a predicate function and value. 
+Check the value of a [JSONPath] query on the received HTTP body decoded as a JSON
+document. Body assert consists of the keyword `jsonpath` followed by a predicate 
+function and value. 
 
 Let's say we want to check this JSON response:
 
@@ -406,11 +413,12 @@ jsonpath "$.slideshow.date" != null
 jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 ```
 
-> Explain that the value selected by the JSONPath is coerced to a string when only one node is selected.
+> Explain that the value selected by the JSONPath is coerced to a string when only
+> one node is selected.
 
-### Regex assert {#regex-assert}
+### Regex assert
 
-### Variable assert {#variable-assert}
+### Variable assert
 
 ```hurl
 # Test that the XML endpoint return 200 pets 
@@ -422,7 +430,7 @@ pets: xpath "//pets"
 variable "pets" count == 200
 ```
 
-### Duration assert {#duration-assert}
+### Duration assert
 
 Check the total duration (sending plus receiving time) of the HTTP transaction.
  
@@ -434,17 +442,18 @@ HTTP/1.0 200
 duration < 1000   # Check that response time is less than one second
 ```
 
-## Body {#body}
+## Body
 
-Optional assertion on the received HTTP response body. Body section can be seen as syntactic sugar 
-over [body asserts](#body-assert) (with `equals` predicate function). If the body of the response is a 
-[JSON](https://www.json.org) string or a [XML](https://en.wikipedia.org/wiki/XML) string, 
-the body assertion can be directly inserted without any modification. For a text based body that is not JSON nor XML, 
-one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96;</code>. 
-For a precise byte control of the response body, a [Base64](https://en.wikipedia.org/wiki/Base64) encoded string can be 
-used to describe exactly the body byte content to check.
+Optional assertion on the received HTTP response body. Body section can be seen 
+as syntactic sugar over [body asserts] (with `equals` predicate function). If the
+body of the response is a [JSON] string or a [XML] string, the body assertion can 
+be directly inserted without any modification. For a text based body that is not JSON nor XML, 
+one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends
+with <code>&#96;&#96;&#96;</code>. For a precise byte control of the response body, 
+a [Base64] encoded string or an input file can be used to describe exactly 
+the body byte content to check.
 
-### JSON body {#json-body}
+### JSON body
 
 ```hurl
 # Get a doggy thing:
@@ -480,7 +489,7 @@ HTTP/1.1 200
 </catalog>
 ~~~
 
-### Raw string body {#raw-string-body}
+### Raw string body
 
 ~~~hurl
 GET https://example.net/models
@@ -530,10 +539,11 @@ Finaly, raw string can be used without any newline:
 
 is evaluated as "line".
 
-### Base64 body {#base64-body}
+### Base64 body
 
-Base64 body assert starts with `base64,` and end with `;`. MIME's Base64 encoding is supported (newlines and white spaces may be
- present anywhere but are to be ignored on decoding), and `=` padding characters might be added.
+Base64 body assert starts with `base64,` and end with `;`. MIME's Base64 encoding
+is supported (newlines and white spaces may be present anywhere but are to be 
+ignored on decoding), and `=` padding characters might be added.
 
 ```hurl
 GET https://example.net
@@ -547,8 +557,8 @@ aGVuZHJlcml0LCBlc3QganVzdG8gYmliZW5kdW0gbWV0dXMsIG5lYyBydXRydW
 
 ### File body {#file-body}
 
-To use the binary content of a local file as the body response assert, file body can be used. File body starts with
-`file,` and ends with `;``
+To use the binary content of a local file as the body response assert, file body
+can be used. File body starts with `file,` and ends with `;``
 
 ```hurl
 GET https://example.net
@@ -557,5 +567,20 @@ HTTP/1.1 200
 file,data.bin;
 ```
 
-File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.
+File are relative to the input Hurl file, and cannot contain implicit parent 
+directory (`..`). You can use [`--file-root` option] to specify the root directory 
+of all file nodes.
+
+[predicates]: #predicates
+[header assert]: #header-assert
+[captures]: {% link _docs/capturing-response.md %}#query
+[data attributes]: https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes
+[`Set-Cookie`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+[Set-Cookie header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+[XPath]: https://en.wikipedia.org/wiki/XPath
+[JSONPath]: https://goessner.net/articles/JsonPath/
+[body asserts]: #body-assert
+[JSON]: https://www.json.org
+[XML]: https://en.wikipedia.org/wiki/XML
+[Base64]: https://en.wikipedia.org/wiki/Base64
+[`--file-root` option]: {% link _docs/man-page.md %}#file-root

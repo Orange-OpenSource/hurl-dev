@@ -189,7 +189,7 @@ header "Location" contains "www.example.net"
 
 ### Testing REST Apis
 
-Asserting JSON body response with [JSONPath]:
+Asserting JSON body response (node values, collection count etc...) with [JSONPath]:
 
 ```hurl
 GET https://example.org/order

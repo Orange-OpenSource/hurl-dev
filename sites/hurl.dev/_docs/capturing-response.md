@@ -6,7 +6,7 @@ section: File Format
 
 # {{ page.title }}
 
-## Captures {#captures}
+## Captures
 
 Captures are optional values captured from the HTTP response, in a named variable. Captures can be the
  response status code, part or the entire of the body, and response headers.
@@ -14,9 +14,8 @@ Captures are optional values captured from the HTTP response, in a named variabl
 Captured variables are available through a run session; each new value of a given variable overrides the last value.
 
 Captures allow using data from one request to another request, when working with
-[CSRF tokens](https://en.wikipedia.org/wiki/Cross-site_request_forgery) for instance. Variables can also be initialized
-at the start of the session, by passing [variable values]({% link _docs/man-page.md %}#variable),
-or can used in [templates]({% link _docs/templates.md %})
+[CSRF tokens] for instance. Variables can also be initialized at the start of the
+session, by passing [variable values], or can be used in [templates].
 
 {% raw %}
 ```hurl
@@ -49,7 +48,8 @@ Structure of a capture:
  </div>
 </div>
 
-A capture consists of a variable name, followed by `:` and a query. The captures section starts with `[Captures]`.
+A capture consists of a variable name, followed by `:` and a query. The captures
+section starts with `[Captures]`.
 
 
 ### Query {#query}
@@ -68,7 +68,7 @@ Query can be of the following type:
 - [`duration`](#duration-capture)
 
 
-### Status capture {#status-capture}
+### Status capture
 
 Capture the received HTTP response status code. Status capture consists of a variable name, followed by a `:`, and the
 keyword `status`.
@@ -81,7 +81,7 @@ HTTP/1.1 200
 my_status: status
 ```
 
-### Header capture {#header-capture}
+### Header capture
 
 Capture a header from the received HTTP response headers. Header capture consists of a variable name, followed by a `:`,
  then the keyword `header` and a header name.
@@ -99,9 +99,9 @@ next_url: header "Location"
 
 ### Cookie capture {#cookie-capture}
 
-Capture a [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) header from the received
-HTTP response headers. Cookie capture consists of a variable name, followed by a `:`, then the keyword `cookie` and a
- cookie name.
+Capture a [`Set-Cookie`] header from the received HTTP response headers. Cookie 
+capture consists of a variable name, followed by a `:`, then the keyword `cookie`
+and a cookie name.
 
 ```hurl
 GET http://example.net/cookies/set
@@ -111,9 +111,9 @@ HTTP/1.0 200
 session-id: cookie "LSID"
 ```
 
-Cookie attributes value can also be captured by using the following format: `<cookie-name>[cookie-attribute]`. The
- following attributes are supported: `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and
- `SameSite`.
+Cookie attributes value can also be captured by using the following format: 
+`<cookie-name>[cookie-attribute]`. The following attributes are supported: 
+`Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and `SameSite`.
 
 ```hurl
 GET http://example.net/cookies/set
@@ -132,7 +132,7 @@ same-site: cookie "LSID[SameSite]"
 ```
 
 
-### Body capture {#body-capture}
+### Body capture
 
 Capture the entire body (decoded as text) from the received HTTP response
 
@@ -144,7 +144,7 @@ HTTP/1.1 200
 my_body: body
 ```
 
-### Bytes capture {#bytes-capture}
+### Bytes capture
 
 Capture the entire body (as a raw bytestream) from the received HTTP response
 
@@ -157,9 +157,9 @@ my_data: bytes
 ```
 
 
-### XPath capture {#xpath-capture}
+### XPath capture
 
-Capture a [XPath](https://en.wikipedia.org/wiki/XPath) query from the received HTTP body decoded as a string.
+Capture a [XPath] query from the received HTTP body decoded as a string.
 Currently, only XPath 1.0 expression can be used.
 
 {% raw %}
@@ -178,8 +178,8 @@ HTTP/1.1 200
 ```
 {% endraw %}
 
-XPath captures are not limited to node values (like string, or boolean); any valid XPath can be captured
-and assert with variable asserts.
+XPath captures are not limited to node values (like string, or boolean); any 
+valid XPath can be captured and assert with variable asserts.
 
 ```hurl
 # Test that the XML endpoint return 200 pets
@@ -192,9 +192,9 @@ variable "pets" count == 200
 ```
 
 
-### JSONPath capture {#jsonpath-capture}
+### JSONPath capture
 
-Capture a [JSONPath](https://goessner.net/articles/JsonPath/) query from the received HTTP body.
+Capture a [JSONPath] query from the received HTTP body.
 
 {% raw %}
 ```hurl
@@ -211,7 +211,7 @@ contact-id: jsonpath "$['id']"
 
 > Explain that the value selected by the JSONPath is coerced to a string when only one node is selected.
 
-As with [XPath captures](#xpath-capture), JSONPath captures can be anything from string, number, to object and collections.
+As with [XPath captures], JSONPath captures can be anything from string, number, to object and collections.
 For instance, if we have a JSON endpoint that returns the following JSON:
 
 ```
@@ -250,7 +250,7 @@ all:        jsonpath "$"
 ```
 
 
-### Regex capture {#regex-capture}
+### Regex capture
 
 Capture a regex pattern from the HTTP received body, decoded as text.
 
@@ -264,13 +264,13 @@ id_b: regex "id_b:(\\d+)!"
 name: regex "Hello ([a-zA-Z]+)!"
 ```
 
-Pattern of the regex query must have at least one capture group, otherwise the capture will fail.
-Special characters beginning with a backslash in the pattern (like `\d`, `\s`) must be escaped: `regex "(\\d+)!"`
-will capture one or more digit.
+Pattern of the regex query must have at least one capture group, otherwise the 
+capture will fail. Special characters beginning with a backslash in the pattern 
+(like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
 
 > raw string for specifying pattern could be used in a future version.
 
-### Variable capture {#variable-capture}
+### Variable capture
 
 Capture the value of a variable into another.
 
@@ -283,7 +283,7 @@ in: body
 name: variable "in" regex "Hello ([a-zA-Z]+)!"
 ```
 
-### Duration capture {#duration-capture}
+### Duration capture
 
 Capture the response time of the request in ms.
 
@@ -295,9 +295,9 @@ HTTP/1.0 200
 duration_in_ms: duration
 
 ```
-### Subquery {#subquery}
+### Subquery
 
-Optionally, the query can be refined using a subquery. Currently, only `regex` are supported:
+Optionally, query can be refined using subqueries `regex` and `count`. 
 
 <div class="schema-container u-font-size-0 u-font-size-1-sm u-font-size-3-md">
  <div class="schema">
@@ -308,3 +308,35 @@ Optionally, the query can be refined using a subquery. Currently, only `regex` a
  </div>
 </div>
 
+#### Regex subquery
+
+```hurl
+GET https://pets.org/cats/cutest
+
+HTTP/1.0 200
+# Cat name are structured like this `meow + id`: for instance `meow123456` 
+[Captures]
+id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
+```
+
+#### Count subquery
+
+Returns the count of a collection.
+
+```hurl
+GET https://pets.org/cats/cutest
+
+HTTP/1.0 200
+[Captures]
+cats_size: jsonpath "$.cats" count
+```
+
+
+
+[CSRF tokens]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
+[variable values]: {% link _docs/man-page.md %}#variable
+[templates]: {% link _docs/templates.md %}
+[`Set-Cookie`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
+[XPath]: https://en.wikipedia.org/wiki/XPath
+[JSONPath]: https://goessner.net/articles/JsonPath/
+[XPath captures]: #xpath-capture

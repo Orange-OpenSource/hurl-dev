@@ -139,6 +139,9 @@
             - title: Variable capture
             - title: Duration capture
             - title: Subquery
+              items:
+                - title: Regex subquery
+                - title: Count subquery
     - title: Asserting Response
       items:
         - title: Version - Status
