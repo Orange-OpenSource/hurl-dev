@@ -59,7 +59,7 @@ GET https://example.com/protected
 Authorization: Basic Ym9iOnNlY3JldA==
 ```
 
-Alternatively, on can use [`--user` option].
+Alternatively, one can use [`--user` option].
 
 ### Query Params
 
