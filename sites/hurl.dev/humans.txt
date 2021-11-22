@@ -29,7 +29,7 @@ A simple sample with multiple requests:
 
     HTTP/1.1 200
     [Asserts]
-    jsonpath "$.id" equals "toto@rookie.net"
+    jsonpath "$.id" == "toto@rookie.net"
 
     # Third request, delete it!
     # ------------------------------------
