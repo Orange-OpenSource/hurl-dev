@@ -65,10 +65,10 @@ The following entry:
 
 {% raw %}
 ```hurl
-GET https://sample/counter/{{counter}} 
+GET https://sample/counter/{{count}} 
 HTTP/* 200
 [Asserts]
-jsonpath "$.id" == "{{counter}}"
+jsonpath "$.id" == "{{count}}"
 ```
 {% endraw %}
 
@@ -88,10 +88,10 @@ On the other hand, the following assert:
 
 {% raw %}
 ```hurl
-GET https://sample/counter/{{counter}} 
+GET https://sample/counter/{{count}} 
 HTTP/* 200
 [Asserts]
-jsonpath "$.index" == {{counter}}
+jsonpath "$.index" == {{count}}
 ```
 {% endraw %}
 
