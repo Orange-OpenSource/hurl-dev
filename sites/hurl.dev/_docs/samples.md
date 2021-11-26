@@ -6,7 +6,7 @@ section: Getting Started
 ---
 # {{ page.title }}
 
-To run a sample, you can edit a file with the sample content, and use Hurl:
+To run a sample, edit a file with the sample content, and run Hurl:
 
 ```shell
 $ vi sample.hurl
@@ -16,6 +16,7 @@ GET https://example.net
 $ hurl sample.hurl
 ```
 
+You can check [Hurl tests suit] for more samples.
 
 ## Getting Data
 
@@ -361,3 +362,4 @@ bytes startsWith hex,efbbbf;
 [Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
 [`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
 [`--user` option]: {% link _docs/man-page.md %}#user
+[Hurl tests suit]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests
