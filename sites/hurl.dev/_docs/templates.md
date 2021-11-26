@@ -159,7 +159,7 @@ Content-Type: application/json
 Variables can be initialized via command line:
 
 ```shell
-$ hurl --variable key0=apple --variable key1=true --variable key2=null --variable key3=42 test.hurl
+$ hurl --variable a_string=apple --variable a_bool=true --variable a_null=null --variable a_number=42 test.hurl
 ```
 
 Resulting in a PUT request with the following JSON body:
