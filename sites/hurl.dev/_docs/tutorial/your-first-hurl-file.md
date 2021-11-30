@@ -93,7 +93,7 @@ This is your first Hurl file, and probably one of the simplest. It consists of o
 {:start="2"}
 2. In a shell, execute `hurl` with `basic.hurl` as argument:
 
-```shell
+```
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
