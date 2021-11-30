@@ -248,7 +248,7 @@ and some certificates has expired. To solve this problem:
 ### Hurl warning on Big Sur: Closing connection 0
 
 In Big Sur, the system version of libcurl (7.64.1), has a bug that [erroneously 
-display `* Closing connection 0` on `stderr`]. To fix Hurl not to output this 
+displays `* Closing connection 0` on `stderr`]. To fix Hurl not to output this 
 warning, one can link Hurl to a newer version of libcurl.
 
 For instance, to use the latest libcurl with Homebrew:
@@ -269,4 +269,4 @@ $ sudo install_name_tool -change /usr/lib/libcurl.4.dylib /usr/local/opt/curl/li
 [asserts]: {% link _docs/asserting-response.md %}
 [configure Hurl to use it]: #how-can-i-use-a-custom-libcurl-from-homebrew-by-instance
 [Homebrew]: https://brew.sh
-[erroneously display `* Closing connection 0` on `stderr`]: https://github.com/curl/curl/issues/3891
+[erroneously displays `* Closing connection 0` on `stderr`]: https://github.com/curl/curl/issues/3891
