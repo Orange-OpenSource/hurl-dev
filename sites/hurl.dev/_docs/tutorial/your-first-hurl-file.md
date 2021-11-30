@@ -22,7 +22,7 @@ With Hurl, we're going to add tests for the website and the apis.
 We’ll assume you have Hurl installed already. You can test it by running the 
 following command in a shell prompt (indicated by the $ prefix):
 
-```
+```shell
 $ hurl --version
 ```
 
@@ -44,14 +44,14 @@ Our quiz application can be launched locally either:
 If you want to use the Docker image, you must have Docker installed locally. If it is the case, 
 just run in a shell:
 
-```
+```shell
 $ docker pull ghcr.io/jcamiel/quiz:latest
 $ docker run --name quiz --rm --detach --publish 8080:8080 ghcr.io/jcamiel/quiz:latest
 ```
 
 And check that the container is running with:
 
-```
+```shell
 $ docker ps
 CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 922d387923ec   ghcr.io/jcamiel/quiz:latest   "java -jar app/quiz.…"   8 seconds ago   Up 6 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   quiz
@@ -60,7 +60,7 @@ CONTAINER ID   IMAGE                         COMMAND                  CREATED   
 If you want to use the jar application, you must have Java installed locally. If it is the case, download
 the jar application from <https://github.com/jcamiel/quiz/releases/latest> and run in a shell:
 
-```
+```shell
 $ java -jar quiz-0.0.2.jar 
 ```
 
@@ -93,7 +93,7 @@ This is your first Hurl file, and probably one of the simplest. It consists of o
 {:start="2"}
 2. In a shell, execute `hurl` with `basic.hurl` as argument:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -110,7 +110,7 @@ $ hurl basic.hurl
 If the quiz app is running, you should see the content of the html file at <http://localhost:8080>. If the quiz app 
 is not running, you'll see an error:
 
-```
+```shell
 $ hurl basic.hurl 
 error: Http Connection
   --> basic.hurl:1:5
