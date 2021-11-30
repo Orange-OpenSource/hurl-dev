@@ -75,6 +75,7 @@
           items:
             - title: How can I use a custom libcurl (from Homebrew by instance)?
             - title: "Hurl error: SSL certificate has expired"
+            - title: "Hurl warning on Big Sur: Closing connection 0"
 - title: File Format
   path: /docs/
   items:

@@ -17,6 +17,7 @@ section: Getting Started
 - [macOS](#macos)
     - [How can I use a custom libcurl (from Homebrew by instance)?](#how-can-i-use-a-custom-libcurl-from-homebrew-by-instance)
     - [Hurl error: SSL certificate has expired](#hurl-error-ssl-certificate-has-expired)
+    - [Hurl warning on Big Sur: Closing connection 0](#hurl-warning-on-big-sur-closing-connection-0)
 
 ## General
 
@@ -244,8 +245,18 @@ and some certificates has expired. To solve this problem:
 1. Edit `/etc/ssl/cert.pem` and remove the expired certificate (for instance, the `DST Root CA X3` has expired)
 2. Use a recent curl (installed with Homebrew) and [configure Hurl to use it].
 
+### Hurl warning on Big Sur: Closing connection 0
 
+In Big Sur, the system version of libcurl (7.64.1), has a bug that [erroneously 
+display `* Closing connection 0` on `stderr`]. To fix Hurl not to output this 
+warning, one can link Hurl to a newer version of libcurl.
 
+For instance, to use the latest libcurl with Homebrew:
+
+```shell
+$ brew install curl
+$ sudo install_name_tool -change /usr/lib/libcurl.4.dylib /usr/local/opt/curl/lib/libcurl.4.dylib /usr/local/bin/hurl
+```
 
 [curl]: https://curl.haxx.se
 [other eminent tools]: https://git.wiki.kernel.org/index.php/GitFaq#Why_the_.27Git.27_name.3F
@@ -258,3 +269,4 @@ and some certificates has expired. To solve this problem:
 [asserts]: {% link _docs/asserting-response.md %}
 [configure Hurl to use it]: #how-can-i-use-a-custom-libcurl-from-homebrew-by-instance
 [Homebrew]: https://brew.sh
+[erroneously display `* Closing connection 0` on `stderr`]: https://github.com/curl/curl/issues/3891
