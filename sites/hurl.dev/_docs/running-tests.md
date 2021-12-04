@@ -16,7 +16,7 @@ Hello World!
 
 When multiple input files are provided, Hurl outputs the body of the last HTTP response of each file.
 
-```
+```shell
 $ hurl hello.hurl assert_json.hurl
 Hello World![
   { "id": 1, "name": "Bob"},
@@ -30,34 +30,38 @@ Several options relating to testing can be used:
 
 - do not output response body ([`--output /dev/null`])
 
-      $ hurl --output /dev/null hello.hurl assert_json.hurl
-
+    ```shell
+$ hurl --output /dev/null hello.hurl assert_json.hurl
+    ```
 
 - show progress ([`--progress`])
 
-      $ hurl --progress /dev/null hello.hurl assert_json.hurl
-      hello.hurl: RUNNING [1/2]
-      hello.hurl: SUCCESS
-      assert_json.hurl: RUNNING [2/2]
-      assert_json.hurl: SUCCESS
-      Hello World![
-      { "id": 1, "name": "Bob"},
-      { "id": 2, "name": "Bill"}
-      ]
+    ```shell
+$ hurl --progress /dev/null hello.hurl assert_json.hurl
+hello.hurl: RUNNING [1/2]
+hello.hurl: SUCCESS
+assert_json.hurl: RUNNING [2/2]
+assert_json.hurl: SUCCESS
+Hello World![
+{ "id": 1, "name": "Bob"},
+{ "id": 2, "name": "Bill"}
+]
+    ```
 
 - print summary ([`--summary`])
 
-      $ hurl --summary hello.hurl assert_json.hurl
-      Hello World![
-      { "id": 1, "name": "Bob"},
-      { "id": 2, "name": "Bill"}
-      ]
-      --------------------------------------------------------------------------------
-      Executed:  2
-      Succeeded: 2 (100.0%)
-      Failed:    0 (0.0%)
-      Duration:  134ms
-
+    ```shell
+$ hurl --summary hello.hurl assert_json.hurl
+Hello World![
+{ "id": 1, "name": "Bob"},
+{ "id": 2, "name": "Bill"}
+]
+--------------------------------------------------------------------------------
+Executed:  2
+Succeeded: 2 (100.0%)
+Failed:    0 (0.0%)
+Duration:  134ms
+    ```
 
 For convenience, all these options can also be set with the unique option [`--test`].
 
