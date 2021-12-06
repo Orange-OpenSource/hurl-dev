@@ -5,13 +5,19 @@ indexed: false
 ---
 # {{ page.title }}
 
-## Getting Started
+## [Getting Started]
 
-## File Format
+## [File Format]
 
-## Tutorial
+## [Tutorial]
 
-## Resources
+## [Resources]
+
+
+[Getting Started]: {% link _docs/man-page.md %}
+[File Format]: {% link _docs/hurl-file.md %}
+[Tutorial]: {% link _docs/tutorial/your-first-hurl-file.md %}
+[Resources]: {% link _docs/license.md %}
 
 
 
