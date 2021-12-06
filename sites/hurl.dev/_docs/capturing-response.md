@@ -265,10 +265,12 @@ name: regex "Hello ([a-zA-Z]+)!"
 ```
 
 Pattern of the regex query must have at least one capture group, otherwise the 
-capture will fail. Special characters beginning with a backslash in the pattern 
+capture will fail. Metacharacters beginning with a backslash in the pattern 
 (like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
 
-> raw string for specifying pattern could be used in a future version.
+> [Javascript-like Regular expression syntax] will be supported soon to
+> enhance the readability of matches assert: `regex "(\\d+)!"`
+> will become `regex /(\d+)!/`
 
 ### Variable capture
 
@@ -319,6 +321,10 @@ HTTP/1.0 200
 id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
 ```
 
+Pattern of the regex subquery must have at least one capture group, otherwise the
+capture will fail. Metacharacters beginning with a backslash in the pattern
+(like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
+
 #### Count subquery
 
 Returns the count of a collection.
@@ -340,3 +346,4 @@ cats_size: jsonpath "$.cats" count
 [XPath]: https://en.wikipedia.org/wiki/XPath
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [XPath captures]: #xpath-capture
+[Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions

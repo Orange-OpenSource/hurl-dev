@@ -418,6 +418,24 @@ jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 
 ### Regex assert
 
+Check that the HTTP received body, decoded as text, matches a regex pattern.
+
+```hurl
+GET https://sample.org/hello
+HTTP/1.0 200
+[Asserts]
+jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"
+jsonpath "$.name" matches "Hello [a-zA-Z]+!"
+```
+
+Metacharacters in the pattern beginning with a backslash (like `\d`, `\s`) must be escaped.
+
+> [Javascript-like Regular expression syntax] will be supported soon to 
+> enhance the readability of matches assert: `jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"`
+> will become `jsonpath "$.date" matches /^\d{4}-\d{2}-\d{2}$/`
+
+
+
 ### Variable assert
 
 ```hurl
@@ -585,3 +603,4 @@ of all file nodes.
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [`--file-root` option]: {% link _docs/man-page.md %}#file-root
 [`count`]: {% link _docs/capturing-response.md %}#count-subquery
+[Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions

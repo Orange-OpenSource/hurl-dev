@@ -225,9 +225,11 @@ jsonpath "$.userInfo.lastName" == "Herbert"
 jsonpath "$.hasDevice" == false
 jsonpath "$.links" count == 12
 jsonpath "$.state" != null
+jsonpath "$.order" matches "^order-\\d{8}$"     # metacharacters beginining with \ must be escaped 
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
+
 
 Testing status code:
 
