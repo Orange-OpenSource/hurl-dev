@@ -48,7 +48,7 @@ In this mode, Hurl code snippets haven't any syntax coloring.
 
 - [`build.sh`]: uber-script to build <hurl.dev> from scratch
 - [`build_anchors.py`]: add anchors to every HTML tag. Exemple: `<h2 id="some-stuff">Some Title</h2>` becomes `<h2 id="some-stuff"><a href="#some-stuff">Some Title</a></h2>`
-- [`build_github_readme.py`]: use documentation to generate [Hurl README.md]
+- [`build_readme.py`]: use documentation to generate [Hurl README.md] and [crates.io README.md]
 - [`build_index.py`]: construct search index (search is entirely done viz Javascript in the browser, without any server apis.) 
 - [`build_sitemap.py`]: generate <https://hurl.dev/sitemap.txt>
 - [`deploy.sh`]: deploy a local build to <https://hurl.dev>
@@ -61,9 +61,10 @@ In this mode, Hurl code snippets haven't any syntax coloring.
 [the publish GitHub action]: https://github.com/Orange-OpenSource/hurl-dev/actions/workflows/publish.yml
 [Beautiful Soup 4 package (`bs4`)]: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 [Hurl README.md]: https://github.com/Orange-OpenSource/hurl
+[crates.io README.md]: https://crates.io/crates/hurl
 [`build.sh`]: sites/build.sh
 [`build_anchors.py`]: sites/build_anchors.py
-[`build_github_readme.py`]: sites/build_github_readme.py
+[`build_readme.py`]: sites/build_readme.py
 [`build_index.py`]: sites/build_index.py
 [`build_sitemap.py`]: sites/build_sitemap.py
 [`deploy.sh`]: sites/deploy.sh
