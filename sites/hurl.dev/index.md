@@ -134,8 +134,7 @@ but it's still the [curl] that we love.
 
 # Feedbacks
 
-Hurl is still in beta, any [feedback, suggestion, bugs or improvements] 
-are welcome.
+[Feedback, suggestion, bugs or improvements] are welcome!
 
 ```hurl
 POST https://hurl.dev/api/feedback
@@ -159,7 +158,7 @@ HTTP/1.1 200
 [Rust]: https://www.rust-lang.org
 [curl]: https://curl.se
 [the installation section]: {% link _docs/installation.md %}
-[feedback, suggestion, bugs or improvements]: https://github.com/Orange-OpenSource/hurl/issues
+[Feedback, suggestion, bugs or improvements]: https://github.com/Orange-OpenSource/hurl/issues
 [License]: {% link _docs/license.md %}
 [Documentation]: {% link _docs/man-page.md %}
 [GitHub]: https://github.com/Orange-OpenSource/hurl
