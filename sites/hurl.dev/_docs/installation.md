@@ -3,7 +3,7 @@ layout: doc
 title: Installation
 description: How to install or build Hurl on Linux, macOS and Windows platform.
 section: Getting Started
-hurl-version: 1.4.0
+hurl-version: 1.5.0
 ---
 # {{ page.title }}
 
