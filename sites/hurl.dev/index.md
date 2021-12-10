@@ -160,6 +160,6 @@ HTTP/1.1 200
 [the installation section]: {% link _docs/installation.md %}
 [Feedback, suggestion, bugs or improvements]: https://github.com/Orange-OpenSource/hurl/issues
 [License]: {% link _docs/license.md %}
-[Documentation]: {% link _docs/man-page.md %}
+[Documentation]: {% link _docs/installation.md %}
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [libcurl]: https://curl.se/libcurl/

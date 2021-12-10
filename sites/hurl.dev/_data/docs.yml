@@ -1,17 +1,6 @@
 - title: Getting Started
   path: /docs/
   items:
-    - title: Man Page
-      items:
-          - title: Name
-          - title: Synopsis
-          - title: Description
-          - title: Hurl File Format
-          - title: Options
-          - title: Environment
-          - title: Exit Codes
-          - title: WWW
-          - title: See Also
     - title: Installation
       items:
         - title: Binaries Installation
@@ -33,6 +22,17 @@
           items:
             - title: Build on Linux, macOS
             - title: Build on Windows
+    - title: Man Page
+      items:
+          - title: Name
+          - title: Synopsis
+          - title: Description
+          - title: Hurl File Format
+          - title: Options
+          - title: Environment
+          - title: Exit Codes
+          - title: WWW
+          - title: See Also
     - title: Samples
       items:
         - title: Getting Data
@@ -85,10 +85,6 @@
         - title: File Extension
         - title: Special Characters in Strings
         - title: Comments
-    - title: Grammar
-      items:
-        - title: Definitions
-        - title: Syntax Grammar
     - title: Entry
       items:
         - title: Definitions
@@ -174,6 +170,10 @@
         - title: Types
         - title: Injecting Variables
         - title: Templating Body
+    - title: Grammar
+      items:
+        - title: Definitions
+        - title: Syntax Grammar
 - title: Tutorial
   path: /docs/tutorial/
   items:
