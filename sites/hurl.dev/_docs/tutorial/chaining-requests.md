@@ -126,8 +126,8 @@ Failed:    0 (0.0%)
 Duration:  40ms
 ```
 
-Finally, we can use the [`--test`] option that is a shortcut for redirecting the standard output, 
-, using [`--progress`] and [`--summary`] options:
+Finally, we can use the [`--test`] option that is a shortcut for no output,
+using [`--progress`] and [`--summary`] options:
 
 {:start="5"}
 5. Run `basic.hurl` with `--test` option:
