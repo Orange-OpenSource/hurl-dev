@@ -81,7 +81,7 @@ $ cargo install hurl
 
 ### Docker
 
-```
+```shell
 $ docker pull orangeopensource/hurl
 ```
 
