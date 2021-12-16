@@ -85,6 +85,12 @@ If you're a Rust programmer, Hurl can be installed with cargo.
 $ cargo install hurl
 ```
 
+### Docker
+
+```
+$ docker pull orangeopensource/hurl
+```
+
 ## Building From Sources
 
 Hurl sources are available in [GitHub].
