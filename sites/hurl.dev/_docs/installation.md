@@ -39,7 +39,6 @@ Precompiled binary is available at [hurl-{{ page.hurl-version }}-x86_64-osx.tar.
 Hurl can also be installed with [Homebrew]:
 
 ```shell
-$ brew tap jcamiel/hurl
 $ brew install hurl
 ```
 
