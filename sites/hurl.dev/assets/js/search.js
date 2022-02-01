@@ -119,6 +119,7 @@ class Search {
             summary.appendChild(h3);
 
             const ul = document.createElement("ul");
+            ul.className = "u-list-style-none";
             details.appendChild(ul);
 
             for(const result of value) {

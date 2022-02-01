@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        {% include head.html %}
+    </head>
+    <body>
+        <div>
+            {% include top-nav.html docs=site.data.docs title=page.title%}
+            <div class="blog">
+
+                {% if page.indexed == nil %}
+                    {% assign indexed = "true" %}
+                {% elsif page.indexed %}
+                    {% assign indexed = "true" %}
+                {% else %}
+                    {% assign indexed = "false" %}
+                {% endif %}
+
+                <div class="blog-content" data-section="{{ page.section }}" data-indexed="{{ indexed }}">
+                    {{ content }}
+                </div>
+                <div class="blog-footer">
+                    {% include footer.html %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -97,3 +97,7 @@
   border: 1px solid $separator-color-light;
   border: 1px solid var(--separator-color);
 }
+
+.u-list-style-none {
+  list-style-type: none;
+}
