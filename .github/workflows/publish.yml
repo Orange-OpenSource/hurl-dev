@@ -23,6 +23,10 @@ jobs:
           sudo apt-get install python3-setuptools python3-pip
           pip3 install --user -r ./sites/requirements.txt
           sudo gem install jekyll
+      - name: Check style
+        run: |
+          cd sites
+          ./check_fmt.sh
       - name: Build
         run: |
           cd sites
