@@ -5,11 +5,19 @@ import sys
 from pathlib import Path
 from typing import List
 
-from markdown import parse_markdown, MarkdownDoc, Code, Header, Paragraph, Whitespace, Node
+from markdown import (
+    parse_markdown,
+    MarkdownDoc,
+    Code,
+    Header,
+    Paragraph,
+    Whitespace,
+    Node,
+)
 
 
 def header():
-    return '''---
+    return """---
 layout: doc
 title: Man Page
 description: Hurl command line usage, with options descriptions.
@@ -17,7 +25,7 @@ section: Getting Started
 ---
 # {{ page.title }}
 
-'''
+"""
 
 
 def process_code_block(doc: MarkdownDoc) -> None:
@@ -37,9 +45,8 @@ def normalize_h2(doc: MarkdownDoc) -> None:
 
 
 def process_table(doc: MarkdownDoc, nodes: List[Node], col_name: str) -> None:
-
     def escape(s):
-        return s.replace('<', '&lt;').replace('>', '&gt;')
+        return s.replace("<", "&lt;").replace(">", "&gt;")
 
     new_nodes = [
         Whitespace(content="\n"),
@@ -60,8 +67,12 @@ def process_table(doc: MarkdownDoc, nodes: List[Node], col_name: str) -> None:
         else:
             name = f"`{name_raw}`"
 
-        next_h = doc.find_first(lambda it: isinstance(it, Header), start=doc.next_node(h3))
-        first_p = doc.find_first(lambda it: isinstance(it, Paragraph), start=doc.next_node(h3))
+        next_h = doc.find_first(
+            lambda it: isinstance(it, Header), start=doc.next_node(h3)
+        )
+        first_p = doc.find_first(
+            lambda it: isinstance(it, Paragraph), start=doc.next_node(h3)
+        )
         last_p = next_h
         while not isinstance(last_p, Paragraph):
             last_p = doc.previous_node(last_p)
@@ -89,25 +100,37 @@ def main():
 
     # Transform all h3 options, environment var and exit code to tables
 
-    options_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Options")
-    environment_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Environment")
-    exit_codes_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "Exit Codes")
+    options_h2 = man.find_first(
+        lambda it: isinstance(it, Header) and it.title == "Options"
+    )
+    environment_h2 = man.find_first(
+        lambda it: isinstance(it, Header) and it.title == "Environment"
+    )
+    exit_codes_h2 = man.find_first(
+        lambda it: isinstance(it, Header) and it.title == "Exit Codes"
+    )
     www_h2 = man.find_first(lambda it: isinstance(it, Header) and it.title == "WWW")
 
-    first_option_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=options_h2)
+    first_option_h3 = man.find_first(
+        lambda it: isinstance(it, Header) and it.level == 3, start=options_h2
+    )
     options = man.slice(first_option_h3, environment_h2)
     process_table(doc=man, nodes=options, col_name="Option")
 
-    first_env_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=environment_h2)
+    first_env_h3 = man.find_first(
+        lambda it: isinstance(it, Header) and it.level == 3, start=environment_h2
+    )
     envs = man.slice(first_env_h3, exit_codes_h2)
     process_table(doc=man, nodes=envs, col_name="Variable")
 
-    first_exit_h3 = man.find_first(lambda it: isinstance(it, Header) and it.level == 3, start=exit_codes_h2)
+    first_exit_h3 = man.find_first(
+        lambda it: isinstance(it, Header) and it.level == 3, start=exit_codes_h2
+    )
     exits = man.slice(first_exit_h3, www_h2)
     process_table(doc=man, nodes=exits, col_name="Value")
 
     print(header() + man.to_text())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

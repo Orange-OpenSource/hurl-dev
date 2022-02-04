@@ -6,7 +6,7 @@ from pathlib import Path
 def main():
     print(f"Building anchors...")
 
-    for filename in Path("hurl.dev", "_site").glob('**/*.html'):
+    for filename in Path("hurl.dev", "_site").glob("**/*.html"):
         print(f"Processing {filename}...")
         file = Path(filename)
         text = file.read_text()
@@ -23,12 +23,12 @@ def add_anchors(text: str) -> str:
         <h2 id="some-stuff"><a href="#some-stuff">Some Title</a></h2>
     """
     pattern = (
-        r'<(?P<tag>h[1-6])'           # start of of header tag <h1, <h2 etc...
-        r'\s+'                        # whitespace between tag and id
+        r"<(?P<tag>h[1-6])"  # start of of header tag <h1, <h2 etc...
+        r"\s+"  # whitespace between tag and id
         r'id="(?P<id>[a-z0-9\-_]+)"'  # id of the tag, eg id="whats-hurl"
-        r'>'                          # end of the opening tag
-        r'(?P<title>.*?)'             # content of the header tag
-        r'</(?P=tag)>'                # closing header tag
+        r">"  # end of the opening tag
+        r"(?P<title>.*?)"  # content of the header tag
+        r"</(?P=tag)>"  # closing header tag
     )
     p = re.compile(pattern)
 
@@ -45,5 +45,3 @@ def add_anchors(text: str) -> str:
 
 if __name__ == "__main__":
     main()
-
-

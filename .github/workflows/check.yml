@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  check-style:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,4 +25,4 @@ jobs:
       - name: Check style
         run: |
           cd sites
-          ./check_ftm.sh
+          ./check_fmt.sh

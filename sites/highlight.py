@@ -18,20 +18,20 @@ def main():
 
 def get_os() -> str:
     """Return linux, osx or windows."""
-    if platform.system() == 'Linux':
-        return 'linux'
-    elif platform.system() == 'Darwin':
-        return 'osx'
-    elif platform.system() == 'Windows':
-        return 'windows'
+    if platform.system() == "Linux":
+        return "linux"
+    elif platform.system() == "Darwin":
+        return "osx"
+    elif platform.system() == "Windows":
+        return "windows"
     else:
-        raise EnvironmentError('Invalid Platform ' + platform.system())
+        raise EnvironmentError("Invalid Platform " + platform.system())
 
 
 def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
     print(f"Highlighting {language.title()} snippets...")
 
-    for filename in Path("hurl.dev", "_site").glob('**/*.html'):
+    for filename in Path("hurl.dev", "_site").glob("**/*.html"):
         print(f"    Processing {filename}...")
         src = Path(filename).read_text()
         snippets = extract_snippet(language=language, text=src)
@@ -44,8 +44,8 @@ def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
             unescaped_snippet = unescape_html(snippet)
             colored_snippet = to_html_func(unescaped_snippet)
             dst = dst.replace(
-                f"<pre><code class=\"language-{language}\">{snippet}</code></pre>",
-                f"<pre><code class=\"language-{language}\">{colored_snippet}</code></pre>"
+                f'<pre><code class="language-{language}">{snippet}</code></pre>',
+                f'<pre><code class="language-{language}">{colored_snippet}</code></pre>',
             )
         Path(filename).write_text(dst)
 
@@ -58,8 +58,8 @@ def unescape_html(text: str) -> str:
 
 
 def hurl_to_html(snippet: str) -> str:
-    #import sys
-    #sys.stderr.write('<<<' + snippet + '>>>\n')
+    # import sys
+    # sys.stderr.write('<<<' + snippet + '>>>\n')
     cmd = [get_os() + "/hurlfmt", "--format", "html"]
     try:
         ret = subprocess.run(
@@ -67,17 +67,17 @@ def hurl_to_html(snippet: str) -> str:
             check=True,
             encoding="utf-8",
             stdout=subprocess.PIPE,
-            #stderr=subprocess.PIPE,
-            input=snippet.strip()
+            # stderr=subprocess.PIPE,
+            input=snippet.strip(),
         )
     except CalledProcessError:
         print(f"Error highlighting snippet:\n{snippet}")
         raise
     output = ret.stdout
-    #sys.stderr.write('<<<' + output + '>>>\n')
+    # sys.stderr.write('<<<' + output + '>>>\n')
     # On extrait le code html
-    #return extract(output, "<pre><code>", "</code></pre>")
-    return extract(output, "<pre><code class=\"language-hurl\">", "</code></pre>")
+    # return extract(output, "<pre><code>", "</code></pre>")
+    return extract(output, '<pre><code class="language-hurl">', "</code></pre>")
 
 
 def bash_to_html(snippet: str) -> str:
@@ -103,9 +103,10 @@ def shell_to_html(snippet: str) -> str:
     output = snippet.replace("$ ", '<span class="prompt">$ </span>')
     return output
 
+
 def extract_snippet(language: str, text: str) -> List[str]:
 
-    prefix = f"<pre><code class=\"language-{language}\">"
+    prefix = f'<pre><code class="language-{language}">'
     suffix = "</code></pre>"
     index = 0
 
@@ -116,7 +117,7 @@ def extract_snippet(language: str, text: str) -> List[str]:
             break
         end = text.find(suffix, begin)
         index = end
-        snippet = text[begin + len(prefix):end]
+        snippet = text[begin + len(prefix) : end]
         snippets.append(snippet)
     return snippets
 
@@ -132,4 +133,3 @@ def extract(text, prefix, suffix):
 
 if __name__ == "__main__":
     main()
-

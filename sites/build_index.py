@@ -76,7 +76,15 @@ class Page:
     path: Path
     soup: BeautifulSoup
 
-    def __init__(self, title: str, section: str, url: str, index: int, path: Path, soup: BeautifulSoup) -> None:
+    def __init__(
+        self,
+        title: str,
+        section: str,
+        url: str,
+        index: int,
+        path: Path,
+        soup: BeautifulSoup,
+    ) -> None:
         self.title = title
         self.section = section
         self.url = url
@@ -95,12 +103,9 @@ class Token:
     content: str
     start: int
 
-    def __init__(self,
-                 search: str,
-                 page: Page,
-                 anchor: Anchor,
-                 content: str,
-                 start: int) -> None:
+    def __init__(
+        self, search: str, page: Page, anchor: Anchor, content: str, start: int
+    ) -> None:
         self.search = search
         self.page = page
         self.anchor = anchor
@@ -116,7 +121,7 @@ class Token:
             "page": self.page.index,
             "anchor": self.anchor.index,
             "content": self.content,
-            "start": self.start
+            "start": self.start,
         }
 
 
@@ -135,12 +140,19 @@ def build_page(path: Path) -> Optional[Page]:
     else:
         url = f"/{relative_path}"
 
-    indexed = next((tag for tag in soup.find_all("div", attrs={"data-indexed": True})), None)
+    indexed = next(
+        (tag for tag in soup.find_all("div", attrs={"data-indexed": True})), None
+    )
     if not indexed:
         sys.stderr.write(f"No indexed content in path {path}\n")
         return None
 
-    section = next((tag['data-section'] for tag in soup.find_all("div", attrs={"data-section": True})))
+    section = next(
+        (
+            tag["data-section"]
+            for tag in soup.find_all("div", attrs={"data-section": True})
+        )
+    )
     return Page(title=title, section=section, url=url, index=0, path=path, soup=soup)
 
 
@@ -149,7 +161,9 @@ def build_file_index(page: Page, anchors: Anchors) -> List[Token]:
     # On construit une représentation textuelle de la page
     # en agrégeant tous les tags contenant du text "significatif"
     tags: List[Tag] = []
-    root = next((tag for tag in page.soup.find_all("div", attrs={"data-indexed": True})), None)
+    root = next(
+        (tag for tag in page.soup.find_all("div", attrs={"data-indexed": True})), None
+    )
     if not root:
         sys.stderr.write(f"No indexed content in path {page.path}\n")
         return []
@@ -227,7 +241,7 @@ def build_tag_index(page: Page, tag: Tag, anchors: Anchors) -> List[Token]:
         match = res[0]
         if len(match) < 3 or match.lower() in non_significant_words:
             continue
-        #if len(match) == 4:
+        # if len(match) == 4:
         #    sys.stderr.write(f"-> {match}\n")
 
         start = res.start()
@@ -235,18 +249,18 @@ def build_tag_index(page: Page, tag: Tag, anchors: Anchors) -> List[Token]:
         if start < span:
             content_before = text[:start]
         else:
-            content_before = "..." + text[start-span:start]
+            content_before = "..." + text[start - span : start]
         if (len(text) - end) < span:
             content_after = text[end:]
         else:
-            content_after = text[end:end+span] + "..."
+            content_after = text[end : end + span] + "..."
         content = content_before + match + content_after
         token = Token(
             search=match.lower(),
             page=page,
             anchor=anchor,
             content=content,
-            start=len(content_before)
+            start=len(content_before),
         )
         tokens.append(token)
     return tokens
@@ -271,7 +285,7 @@ def find_anchor(tag: Optional[Any]) -> Optional[Tag]:
 
 
 def split(word: str, start: int):
-    return [word[:end] for end in range(start, len(word)+1)]
+    return [word[:end] for end in range(start, len(word) + 1)]
 
 
 def flatten(list_of_lists):
@@ -302,7 +316,12 @@ def serialize(pages: List[Page], tokens: List[Token], anchors: Anchors) -> str:
                 hr = [i]
             hits[w] = hr
 
-    d = {"hits": hits, "refs": tokens_json, "pages": pages_json, "anchors": anchors_json}
+    d = {
+        "hits": hits,
+        "refs": tokens_json,
+        "pages": pages_json,
+        "anchors": anchors_json,
+    }
     return json.dumps(d, default=lambda o: o.__dict__, sort_keys=True)
 
 
