@@ -26,7 +26,8 @@ def main(dest: str) -> int:
     header: str
 
     if dest == "github":
-        header = dedent("""\
+        header = dedent(
+            """\
             <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-dark.svg?sanitize=true#gh-dark-mode-only" alt="Hurl Logo" width="264px"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-light.svg?sanitize=true#gh-light-mode-only" alt="Hurl Logo" width="264px">
             
             <br/>
@@ -36,9 +37,11 @@ def main(dest: str) -> int:
             [![Crates.io](https://img.shields.io/crates/v/hurl.svg)](https://crates.io/crates/hurl)
             [![documentation](https://img.shields.io/badge/-documentation-informational)](https://hurl.dev)
             
-            """)
+            """
+        )
     elif dest == "crates":
-        header = dedent("""\
+        header = dedent(
+            """\
             <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-light.svg" alt="Hurl Logo" width="264px">
             
             <br/>
@@ -48,7 +51,8 @@ def main(dest: str) -> int:
             [![Crates.io](https://img.shields.io/crates/v/hurl.svg)](https://crates.io/crates/hurl)
             [![documentation](https://img.shields.io/badge/-documentation-informational)](https://hurl.dev)
             
-            """)
+            """
+        )
     else:
         sys.stderr.write("build_readme.py [github, crates]\n")
         return os.EX_USAGE
@@ -64,8 +68,14 @@ def main(dest: str) -> int:
     # We adapt the "Why Hurl" part to transform h2 tag back to markdown
     def showcase_rep(m):
         return f"<li><b>{m.group(1)}:</b> {m.group(2).lower()}</li>"
-    why_paragraph = home_md.find_first(lambda it: '<ul class="showcase-container">'in it.content)
-    r = re.compile(r'<li class="showcase-item"><h2 class="showcase-item-title">(.+?)<\/h2>(.+?)<\/li>', re.DOTALL)
+
+    why_paragraph = home_md.find_first(
+        lambda it: '<ul class="showcase-container">' in it.content
+    )
+    r = re.compile(
+        r'<li class="showcase-item"><h2 class="showcase-item-title">(.+?)<\/h2>(.+?)<\/li>',
+        re.DOTALL,
+    )
     why_paragraph.content = r.sub(showcase_rep, why_paragraph.content)
 
     body_md = MarkdownDoc()

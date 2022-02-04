@@ -31,7 +31,7 @@ class Equal(Token):
         super().__init__("=")
 
     def to_html(self) -> str:
-        return f"<div class=\"associate\">{self.value}</div>"
+        return f'<div class="associate">{self.value}</div>'
 
 
 class Cardinality(Token):
@@ -84,7 +84,6 @@ class Rule:
 
 
 class GrammarParser(Parser):
-
     def __init__(self, buffer) -> None:
         super().__init__(buffer)
 
@@ -133,7 +132,7 @@ class GrammarParser(Parser):
                     token = FollowEol()
                 else:
                     token = Follow()
-            elif c == "\"":
+            elif c == '"':
                 token = self.parse_terminal()
                 sys.stderr.write(f"  parsing terminal: {token.value}\n")
             else:
@@ -144,7 +143,8 @@ class GrammarParser(Parser):
 
     def parse_definition(self) -> Definition:
         def is_not_definition_end(current, prev):
-            return not (current == ">" and prev != "\"")
+            return not (current == ">" and prev != '"')
+
         c = self.read()
         assert c == "<"
         name = self.read_while_prev(is_not_definition_end)
@@ -173,19 +173,19 @@ class GrammarParser(Parser):
 
     def parse_terminal(self) -> Terminal:
         c = self.read()
-        assert c == "\""
+        assert c == '"'
         offset = self.offset
         while self.left() > 0:
             c = self.peek()
             if c == "\\":
                 _ = self.read(2)
-            elif c == "\"" and (self.offset != offset):
+            elif c == '"' and (self.offset != offset):
                 break
             else:
                 _ = self.read()
-        name = self.buffer[offset:self.offset]
+        name = self.buffer[offset : self.offset]
         c = self.read()
-        assert c == "\""
+        assert c == '"'
         return Terminal(value=name)
 
     def parse_whitespaces(self) -> str:
@@ -217,22 +217,22 @@ def rule_to_html(rule: Rule):
         elif isinstance(t, FollowEol):
             txt += "<br>"
             # Manage the aligment
-            next_t = rule.tokens[i+1]
+            next_t = rule.tokens[i + 1]
             if not isinstance(next_t, Or):
                 txt += "&nbsp;"
         if isinstance(t, Definition):
-            txt += f"<span class=\"definition\">&lt;{t.value}&gt;</span>"
+            txt += f'<span class="definition">&lt;{t.value}&gt;</span>'
         elif isinstance(t, Terminal):
-            txt += f"<span class=\"terminal\">\"{t.value}\"</span>"
+            txt += f'<span class="terminal">"{t.value}"</span>'
         elif isinstance(t, NonTerminal):
-            txt += f"<a href=\"#{t.value}\">{t.value}</a>"
+            txt += f'<a href="#{t.value}">{t.value}</a>'
         else:
             txt += t.value
 
     html = ""
-    html += f"<div class=\"rule\">\n"
-    html += f"  <div class=\"non-terminal\" id=\"{rule.non_terminal.value}\">{rule.non_terminal.value}&nbsp;</div>\n"
-    html += f"  <div class=\"tokens\">=&nbsp;{txt}</div>"
+    html += f'<div class="rule">\n'
+    html += f'  <div class="non-terminal" id="{rule.non_terminal.value}">{rule.non_terminal.value}&nbsp;</div>\n'
+    html += f'  <div class="tokens">=&nbsp;{txt}</div>'
     html += f"</div>\n"
 
     return html

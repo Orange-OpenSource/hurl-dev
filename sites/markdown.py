@@ -18,9 +18,8 @@ class Code(Node):
 
 
 class FrontMatter(Node):
-
     def get_variables(self) -> List[Tuple[str, str]]:
-        r = re.compile(r'^(.*): (.*)$', re.MULTILINE)
+        r = re.compile(r"^(.*): (.*)$", re.MULTILINE)
         return [(m.group(1), m.group(2)) for m in r.finditer(self.content)]
 
 
@@ -134,7 +133,9 @@ def parse_markdown(text: str, use_front_matter: bool = False) -> "MarkdownDoc":
     processed_text = text
     # Process raw Markdown text, to replace Jekyll inline links, and remove
     # Jekyll raw tags, before parsing.
-    processed_text = re.sub(r"\{% link _(.+)\.md %}", r"https://hurl.dev/\1.html", processed_text)
+    processed_text = re.sub(
+        r"\{% link _(.+)\.md %}", r"https://hurl.dev/\1.html", processed_text
+    )
     processed_text = processed_text.replace("{% raw %}", "")
     processed_text = processed_text.replace("{% endraw %}", "")
 
@@ -144,7 +145,7 @@ def parse_markdown(text: str, use_front_matter: bool = False) -> "MarkdownDoc":
     if use_front_matter:
         node = parse_front_matter(parser=parser)
         variables = node.get_variables()
-        processed_text = parser.buffer[parser.offset:]
+        processed_text = parser.buffer[parser.offset :]
         for name, value in variables:
             processed_text = processed_text.replace(f"{{{{ page.{name} }}}}", value)
         parser = Parser(buffer=processed_text)
@@ -228,10 +229,12 @@ class MarkdownDoc:
 
     def toc(self) -> str:
         headers = [child for child in self.children if isinstance(child, Header)]
-        toc = dedent("""\
+        toc = dedent(
+            """\
         Table of Contents
         =================
-        """)
+        """
+        )
         for header in headers:
             indent = "   " * header.level
             slug = slugify(header.title)
@@ -263,18 +266,20 @@ class MarkdownDoc:
     def slice(self, node_a: Node, node_b: Node) -> List[Node]:
         index_a = self.children.index(node_a)
         index_b = self.children.index(node_b)
-        return self.children[index_a: index_b]
+        return self.children[index_a:index_b]
 
     def next_node(self, node: Node) -> Node:
         index = self.children.index(node)
-        return self.children[index+1]
+        return self.children[index + 1]
 
     def previous_node(self, node: Node) -> Node:
         index = self.children.index(node)
-        return self.children[index-1]
+        return self.children[index - 1]
 
 
 def slugify(value: str) -> str:
-    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    value = (
+        unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    )
     value = re.sub(r"[^\w\s/-]", "", value).strip().lower()
     return re.sub(r"[-\s]+", "-", value).replace("/", "")
