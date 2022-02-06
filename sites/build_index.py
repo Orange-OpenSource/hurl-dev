@@ -54,17 +54,17 @@ class Anchor:
 
 
 class Anchors:
-    anchors: List[Anchor]
+    items: List[Anchor]
 
     def __init__(self) -> None:
-        self.anchors = []
+        self.items = []
 
     def get_or_create_anchor(self, title, url) -> Optional[Anchor]:
-        for a in self.anchors:
+        for a in self.items:
             if a.title == title and a.url == url:
                 return a
-        anchor = Anchor(title=title, url=url, index=len(self.anchors))
-        self.anchors.append(anchor)
+        anchor = Anchor(title=title, url=url, index=len(self.items))
+        self.items.append(anchor)
         return anchor
 
 
@@ -141,9 +141,13 @@ def build_page(path: Path) -> Optional[Page]:
         url = f"/{relative_path}"
 
     indexed = next(
-        (tag for tag in soup.find_all("div", attrs={"data-indexed": True})), None
+        (
+            tag["data-indexed"]
+            for tag in soup.find_all("div", attrs={"data-indexed": True})
+        ),
+        None,
     )
-    if not indexed:
+    if not indexed or indexed != "true":
         sys.stderr.write(f"No indexed content in path {path}\n")
         return None
 
@@ -303,7 +307,7 @@ def serialize(pages: List[Page], tokens: List[Token], anchors: Anchors) -> str:
 
     tokens_json = [t.to_json() for t in tokens]
 
-    anchors_json = [a.to_json() for a in anchors.anchors]
+    anchors_json = [a.to_json() for a in anchors.items]
 
     # Pour chaque hit, on construit une liste de reférences
     for i, token in enumerate(tokens):
