@@ -149,6 +149,8 @@ HTTP/1.1 200
 
 [License]
 
+[Blog]
+
 [Documentation]
 
 [GitHub]
@@ -161,5 +163,6 @@ HTTP/1.1 200
 [Feedback, suggestion, bugs or improvements]: https://github.com/Orange-OpenSource/hurl/issues
 [License]: {% link _docs/license.md %}
 [Documentation]: {% link _docs/installation.md %}
+[Blog]: {% link blog.md %}
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [libcurl]: https://curl.se/libcurl/

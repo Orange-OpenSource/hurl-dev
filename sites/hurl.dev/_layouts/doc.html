@@ -36,34 +36,34 @@
                             {% assign next = false %}
 
                             {% for li0 in site.data.docs %}
-                            {% for li1 in li0.items %}
+                                {% for li1 in li0.items %}
 
-                            {% if cur and next == false %}
-                            {% assign next = li1 %}
-                            {% capture next_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
-                            {% endif %}
+                                {% if cur and next == false %}
+                                    {% assign next = li1 %}
+                                    {% capture next_url %}{{ li1.path }}{% endcapture %}
+                                {% endif %}
 
-                            {% if li1.title == page.title %}
-                            {% assign cur = li1 %}
-                            {% endif %}
+                                {% if li1.title == page.title %}
+                                    {% assign cur = li1 %}
+                                {% endif %}
 
-                            {% unless cur %}
-                            {% assign prev = li1 %}
-                            {% capture prev_url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
-                            {% endunless %}
+                                {% unless cur %}
+                                    {% assign prev = li1 %}
+                                    {% capture prev_url %}{{ li1.path }}{% endcapture %}
+                                {% endunless %}
 
-                            {% endfor %}
+                                {% endfor %}
                             {% endfor %}
 
                             {% if prev %}
-                            {% unless prev.url %}
+                                {% unless prev.url %}
                             <div class="doc-content-browse-previous"><a href="{{ prev_url | prepend: site.baseurl }}">< {{ prev.title }}</a></div>
-                            {% endunless %}
+                                {% endunless %}
                             {% endif %}
                             {% if next %}
-                            {% unless next.url %}
+                                {% unless next.url %}
                             <div class="doc-content-browse-next"><a href="{{ next_url | prepend: site.baseurl }}">{{ next.title }} ></a></div>
-                            {% endunless %}
+                                {% endunless %}
                             {% endif %}
                         </div>
 

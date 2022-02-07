@@ -1,7 +1,7 @@
 - title: Getting Started
-  path: /docs/
   items:
     - title: Installation
+      path: /docs/installation.html
       items:
         - title: Binaries Installation
           items:
@@ -24,6 +24,7 @@
             - title: Build on Linux, macOS
             - title: Build on Windows
     - title: Man Page
+      path: /docs/man-page.html
       items:
           - title: Name
           - title: Synopsis
@@ -35,6 +36,7 @@
           - title: WWW
           - title: See Also
     - title: Samples
+      path: /docs/samples.html
       items:
         - title: Getting Data
           items:
@@ -59,9 +61,11 @@
             - title: Capturing and Using a CSRF Token
             - title: Checking Byte Order Mark (BOM) in Response Body
     - title: Running Tests
+      path: /docs/running-tests.html
       items:
         - title: Generating an HTML report
     - title: Frequently Asked Questions
+      path: /docs/frequently-asked-questions.html
       items:
         - title: General
           items:
@@ -78,15 +82,16 @@
             - title: "Hurl error: SSL certificate has expired"
             - title: "Hurl warning on Big Sur: Closing connection 0"
 - title: File Format
-  path: /docs/
   items:
     - title: Hurl File
+      path: /docs/hurl-file.html
       items:
         - title: Character Encoding
         - title: File Extension
         - title: Special Characters in Strings
         - title: Comments
     - title: Entry
+      path: /docs/entry.html
       items:
         - title: Definitions
         - title: Example
@@ -95,6 +100,7 @@
             - title: Cookie storage
             - title: Redirects
     - title: Request
+      path: /docs/request.html
       items:
         - title: Definitions
         - title: Example
@@ -116,6 +122,7 @@
                 - title: Hex body
                 - title: File body
     - title: Response
+      path: /docs/response.html
       items:
         - title: Definitions
         - title: Example
@@ -123,6 +130,7 @@
           items:
             - title: Body compression
     - title: Capturing Response
+      path: /docs/capturing-response.html
       items:
         - title: Captures
           items:
@@ -142,6 +150,7 @@
                 - title: Regex subquery
                 - title: Count subquery
     - title: Asserting Response
+      path: /docs/asserting-response.html
       items:
         - title: Version - Status
         - title: Headers
@@ -166,59 +175,69 @@
             - title: Base64 body
             - title: File body
     - title: Templates
+      path: /docs/templates.html
       items:
         - title: Variables
         - title: Types
         - title: Injecting Variables
         - title: Templating Body
     - title: Grammar
+      path: /docs/grammar.html
       items:
         - title: Definitions
         - title: Syntax Grammar
 - title: Tutorial
-  path: /docs/tutorial/
   items:
     - title: Your First Hurl File
+      path: /docs/tutorial/your-first-hurl-file.html
       items:
         - title: Prerequisites
         - title: A Basic Test
         - title: Recap
     - title: Adding Asserts
+      path: /docs/tutorial/adding-asserts.html
       items:
         - title: HTML Body Test
         - title: HTTP Headers Test
         - title: Performance Test
         - title: Recap
     - title: Chaining Requests
+      path: /docs/tutorial/chaining-requests.html
       items:
         - title: Adding Another Request
         - title: Test REST Api
         - title: Recap
     - title: Debug Tips
+      path: /docs/tutorial/debug-tips.html
       items:
         - title: Verbose Mode
         - title: Interactive Mode
         - title: Include Headers Like curl
         - title: Using a Proxy
     - title: Captures
+      path: /docs/tutorial/captures.html
       items:
         - title: Capturing a CSRF Token
         - title: Follow Redirections
         - title: Recap
     - title: Security
+      path: /docs/tutorial/security.html
       items:
         - title: Server Side Validation
         - title: Comments
         - title: Recap
     - title: CI/CD Integration
+      path: /docs/tutorial/ci-cd-integration.html
       items:
         - title: Integration Script
         - title: Running Tests with GitHub Action
         - title: Tests Report
         - title: Recap
 - title: Resources
-  path: /docs/
   items:
     - title: License
+      path: /docs/license.html
+    - title: Blog
+      path: /blog/
     - title: GitHub
       url: https://github.com/Orange-OpenSource/hurl

@@ -203,6 +203,9 @@ details summary > * {
 
 }
 
+footer {
+  margin: 0 -$m2 0 -$m2;
+}
 
 .footer-content {
   display:flex;
@@ -376,11 +379,11 @@ details summary > * {
 }
 
 .search-content {
-  min-height: calc(100vh - (72px + 16px + 40px + 90px));
+  min-height: calc(100vh - (72px + 40px + 90px));
 }
 
 .blog-content {
-  min-height: calc(100vh - (72px + 16px + 40px + 90px));
+  min-height: calc(100vh - (72px + 40px + 90px));
 }
 
 .blog-post-link {
