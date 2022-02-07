@@ -19,7 +19,7 @@
                     <a class="top-nav-link-a" href="{{ "/docs/man-page.html" | relative_url }}" aria-selected={% if page.url contains "/docs" %}"true"{% else %}"false"{% endif %} alt="Docs"><span class="top-nav-link-text">Docs</span></a>
                 </div>
                 <div class="top-nav-link u-d-block-md">
-                    <a class="top-nav-link-a" href="{{ "/blog/index.html" | relative_url }}" aria-selected={% if page.url contains "/blog" %}"true"{% else %}"false"{% endif %} alt="Docs"><span class="top-nav-link-text">Blog</span></a>
+                    <a class="top-nav-link-a" href="{{ "/blog/" | relative_url }}" aria-selected={% if page.url contains "/blog" %}"true"{% else %}"false"{% endif %} alt="Docs"><span class="top-nav-link-text">Blog</span></a>
                 </div>
                 <div class="top-nav-link u-d-block-md">
                     <a class="top-nav-link-a" href="https://github.com/Orange-OpenSource/hurl" alt="GitHub">
@@ -53,7 +53,7 @@
                 {% if li1.url %}
                     <a href="{{ li1.url }}">{{ li1.title }}</a>
                 {% else %}
-                    {% capture url %}{{ li0.path }}{{ li1.title | slugify }}.html{% endcapture %}
+                    {% capture url %}{{ li1.path }}{% endcapture %}
                     <a {% if li1.title == include.title %}class="current"{% endif %} href="{{ url | prepend: site.baseurl }}">{{ li1.title }}</a>
                 {% endif %}
             </li>
