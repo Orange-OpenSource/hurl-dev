@@ -139,7 +139,9 @@ def parse_markdown(text: str, use_front_matter: bool = False) -> "MarkdownDoc":
     # FIXME: special case for blog.md: its url is in frontmatter header.
     # We should check use the permalink of the link if it exist and
     # use the path link as default.
-    processed_text = processed_text.replace("{% link blog.md %}", "https://hurl.dev/blog/")
+    processed_text = processed_text.replace(
+        "{% link blog.md %}", "https://hurl.dev/blog/"
+    )
     processed_text = processed_text.replace("{% raw %}", "")
     processed_text = processed_text.replace("{% endraw %}", "")
 
