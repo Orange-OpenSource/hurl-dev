@@ -42,6 +42,7 @@
           items:
             - title: HTTP Headers
             - title: Query Params
+            - title: Basic Authentification
         - title: Sending Data
           items:
             - title: Sending HTML Form Datas
@@ -113,6 +114,7 @@
             - title: Form parameters
             - title: Multipart Form Data
             - title: Cookies
+            - title: Basic Authentification
             - title: Body
               items:
                 - title: JSON body

@@ -82,6 +82,10 @@ pre, code {
     color: $hurl-version-light;
     color: var(--hurl-version);
   }
+  .regex {
+    color: $hurl-regex-light;
+    color: var(--hurl-regex);
+  }
   .section-header {
     color: $hurl-section-header-light;
     color: var(--hurl-section-header);
