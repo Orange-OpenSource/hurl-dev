@@ -268,9 +268,6 @@ Pattern of the regex query must have at least one capture group, otherwise the
 capture will fail. Metacharacters beginning with a backslash in the pattern 
 (like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
 
-> [Javascript-like Regular expression syntax] will be supported soon to
-> enhance the readability of matches assert: `regex "(\\d+)!"`
-> will become `regex /(\d+)!/`
 
 ### Variable capture
 
@@ -318,6 +315,7 @@ GET https://pets.org/cats/cutest
 HTTP/1.0 200
 # Cat name are structured like this `meow + id`: for instance `meow123456` 
 [Captures]
+id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
 id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
 ```
 

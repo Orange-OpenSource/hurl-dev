@@ -112,6 +112,14 @@ Structure of an assert:
  </div>
 </div>
 
+<div class="schema-container schema-container u-font-size-1 u-font-size-2-sm u-font-size-3-md">
+ <div class="schema">
+   <span class="schema-token schema-color-2">body<span class="schema-label">query</span></span>
+   <span class="schema-token schema-color-1">matches<span class="schema-label">predicate type</span></span>
+   <span class="schema-token schema-color-3">/\d{4}-\d{2}-\d{2}/<span class="schema-label">predicate value</span></span>
+ </div>
+</div>
+
 
 An assert consists of a query followed by a predicate. The format of the query 
 is shared with [captures], and can be one of :
@@ -404,7 +412,6 @@ With Hurl, we can write multiple JSONPath asserts describing the DOM content:
 GET http://httpbin.org/json
 
 HTTP/1.1 200
-
 [Asserts]
 jsonpath "$.slideshow.author" == "Yours Truly"
 jsonpath "$.slideshow.slides[0].title" contains "Wonder"
@@ -416,24 +423,35 @@ jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 > Explain that the value selected by the JSONPath is coerced to a string when only
 > one node is selected.
 
+In `matches` predicates, metacharacters beginning with a backslash (like `\d`, `\s`) must be escaped.
+Alternatively, `matches` predicate support [Javascript-like Regular expression syntax] to enhance 
+the readability:
+
+```hurl
+GET https://sample.org/hello
+
+HTTP/1.0 200
+[Asserts]
+# Predicate value with matches predicate:
+jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"
+jsonpath "$.name" matches "Hello [a-zA-Z]+!"
+# Equivalent syntax:
+jsonpath "$.date" matches /^\d{4}-\d{2}-\d{2}$/
+jsonpath "$.name" matches /Hello [a-zA-Z]+!/
+```
+
+
 ### Regex assert
 
 Check that the HTTP received body, decoded as text, matches a regex pattern.
 
 ```hurl
 GET https://sample.org/hello
+
 HTTP/1.0 200
 [Asserts]
-jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"
-jsonpath "$.name" matches "Hello [a-zA-Z]+!"
+regex "^\\d{4}-\\d{2}-\\d{2}$" == "2018-12-31"
 ```
-
-Metacharacters in the pattern beginning with a backslash (like `\d`, `\s`) must be escaped.
-
-> [Javascript-like Regular expression syntax] will be supported soon to 
-> enhance the readability of matches assert: `jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"`
-> will become `jsonpath "$.date" matches /^\d{4}-\d{2}-\d{2}$/`
-
 
 
 ### Variable assert

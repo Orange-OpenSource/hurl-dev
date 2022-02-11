@@ -43,25 +43,6 @@ Connection: keep-alive
 
 [Doc]({% link _docs/request.md %}#headers)
 
-Headers can be used to perform [Basic authentication]. Given a login `bob` 
-with password `secret`:
-
-In a shell:
-
-```shell
-$ echo -n 'bob:secret' | base64
-Ym9iOnNlY3JldA==
-```
-
-Then, use [`Authorization` header] to add basic authentication to a request:
-
-```hurl
-GET https://example.com/protected
-Authorization: Basic Ym9iOnNlY3JldA==
-```
-
-Alternatively, one can use [`--user` option].
-
 ### Query Params
 
 ```hurl
@@ -79,6 +60,28 @@ GET https://example.net/news?order=newest&search=something%20to%20search&count=1
 ```
 
 [Doc]({% link _docs/request.md %}#query-parameters)
+
+### Basic Authentification
+
+```hurl
+GET http://example.com/protected
+[BasicAuth]
+bob: secret
+```
+
+[Doc]({% link _docs/request.md %}#basic-authentification)
+
+This is equivalent to construct the request with a [Authorization] header:
+
+```hurl
+# Authorization header value can be computed with `echo -n 'bob:secret' | base64`
+GET http://example.com/protected
+Authorization: Basic Ym9iOnNlY3JldA== 
+```
+
+Basic authentification allows per request authentification.
+If you want to add basic authentification to all the request of a Hurl file
+you could use [`-u/--user` option].
 
 ## Sending Data
 
@@ -225,7 +228,8 @@ jsonpath "$.userInfo.lastName" == "Herbert"
 jsonpath "$.hasDevice" == false
 jsonpath "$.links" count == 12
 jsonpath "$.state" != null
-jsonpath "$.order" matches "^order-\\d{8}$"     # metacharacters beginining with \ must be escaped 
+jsonpath "$.order" matches "^order-\\d{8}$"
+jsonpath "$.order" matches /^order-\d{8}$/     # Alternative syntax with regex litteral
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
@@ -268,6 +272,7 @@ xpath "count(//p)" == 2  # Check the number of p
 xpath "//p" count == 2  # Similar assert for p
 xpath "boolean(count(//h2))" == false  # Check there is no h2  
 xpath "//h2" not exists  # Similar assert for h2
+xpath "string(//div[1])" matches /Hello.*/
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#xpath-assert)
@@ -363,5 +368,6 @@ bytes startsWith hex,efbbbf;
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
 [`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
-[`--user` option]: {% link _docs/man-page.md %}#user
 [Hurl tests suit]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests
+[Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
+[`-u/--user` option]: {% link _docs/man-page.md %}#user

@@ -19,6 +19,7 @@ $row-n1-light: $background-color-light;
 
 
 $hurl-string-light: darkgreen;
+$hurl-regex-light: darkgreen;
 $hurl-name-light: darkgreen;
 $hurl-raw-light: darkgreen;
 $hurl-number-light: blue;
@@ -64,6 +65,7 @@ $row-n0-dark: #27272c;
 $row-n1-dark: $background-color-dark;
 
 $hurl-string-dark: forestgreen;
+$hurl-regex-dark: forestgreen;
 $hurl-name-dark: forestgreen;
 $hurl-raw-dark: forestgreen;
 $hurl-number-dark: dodgerblue;
@@ -103,6 +105,7 @@ $schema-token-3-dark: #ff8000;
   --footer-background-color: #{$footer-background-color-light};
   --separator-color: #{$separator-color-light};
   --hurl-string: #{$hurl-string-light};
+  --hurl-regex: #{$hurl-regex-light};
   --hurl-name: #{$hurl-name-light};
   --hurl-raw: #{$hurl-raw-light};
   --hurl-number: #{$hurl-number-light};
@@ -153,6 +156,7 @@ $schema-token-3-dark: #ff8000;
   --footer-background-color: #{$footer-background-color-dark};
   --separator-color: #{$separator-color-dark};
   --hurl-string: #{$hurl-string-dark};
+  --hurl-regex: #{$hurl-regex-dark};
   --hurl-name: #{$hurl-name-dark};
   --hurl-raw: #{$hurl-raw-dark};
   --hurl-number: #{$hurl-number-dark};

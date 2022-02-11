@@ -7,9 +7,9 @@ section: File Format
 
 ## Definition {#definition}
 
-Describes an HTTP request, with mandatory [method](#method) and [url](#url), followed by optional [headers](#headers),
-[query parameters](#query-parameters), [form parameters](#form-parameters), [multipart form datas](#multipart-form-data), 
-[cookies](#cookies) and [body](#body).
+Describes an HTTP request, with mandatory [method] and [url], followed by optional [headers],
+[query parameters], [form parameters], [multipart form datas], [cookies], 
+[basic authentification] and [body].
 
 ## Example {#example}
 
@@ -30,7 +30,7 @@ Mandatory HTTP request method, one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `C
 
 Mandatory HTTP request url.
 
-Url can contain query parameters, even if using a [query parameters section](#query-parameters) is preferred.
+Url can contain query parameters, even if using a [query parameters section] is preferred.
 
 ```hurl
 # A request with url containing query parameters.
@@ -100,7 +100,7 @@ If there are any parameters in the url, the resulted request will have both para
 
 ### Form parameters {#form-parameters}
 
-A form parameters section can be used to send data, like [HTML form](https://developer.mozilla.org/en-US/docs/Learn/Forms). 
+A form parameters section can be used to send data, like [HTML form]. 
 
 This section contains an optional list of key values, each key followed by a `:` and a value. Key values will be 
 encoded in key-value tuple separated by '&', with a '=' between the key and the value, and sent in the body request. 
@@ -119,8 +119,7 @@ number: 33611223344
 {% endraw %}
 
 Form parameters section can be seen as syntactic sugar over body section (values in form parameters section
-are not url encoded.). A [multiline string body](#multiline-string-body) could be used instead of a forms
-parameters section.
+are not url encoded.). A [multiline string body] could be used instead of a forms parameters section.
 
 ~~~hurl
 # Run a POST request with form parameters section:
@@ -137,12 +136,12 @@ name=John%20Doe&key1=value1
 ```
 ~~~
 
-When both [body section](#body) and form parameters section are present, only the body section is taken into account.
+When both [body section] and form parameters section are present, only the body section is taken into account.
 
 ### Multipart Form Data {#multipart-form-data}
 
-A multipart form data section can be used to send data, with key / value and file content (see [multipart/form-data
- on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)). 
+A multipart form data section can be used to send data, with key / value and file content 
+(see [multipart/form-data on MDN]). 
  
 The form parameters section starts with `[MultipartFormData]`.
 
@@ -156,7 +155,7 @@ field3: file,example.zip; application/zip
 ```
 
 Files are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.
+[`--file-root` option] to specify the root directory of all file nodes.
 
 Content type can be specified or inferred based on the filename extension:
 
@@ -203,15 +202,47 @@ GET https://example.net/index.html
 Cookie: theme=light; sessionToken=abc123
 ```
 
+### Basic Authentification
+
+A basic authentification section can be used to perform [basic authentification].
+
+Username is followed by a `:` and a password. The basic authentification section starts with
+`[BasicAuth]`. Username and password are _not_ base64 encoded. 
+
+
+```hurl
+# Perform basic authentification with login `bob` and password `secret`.
+GET http://example.com/protected
+[BasicAuth]
+bob: secret
+```
+
+> Spaces surrounded username and password are trimmed. If you
+> really want a space in your password (!!), you could use [Hurl unicode literals \u{20}].
+
+This is equivalent (but simpler) to construct the request with a [Authorization] header:
+
+```hurl
+# Authorization header value can be computed with `echo -n 'bob:secret' | base64`
+GET http://example.com/protected
+Authorization: Basic Ym9iOnNlY3JldA== 
+```
+
+Basic authentification allows per request authentification.
+If you want to add basic authentification to all the request of a Hurl file
+you could use [`-u/--user` option].
+
 ### Body {#body}
 
 Optional HTTP body request. 
 
-If the body of the request is a [JSON](https://www.json.org) string or a [XML](https://en.wikipedia.org/wiki/XML
-) string, the value can be directly inserted without any modification. For a text based body that is not JSON nor XML
-, one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends with <code>&#96;&#96;&#96;</code>. 
-For a precise byte control of the request body, [Base64](https://en.wikipedia.org/wiki/Base64) encoded string, 
-[hexadecimal string](#hex-body) or [included file](#file-body) can be used to describe exactly the body byte content. 
+If the body of the request is a [JSON] string or a [XML] string, the value can be 
+directly inserted without any modification. For a text based body that is not JSON nor XML, 
+one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends 
+with <code>&#96;&#96;&#96;</code>. 
+
+For a precise byte control of the request body, [Base64] encoded string, [hexadecimal string] 
+or [included file] can be used to describe exactly the body byte content. 
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 
@@ -348,4 +379,29 @@ file,data.bin;
 ```
 
 File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
-[`--file-root` option]({% link _docs/man-page.md %}#file-root) to specify the root directory of all file nodes.
+[`--file-root` option] to specify the root directory of all file nodes.
+
+
+[method]: #method
+[url]: #url
+[headers]: #headers
+[query parameters]: #query-parameters
+[form parameters]: #form-parameters
+[multipart form datas]: #multipart-form-data
+[cookies]: #cookies
+[basic authentification]: #basic-authentification
+[body]: #body
+[query parameters section]: #query-parameters
+[HTML form]: https://developer.mozilla.org/en-US/docs/Learn/Forms
+[multiline string body]: #multiline-string-body
+[body section]: #body
+[multipart/form-data on MDN]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+[`--file-root` option]: {% link _docs/man-page.md %}#file-root
+[JSON]: https://www.json.org
+[XML]: https://en.wikipedia.org/wiki/XML
+[Base64]: https://en.wikipedia.org/wiki/Base64
+[hexadecimal string]: #hex-body
+[included file]: #file-body
+[`--file-root` option]: {% link _docs/man-page.md %}#file-root
+[`-u/--user` option]: {% link _docs/man-page.md %}#user
+[Hurl unicode literals \u{20}]: {% link _docs/hurl-file.md %}#special-character-in-strings
