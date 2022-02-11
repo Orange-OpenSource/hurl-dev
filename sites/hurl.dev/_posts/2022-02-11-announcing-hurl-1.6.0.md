@@ -115,6 +115,8 @@ Press Q (Quit) or C (Continue)
 Under the hood, we've improved our code and Hurl should be quicker than ever.
 There are other changes and bug fixes in the Hurl 1.6.0 release: check out [the release note!]
 
+If you like Hurl, don't hesitate [to give us a star]!
+
 And, finally, a big thanks to all our contributors!
 
 [Hurl]: https://hurl.dev
@@ -126,3 +128,4 @@ And, finally, a big thanks to all our contributors!
 [interactive mode]: {% link _docs/man-page.md %}#interactive
 [debug a session step by step]: {% link _docs/tutorial/debug-tips.md %}#interactive-mode
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
+[to give us a star]: https://github.com/Orange-OpenSource/hurl/stargazers
