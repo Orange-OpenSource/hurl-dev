@@ -10,7 +10,8 @@ permalink: /blog/:year/:month/:day/:title.html
 <div class="blog-post-date">{{ page.date | date: "%b. %d, %Y" }}</div>
 
 The Hurl team is happy to announce [a new version of Hurl, 1.6.0].
-Hurl is a command line tool powered by [curl], that runs HTTP requests defined 
+
+[Hurl] is a command line tool powered by [curl], that runs HTTP requests defined 
 in a simple plain text format:
 
 ```hurl
@@ -116,6 +117,7 @@ There are other changes and bug fixes in the Hurl 1.6.0 release: check out [the 
 
 And, finally, a big thanks to all our contributors!
 
+[Hurl]: https://hurl.dev
 [curl]: https://curl.se
 [a new version of Hurl, 1.6.0]: https://github.com/Orange-OpenSource/hurl/releases/tag/1.6.0
 [David Humphrey]: https://github.com/humphd
