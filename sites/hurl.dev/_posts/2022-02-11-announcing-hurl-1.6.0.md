@@ -84,7 +84,7 @@ jsonpath "$.name" matches /Hello [a-zA-Z]+!/
 The new asserts are much more readable and easier to write.
 
 Basic authentification section and regex literal has been suggested to us 
-by [David Humphrey] so thanks again David fo your ideas!
+by [David Humphrey] so thanks again David for your ideas!
 
 ## Interactive mode improvements
 
