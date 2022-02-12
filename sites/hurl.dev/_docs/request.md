@@ -405,3 +405,4 @@ File are relative to the input Hurl file, and cannot contain implicit parent dir
 [`--file-root` option]: {% link _docs/man-page.md %}#file-root
 [`-u/--user` option]: {% link _docs/man-page.md %}#user
 [Hurl unicode literals \u{20}]: {% link _docs/hurl-file.md %}#special-character-in-strings
+[Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
