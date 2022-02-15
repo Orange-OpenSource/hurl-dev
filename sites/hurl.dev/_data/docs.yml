@@ -182,6 +182,10 @@
         - title: Variables
         - title: Types
         - title: Injecting Variables
+          items:
+            - title: variable option
+            - title: variables-file option
+            - title: Environment variable
         - title: Templating Body
     - title: Grammar
       path: /docs/grammar.html

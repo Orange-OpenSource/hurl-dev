@@ -117,23 +117,60 @@ So if you want to use typed values (in asserts for instances), you can use {% ra
 
 ## Injecting Variables {#injecting-variables}
 
-Variables can also be injected in a Hurl file, by using [`--variable` option]({% link _docs/man-page.md %}#variable) :
+Variables can also be injected in a Hurl file:
 
-```
-$ hurl --variable host=example.net test.hurl
-``` 
+- by using [`--variable` option]({% link _docs/man-page.md %}#variable)
+- by using [`--variables-file`option]({% link _docs/man-page.md %}#variables-file)
+- by defining environnement variables, for instance `HURL_foo=bar`
 
-where `test.hurl` is the following file:
+Lets' see how to inject variables, given this `test.hurl`:
 
 {% raw %}
 ```hurl
-GET https://{{host}}/status
+GET https://{{host}}/{{id}}/status
 HTTP/1.1 304
 
 GET https://{{host}}/health
 HTTP/1.1 200
 ```
 {% endraw %}
+
+
+### `variable` option
+
+Variable can be defined with command line option:
+
+```sh
+$ hurl --variable host=example.net --variable id=1234 test.hurl
+``` 
+
+
+### `variables-file` option
+
+We can also define all injected variables in a file:
+
+```sh
+$ hurl --variables-files vars.env test.hurl
+``` 
+
+where `vars.env` is
+
+```
+host=example.net
+id=1234
+```
+
+### Environment variable
+
+Finally, we can use environment variables in the form of `HURL_name=value`:
+
+```sh
+$ export HURL_host=example.net
+$ export HURL_id=1234 
+$ hurl test.hurl
+``` 
+
+
 
 ## Templating Body {#templating-body}
 
