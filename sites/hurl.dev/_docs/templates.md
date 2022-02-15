@@ -8,9 +8,10 @@ section: File Format
 
 
 ## Variables {#variables}
-In Hurl file, you can generate value using two curly braces, i.e {% raw %}`{{my_variable}}`{% endraw %}. For instance, if you want to 
-reuse a value from an HTTP response in the next entries, you can capture this value in a variable and reuse it in a 
-template.
+In Hurl file, you can generate value using two curly braces, i.e 
+{% raw %}`{{my_variable}}`{% endraw %}. For instance, if you want to reuse a 
+value from an HTTP response in the next entries, you can capture this value in a
+variable and reuse it in a template.
 
 {% raw %}
 ```hurl
@@ -28,7 +29,7 @@ HTTP/1.1 302
 ```
 {% endraw %}
 
-In this example, we capture the value of the [CSRF token](https://en.wikipedia.org/wiki/Cross-site_request_forgery) from
+In this example, we capture the value of the [CSRF token] from
 the body a first response, and inject it as a header in the next POST request. 
 
 {% raw %}
@@ -81,8 +82,7 @@ HTTP/* 200
 jsonpath "$.id" == "458"
 ```
 
-resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert)
-expression and a string value.
+resulting in a comparaison between the [JSONPath] expression and a string value.
 
 On the other hand, the following assert:
 
@@ -104,8 +104,7 @@ HTTP/* 200
 jsonpath "$.index" == 458
 ```
 
-resulting in a comparaison between the [JSONPath]({% link _docs/asserting-response.md %}#jsonpath-assert) expression 
-and an integer value.
+resulting in a comparaison between the [JSONPath] expression and an integer value.
 
 So if you want to use typed values (in asserts for instances), you can use {% raw %}`{{my_var}}`{% endraw %}.
  If you're interested in the string representation of a variable, you can surround the variable with double quotes
@@ -119,8 +118,8 @@ So if you want to use typed values (in asserts for instances), you can use {% ra
 
 Variables can also be injected in a Hurl file:
 
-- by using [`--variable` option]({% link _docs/man-page.md %}#variable)
-- by using [`--variables-file`option]({% link _docs/man-page.md %}#variables-file)
+- by using [`--variable` option]
+- by using [`--variables-file` option]
 - by defining environnement variables, for instance `HURL_foo=bar`
 
 Lets' see how to inject variables, given this `test.hurl`:
@@ -133,6 +132,7 @@ HTTP/1.1 304
 GET https://{{host}}/health
 HTTP/1.1 200
 ```
+
 {% endraw %}
 
 
@@ -174,9 +174,8 @@ $ hurl test.hurl
 
 ## Templating Body {#templating-body}
 
-Using templates with [JSON body]({% link _docs/request.md %}#json-body) or [XML body]({% link _docs/request.md %}#xml-body) 
-is not currently supported in Hurl. Besides, you can use templates in [raw string body]({% link _docs/request.md%}#raw-string-body) 
-with variables to send a JSON or XML body:
+Using templates with [JSON body] or [XML body] is not currently supported in Hurl.
+Besides, you can use templates in [raw string body] with variables to send a JSON or XML body:
 
 {% raw %}
 ~~~hurl
@@ -209,3 +208,11 @@ Resulting in a PUT request with the following JSON body:
     "key3": 42
 }
 ```
+
+[`--variable` option]: {% link _docs/man-page.md %}#variable
+[`--variables-file` option]: {% link _docs/man-page.md %}#variables-file
+[CSRF token]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
+[JSONPath]: {% link _docs/asserting-response.md %}#jsonpath-assert
+[JSON body]: {% link _docs/request.md %}#json-body
+[XML body]: {% link _docs/request.md %}#xml-body
+[raw string body]: {% link _docs/request.md%}#raw-string-body 

@@ -112,7 +112,7 @@ At the minimum, the response includes the asserts on the HTTP version and status
 {% raw %}
 ```hurl
 GET http:/google.com
-HTTP/1.1 302
+HTTP/1.1 301
 ```
 {% endraw %}
 
@@ -122,7 +122,7 @@ It can also include asserts on the response headers
 {% raw %}
 ```hurl
 GET http:/google.com
-HTTP/1.1 302
+HTTP/1.1 301
 Location: http://www.google.com
 ```
 {% endraw %}
@@ -133,9 +133,9 @@ You can also include explicit asserts combining query and predicate
 {% raw %}
 ```hurl
 GET http:/google.com
-HTTP/1.1 302
+HTTP/1.1 301
 [Asserts]
-xpath "//title" == "301 Moved"
+xpath "string(//title)" == "301 Moved"
 ```
 {% endraw %}
 
@@ -181,7 +181,7 @@ Option | Description
 <a href="#to-entry" id="to-entry"><code>--to-entry &lt;entry-number&gt;</code></a> | Execute Hurl file to ENTRY_NUMBER (starting at 1).<br/>Ignore the remaining of the file. It is useful for debugging a session.<br/>
 <a href="#user" id="user"><code>-u, --user &lt;user:password&gt;</code></a> | Add basic Authentication header to each request.<br/>
 <a href="#user-agent" id="user-agent"><code>-A, --user-agent &lt;name&gt;</code></a> | Specify the User-Agent string to send to the HTTP server.<br/>
-<a href="#variable" id="variable"><code>--variable &lt;name=value&gt;</code></a> | Define variable (name/value) to be used in Hurl templates.<br/>Only string values can be defined.<br/>
+<a href="#variable" id="variable"><code>--variable &lt;name=value&gt;</code></a> | Define variable (name/value) to be used in Hurl templates.<br/>
 <a href="#variables-file" id="variables-file"><code>--variables-file &lt;file&gt;</code></a> | Set properties file in which your define your variables.<br/><br/>Each variable is defined as name=value exactly as with [--variable](#variable) option.<br/><br/>Note that defining a variable twice produces an error.<br/>
 <a href="#verbose" id="verbose"><code>-v, --verbose</code></a> | Turn on verbose output on standard error stream<br/>Useful for debugging.<br/><br/>A line starting with '>' means data sent by Hurl.<br/>A line staring with '<' means data received by Hurl.<br/>A line starting with '*' means additional info provided by Hurl.<br/><br/>If you only want HTTP headers in the output, -i, --include might be the option you're looking for.<br/>
 <a href="#help" id="help"><code>-h, --help</code></a> | Usage help. This lists all current command line options with a short description.<br/>
@@ -199,6 +199,7 @@ Variable | Description
 `https_proxy [protocol://]<host>[:port]` | Sets the proxy server to use for HTTPS.<br/>
 `all_proxy [protocol://]<host>[:port]` | Sets the proxy server to use if no protocol-specific proxy is set.<br/>
 `no_proxy <comma-separated list of hosts>` | list of host names that shouldn't go through any proxy.<br/>
+`HURL_name value` | Define variable (name/value) to be used in Hurl templates. This is similar than [--variable](#variable) and [--variables-file](#variables-file) options.<br/>
 
 ## Exit Codes
 
