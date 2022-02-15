@@ -140,7 +140,7 @@ HTTP/1.1 200
 
 Variable can be defined with command line option:
 
-```sh
+```shell
 $ hurl --variable host=example.net --variable id=1234 test.hurl
 ``` 
 
@@ -149,7 +149,7 @@ $ hurl --variable host=example.net --variable id=1234 test.hurl
 
 We can also define all injected variables in a file:
 
-```sh
+```shell
 $ hurl --variables-files vars.env test.hurl
 ``` 
 
@@ -164,7 +164,7 @@ id=1234
 
 Finally, we can use environment variables in the form of `HURL_name=value`:
 
-```sh
+```shell
 $ export HURL_host=example.net
 $ export HURL_id=1234 
 $ hurl test.hurl
