@@ -368,6 +368,6 @@ bytes startsWith hex,efbbbf;
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
 [`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
-[Hurl tests suit]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests
+[Hurl tests suit]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests_ok
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
 [`-u/--user` option]: {% link _docs/man-page.md %}#user
