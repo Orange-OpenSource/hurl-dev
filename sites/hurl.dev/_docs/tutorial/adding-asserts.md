@@ -106,7 +106,8 @@ Hurl has failed now and provides informations on which assert is not valid.
 ### Typed predicate
 
 If we decompose our assert, `xpath "string(//head/title)"` is the XPath query and `== "Welcome to Quiz!"` is our 
-predicate to test the query against. You can note that predicates values are typed:    
+predicate to test the query against. You can note that predicates values are typed:
+
 - `xpath "string(//head/title)" == "true"`    
 tests that the XPath expression is returning a string, and    
 - `xpath "boolean(//head/title)" == true`     
