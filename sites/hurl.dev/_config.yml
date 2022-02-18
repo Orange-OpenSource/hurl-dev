@@ -4,3 +4,5 @@ collections:
   docs:
     output: true
 highlighter: none
+kramdown:
+  gfm_quirks: [no_auto_typographic]
