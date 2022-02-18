@@ -57,6 +57,13 @@ def unescape_html(text: str) -> str:
     return text
 
 
+def escape_html(text: str) -> str:
+    text = text.replace("&", "&amp;")
+    text = text.replace("<", "&lt;")
+    text = text.replace(">", "&gt;")
+    return text
+
+
 def hurl_to_html(snippet: str) -> str:
     # import sys
     # sys.stderr.write('<<<' + snippet + '>>>\n')
@@ -100,7 +107,8 @@ def bash_to_html(snippet: str) -> str:
 
 
 def shell_to_html(snippet: str) -> str:
-    output = snippet.replace("$ ", '<span class="prompt">$ </span>')
+    escaped_snippet = escape_html(snippet)
+    output = escaped_snippet.replace("$ ", '<span class="prompt">$ </span>')
     return output
 
 

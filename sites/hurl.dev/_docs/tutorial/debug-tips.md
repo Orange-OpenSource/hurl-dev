@@ -12,7 +12,7 @@ Now that we have many requests in our test file, let's review some tips to debug
 We can run our test with [`-v/--verbose` option]. In this mode, each entry is displayed, with debugging 
 information like request HTTP headers, response HTTP headers, cookie storage, duration etc...
 
-```
+```shell
 $ hurl -v basic.hurl > /dev/null
 * fail fast: true
 * insecure: false
@@ -88,7 +88,7 @@ Line beginning by `*` are debug info, lines that begin by `>` are HTTP request h
 
 We can run the whole Hurl file request by request, with the [`--interactive` option]:
 
-```
+```shell
 $ hurl --interactive basic.hurl
 * fail fast: true
 * insecure: false
@@ -136,7 +136,7 @@ Press Q (Quit) or C (Continue)
 We can also run our file to only output HTTP headers, with [`-i/--include` option].
 In this mode, headers of the last entry are displayed:
 
-```
+```shell
 $ hurl -i basic.hurl
 HTTP/1.1 200
 X-Content-Type-Options: nosniff
@@ -155,7 +155,7 @@ Date: Sun, 06 Jun 2021 15:11:31 GMT
 If you want to inspect any entry other than the last entry, you can run your test to a 
 given entry with the [`--to-entry` option], starting at index 1:
 
-```
+```shell
 $ hurl -i --to-entry 2 basic.hurl
 HTTP/1.1 404
 Vary: Origin
@@ -201,13 +201,17 @@ For instance, with [mitmproxy]:
 
 1. First, launch mitmproxy, it will listen to connections on 8888 port
 
-       $ mitmweb -p 8888 --web-port 8889 --web-open-browser
-       Web server listening at http://127.0.0.1:8889/
-       Proxy server listening at http://*:8888
+    ```shell
+$ mitmweb -p 8888 --web-port 8889 --web-open-browser
+Web server listening at http://127.0.0.1:8889/
+Proxy server listening at http://*:8888
+    ```
 
 2. Then, run Hurl with [`-x/--proxy` option]
 
-       $ hurl --proxy localhost:8888 basic.hurl
+    ```shell
+$ hurl --proxy localhost:8888 basic.hurl
+    ```
 
 The web interface of mitmproxy allows you to inspect, intercept any requests run by Hurl, and see
 the returned response to Hurl.

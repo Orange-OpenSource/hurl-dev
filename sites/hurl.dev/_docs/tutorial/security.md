@@ -176,7 +176,7 @@ HTTP/1.1 403
 {:start="4"}
 4. Run `create-quiz.hurl` and verify everything is ok:
 
-```
+```shell
 $ hurl --test create-quiz.hurl
 create-quiz.hurl: RUNNING [1/1]
 create-quiz.hurl: SUCCESS
@@ -225,7 +225,7 @@ xpath "//comment" count == 0     # Check that we don't leak comments
 {:start="2"}
 2. Run `create-quiz.hurl` and verify everything is ok:
 
-```
+```shell
 $ hurl --test create-quiz.hurl
 create-quiz.hurl: RUNNING [1/1]
 create-quiz.hurl: SUCCESS

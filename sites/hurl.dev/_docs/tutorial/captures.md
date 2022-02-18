@@ -68,7 +68,7 @@ HTTP/1.1 302
 {:start="2"}
 2. Run `create-quiz.hurl`:
 
-```
+```shell
 $ hurl --test create-quiz.hurl
 create-quiz.hurl: RUNNING [1/1]
 error: Assert Status
@@ -171,7 +171,7 @@ HTTP/1.1 302
 {:start="3"}
 3. Run `create-quiz.hurl` and verify everything is ok:
 
-```
+```shell
 $ hurl --test create-quiz.hurl
 create-quiz.hurl: RUNNING [1/1]
 create-quiz.hurl: SUCCESS
@@ -269,7 +269,7 @@ HTTP/1.1 200
 {:start="4"}
 4. Run `create-quiz.hurl` and verify everything is ok:
 
-```
+```shell
 $ hurl --test create-quiz.hurl
 create-quiz.hurl: RUNNING [1/1]
 create-quiz.hurl: SUCCESS

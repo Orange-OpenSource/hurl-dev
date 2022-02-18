@@ -72,7 +72,7 @@ description.
 {:start="2"}
 2. Run `basic.hurl`:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -105,7 +105,7 @@ So, first, we'll remove the standard output (if a test is broken, we'll still ha
 {:start="3"}
 3. Run `basic.hurl` while redirecting the standard ouput to `/dev/null`:
 
-```
+```shell
 $ hurl basic.hurl > /dev/null
 ```
 
@@ -115,7 +115,7 @@ our tests progression and a simple summary:
 {:start="4"}
 4. Run `basic.hurl` with `--progress` and `--summary` options:
 
-```
+```shell
 $ hurl --progress --summary basic.hurl > /dev/null
 basic.hurl: RUNNING [1/1]
 basic.hurl: SUCCESS
@@ -132,7 +132,7 @@ using [`--progress`] and [`--summary`] options:
 {:start="5"}
 5. Run `basic.hurl` with `--test` option:
 
-```
+```shell
 $ hurl --test basic.hurl
 basic.hurl: RUNNING [1/1]
 basic.hurl: SUCCESS
@@ -154,7 +154,7 @@ Let's use Hurl to check it.
 
 1. In a shell, use Hurl to test the </api/health> endpoint:
 
-```
+```shell
 $ echo 'GET http://localhost:8080/api/health' | hurl
 {"status":"RUNNING","reportedDate":"2021-06-06T14:08:27Z","healthy":true,"operationId":425276758}
 ```
@@ -315,7 +315,7 @@ jsonpath "$[0].title" == "What is a pennyroyal?"
 {:start="5"}
 5. Run `basic.hurl` and check that every assert of every request has been successful:
 
-```
+```shell
 $ hurl --test basic.hurl
 basic.hurl: RUNNING [1/1]
 basic.hurl: SUCCESS

@@ -59,7 +59,7 @@ xpath "string(//head/title)" == "Welcome to Quiz!"
 {:start="2"}
 2. Run `basic.hurl`:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -90,7 +90,7 @@ xpath "string(//head/title)" == "Welcome to Quaz!"
 {:start="4"}
 4. Run `basic.hurl`:
 
-```
+```shell
 $ hurl basic.hurl
 error: Assert Failure
   --> integration/basic.hurl:6:0
@@ -148,7 +148,7 @@ xpath "string((//button)[2])" contains "Create"
 {:start="3"}
 3. Run `basic.hurl` and check that every assert has been successful:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -267,7 +267,7 @@ cookie "JSESSIONID[HttpOnly]" exists
 {:start="5"}
 5. Run `basic.hurl` and check that every assert has been successful:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">

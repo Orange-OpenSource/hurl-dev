@@ -93,7 +93,7 @@ This is your first Hurl file, and probably one of the simplest. It consists of o
 {:start="2"}
 2. In a shell, execute `hurl` with `basic.hurl` as argument:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -140,7 +140,7 @@ HTTP/1.1 200
 {:start="4"}
 4. Execute `basic.hurl`:
 
-```
+```shell
 $ hurl basic.hurl
 <!doctype html>
 <html lang="en">
@@ -168,7 +168,7 @@ HTTP/1.1 500
 {:start="6"}
 6. Save and execute it:
 
-```
+```shell
 $ hurl basic.hurl
 error: Assert Status
   --> basic.hurl:2:10
