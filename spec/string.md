@@ -1,8 +1,13 @@
-# String Specification
+# String/Template Specification
 
 Strings in Hurl can be encoded:
 - either within quotes
 - or without any quote (delimited implicitly by of Hurl structure)
+
+They can also contain templates. A template is an expression enclosed between  {{ and }}.
+
+The expression language must be stay independent of the String specification.
+We must be able to update the expression language without touching the String spec.
 
 
 
@@ -12,25 +17,55 @@ Example: Xpath expression
 
 ```xpath "//div"```
 
-Similar to JSON String, it has the following escaped characters: BACKSLASH, DOUBLE QUOTE, ...
+It has the following standard escape sequences (found in JSON String):
+- \\"
+- \\\
+- \\b
+- \\f
+- \\n
+- \\r
+- \\t
+  
+It has also a unicode escaping sequence:
+- \\u{ unicode char in hex digit}
 
-The unique escape sequence differs from JSON
-it has the follwoing form  \u{unicode}
+This is slightly different from JSON. 
+Encoding a character that takes more than 2 bytes will take only one \u escaping in Hurl but 2 in JSON.
 
-### Examples Valid String
+Example: encoding the unicode Character 'MUSICAL SYMBOL G CLEF' (U+1D11E)
 
-Example param
-param1
+in Hurl
+```\u{1D11E}```
 
-### Examples Invalid String
+in JSON
+```\uD834\uDD1E```
+
+Due to the templating, we have an additional valid escaping sequence `\{` in order to avoid treating the template.
+
+Valid String/Template
+```
+Hello {{name}}!    // the template {{name}} will be evaluated at run time
+Hello {name}!      // Simple string without template
+Hello \{{name}}!   // Simple String without template. The \ is not part of the String value
+Hello \{{name\}}}! // Template contains a trailing right curly bracket
+```
+
+You can also use the unicode escape sequence `\u{7b}` to encode a literal `{` (not treated as special character)
+If you need to express literally `{{`, you need to escape at least of one the bracket.
+with a backslash `\{{` or a unicode escape sequence `\u{7b}{`
+
+Parse Errors
+```
+Hello {{name}!     // The template starts but does not terminate
+Hello {{name\}}!   // The template starts but does not terminate. The first right (escaped) curly braket is part of the expression.
+```
+
 
 
 
 ## Unquoted Strings
 
-Unquoted Strings are more complicated to encode.
-They are specific to the location of the string.
-
+Unquoted Strings are a lot more complicated to encode.
 The main motivation for using unquoted strings is to make simple/common strings very easy to read/write.
 
 ```
@@ -39,45 +74,41 @@ Host: www.example.com
 Accept-Language: en
 ```
 
-They contain all the escape characters defined for the quoted string.
+They are specific to the location of the string.
+They are delimited implicitly by the Hurl file structure: newline, colon between header name and value, ...
 
-ly, while making it possible to write any possible string.
-They also conatins 
+The unquoted string can contain spaces. 
+But the trailing space will have to be encoded/escaped as whitespace in Hurl file can be ignored.
 
-
-The table below lists all possible encodings
+The table below lists all possible encodings/escaping
 
 | Type                                                             |  Additional escape characters  |
 |------------------------------------------------------------------|--------------------------------|
 | url                                                              | '#'                            |
 | key name (header name, param name, cookie name and capture name) | '#' and the ':'                |
 | key value (header value, param value, cookie value)              | '#'                            |
+|...
 
+Key/Value examples (section [Headers], [QueryString], [FormParams])
 
+| Input     | Decoded                 |
+|-----------|-------------------------|
+|`X:Y`      | name="X", value="Y"     |
+|`X : Y`    | name="X", value="Y"     |
+|`X::Y`     | name="X", value=":Y"    |
+|`X\::Y`    | name="X:", value="Y"    |
+|`X\\:Y`    | name="X\", value="Y"    |
+|`X:Y#Z`    | name="X", value="Y"     |
+|`X\#:Y`    | name="X#", value="Y"    |
+|`X X\ :Y`  | name="X X ", value="Y"  |
 
-### Examples 
-
-Valid Strings
-
-Example param
-param1
-
-
-Invalid Strings
-
-
-
-## Templating
-
-Both quoted and unquoted string can contain templates.
-
+Parse Error
 ```
-GET http:://{{host}}
-HTTP/1.1 200
-[Asserts]
-xpath "string(//head/title)" == "{{message}}"
+X\:  => expecting ':'
+X#   => expecting ':'
 ```
 
-A template is defined by `{{`... `}}`.
+## Multiline string
 
-If 
+A Hurl String is always encoded on one line. Newline are encoded with the escaped sequence `\n`.
+For multiline Strings, there is a specific syntax ```.
