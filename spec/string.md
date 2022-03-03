@@ -54,6 +54,23 @@ You can also use the unicode escape sequence `\u{7b}` to encode a literal `{` (n
 If you need to express literally `{{`, you need to escape at least of one the bracket.
 with a backslash `\{{` or a unicode escape sequence `\u{7b}{`
 
+> [Handlebar template escaping](https://handlebarsjs.com/guide/expressions.html#escaping-handlebars-expressions):
+> 
+> ```
+> \{{escaped}}
+> 
+> {{{{raw}}}}
+>  {{escaped}}
+> {{{{/raw}}}}
+> ```
+> 
+> [httpYac template escaping](https://httpyac.github.io/guide/variables.html#variable-substitution-in-request)
+>
+> ```
+> If the replacement is not desired, this can be prevented using \{\{...\}\}. This is replaced by {{...}}
+> ```
+
+
 Parse Errors
 ```
 Hello {{name}!     // The template starts but does not terminate
