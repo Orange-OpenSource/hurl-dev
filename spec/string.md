@@ -47,7 +47,7 @@ Valid String/Template
 Hello {{name}}!    // the template {{name}} will be evaluated at run time
 Hello {name}!      // Simple string without template
 Hello \{{name}}!   // Simple String without template. The \ is not part of the String value
-Hello \{{name\}}}! // Template contains a trailing right curly bracket
+Hello {{name\}}}! // Template contains a trailing right curly bracket
 ```
 
 You can also use the unicode escape sequence `\u{7b}` to encode a literal `{` (not treated as special character)
@@ -59,8 +59,6 @@ Parse Errors
 Hello {{name}!     // The template starts but does not terminate
 Hello {{name\}}!   // The template starts but does not terminate. The first right (escaped) curly braket is part of the expression.
 ```
-
-
 
 
 ## Unquoted Strings
