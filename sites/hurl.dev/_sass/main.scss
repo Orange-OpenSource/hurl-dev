@@ -5,7 +5,12 @@
 @import "utilities";
 
 html {
-  scroll-padding-top: 16px; /* add some space to the anchor */
+  /* Add some space to the anchor */
+  scroll-padding-top: 20px;
+  @media only screen and (min-width: $md) {
+    /* Take fixed header into account */
+    scroll-padding-top: 20px + 72px;
+  }
 }
 
 body {
