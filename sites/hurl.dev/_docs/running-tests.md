@@ -88,7 +88,7 @@ Duration:  52ms
 
 ## Generating an HTML report
 
-Hurl can also generates an HTML by using the [`--html HTML_DIR`] option.
+Hurl can also generates an HTML by using the [`--report-html HTML_DIR`] option.
 
 If the HTML report already exists, the test results will be appended to it.
 
@@ -103,4 +103,4 @@ The input Hurl files (HTML version) are also included and are easily accessed fr
 [`--progress`]: {% link _docs/man-page.md %}#progress
 [`--summary`]: {% link _docs/man-page.md %}#summary
 [`--test`]: {% link _docs/man-page.md %}#test
-[`--html HTML_DIR`]: {% link _docs/man-page.md %}#html
+[`--report-html HTML_DIR`]: {% link _docs/man-page.md %}#report-html
