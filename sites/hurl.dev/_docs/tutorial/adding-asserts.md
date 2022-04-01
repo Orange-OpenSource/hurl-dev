@@ -11,6 +11,7 @@ Our basic Hurl file is now:
 # Our first Hurl file, just checking
 # that our server is up and running.
 GET http://localhost:8080
+
 HTTP/1.1 200
 ```
 
@@ -51,6 +52,7 @@ going to use the [XPath expression] `string(//head/title)`.
 # Our first Hurl file, just checking
 # that our server is up and running.
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"
@@ -82,6 +84,7 @@ We get the content of the page and there is no error so everything is good!
 # Our first Hurl file, just checking
 # that our server is up and running.
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quaz!"
@@ -122,6 +125,7 @@ with `count`:
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"
@@ -134,6 +138,7 @@ xpath "//button" count == 2
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"
@@ -174,6 +179,7 @@ As our endpoint is serving UTF-8 encoded HTML content, we can check the value of
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"
@@ -199,6 +205,7 @@ while the explicit one allows you to use other [predicates] (like `contains`, `s
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 # Implicitely testing response headers:
 Content-Type: text/html;charset=UTF-8
@@ -225,6 +232,7 @@ So to test it, we can modify our Hurl file with another header assert.
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"
@@ -252,6 +260,7 @@ So to test that our server is responding a `HttpOnly` session cookie, we can mod
 ```hurl
 # Checking our home page:
 GET http://localhost:8080
+
 HTTP/1.1 200
 [Asserts]
 xpath "string(//head/title)" == "Welcome to Quiz!"

@@ -59,6 +59,7 @@ question1: dd894cca
 question2: 4edc1fdb
 question3: 37b9eff3
 question4: 0fec576c
+
 HTTP/1.1 302
 ```
 
@@ -125,6 +126,7 @@ So, let's go!
 # First, get the quiz creation page to capture
 # the CSRF token (see https://en.wikipedia.org/wiki/Cross-site_request_forgery)
 GET http://localhost:8080/new-quiz
+
 HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//input[@name='_csrf']/@value)"
@@ -150,6 +152,7 @@ Now that we have captured the CSRF token value, we can inject it in the POST req
 # First, get the quiz creation page to capture
 # the CSRF token (see https://en.wikipedia.org/wiki/Cross-site_request_forgery):
 GET http://localhost:8080/new-quiz
+
 HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//input[@name='_csrf']/@value)"
@@ -164,6 +167,7 @@ question2: 4edc1fdb
 question3: 37b9eff3
 question4: 0fec576c
 _csrf: {{csrf_token}}
+
 HTTP/1.1 302
 ```
 {% endraw %}
@@ -212,6 +216,7 @@ question2: 4edc1fdb
 question3: 37b9eff3
 question4: 0fec576c
 _csrf: {{csrf_token}}
+
 HTTP/1.1 302
 [Captures]
 detail_url: header "Location"
@@ -239,6 +244,7 @@ question2: 4edc1fdb
 question3: 37b9eff3
 question4: 0fec576c
 _csrf: {{csrf_token}}
+
 HTTP/1.1 302
 [Captures]
 detail_url: header "Location"
@@ -294,6 +300,7 @@ So, our test file `create-quiz.hurl` is now:
 # First, get the quiz creation page to capture
 # the CSRF token (see https://en.wikipedia.org/wiki/Cross-site_request_forgery)
 GET http://localhost:8080/new-quiz
+
 HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//input[@name='_csrf']/@value)"
@@ -308,6 +315,7 @@ question2: 4edc1fdb
 question3: 37b9eff3
 question4: 0fec576c
 _csrf: {{csrf_token}}
+
 HTTP/1.1 302
 [Captures]
 detail_url: header "Location"
