@@ -92,15 +92,30 @@ Hurl sources are available in [GitHub].
 
 Hurl depends on libssl, libcurl and libxml2 native libraries. You will need their development files in your platform.
 
+
+#### Debian based distributions
+
 ```shell
-# debian based distributions
-apt install -y pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev
+$ apt install -y pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev
+```
 
-# redhat based distributions
-yum install -y pkg-config gcc openssl-devel libxml2-devel
+#### Red Hat based distributions
 
-# arch based distributions
-pacman -Sy --noconfirm pkgconf gcc openssl libxml2
+```shell
+$ yum install -y pkg-config gcc openssl-devel libxml2-devel
+```
+
+#### Arch based distributions 
+
+```shell
+$ pacman -Sy --noconfirm pkgconf gcc openssl libxml2
+```
+
+#### macOS
+
+```shell
+$ xcode-select --install
+$ brew install pkg-config
 ```
 
 Hurl is written in [Rust]. You should [install] the latest stable release.
@@ -112,7 +127,7 @@ $ rustc --version
 $ cargo --version
 ```
 
-Build
+Then build hurl:
 
 ```shell
 $ git clone https://github.com/Orange-OpenSource/hurl
