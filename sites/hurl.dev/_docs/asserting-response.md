@@ -132,7 +132,8 @@ is shared with [captures], and can be one of :
 - [`xpath`](#xpath-assert)
 - [`jsonpath`](#jsonpath-assert)
 - [`regex`](#regex-assert)
-- [`sha256`](#sha256-assert)  
+- [`sha256`](#sha-256-assert)
+- [`md5`](#md5-assert)
 - [`variable`](#variable-assert)
 - [`duration`](#duration-assert)
 
@@ -453,6 +454,30 @@ HTTP/1.0 200
 regex "^\\d{4}-\\d{2}-\\d{2}$" == "2018-12-31"
 ```
 
+### SHA-256 assert
+
+Check response body [SHA-256] hash.
+
+```hurl
+GET https://example.org/data.tar.gz
+
+HTTP/* *
+[Asserts]
+sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
+```
+
+### MD5 assert
+
+Check response body [MD5] hash.
+
+```hurl
+GET https://example.org/data.tar.gz
+
+HTTP/* *
+[Asserts]
+md5 == hex,ed076287532e86365e841e92bfc50d8c;
+```
+
 
 ### Variable assert
 
@@ -622,3 +647,5 @@ of all file nodes.
 [`--file-root` option]: {% link _docs/man-page.md %}#file-root
 [`count`]: {% link _docs/capturing-response.md %}#count-subquery
 [Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+[MD5]: https://en.wikipedia.org/wiki/MD5
+[SHA-256]: https://en.wikipedia.org/wiki/SHA-2

@@ -173,6 +173,8 @@
             - title: XPath assert
             - title: JSONPath assert
             - title: Regex assert
+            - title: SHA-256 assert
+            - title: MD5 assert
             - title: Variable assert
             - title: Duration assert
         - title: Body
