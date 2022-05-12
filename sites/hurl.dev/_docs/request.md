@@ -24,7 +24,7 @@ Content-Type: application/json
 alice: secret
 ```
 
-[Headers], if present, follow directly [method] and [url]. This allows Hurl format to 'looks like' the real HTTP format.
+[Headers], if present, follow directly after the [method] and [url]. This allows Hurl format to 'look like' the real HTTP format.
 Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`, `[QueryStringParams]`, `[FormParams]` etc...) 
 These sections are not ordered and can be mixed in any way:
 
@@ -116,7 +116,7 @@ If-Match: "e0023aa4e"
 
 `If-Match` request header will be sent will the following value `"e0023aa4e"` (started and ended with double quotes).
 
-Headers must follow directly [method] and [url].
+Headers must follow directly after the [method] and [url].
 
 ### Query parameters {#query-parameters}
 
@@ -287,7 +287,7 @@ or [included file] can be used to describe exactly the body byte content.
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 
-Body section must be the last section of the request configuration..
+The body section must be the last section of the request configuration.
 
 #### JSON body {#json-body}
 
