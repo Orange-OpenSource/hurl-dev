@@ -7,9 +7,12 @@ section: File Format
 
 ## Definition {#definition}
 
-Describes an HTTP request, with mandatory [method] and [url], followed by optional [headers],
-[query parameters], [form parameters], [multipart form datas], [cookies], 
-[basic authentification] and [body].
+Describes an HTTP request: a mandatory [method] and [url], followed by optional [headers].
+
+Then, [query parameters], [form parameters], [multipart form datas], [cookies] and
+[basic authentification] can be used to configure the HTTP request.
+
+Finally, an optional [body] can be used to configure the HTTP request body.
 
 ## Example {#example}
 
@@ -17,6 +20,43 @@ Describes an HTTP request, with mandatory [method] and [url], followed by option
 GET https://example.net/api/dogs?id=4567
 User-Agent: My User Agent
 Content-Type: application/json
+[BasicAuth]
+alice: secret
+```
+
+[Headers], if present, follow directly [method] and [url]. This allows Hurl format to 'looks like' the real HTTP format.
+Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`, `[QueryStringParams]`, `[FormParams]` etc...) 
+These sections are not ordered and can be mixed in any way:
+
+```hurl
+GET https://example.net/api/dogs?id=4567
+User-Agent: My User Agent
+[QueryStringParams]
+search: Install Linux
+order: newest
+[BasicAuth]
+alice: secret
+```
+
+```hurl
+GET https://example.net/api/dogs?id=4567
+User-Agent: My User Agent
+[BasicAuth]
+alice: secret
+[QueryStringParams]
+search: Install Linux
+order: newest
+```
+
+The last optional part of a request configuration is the request [body]. Request body must be the last paremeter of a request
+(after [headers] and request sections). Like headers, [body] have no explicit marker:
+
+```hurl
+POST https://example.net/api/dogs?id=4567
+User-Agent: My User Agent
+{
+ "name": "Ralphy"
+}
 ```
 
 ## Description {#description}
@@ -76,6 +116,7 @@ If-Match: "e0023aa4e"
 
 `If-Match` request header will be sent will the following value `"e0023aa4e"` (started and ended with double quotes).
 
+Headers must follow directly [method] and [url].
 
 ### Query parameters {#query-parameters}
 
@@ -246,6 +287,8 @@ or [included file] can be used to describe exactly the body byte content.
 
 > You can set a body request even with a `GET` body, even if this is not a common practice.
 
+Body section must be the last section of the request configuration..
+
 #### JSON body {#json-body}
 
 JSON body is used to set a literal JSON as the request body.
@@ -385,6 +428,7 @@ File are relative to the input Hurl file, and cannot contain implicit parent dir
 [method]: #method
 [url]: #url
 [headers]: #headers
+[Headers]: #headers
 [query parameters]: #query-parameters
 [form parameters]: #form-parameters
 [multipart form datas]: #multipart-form-data
