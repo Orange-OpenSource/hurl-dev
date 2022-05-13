@@ -111,6 +111,7 @@
       items:
         - title: Definitions
         - title: Example
+        - title: Structure
         - title: Description
           items:
             - title: Method
