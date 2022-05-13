@@ -50,6 +50,15 @@ $schema-token-1-light: #0000ff;
 $schema-token-2-light: #009900;
 $schema-token-3-light: #ff8000;
 
+$hurl-structure-0-front-light: #ff0288;
+$hurl-structure-0-back-light: #fac7e3;
+$hurl-structure-1-front-light: #009900;
+$hurl-structure-1-back-light: #a7eaa7;
+$hurl-structure-2-front-light: #ff8000;
+$hurl-structure-2-back-light: #ffd9a1;
+$hurl-structure-3-front-light: dodgerblue;
+$hurl-structure-3-back-light: #bedbff;
+
 
 // Dark theme
 $background-color-dark: #19191c;
@@ -96,6 +105,15 @@ $schema-token-1-dark: #007fff;
 $schema-token-2-dark: #009900;
 $schema-token-3-dark: #ff8000;
 
+$hurl-structure-0-front-dark: #fac7e3;
+$hurl-structure-0-back-dark: #ff0288;
+$hurl-structure-1-front-dark: #a7eaa7;
+$hurl-structure-1-back-dark: #009900;
+$hurl-structure-2-front-dark: #ffd9a1;
+$hurl-structure-2-back-dark: #ff8000;
+$hurl-structure-3-front-dark: #bedbff;
+$hurl-structure-3-back-dark: dodgerblue;
+
 @mixin light {
   --background-color: #{$background-color-light};
   --primary-color: #{$primary-color-light};
@@ -138,6 +156,14 @@ $schema-token-3-dark: #ff8000;
   --schema-token-1: #{$schema-token-1-light};
   --schema-token-2: #{$schema-token-2-light};
   --schema-token-3: #{$schema-token-3-light};
+  --hurl-structure-0-front: #{$hurl-structure-0-front-light};
+  --hurl-structure-0-back: #{$hurl-structure-0-back-light};
+  --hurl-structure-1-front: #{$hurl-structure-1-front-light};
+  --hurl-structure-1-back: #{$hurl-structure-1-back-light};
+  --hurl-structure-2-front: #{$hurl-structure-2-front-light};
+  --hurl-structure-2-back: #{$hurl-structure-2-back-light};
+  --hurl-structure-3-front: #{$hurl-structure-3-front-light};
+  --hurl-structure-3-back: #{$hurl-structure-3-back-light};
 
   .light-img {
     display: inline-block;
@@ -189,6 +215,14 @@ $schema-token-3-dark: #ff8000;
   --schema-token-1: #{$schema-token-1-dark};
   --schema-token-2: #{$schema-token-2-dark};
   --schema-token-3: #{$schema-token-3-dark};
+  --hurl-structure-0-front: #{$hurl-structure-0-front-dark};
+  --hurl-structure-0-back: #{$hurl-structure-0-back-dark};
+  --hurl-structure-1-front: #{$hurl-structure-1-front-dark};
+  --hurl-structure-1-back: #{$hurl-structure-1-back-dark};
+  --hurl-structure-2-front: #{$hurl-structure-2-front-dark};
+  --hurl-structure-2-back: #{$hurl-structure-2-back-dark};
+  --hurl-structure-3-front: #{$hurl-structure-3-front-dark};
+  --hurl-structure-3-back: #{$hurl-structure-3-back-dark};
 
   .light-img {
     display: none;
