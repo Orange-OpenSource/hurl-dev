@@ -31,6 +31,7 @@ a, a:visited, a:focus, a:hover, a:active{
 a[aria-selected="true"] {
   color: $primary-color-light;
   color: var(--primary-color);
+  font-weight: bold;
 }
 
 // Make title all linkable
@@ -187,7 +188,8 @@ details summary > * {
   height: calc(100vh - 69px);
   overflow-y: auto;
   padding: $m4;
-
+  padding-right: $m2;
+  
   details {
     margin: $m5 0 $m2;
   }
