@@ -76,7 +76,7 @@ alice: secret
             &nbsp;
         </div>
         <div class="hurl-request-explanation-part-2">
-            <a href="#query-parameters">Query strings</a>, <a href="#form-parameters">form params</a>, <a href="#multipart-form-data">multipart form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentification">authentification</a> ...<br>(optional sections, unordered)
+            <a href="#query-parameters">Query strings</a>, <a href="#form-parameters">form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentification">authentification</a> ...<br>(optional sections, unordered)
         </div>
         <div class="hurl-request-explanation-part-2">
             &nbsp;
