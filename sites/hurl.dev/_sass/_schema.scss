@@ -109,6 +109,9 @@
   border-color: $hurl-structure-0-front-light;
   border-color: var(--hurl-structure-0-front);
   padding: 10px 10px 2px;
+  border-bottom: dashed 1px;
+  border-bottom-color: #8c8c8c;
+
 }
 
 .hurl-request-explanation-part-0 {
@@ -125,6 +128,8 @@
   border-color: $hurl-structure-1-front-light;
   border-color: var(--hurl-structure-1-front);
   padding: 2px 10px;
+  border-bottom: dashed 1px;
+  border-bottom-color: #8c8c8c;
 }
 
 .hurl-request-explanation-part-1 {
@@ -140,7 +145,7 @@
   border-right: 2px solid;
   border-color: $hurl-structure-2-front-light;
   border-color: var(--hurl-structure-2-front);
-  padding: 2px 10px;
+  padding: 1px 10px;
 }
 
 .hurl-request-explanation-part-2 {
@@ -158,6 +163,8 @@
   border-color: $hurl-structure-3-front-light;
   border-color: var(--hurl-structure-3-front);
   padding: 2px 10px;
+  border-top: dashed 1px;
+  border-top-color: #8c8c8c;
 }
 
 .hurl-request-explanation-part-3 {

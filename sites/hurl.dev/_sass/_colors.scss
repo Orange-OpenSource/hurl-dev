@@ -51,14 +51,13 @@ $schema-token-2-light: #009900;
 $schema-token-3-light: #ff8000;
 
 $hurl-structure-0-front-light: #ff0288;
-$hurl-structure-0-back-light: #fac7e3;
+$hurl-structure-0-back-light: $code-background-color-light;
 $hurl-structure-1-front-light: #009900;
-$hurl-structure-1-back-light: #a7eaa7;
+$hurl-structure-1-back-light: $code-background-color-light;
 $hurl-structure-2-front-light: #ff8000;
-$hurl-structure-2-back-light: #ffd9a1;
+$hurl-structure-2-back-light: $code-background-color-light;
 $hurl-structure-3-front-light: dodgerblue;
-$hurl-structure-3-back-light: #bedbff;
-
+$hurl-structure-3-back-light: $code-background-color-light;
 
 // Dark theme
 $background-color-dark: #19191c;
@@ -105,14 +104,14 @@ $schema-token-1-dark: #007fff;
 $schema-token-2-dark: #009900;
 $schema-token-3-dark: #ff8000;
 
-$hurl-structure-0-front-dark: #fac7e3;
-$hurl-structure-0-back-dark: #ff0288;
-$hurl-structure-1-front-dark: #a7eaa7;
-$hurl-structure-1-back-dark: #009900;
-$hurl-structure-2-front-dark: #ffd9a1;
-$hurl-structure-2-back-dark: #ff8000;
-$hurl-structure-3-front-dark: #bedbff;
-$hurl-structure-3-back-dark: dodgerblue;
+$hurl-structure-0-front-dark: #ff0288;
+$hurl-structure-0-back-dark: $code-background-color-dark;
+$hurl-structure-1-front-dark: #009900;
+$hurl-structure-1-back-dark: $code-background-color-dark;
+$hurl-structure-2-front-dark: #ff8000;
+$hurl-structure-2-back-dark: $code-background-color-dark;
+$hurl-structure-3-front-dark: dodgerblue;
+$hurl-structure-3-back-dark: $code-background-color-dark;
 
 @mixin light {
   --background-color: #{$background-color-light};
