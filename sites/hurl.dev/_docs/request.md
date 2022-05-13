@@ -5,7 +5,7 @@ section: File Format
 ---
 # {{ page.title }}
 
-## Definition {#definition}
+## Definition
 
 Describes an HTTP request: a mandatory [method] and [url], followed by optional [headers].
 
@@ -14,7 +14,7 @@ Then, [query parameters], [form parameters], [multipart form datas], [cookies] a
 
 Finally, an optional [body] can be used to configure the HTTP request body.
 
-## Example {#example}
+## Example
 
 ```hurl
 GET https://example.net/api/dogs?id=4567
@@ -24,27 +24,107 @@ Content-Type: application/json
 alice: secret
 ```
 
+## Structure 
+
+<div class="hurl-structure-schema">
+  <div class="hurl-structure">
+    <div class="hurl-structure-col-0">
+        <div class="hurl-request-part-0">
+            PUT https://sample.net
+        </div>
+        <div class=" hurl-request-part-1">
+            accept: */*<br>x-powered-by: Express<br>user-agent: Test
+        </div>
+        <div class="hurl-request-part-2">
+            [QueryStringParams]<br>...
+        </div>
+        <div class="hurl-request-part-2">
+            [FormParams]<br>...
+        </div>
+        <div class="hurl-request-part-2">
+            [BasicAuth]<br>...
+        </div>
+        <div class="hurl-request-part-2">
+            [Cookies]<br>...
+        </div>
+        <div class="hurl-request-part-2">
+            ...
+        </div>
+        <div class="hurl-request-part-2">
+            ...
+        </div>
+        <div class="hurl-request-part-3">
+            {<br>
+            &nbsp;&nbsp;"type": "FOO",<br>
+            &nbsp;&nbsp;"value": 356789,<br>
+            &nbsp;&nbsp;"ordered": true,<br>
+            &nbsp;&nbsp;"index": 10<br>
+            }
+        </div>
+    </div>
+    <div class="hurl-structure-col-1">
+        <div class="hurl-request-explanation-part-0">
+            <a href="#method">Method</a> and <a href="#url">URL</a> (mandatory)
+        </div>
+        <div class="hurl-request-explanation-part-1">
+            <br><a href="#headers">HTTP request headers</a> (optional)
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            <a href="#query-parameters">Query strings</a>, <a href="#form-parameters">form params</a>, <a href="#multipart-form-data">multipart form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentification">authentification</a> ...<br>(optional sections, unordered)
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-2">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-3">
+            &nbsp;
+        </div>
+        <div class="hurl-request-explanation-part-3">
+            <a href="#body">HTTP request body</a> (optional)
+        </div>
+    </div>
+</div>
+</div>
+
+
 [Headers], if present, follow directly after the [method] and [url]. This allows Hurl format to 'look like' the real HTTP format.
 Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`, `[QueryStringParams]`, `[FormParams]` etc...) 
 These sections are not ordered and can be mixed in any way:
 
 ```hurl
-GET https://example.net/api/dogs?id=4567
+GET https://example.net/api/dogs
 User-Agent: My User Agent
 [QueryStringParams]
-search: Install Linux
+id: 4567
 order: newest
 [BasicAuth]
 alice: secret
 ```
 
 ```hurl
-GET https://example.net/api/dogs?id=4567
+GET https://example.net/api/dogs
 User-Agent: My User Agent
 [BasicAuth]
 alice: secret
 [QueryStringParams]
-search: Install Linux
+id: 4567
 order: newest
 ```
 
@@ -59,14 +139,14 @@ User-Agent: My User Agent
 }
 ```
 
-## Description {#description}
+## Description
 
-### Method {#method}
+### Method
 
 Mandatory HTTP request method, one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `CONNECT`, `OPTIONS`,
 `TRACE`, `PATCH`.
 
-### URL {#url}
+### URL
 
 Mandatory HTTP request url.
 
@@ -88,7 +168,7 @@ order: newest
 When query parameters are present in the url and in a query parameters section, the resulting request will
 have both parameters.
 
-### Headers {#headers}
+### Headers
 
 Optional list of HTTP request headers.
 
@@ -118,7 +198,7 @@ If-Match: "e0023aa4e"
 
 Headers must follow directly after the [method] and [url].
 
-### Query parameters {#query-parameters}
+### Query parameters
 
 Optional list of query parameters.
 
@@ -139,7 +219,7 @@ count: 100
 
 If there are any parameters in the url, the resulted request will have both parameters.
 
-### Form parameters {#form-parameters}
+### Form parameters
 
 A form parameters section can be used to send data, like [HTML form]. 
 
@@ -214,7 +294,7 @@ Content type can be specified or inferred based on the filename extension:
 By default, content type is `application/octet-stream`.
 
 
-### Cookies {#cookies}
+### Cookies
 
 Optional list of session cookies for this request.
 
@@ -273,7 +353,7 @@ Basic authentification allows per request authentification.
 If you want to add basic authentification to all the request of a Hurl file
 you could use [`-u/--user` option].
 
-### Body {#body}
+### Body
 
 Optional HTTP body request. 
 
@@ -289,7 +369,7 @@ or [included file] can be used to describe exactly the body byte content.
 
 The body section must be the last section of the request configuration.
 
-#### JSON body {#json-body}
+#### JSON body
 
 JSON body is used to set a literal JSON as the request body.
 
@@ -308,7 +388,7 @@ POST https://example.net/api/dogs
 
 When using JSON body, the content type `application/json` is automatically set.
 
-#### XML body {#xml-body}
+#### XML body
 
 XML body is used to set a literal XML as the request body.
 
@@ -329,7 +409,7 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 </soap:Envelope>
 ~~~
 
-#### Raw string body {#raw-string-body}
+#### Raw string body
 
 For text based body that are not JSON nor XML, one can used multiline string, started and ending with
 <code>&#96;&#96;&#96;</code>.
@@ -381,7 +461,7 @@ Finaly, raw string can be used without any newline:
 is evaluated as "line".
 
 
-#### Base64 body {#base64-body}
+#### Base64 body
 
 Base64 body is used to set binary data as the request body.
 
@@ -397,7 +477,7 @@ aGVuZHJlcml0LCBlc3QganVzdG8gYmliZW5kdW0gbWV0dXMsIG5lYyBydXRydW
 0gdG9ydG9yIG1hc3NhIGlkIG1ldHVzLiA=;
 ```
 
-#### Hex body {#hex-body}
+#### Hex body
 
 Hex body is used to set binary data as the request body.
 
@@ -410,7 +490,7 @@ hex,636166c3a90a;
 ```
 
 
-#### File body {#file-body}
+#### File body
 
 To use the binary content of a local file as the body request, file body can be used. File body starts with
 `file,` and ends with `;``
