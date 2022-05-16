@@ -61,6 +61,7 @@
             - title: Testing REST Apis
             - title: Testing HTML Response
             - title: Testing Set-Cookie Attributes
+            - title: Testing Bytes Content
         - title: Others
           items:
             - title: Testing Endpoint Performance
