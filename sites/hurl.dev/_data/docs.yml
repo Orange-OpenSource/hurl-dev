@@ -20,6 +20,7 @@
                 - title: Windows Package Manager
             - title: Cargo
             - title: Docker
+            - title: npm
         - title: Building From Sources
           items:
             - title: Build on Linux, macOS
