@@ -88,7 +88,6 @@
 }
 
 .hurl-structure-col-1 {
-  width:50%;
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 0.85rem;
   @media only screen and (min-width: $md) {
@@ -98,7 +97,7 @@
 }
 
 
-.hurl-request-part-0 {
+.hurl-part-0 {
   background-color: $hurl-structure-0-back-light;
   background-color: var(--hurl-structure-0-back);
   color: $hurl-structure-0-front-light;
@@ -118,7 +117,7 @@
   padding: 10px 10px 2px;
 }
 
-.hurl-request-part-1 {
+.hurl-part-1 {
   background-color: $hurl-structure-1-back-light;
   background-color: var(--hurl-structure-1-back);
   color: $hurl-structure-1-front-light;
@@ -136,7 +135,7 @@
   padding: 2px 10px;
 }
 
-.hurl-request-part-2 {
+.hurl-part-2 {
   background-color: $hurl-structure-2-back-light;
   background-color: var(--hurl-structure-2-back);
   color: $hurl-structure-2-front-light;
@@ -152,7 +151,7 @@
   padding: 2px 10px;
 }
 
-.hurl-request-part-3 {
+.hurl-part-3 {
   background-color: $hurl-structure-3-back-light;
   background-color: var(--hurl-structure-3-back);
   color: $hurl-structure-3-front-light;

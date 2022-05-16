@@ -7,7 +7,7 @@ section: File Format
 
 ## Definition
 
-Describes an HTTP request: a mandatory [method] and [url], followed by optional [headers].
+Request describes an HTTP request: a mandatory [method] and [url], followed by optional [headers].
 
 Then, [query parameters], [form parameters], [multipart form datas], [cookies] and
 [basic authentification] can be used to configure the HTTP request.
@@ -29,31 +29,31 @@ alice: secret
 <div class="hurl-structure-schema">
   <div class="hurl-structure">
     <div class="hurl-structure-col-0">
-        <div class="hurl-request-part-0">
+        <div class="hurl-part-0">
             PUT https://sample.net
         </div>
-        <div class=" hurl-request-part-1">
+        <div class="hurl-part-1">
             accept: */*<br>x-powered-by: Express<br>user-agent: Test
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             [QueryStringParams]<br>...
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             [FormParams]<br>...
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             [BasicAuth]<br>...
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             [Cookies]<br>...
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             ...
         </div>
-        <div class="hurl-request-part-2">
+        <div class="hurl-part-2">
             ...
         </div>
-        <div class="hurl-request-part-3">
+        <div class="hurl-part-3">
             {<br>
             &nbsp;&nbsp;"type": "FOO",<br>
             &nbsp;&nbsp;"value": 356789,<br>
@@ -70,31 +70,23 @@ alice: secret
             <br><a href="#headers">HTTP request headers</a> (optional)
         </div>
         <div class="hurl-request-explanation-part-2">
-            &nbsp;
-        </div>
-        <div class="hurl-request-explanation-part-2">
-            &nbsp;
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
         <div class="hurl-request-explanation-part-2">
             <a href="#query-parameters">Query strings</a>, <a href="#form-parameters">form params</a>, <a href="#cookies">cookies</a>, <a href="#basic-authentification">authentification</a> ...<br>(optional sections, unordered)
         </div>
         <div class="hurl-request-explanation-part-2">
-            &nbsp;
-        </div>
-        <div class="hurl-request-explanation-part-2">
-            &nbsp;
-        </div>
-        <div class="hurl-request-explanation-part-2">
-            &nbsp;
-        </div>
-        <div class="hurl-request-explanation-part-2">
-            &nbsp;
-        </div>
-        <div class="hurl-request-explanation-part-2">
-            &nbsp;
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
         <div class="hurl-request-explanation-part-3">
-            &nbsp;
+            <br>
         </div>
         <div class="hurl-request-explanation-part-3">
             <a href="#body">HTTP request body</a> (optional)
