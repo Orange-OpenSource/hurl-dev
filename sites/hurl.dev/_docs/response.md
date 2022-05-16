@@ -65,7 +65,7 @@ xpath "//li" count == 18
             <br>
         </div>
         <div class="hurl-request-explanation-part-2">
-            <a href="/docs/capturing-response.html">Captures</a> and <a href="/docs/asserting-response.html">asserts</a>(optional sections, unordered)
+            <a href="/docs/capturing-response.html">Captures</a> and <a href="/docs/asserting-response.html">asserts</a> (optional sections, unordered)
         </div>
         <div class="hurl-request-explanation-part-2">
           <br>
