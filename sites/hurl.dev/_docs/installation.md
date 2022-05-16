@@ -88,6 +88,12 @@ $ cargo install hurl
 $ docker pull orangeopensource/hurl
 ```
 
+### npm
+
+```shell
+$ npm install --save-dev @orangeopensource/hurl
+```
+
 ## Building From Sources
 
 Hurl sources are available in [GitHub].
