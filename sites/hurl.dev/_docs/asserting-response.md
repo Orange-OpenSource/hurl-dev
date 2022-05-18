@@ -16,7 +16,7 @@ Protocol version is one of `HTTP/1.0`, `HTTP/1.1`, `HTTP/2` or
 ```hurl
 GET http://example.net/404.html
 
-HTTP/1.0 404
+HTTP/1.1 404
 ```
 
 Wildcard keywords (`HTTP/*`, `*`) can be used to disable tests on protocol version and status:
