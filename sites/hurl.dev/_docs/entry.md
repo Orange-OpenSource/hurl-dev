@@ -3,19 +3,18 @@ layout: doc
 title: Entry
 section: File Format
 ---
-# {{ page.title }}
+# Entry
 
-## Definition {#definition}
+## Definition
 
-A Hurl file is a list of entry, each entry being a mandatory [request]({% link _docs/request.md %}),
-optionally followed by a [response]({% link _docs/response.md %}).
+A Hurl file is a list of entry, each entry being a mandatory [request], optionally followed by a [response].
 
 Responses are not mandatory, a Hurl file consisting only of requests is perfectly valid. To sum up, responses can be used
-to [capture values]({% link _docs/capturing-response.md %}) to perform subsequent requests, or [add asserts to HTTP
- responses]({% link _docs/asserting-response.md %}).
+to [capture values] to perform subsequent requests, or [add asserts to HTTP responses].
 
-## Example {#example}
+## Example
 
+{% raw %}
 ```hurl
 # First, test home title.
 GET https://acmecorp.net
@@ -37,18 +36,21 @@ number: 33611223344
 
 HTTP/1.1 403
 ```
+{% endraw %}
 
-## Description {#description}
 
-### Cookie storage {#cookie-storage}
+## Description
+
+### Cookie storage
 
 Requests in the same Hurl file share the cookie storage, enabling, for example, session based scenario.
 
-### Redirects {#redirects}
+### Redirects
 
 By default, Hurl doesn't follow redirection. To effectively run a redirection, entries should describe each step
 of the redirection, allowing insertion of asserts in each response.
 
+{% raw %}
 ```hurl
 # First entry, test the redirection (status code and
 # Location header)
@@ -62,13 +64,25 @@ GET http://www.google.fr
 
 HTTP/1.1 200
 ```
+{% endraw %}
 
-Alternatively, one can use [`--location`]({% link _docs/man-page.md %}#location) option to force redirection
+
+Alternatively, one can use [`--location`] option to force redirection
 to be followed. In this case, asserts are executed on the last received response. Optionally, the number of
-redirections can be limited with [`--max-redirs`]({% link _docs/man-page.md %}#max-redirs).
+redirections can be limited with [`--max-redirs`].
 
+{% raw %}
 ```hurl
 # Running hurl --location google.hurl
 GET http://google.fr
 HTTP/1.1 200
 ```
+{% endraw %}
+
+
+[request]: {% link _docs/request.md %}
+[response]: {% link _docs/response.md %}
+[capture values]: {% link _docs/capturing-response.md %}
+[add asserts to HTTP responses]: {% link _docs/asserting-response.md %}
+[`--location`]: {% link _docs/man-page.md %}#location
+[`--max-redirs`]: {% link _docs/man-page.md %}#max-redirs
