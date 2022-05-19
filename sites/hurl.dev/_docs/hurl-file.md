@@ -17,7 +17,7 @@ Hurl file extension is `.hurl`
 
 ## Comments {#comments}
 
-Comments begins with `#` and continue until the end of line. Hurl file can serve as
+Comments begin with `#` and continue until the end of line. Hurl file can serve as
 a documentation for HTTP based workflows so it can be useful to be very descriptive.
 
 ```hurl
