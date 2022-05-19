@@ -41,7 +41,7 @@ String can include the following special characters:
 - An arbitrary Unicode scalar value, written as \u{n}, where n is a 1–8 digit hexadecimal number
 
 ```hurl
-GET http://api.example.com
+GET https://example.org/api
 
 HTTP/1.1 200
 
@@ -55,7 +55,7 @@ In some case, (in headers value, etc..), you will also need to escape # to disti
 In the following example:
 
 ```hurl
-GET http://api.example.com
+GET https://example.org/api
 x-token: BEEF \#STEACK # Some somment
 HTTP/1.1 200
 ```

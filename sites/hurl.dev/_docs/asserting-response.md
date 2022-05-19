@@ -14,7 +14,7 @@ Protocol version is one of `HTTP/1.0`, `HTTP/1.1`, `HTTP/2` or
 `HTTP/*`; `HTTP/*` describes any version. Note that there are no status text following the status code.
 
 ```hurl
-GET http://example.net/404.html
+GET https://example.org/404.html
 
 HTTP/1.1 404
 ```
@@ -22,7 +22,7 @@ HTTP/1.1 404
 Wildcard keywords (`HTTP/*`, `*`) can be used to disable tests on protocol version and status:
 
 ```hurl
-GET http://api/.example.net/pets
+GET https://example.org/api/pets
 
 HTTP/1.0 *
 # Check that response status code is > 400 and <= 500
@@ -44,13 +44,13 @@ and not in the expected list doesn't raise error.
 
 ```hurl
 # Check that user toto is redirected to home after login.
-POST https://example.net/login
+POST https://example.org/login
 [FormParams]
 user: toto
 password: 12345678
 
 HTTP/1.1 302
-Location: https://example.net/home
+Location: https://example.org/home
 ```
 
 > Quotes in the header value are part of the value itself.
@@ -74,8 +74,8 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 You can either test the two header values:
 
 ```hurl
-GET http://www.example.org/index.html
-Host: www.example.org
+GET https://example.org/index.html
+Host: example.net
 
 HTTP/1.0 200
 Set-Cookie: theme=light
@@ -85,8 +85,8 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 Or only one:
 
 ```hurl
-GET http://www.example.org/index.html 
-Host: www.example.org
+GET https://example.org/index.html 
+Host: example.net
 
 HTTP/1.0 200
 Set-Cookie: theme=light
@@ -181,7 +181,7 @@ A predicate values is typed, and can be a string, a boolean, a number, a bytestr
 For instance, to test the presence of a h1 node in an HTML response, the following assert can be used:
 
 ```hurl
-GET https://example.net/home
+GET https://example.org/home
 
 HTTP/1.1 200
 [Asserts]
@@ -204,7 +204,7 @@ As the XPath query `boolean(count(//h1))` returns a boolean, the predicate value
 The following assert will check the value of the `data-visible` attribute:
 
 ```hurl
-GET https://example.net/home
+GET https://example.org/home
 
 HTTP/1.1 200
 [Asserts]
@@ -219,7 +219,7 @@ only on string. If a query returns a number, a `contains` predicate will raise a
 
 ```hurl
 # A really well tested web page...
-GET https://example.net/home
+GET https://example.org/home
 
 HTTP/1.1 200
 [Asserts]
@@ -237,7 +237,7 @@ Check the received HTTP response status code. Status assert consists of the keyw
 function and value. 
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 *
 [Asserts]
@@ -250,7 +250,7 @@ Check the value of a received HTTP response header. Header assert consists of th
 function and value. 
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 302
 [Asserts]
@@ -304,7 +304,7 @@ value. The encoding used to decode the body is based on the `charset` value in t
 `Content-Type` header response.
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 [Asserts]
@@ -319,7 +319,7 @@ Check the value of the received HTTP response body as a bytestream. Body assert
 consists of the keyword `bytes` followed by a predicate function and value.
 
 ```hurl
-GET https://example.net/data.bin
+GET https://example.org/data.bin
 
 HTTP/* 200
 [Asserts]
@@ -337,7 +337,7 @@ boolean or number depending on the XPath query.
 Let's say we want to check this HTML response:
  
 ```plain
-$ curl -v http://example.com/
+$ curl -v https://example.org
 
 < HTTP/1.1 200 OK
 < Content-Type: text/html; charset=UTF-8
@@ -362,7 +362,7 @@ $ curl -v http://example.com/
 With Hurl, we can write multiple XPath asserts describing the DOM content:
 
 ```hurl
-GET https://example.com
+GET https://example.org
 
 HTTP/1.1 200
 Content-Type: text/html; charset=UTF-8
@@ -483,7 +483,7 @@ md5 == hex,ed076287532e86365e841e92bfc50d8c;
 
 ```hurl
 # Test that the XML endpoint return 200 pets 
-GET https://api.example.net/pets
+GET https://example.org/api/pets
 HTTP/* 200
 [Captures]
 pets: xpath "//pets"
@@ -518,7 +518,7 @@ the body byte content to check.
 
 ```hurl
 # Get a doggy thing:
-GET https://example.net/api/dogs/{{dog-id}}
+GET https://example.org/api/dogs/{{dog-id}}
 
 HTTP/1.1 200
 {
@@ -534,7 +534,7 @@ HTTP/1.1 200
 ### XML body {#xml-body}
 
 ~~~hurl
-GET https://example.net/api/catalog
+GET https://example.org/api/catalog
 
 HTTP/1.1 200
 <?xml version="1.0" encoding="UTF-8"?>
@@ -553,7 +553,7 @@ HTTP/1.1 200
 ### Raw string body
 
 ~~~hurl
-GET https://example.net/models
+GET https://example.org/models
 
 HTTP/1.1 200
 ```
@@ -607,7 +607,7 @@ is supported (newlines and white spaces may be present anywhere but are to be
 ignored on decoding), and `=` padding characters might be added.
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 base64,TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIG
@@ -622,7 +622,7 @@ To use the binary content of a local file as the body response assert, file body
 can be used. File body starts with `file,` and ends with `;``
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 file,data.bin;

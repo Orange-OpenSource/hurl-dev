@@ -155,7 +155,7 @@ This json file can then be easily parsed for converting a different format, gett
 For example, the Hurl file
 
 ```hurl
-GET http://example.com/api/users/1
+GET https://example.org/api/users/1
 User-Agent: Custom
 
 HTTP/1.1 200
@@ -173,7 +173,7 @@ hurlfmt test.hurl --format json | jq
     {
       "request": {
         "method": "GET",
-        "url": "http://example.com/api/users/1",
+        "url": "https://example.org/api/users/1",
         "headers": [
           {
             "name": "User-Agent",

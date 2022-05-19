@@ -44,7 +44,7 @@ Before 1.5.0, to inject variables in a Hurl file you can
 - use command line option, with [`--variable`]:
 
     ```shell
-$ hurl --variable host=example.net --variable user=jc test.hurl
+$ hurl --variable host=example.org --variable user=jc test.hurl
     ```
 
 - use an input file, with [`--variables-file`]:
@@ -52,7 +52,7 @@ $ hurl --variable host=example.net --variable user=jc test.hurl
     Given `file.env` defining each variable on a new line:
 
     ```
-host=example.net
+host=example.org
 user=jc
     ```
         
@@ -66,7 +66,7 @@ $ hurl --variables-files file.env test.hurl
 Starting in 1.5.0, environment variables can be used to inject variables:
 
 ```shell
-$ echo HURL_host=example.net
+$ echo HURL_host=example.org
 $ echo HURL_user=jc
 $ hurl test.hurl
 ```

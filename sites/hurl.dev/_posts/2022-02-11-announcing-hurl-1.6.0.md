@@ -16,14 +16,14 @@ in a simple plain text format:
 
 ```hurl
 # Get home:
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
 
 # Do login!
-POST https://example.net/login?user=toto&password=1234
+POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 
 HTTP/1.1 302
@@ -40,7 +40,7 @@ an [Authorization] header:
 ```hurl
 # Authorization header value can be computed with:
 # `echo -n 'bob:secret' | base64`
-GET http://example.com/protected
+GET https://example.org/protected
 Authorization: Basic Ym9iOnNlY3JldA==
 ```
 
@@ -48,7 +48,7 @@ In 1.6.0, we've introduced a basic authentification section to pass username/pas
 explicitly, without base64 encoding:
 
 ```hurl
-GET http://example.com/protected
+GET https://example.org/protected
 [BasicAuth]
 bob: secret
 ```

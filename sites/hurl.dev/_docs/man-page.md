@@ -90,14 +90,14 @@ A typical example occurs with csrf tokens.
 
 {% raw %}
 ```hurl
-GET https://example.net
+GET https://example.org
 HTTP/1.1 200
 # Capture the CSRF token value from html body.
 [Captures]
 csrf_token: xpath "normalize-space(//meta[@name='_csrf_token']/@content)"
 
 # Do the login !
-POST https://example.net/login?user=toto&password=1234
+POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 ```
 {% endraw %}

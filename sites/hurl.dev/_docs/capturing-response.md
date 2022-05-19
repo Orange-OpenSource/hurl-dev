@@ -23,7 +23,7 @@ session, by passing [variable values], or can be used in [templates].
 # to another:
 
 # First GET request to get CSRF token value:
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 # Capture the CSRF token value from html body.
@@ -74,7 +74,7 @@ Capture the received HTTP response status code. Status capture consists of a var
 keyword `status`.
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 [Captures]
@@ -87,7 +87,7 @@ Capture a header from the received HTTP response headers. Header capture consist
  then the keyword `header` and a header name.
 
 ```hurl
-POST https://example.net/login
+POST https://example.org/login
 [FormParams]
 user: toto
 password: 12345678
@@ -104,7 +104,7 @@ capture consists of a variable name, followed by a `:`, then the keyword `cookie
 and a cookie name.
 
 ```hurl
-GET http://example.net/cookies/set
+GET https://example.org/cookies/set
 
 HTTP/1.0 200
 [Captures]
@@ -116,7 +116,7 @@ Cookie attributes value can also be captured by using the following format:
 `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and `SameSite`.
 
 ```hurl
-GET http://example.net/cookies/set
+GET https://example.org/cookies/set
 
 HTTP/1.0 200
 [Captures]
@@ -137,7 +137,7 @@ same-site: cookie "LSID[SameSite]"
 Capture the entire body (decoded as text) from the received HTTP response
 
 ```hurl
-GET https://example.net/home
+GET https://example.org/home
 
 HTTP/1.1 200
 [Captures]
@@ -149,7 +149,7 @@ my_body: body
 Capture the entire body (as a raw bytestream) from the received HTTP response
 
 ```hurl
-GET https://example.net/data.bin
+GET https://example.org/data.bin
 
 HTTP/1.1 200
 [Captures]
@@ -164,7 +164,7 @@ Currently, only XPath 1.0 expression can be used.
 
 {% raw %}
 ```hurl
-GET https://example.net/home
+GET https://example.org/home
 
 # Capture the identifier from the dom node <div id="pet0">5646eaf23</div
 HTTP/1.1 200
@@ -172,7 +172,7 @@ HTTP/1.1 200
 ped-id: xpath "normalize-space(//div[@id='pet0'])"
 
 # Open the captured page.
-GET https://example.net/home/pets/{{pet-id}}
+GET https://example.org/home/pets/{{pet-id}}
 
 HTTP/1.1 200
 ```
@@ -183,7 +183,7 @@ valid XPath can be captured and assert with variable asserts.
 
 ```hurl
 # Test that the XML endpoint return 200 pets
-GET https://api.example.net/pets
+GET https://example.org/api/pets
 HTTP/* 200
 [Captures]
 pets: xpath "//pets"
@@ -198,7 +198,7 @@ Capture a [JSONPath] query from the received HTTP body.
 
 {% raw %}
 ```hurl
-POST https://example.net/api/contact
+POST https://example.org/api/contact
 [FormParams]
 token: {{token}}
 email: toto@rookie.net

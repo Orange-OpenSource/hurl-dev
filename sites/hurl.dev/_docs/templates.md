@@ -15,7 +15,7 @@ variable and reuse it in a template.
 
 {% raw %}
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 200
 [Captures]
@@ -34,12 +34,12 @@ the body a first response, and inject it as a header in the next POST request.
 
 {% raw %}
 ```hurl
-GET http://api.example.net/index
+GET https://example.org/api/index
 HTTP/* 200
 [Captures]
 index: body
 
-GET http://api.example.net/status
+GET https://example.org/api/status
 HTTP/* 200
 [Asserts]
 jsonpath "$.errors[{{index}}].id" == "error"
@@ -179,7 +179,7 @@ Besides, you can use templates in [raw string body] with variables to send a JSO
 
 {% raw %}
 ~~~hurl
-PUT https://api.example.net/hits
+PUT https://example.org/api/hits
 Content-Type: application/json
 ```
 {

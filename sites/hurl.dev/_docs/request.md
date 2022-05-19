@@ -17,7 +17,7 @@ Finally, an optional [body] can be used to configure the HTTP request body.
 ## Example
 
 ```hurl
-GET https://example.net/api/dogs?id=4567
+GET https://example.org/api/dogs?id=4567
 User-Agent: My User Agent
 Content-Type: application/json
 [BasicAuth]
@@ -101,7 +101,7 @@ Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`,
 These sections are not ordered and can be mixed in any way:
 
 ```hurl
-GET https://example.net/api/dogs
+GET https://example.org/api/dogs
 User-Agent: My User Agent
 [QueryStringParams]
 id: 4567
@@ -111,7 +111,7 @@ alice: secret
 ```
 
 ```hurl
-GET https://example.net/api/dogs
+GET https://example.org/api/dogs
 User-Agent: My User Agent
 [BasicAuth]
 alice: secret
@@ -124,7 +124,7 @@ The last optional part of a request configuration is the request [body]. Request
 (after [headers] and request sections). Like headers, [body] have no explicit marker:
 
 ```hurl
-POST https://example.net/api/dogs?id=4567
+POST https://example.org/api/dogs?id=4567
 User-Agent: My User Agent
 {
  "name": "Ralphy"
@@ -146,10 +146,10 @@ Url can contain query parameters, even if using a [query parameters section] is 
 
 ```hurl
 # A request with url containing query parameters.
-GET https://example.net/forum/questions/?search=Install%20Linux&order=newest
+GET https://example.org/forum/questions/?search=Install%20Linux&order=newest
 
 # A request with query parameters section, equivalent to the first request.
-GET https://example.net/forum/questions/
+GET https://example.org/forum/questions/
 [QueryStringParams]
 search: Install Linux
 order: newest
@@ -167,7 +167,7 @@ Optional list of HTTP request headers.
 A header consists of a name, followed by a `:` and a value.
 
 ```hurl
-GET https://example.net/news
+GET https://example.org/news
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
 Accept: */*
 Accept-Language: en-US,en;q=0.5
@@ -200,7 +200,7 @@ A query parameter consists of a field, followed by a `:` and a value. The query 
 
 {% raw %}
 ```hurl
-GET https://example.net/news
+GET https://example.org/news
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
 [QueryStringParams]
 order: newest
@@ -222,7 +222,7 @@ with `[FormParams]`.
 
 {% raw %}
 ```hurl
-POST https://example.net/contact
+POST https://example.org/contact
 [FormParams]
 default: false
 token: {{token}}
@@ -236,13 +236,13 @@ are not url encoded.). A [multiline string body] could be used instead of a form
 
 ~~~hurl
 # Run a POST request with form parameters section:
-POST https://example.net/test
+POST https://example.org/test
 [FormParams]
 name: John Doe
 key1: value1
 
 # Run the same POST request with a body section:
-POST https://example.net/test
+POST https://example.org/test
 Content-Type: application/x-www-form-urlencoded
 ```
 name=John%20Doe&key1=value1
@@ -259,7 +259,7 @@ A multipart form data section can be used to send data, with key / value and fil
 The form parameters section starts with `[MultipartFormData]`.
 
 ```hurl
-POST https://example.net/upload
+POST https://example.org/upload
 [MultipartFormData]
 field1: value1
 field2: file,example.txt;
@@ -295,7 +295,7 @@ the cookie storage session, contrary to a cookie set in a header response. (for 
 cookies section starts with `[Cookies]`.
 
 ```hurl
-GET https://example.net/index.html
+GET https://example.org/index.html
 [Cookies]
 theme: light
 sessionToken: abc123
@@ -305,13 +305,13 @@ Cookies section can be seen as syntactic sugar over corresponding request header
 
 ```hurl
 # Run a GET request with cookies section:
-GET https://example.net/index.html
+GET https://example.org/index.html
 [Cookies]
 theme: light
 sessionToken: abc123
 
 # Run the same GET request with a header:
-GET https://example.net/index.html
+GET https://example.org/index.html
 Cookie: theme=light; sessionToken=abc123
 ```
 
@@ -325,7 +325,7 @@ Username is followed by a `:` and a password. The basic authentification section
 
 ```hurl
 # Perform basic authentification with login `bob` and password `secret`.
-GET http://example.com/protected
+GET https://example.org/protected
 [BasicAuth]
 bob: secret
 ```
@@ -337,7 +337,7 @@ This is equivalent (but simpler) to construct the request with a [Authorization]
 
 ```hurl
 # Authorization header value can be computed with `echo -n 'bob:secret' | base64`
-GET http://example.com/protected
+GET https://example.org/protected
 Authorization: Basic Ym9iOnNlY3JldA== 
 ```
 
@@ -367,7 +367,7 @@ JSON body is used to set a literal JSON as the request body.
 
 ```hurl
 # Create a new doggy thing with JSON body:
-POST https://example.net/api/dogs
+POST https://example.org/api/dogs
 {
     "id": 0,
     "name": "Frieda",
@@ -386,12 +386,12 @@ XML body is used to set a literal XML as the request body.
 
 ~~~hurl
 # Create a new soapy thing XML body:
-POST https://example.net/InStock
+POST https://example.org/InStock
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: 299
 SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 <?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:m="http://www.example.org">
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:m="http://example.net">
   <soap:Header></soap:Header>
   <soap:Body>
     <m:GetStockPrice>
@@ -407,7 +407,7 @@ For text based body that are not JSON nor XML, one can used multiline string, st
 <code>&#96;&#96;&#96;</code>.
 
 ~~~hurl
-POST https://example.net/models
+POST https://example.org/models
 ```
 Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.00
@@ -461,7 +461,7 @@ Base64 body starts with `base64,` and end with `;`. MIME's Base64 encoding is su
  present anywhere but are to be ignored on decoding), and `=` padding characters might be added.
 
 ```hurl
-POST https://example.net
+POST https://example.org
 # Some random comments before body
 base64,TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIG
 FkaXBpc2NpbmcgZWxpdC4gSW4gbWFsZXN1YWRhLCBuaXNsIHZlbCBkaWN0dW0g
@@ -476,7 +476,7 @@ Hex body is used to set binary data as the request body.
 Hex body starts with `hex,` and end with `;`. 
 
 ```hurl
-PUT https://example.net
+PUT https://example.org
 # Send a café, encoded in UTF-8
 hex,636166c3a90a;
 ```
@@ -488,7 +488,7 @@ To use the binary content of a local file as the body request, file body can be 
 `file,` and ends with `;``
 
 ```hurl
-POST https://example.net
+POST https://example.org
 # Some random comments before body
 file,data.bin;
 ```

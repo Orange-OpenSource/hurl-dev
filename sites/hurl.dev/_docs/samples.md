@@ -11,7 +11,7 @@ To run a sample, edit a file with the sample content, and run Hurl:
 ```shell
 $ vi sample.hurl
 
-GET https://example.net
+GET https://example.org
 
 $ hurl sample.hurl
 ```
@@ -23,7 +23,7 @@ You can check [Hurl tests suit] for more samples.
 A simple GET:
 
 ```hurl
-GET https://example.net
+GET https://example.org
 ```
 
 [Doc]({% link _docs/request.md %}#method)
@@ -33,7 +33,7 @@ GET https://example.net
 A simple GET with headers:
 
 ```hurl
-GET https://example.net/news
+GET https://example.org/news
 User-Agent: Mozilla/5.0 
 Accept: */*
 Accept-Language: en-US,en;q=0.5
@@ -46,7 +46,7 @@ Connection: keep-alive
 ### Query Params
 
 ```hurl
-GET https://example.net/news
+GET https://example.org/news
 [QueryStringParams]
 order: newest
 search: something to search
@@ -56,7 +56,7 @@ count: 100
 Or:
 
 ```hurl
-GET https://example.net/news?order=newest&search=something%20to%20search&count=100
+GET https://example.org/news?order=newest&search=something%20to%20search&count=100
 ```
 
 [Doc]({% link _docs/request.md %}#query-parameters)
@@ -64,7 +64,7 @@ GET https://example.net/news?order=newest&search=something%20to%20search&count=1
 ### Basic Authentification
 
 ```hurl
-GET http://example.com/protected
+GET https://example.org/protected
 [BasicAuth]
 bob: secret
 ```
@@ -75,7 +75,7 @@ This is equivalent to construct the request with a [Authorization] header:
 
 ```hurl
 # Authorization header value can be computed with `echo -n 'bob:secret' | base64`
-GET http://example.com/protected
+GET https://example.org/protected
 Authorization: Basic Ym9iOnNlY3JldA== 
 ```
 
@@ -89,7 +89,7 @@ you could use [`-u/--user` option].
 
 {% raw %}
 ```hurl
-POST https://example.net/contact
+POST https://example.org/contact
 [FormParams]
 default: false
 token: {{token}}
@@ -104,7 +104,7 @@ number: 33611223344
 
 {% raw %}
 ```hurl
-POST https://example.net/upload
+POST https://example.org/upload
 [MultipartFormData]
 field1: value1
 field2: file,example.txt;
@@ -120,7 +120,7 @@ field3: file,example.zip; application/zip
 With an inline JSON:
 
 ```hurl
-POST https://api.example.net/tests
+POST https://example.org/api/tests
 {
     "id": "456",
     "evaluate": true
@@ -132,7 +132,7 @@ POST https://api.example.net/tests
 With a local file:
 
 ```hurl
-POST https://api.example.net/tests
+POST https://example.org/api/tests
 Content-Type: application/json
 file,data.json;
 ```
@@ -146,7 +146,7 @@ Besides, you can use templates in [raw string body] with variables to send a JSO
  
 {% raw %}
 ~~~hurl
-PUT https://api.example.net/hits
+PUT https://example.org/api/hits
 Content-Type: application/json
 ```
 {
@@ -189,7 +189,7 @@ Resulting in a PUT request with the following JSON body:
 Use implicit response asserts to test header values:
 
 ```hurl
-GET http://www.example.org/index.html
+GET https://example.org/index.html
 
 HTTP/1.0 200
 Set-Cookie: theme=light
@@ -202,7 +202,7 @@ Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 Or use explicit response asserts with [predicates]:
 
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/1.1 302
 [Asserts]
@@ -261,7 +261,7 @@ status < 300
 ### Testing HTML Response
 
 ```hurl
-GET https://example.com
+GET https://example.org
 
 HTTP/1.1 200
 Content-Type: text/html; charset=UTF-8
@@ -300,7 +300,7 @@ cookie "JSESSIONID[SameSite]" == "Lax"
 Check the SHA-256 response body hash:
 
 ```hurl
-GET http://example.org/data.tar.gz
+GET https://example.org/data.tar.gz
 
 HTTP/* *
 [Asserts]
@@ -327,11 +327,11 @@ duration < 1000   # Check that response time is less than one second
 ### Using SOAP Apis
 
 ```hurl
-POST https://example.net/InStock
+POST https://example.org/InStock
 Content-Type: application/soap+xml; charset=utf-8
 SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 <?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:m="http://www.example.org">
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:m="https://example.org">
   <soap:Header></soap:Header>
   <soap:Body>
     <m:GetStockPrice>
@@ -349,13 +349,13 @@ HTTP/1.1 200
 
 {% raw %}
 ```hurl
-GET https://example.net
+GET https://example.org
 
 HTTP/* 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
 
-POST https://example.net/login?user=toto&password=1234
+POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 
 HTTP/* 302
@@ -367,7 +367,7 @@ HTTP/* 302
 ### Checking Byte Order Mark (BOM) in Response Body
 
 ```hurl
-GET https://example.net/data.bin
+GET https://example.org/data.bin
 
 HTTP/* 200
 [Asserts]
