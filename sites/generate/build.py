@@ -9,7 +9,8 @@ from markdown import (
     Paragraph,
     MarkdownDoc,
     Whitespace,
-    Header, RefLink,
+    Header,
+    RefLink,
 )
 
 
