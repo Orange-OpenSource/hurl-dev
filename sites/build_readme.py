@@ -28,7 +28,7 @@ def main(dest: str) -> int:
     if dest == "github":
         header = dedent(
             """\
-            <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-dark.svg?sanitize=true#gh-dark-mode-only" alt="Hurl Logo" width="264px"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-light.svg?sanitize=true#gh-light-mode-only" alt="Hurl Logo" width="264px">
+            <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/art/logo-full-dark.svg?sanitize=true#gh-dark-mode-only" alt="Hurl Logo" width="264px"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/art/logo-full-light.svg?sanitize=true#gh-light-mode-only" alt="Hurl Logo" width="264px">
             
             <br/>
             
@@ -42,7 +42,7 @@ def main(dest: str) -> int:
     elif dest == "crates":
         header = dedent(
             """\
-            <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/logo-light.svg" alt="Hurl Logo" width="264px">
+            <img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/art/logo-full-light.svg" alt="Hurl Logo" width="264px">
             
             <br/>
             
