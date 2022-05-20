@@ -3,6 +3,7 @@ layout: doc
 title: Hurl File
 section: File Format
 ---
+
 # Hurl File
 
 ## Character Encoding

@@ -44,7 +44,9 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
     header += f"section: {front_matter.section}\n"
     header += "---\n"
     header_node = Paragraph(content=header)
+    whitespace_node = Whitespace(content="\n")
     md_escaped.add_child(header_node)
+    md_escaped.add_child(whitespace_node)
 
     for node in md_raw.children:
 
@@ -92,8 +94,7 @@ class ConvertTask:
         self.file_dst.write_text(md)
 
 
-def main():
-
+def build():
     task = ConvertTask(
         file_src=Path("../hurl/docs/hurl-file.md"),
         file_dst=Path("sites/hurl.dev/_docs/hurl-file.md"),
@@ -114,6 +115,31 @@ def main():
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
     task.run()
+
+    task = ConvertTask(
+        file_src=Path("../hurl/docs/response.md"),
+        file_dst=Path("sites/hurl.dev/_docs/response.md"),
+        front_matter=FrontMatter(layout="doc", section="File Format"),
+    )
+    task.run()
+
+    task = ConvertTask(
+        file_src=Path("../hurl/docs/capturing-response.md"),
+        file_dst=Path("sites/hurl.dev/_docs/capturing-response.md"),
+        front_matter=FrontMatter(layout="doc", section="File Format"),
+    )
+    task.run()
+
+    task = ConvertTask(
+        file_src=Path("../hurl/docs/asserting-response.md"),
+        file_dst=Path("sites/hurl.dev/_docs/asserting-response.md"),
+        front_matter=FrontMatter(layout="doc", section="File Format"),
+    )
+    task.run()
+
+
+def main():
+    build()
 
 
 if __name__ == "__main__":

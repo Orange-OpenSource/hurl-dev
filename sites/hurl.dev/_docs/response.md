@@ -3,6 +3,7 @@ layout: doc
 title: Response
 section: File Format
 ---
+
 # Response
 
 ## Definition

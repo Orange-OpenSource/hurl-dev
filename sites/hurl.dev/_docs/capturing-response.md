@@ -3,6 +3,7 @@ layout: doc
 title: Capturing Response
 section: File Format
 ---
+
 # Capturing Response
 
 ## Captures
