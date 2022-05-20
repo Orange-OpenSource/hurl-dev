@@ -3,20 +3,21 @@ layout: doc
 title: Response
 section: File Format
 ---
-# {{ page.title }}
+# Response
 
-## Definition {#definition}
+## Definition
 
 Responses can be used to capture values to perform subsequent requests, or add asserts to HTTP responses. Response on
 requests are optional, a Hurl file can only be a sequence of [requests].
 
-A response describes the expected HTTP response, with mandatory [version and status], followed by optional [headers], 
-[captures], [asserts] and [body]. Assertions in the expected HTTP response describe values of the received HTTP response. 
+A response describes the expected HTTP response, with mandatory [version and status], followed by optional [headers],
+[captures], [asserts] and [body]. Assertions in the expected HTTP response describe values of the received HTTP response.
 Captures capture values from the received HTTP response and populate a set of named variables that can be used
 in the following entries.
 
-## Example {#example}
+## Example
 
+{% raw %}
 ```hurl
 GET https://example.org
 
@@ -26,6 +27,8 @@ Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
 xpath "normalize-space(//head/title)" startsWith "Welcome"
 xpath "//li" count == 18
 ```
+{% endraw %}
+
 
 ## Structure
 
@@ -81,19 +84,19 @@ xpath "//li" count == 18
 </div>
 
 
-## Capture and Assertion {#capture-and-assertion}
+## Capture and Assertion
 
-With the response section, one can optionaly [capture value from headers, body]({% link _docs/capturing-response.md %}),
- or [add assert on status code, body or headers]({% link _docs/asserting-response.md %}).
- 
-### Body compression {#body-compression}
+With the response section, one can optionally [capture value from headers, body],
+or [add assert on status code, body or headers].
 
-Hurl outputs the raw HTTP body to stdout by default. If response body is compressed (using [br, gzip, deflate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)),
- the binary stream is output, without any modification. One can use [`--compressed` option]({% link _docs/man-page.md
-  %}#compressed) to request a compressed response and automatically get the decompressed body. 
+### Body compression
 
-Captures and asserts work automatically on the decompressed body, so you can request compressed data (using [`Accept-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)
- header by example) and add assert and captures on the decoded body as if there weren't any compression.
+Hurl outputs the raw HTTP body to stdout by default. If response body is compressed (using [br, gzip, deflate]),
+the binary stream is output, without any modification. One can use [`--compressed` option]
+to request a compressed response and automatically get the decompressed body.
+
+Captures and asserts work automatically on the decompressed body, so you can request compressed data (using [`Accept-Encoding`]
+header by example) and add assert and captures on the decoded body as if there weren't any compression.
 
 
 [requests]: {% link _docs/request.md %}
@@ -102,3 +105,8 @@ Captures and asserts work automatically on the decompressed body, so you can req
 [captures]: {% link _docs/capturing-response.md %}#captures
 [asserts]: {% link _docs/asserting-response.md %}#asserts
 [body]: {% link _docs/asserting-response.md %}#body
+[capture value from headers, body]: {% link _docs/capturing-response.md %}
+[add assert on status code, body or headers]: {% link _docs/asserting-response.md %}
+[br, gzip, deflate]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding
+[`--compressed` option]: {% link _docs/man-page.md %}#compressed
+[`Accept-Encoding`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding
