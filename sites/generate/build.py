@@ -50,7 +50,15 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
 
     for node in md_raw.children:
 
-        if isinstance(node, Code) and node.content.startswith("```hurl"):
+        if (
+            isinstance(node, Code)
+            and re.match(
+                r"[`~]{3}hurl", node.content
+            )  # Hurl language ~~~hurl or ```hurl
+            and re.search(
+                r"\{\{.+}}", node.content, re.MULTILINE
+            )  # Hurl snippet containing templates must be escaped
+        ):
             # Add Jekyll escape directive around code
             # so Hurl templates (ex: {{foo}}) are well rendered.
             begin_escape_node = Paragraph(content="{% raw %}\n")
@@ -60,6 +68,13 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             md_escaped.add_child(node)
             md_escaped.add_child(whitespace_node)
             md_escaped.add_child(end_escape_node)
+        elif isinstance(node, Paragraph):
+            # Escape inline code that contains {{ }}.
+            content = re.sub(
+                r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", node.content
+            )
+            p_node = Paragraph(content=content)
+            md_escaped.add_child(p_node)
         elif isinstance(node, RefLink) and ".md" in node.link:
             # Convert reference links to Jekyll reference link
             ret = re.match(r"(?P<base>.+\.md)#?(?P<anchor>.*)", node.link)
@@ -89,7 +104,7 @@ class ConvertTask:
         self.file_dst = file_dst
         self.front_matter = front_matter
 
-    def run(self):
+    def convert(self):
         md = convert_to_jekyll(path=self.file_src, front_matter=self.front_matter)
         self.file_dst.write_text(md)
 
@@ -100,42 +115,53 @@ def build():
         file_dst=Path("sites/hurl.dev/_docs/hurl-file.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
 
     task = ConvertTask(
         file_src=Path("../hurl/docs/entry.md"),
         file_dst=Path("sites/hurl.dev/_docs/entry.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
 
     task = ConvertTask(
         file_src=Path("../hurl/docs/request.md"),
         file_dst=Path("sites/hurl.dev/_docs/request.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
 
     task = ConvertTask(
         file_src=Path("../hurl/docs/response.md"),
         file_dst=Path("sites/hurl.dev/_docs/response.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
 
     task = ConvertTask(
         file_src=Path("../hurl/docs/capturing-response.md"),
         file_dst=Path("sites/hurl.dev/_docs/capturing-response.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
 
     task = ConvertTask(
         file_src=Path("../hurl/docs/asserting-response.md"),
         file_dst=Path("sites/hurl.dev/_docs/asserting-response.md"),
         front_matter=FrontMatter(layout="doc", section="File Format"),
     )
-    task.run()
+    task.convert()
+
+    task = ConvertTask(
+        file_src=Path("../hurl/docs/templates.md"),
+        file_dst=Path("sites/hurl.dev/_docs/templates.md"),
+        front_matter=FrontMatter(
+            layout="doc",
+            section="File Format",
+            description="Hurl file format variables and templating.",
+        ),
+    )
+    task.convert()
 
 
 def main():

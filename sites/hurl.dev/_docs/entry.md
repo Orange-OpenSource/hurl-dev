@@ -15,7 +15,6 @@ to [capture values] to perform subsequent requests, or [add asserts to HTTP resp
 
 ## Example
 
-{% raw %}
 ```hurl
 # First, test home title.
 GET https://acmecorp.net
@@ -37,8 +36,6 @@ number: 33611223344
 
 HTTP/1.1 403
 ```
-{% endraw %}
-
 
 ## Description
 
@@ -51,7 +48,6 @@ Requests in the same Hurl file share the cookie storage, enabling, for example, 
 By default, Hurl doesn't follow redirection. To effectively run a redirection, entries should describe each step
 of the redirection, allowing insertion of asserts in each response.
 
-{% raw %}
 ```hurl
 # First entry, test the redirection (status code and
 # Location header)
@@ -65,21 +61,16 @@ GET http://www.google.fr
 
 HTTP/1.1 200
 ```
-{% endraw %}
-
 
 Alternatively, one can use [`--location`] option to force redirection
 to be followed. In this case, asserts are executed on the last received response. Optionally, the number of
 redirections can be limited with [`--max-redirs`].
 
-{% raw %}
 ```hurl
 # Running hurl --location google.hurl
 GET http://google.fr
 HTTP/1.1 200
 ```
-{% endraw %}
-
 
 [request]: {% link _docs/request.md %}
 [response]: {% link _docs/response.md %}

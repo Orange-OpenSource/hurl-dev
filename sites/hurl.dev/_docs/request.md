@@ -17,7 +17,6 @@ Finally, an optional [body] can be used to configure the HTTP request body.
 
 ## Example
 
-{% raw %}
 ```hurl
 GET https://example.org/api/dogs?id=4567
 User-Agent: My User Agent
@@ -25,8 +24,6 @@ Content-Type: application/json
 [BasicAuth]
 alice: secret
 ```
-{% endraw %}
-
 
 ## Structure
 
@@ -104,7 +101,6 @@ alice: secret
 Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`, `[QueryStringParams]`, `[FormParams]` etc...)
 These sections are not ordered and can be mixed in any way:
 
-{% raw %}
 ```hurl
 GET https://example.org/api/dogs
 User-Agent: My User Agent
@@ -114,10 +110,7 @@ order: newest
 [BasicAuth]
 alice: secret
 ```
-{% endraw %}
 
-
-{% raw %}
 ```hurl
 GET https://example.org/api/dogs
 User-Agent: My User Agent
@@ -127,13 +120,10 @@ alice: secret
 id: 4567
 order: newest
 ```
-{% endraw %}
-
 
 The last optional part of a request configuration is the request [body]. Request body must be the last paremeter of a request
 (after [headers] and request sections). Like headers, [body] have no explicit marker:
 
-{% raw %}
 ```hurl
 POST https://example.org/api/dogs?id=4567
 User-Agent: My User Agent
@@ -141,8 +131,6 @@ User-Agent: My User Agent
  "name": "Ralphy"
 }
 ```
-{% endraw %}
-
 
 ## Description
 
@@ -157,7 +145,6 @@ Mandatory HTTP request url.
 
 Url can contain query parameters, even if using a [query parameters section] is preferred.
 
-{% raw %}
 ```hurl
 # A request with url containing query parameters.
 GET https://example.org/forum/questions/?search=Install%20Linux&order=newest
@@ -168,8 +155,6 @@ GET https://example.org/forum/questions/
 search: Install Linux
 order: newest
 ```
-{% endraw %}
-
 
 > Query parameters in query parameter section are not url encoded.
 
@@ -182,7 +167,6 @@ Optional list of HTTP request headers.
 
 A header consists of a name, followed by a `:` and a value.
 
-{% raw %}
 ```hurl
 GET https://example.org/news
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0
@@ -191,8 +175,6 @@ Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 ```
-{% endraw %}
-
 
 > Headers directly follow url, without any section name, contrary to query parameters, form parameters
 > or cookies
@@ -200,13 +182,10 @@ Connection: keep-alive
 Note that header usually don't start with double quotes. If the header value starts with double quotes, the double
 quotes will be part of the header value:
 
-{% raw %}
 ```hurl
 PATCH https://example.org/file.txt
 If-Match: "e0023aa4e"
 ```
-{% endraw %}
-
 
 `If-Match` request header will be sent will the following value `"e0023aa4e"` (started and ended with double quotes).
 
@@ -282,7 +261,6 @@ A multipart form data section can be used to send data, with key / value and fil
 
 The form parameters section starts with `[MultipartFormData]`.
 
-{% raw %}
 ```hurl
 POST https://example.org/upload
 [MultipartFormData]
@@ -291,8 +269,6 @@ field2: file,example.txt;
 # One can specify the file content type:
 field3: file,example.zip; application/zip
 ```
-{% endraw %}
-
 
 Files are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
 [`--file-root` option] to specify the root directory of all file nodes.
@@ -321,19 +297,15 @@ A cookie consists of a name, followed by a `:` and a value. Cookies are sent per
 the cookie storage session, contrary to a cookie set in a header response. (for instance `Set-Cookie: theme=light`). The
 cookies section starts with `[Cookies]`.
 
-{% raw %}
 ```hurl
 GET https://example.org/index.html
 [Cookies]
 theme: light
 sessionToken: abc123
 ```
-{% endraw %}
-
 
 Cookies section can be seen as syntactic sugar over corresponding request header.
 
-{% raw %}
 ```hurl
 # Run a GET request with cookies section:
 GET https://example.org/index.html
@@ -345,8 +317,6 @@ sessionToken: abc123
 GET https://example.org/index.html
 Cookie: theme=light; sessionToken=abc123
 ```
-{% endraw %}
-
 
 ### Basic Authentication
 
@@ -356,29 +326,23 @@ Username is followed by a `:` and a password. The basic authentication section s
 `[BasicAuth]`. Username and password are _not_ base64 encoded.
 
 
-{% raw %}
 ```hurl
 # Perform basic authentification with login `bob` and password `secret`.
 GET https://example.org/protected
 [BasicAuth]
 bob: secret
 ```
-{% endraw %}
-
 
 > Spaces surrounded username and password are trimmed. If you
 > really want a space in your password (!!), you could use [Hurl unicode literals \u{20}].
 
 This is equivalent (but simpler) to construct the request with a [Authorization] header:
 
-{% raw %}
 ```hurl
 # Authorization header value can be computed with `echo -n 'bob:secret' | base64`
 GET https://example.org/protected
 Authorization: Basic Ym9iOnNlY3JldA== 
 ```
-{% endraw %}
-
 
 Basic authentication allows per request authentication.
 If you want to add basic authentication to all the request of a Hurl file
@@ -404,7 +368,6 @@ The body section must be the last section of the request configuration.
 
 JSON body is used to set a literal JSON as the request body.
 
-{% raw %}
 ```hurl
 # Create a new doggy thing with JSON body:
 POST https://example.org/api/dogs
@@ -417,8 +380,6 @@ POST https://example.org/api/dogs
     "location": "Lisco, Alabama"
 }
 ```
-{% endraw %}
-
 
 When using JSON body, the content type `application/json` is automatically set.
 
@@ -502,7 +463,6 @@ Base64 body is used to set binary data as the request body.
 Base64 body starts with `base64,` and end with `;`. MIME's Base64 encoding is supported (newlines and white spaces may be
 present anywhere but are to be ignored on decoding), and `=` padding characters might be added.
 
-{% raw %}
 ```hurl
 POST https://example.org
 # Some random comments before body
@@ -511,8 +471,6 @@ FkaXBpc2NpbmcgZWxpdC4gSW4gbWFsZXN1YWRhLCBuaXNsIHZlbCBkaWN0dW0g
 aGVuZHJlcml0LCBlc3QganVzdG8gYmliZW5kdW0gbWV0dXMsIG5lYyBydXRydW
 0gdG9ydG9yIG1hc3NhIGlkIG1ldHVzLiA=;
 ```
-{% endraw %}
-
 
 #### Hex body
 
@@ -520,14 +478,11 @@ Hex body is used to set binary data as the request body.
 
 Hex body starts with `hex,` and end with `;`.
 
-{% raw %}
 ```hurl
 PUT https://example.org
 # Send a café, encoded in UTF-8
 hex,636166c3a90a;
 ```
-{% endraw %}
-
 
 
 #### File body
@@ -535,14 +490,11 @@ hex,636166c3a90a;
 To use the binary content of a local file as the body request, file body can be used. File body starts with
 `file,` and ends with `;``
 
-{% raw %}
 ```hurl
 POST https://example.org
 # Some random comments before body
 file,data.bin;
 ```
-{% endraw %}
-
 
 File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
 [`--file-root` option] to specify the root directory of all file nodes.

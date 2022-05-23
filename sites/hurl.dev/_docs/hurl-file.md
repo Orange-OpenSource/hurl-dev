@@ -21,7 +21,6 @@ Hurl file extension is `.hurl`
 Comments begin with `#` and continue until the end of line. Hurl file can serve as
 a documentation for HTTP based workflows so it can be useful to be very descriptive.
 
-{% raw %}
 ```hurl
 # A very simple Hurl file
 # with tasty comments...
@@ -33,8 +32,6 @@ HTTP/1.1 302   # Check that we have a redirection
 header "Location" exists
 header "Location" contains "login"  # Check that we are redirected to the login page
 ```
-{% endraw %}
-
 
 ## Special Characters in Strings
 
@@ -44,7 +41,6 @@ String can include the following special characters:
  \n (line feed), \r (carriage return), and \t (horizontal tab)
 - An arbitrary Unicode scalar value, written as \u{n}, where n is a 1–8 digit hexadecimal number
 
-{% raw %}
 ```hurl
 GET https://example.org/api
 
@@ -55,19 +51,15 @@ HTTP/1.1 200
 jsonpath "$.slideshow.title" == "A beautiful ✈!"
 jsonpath "$.slideshow.title" == "A beautiful \u{2708}!"
 ```
-{% endraw %}
-
 
 In some case, (in headers value, etc..), you will also need to escape # to distinguish from a comment.
 In the following example:
 
-{% raw %}
 ```hurl
 GET https://example.org/api
 x-token: BEEF \#STEACK # Some somment
 HTTP/1.1 200
 ```
-{% endraw %}
-
 
 We're sending a header `x-token` with value `BEEF #STEACK`
+

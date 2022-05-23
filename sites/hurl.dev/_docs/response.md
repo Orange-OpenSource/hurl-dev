@@ -18,7 +18,6 @@ in the following entries.
 
 ## Example
 
-{% raw %}
 ```hurl
 GET https://example.org
 
@@ -28,8 +27,6 @@ Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
 xpath "normalize-space(//head/title)" startsWith "Welcome"
 xpath "//li" count == 18
 ```
-{% endraw %}
-
 
 ## Structure
 

@@ -74,7 +74,6 @@ Query can be of the following type:
 Capture the received HTTP response status code. Status capture consists of a variable name, followed by a `:`, and the
 keyword `status`.
 
-{% raw %}
 ```hurl
 GET https://example.org
 
@@ -82,15 +81,12 @@ HTTP/1.1 200
 [Captures]
 my_status: status
 ```
-{% endraw %}
-
 
 ### Header capture
 
 Capture a header from the received HTTP response headers. Header capture consists of a variable name, followed by a `:`,
 then the keyword `header` and a header name.
 
-{% raw %}
 ```hurl
 POST https://example.org/login
 [FormParams]
@@ -101,8 +97,6 @@ HTTP/1.1 302
 [Captures]
 next_url: header "Location"
 ```
-{% endraw %}
-
 
 ### Cookie capture
 
@@ -110,7 +104,6 @@ Capture a [`Set-Cookie`] header from the received HTTP response headers. Cookie
 capture consists of a variable name, followed by a `:`, then the keyword `cookie`
 and a cookie name.
 
-{% raw %}
 ```hurl
 GET https://example.org/cookies/set
 
@@ -118,14 +111,11 @@ HTTP/1.0 200
 [Captures]
 session-id: cookie "LSID"
 ```
-{% endraw %}
-
 
 Cookie attributes value can also be captured by using the following format:
 `<cookie-name>[cookie-attribute]`. The following attributes are supported:
 `Value`, `Expires`, `Max-Age`, `Domain`, `Path`, `Secure`, `HttpOnly` and `SameSite`.
 
-{% raw %}
 ```hurl
 GET https://example.org/cookies/set
 
@@ -141,15 +131,12 @@ secure: cookie "LSID[Secure]"
 http-only: cookie "LSID[HttpOnly]"
 same-site: cookie "LSID[SameSite]"
 ```
-{% endraw %}
-
 
 
 ### Body capture
 
 Capture the entire body (decoded as text) from the received HTTP response
 
-{% raw %}
 ```hurl
 GET https://example.org/home
 
@@ -157,14 +144,11 @@ HTTP/1.1 200
 [Captures]
 my_body: body
 ```
-{% endraw %}
-
 
 ### Bytes capture
 
 Capture the entire body (as a raw bytestream) from the received HTTP response
 
-{% raw %}
 ```hurl
 GET https://example.org/data.bin
 
@@ -172,8 +156,6 @@ HTTP/1.1 200
 [Captures]
 my_data: bytes
 ```
-{% endraw %}
-
 
 
 ### XPath capture
@@ -201,7 +183,6 @@ HTTP/1.1 200
 XPath captures are not limited to node values (like string, or boolean); any
 valid XPath can be captured and assert with variable asserts.
 
-{% raw %}
 ```hurl
 # Test that the XML endpoint return 200 pets
 GET https://example.org/api/pets
@@ -211,8 +192,6 @@ pets: xpath "//pets"
 [Asserts]
 variable "pets" count == 200
 ```
-{% endraw %}
-
 
 
 ### JSONPath capture
@@ -258,7 +237,6 @@ For instance, if we have a JSON endpoint that returns the following JSON:
 
 We can capture the following paths:
 
-{% raw %}
 ```hurl
 GET https://example.org/captures-json
 
@@ -273,15 +251,12 @@ a_bool:     jsonpath "$['a_bool']"
 a_string:   jsonpath "$['a_string']"
 all:        jsonpath "$"
 ```
-{% endraw %}
-
 
 
 ### Regex capture
 
 Capture a regex pattern from the HTTP received body, decoded as text.
 
-{% raw %}
 ```hurl
 GET https://example.org/helloworld
 
@@ -291,8 +266,6 @@ id_a: regex "id_a:([0-9]+)!"
 id_b: regex "id_b:(\\d+)!"
 name: regex "Hello ([a-zA-Z]+)!"
 ```
-{% endraw %}
-
 
 Pattern of the regex query must have at least one capture group, otherwise the
 capture will fail. Metacharacters beginning with a backslash in the pattern
@@ -303,7 +276,6 @@ capture will fail. Metacharacters beginning with a backslash in the pattern
 
 Capture the value of a variable into another.
 
-{% raw %}
 ```hurl
 GET https://example.org/helloworld
 
@@ -312,14 +284,11 @@ HTTP/1.0 200
 in: body
 name: variable "in" regex "Hello ([a-zA-Z]+)!"
 ```
-{% endraw %}
-
 
 ### Duration capture
 
 Capture the response time of the request in ms.
 
-{% raw %}
 ```hurl
 GET https://example.org/helloworld
 
@@ -328,8 +297,6 @@ HTTP/1.0 200
 duration_in_ms: duration
 
 ```
-{% endraw %}
-
 
 ### Subquery
 
@@ -346,7 +313,6 @@ Optionally, query can be refined using subqueries `regex` and `count`.
 
 #### Regex subquery
 
-{% raw %}
 ```hurl
 GET https://pets.org/cats/cutest
 
@@ -356,8 +322,6 @@ HTTP/1.0 200
 id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
 id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
 ```
-{% endraw %}
-
 
 Pattern of the regex subquery must have at least one capture group, otherwise the
 capture will fail. Metacharacters beginning with a backslash in the pattern
@@ -367,7 +331,6 @@ capture will fail. Metacharacters beginning with a backslash in the pattern
 
 Returns the count of a collection.
 
-{% raw %}
 ```hurl
 GET https://pets.org/cats/cutest
 
@@ -375,8 +338,6 @@ HTTP/1.0 200
 [Captures]
 cats_size: jsonpath "$.cats" count
 ```
-{% endraw %}
-
 
 
 
