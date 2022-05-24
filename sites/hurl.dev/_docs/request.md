@@ -254,7 +254,7 @@ name=John%20Doe&key1=value1
 
 When both [body section] and form parameters section are present, only the body section is taken into account.
 
-### Multipart Form Data {#multipart-form-data}
+### Multipart Form Data
 
 A multipart form data section can be used to send data, with key / value and file content
 (see [multipart/form-data on MDN]).

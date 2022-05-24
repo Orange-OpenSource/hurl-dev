@@ -163,6 +163,16 @@ def build():
     )
     task.convert()
 
+    task = ConvertTask(
+        file_src=Path("../hurl/docs/grammar.md"),
+        file_dst=Path("sites/hurl.dev/_docs/grammar.md"),
+        front_matter=FrontMatter(
+            layout="doc",
+            section="File Format",
+        ),
+    )
+    task.convert()
+
 
 def main():
     build()
