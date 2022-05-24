@@ -25,6 +25,17 @@ class FrontMatter:
         self.section = section
 
 
+def process_local_link(match) -> str:
+    base = match.group("base")
+    anchor = match.group("anchor")
+    title = match.group("title")
+    if anchor:
+        link = f"[{title}]({{% link _docs/{base} %}}#{anchor})"
+    else:
+        link = f"[{title}]({{% link _docs/{base} %}})"
+    return link
+
+
 def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
     text = path.read_text()
     md_raw = parse_markdown(text)
@@ -69,9 +80,18 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             md_escaped.add_child(whitespace_node)
             md_escaped.add_child(end_escape_node)
         elif isinstance(node, Paragraph):
+
             # Escape inline code that contains {{ }}.
+            content = node.content
             content = re.sub(
-                r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", node.content
+                r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", content
+            )
+
+            # Convert local links to Jekyll link
+            content = re.sub(
+                r"\[(?P<title>.+)]\((?P<base>.+\.md)#?(?P<anchor>.*)\)",
+                process_local_link,
+                content
             )
             p_node = Paragraph(content=content)
             md_escaped.add_child(p_node)
@@ -131,6 +151,15 @@ def build():
                 layout="doc",
                 section="Getting Started",
                 description="Hurl command line usage, with options descriptions.",
+            ),
+        ),
+        (
+            Path("../hurl/docs/samples.md"),
+            Path("sites/hurl.dev/_docs/samples.md"),
+            FrontMatter(
+                layout="doc",
+                section="Getting Started",
+                description="Various Hurl samples to show how to run and tests HTTP requests and responses.",
             ),
         ),
         (

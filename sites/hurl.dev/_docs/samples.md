@@ -4,7 +4,8 @@ title: Samples
 description: Various Hurl samples to show how to run and tests HTTP requests and responses.
 section: Getting Started
 ---
-# {{ page.title }}
+
+# Samples
 
 To run a sample, edit a file with the sample content, and run Hurl:
 
@@ -16,7 +17,7 @@ GET https://example.org
 $ hurl sample.hurl
 ```
 
-You can check [Hurl tests suit] for more samples.
+You can check [Hurl tests suite] for more samples.
 
 ## Getting Data
 
@@ -98,11 +99,11 @@ number: 33611223344
 ```
 {% endraw %}
 
+
 [Doc]({% link _docs/request.md %}#form-parameters)
 
 ### Sending Multipart Form Datas
 
-{% raw %}
 ```hurl
 POST https://example.org/upload
 [MultipartFormData]
@@ -111,7 +112,6 @@ field2: file,example.txt;
 # On can specify the file content type:
 field3: file,example.zip; application/zip
 ```
-{% endraw %}
 
 [Doc]({% link _docs/request.md %}#multipart-form-data)
 
@@ -141,9 +141,9 @@ file,data.json;
 
 ### Templating a JSON / XML Body
 
-Using templates with [JSON body] or [XML body] is not currently supported in Hurl. 
+Using templates with [JSON body] or [XML body] is not currently supported in Hurl.
 Besides, you can use templates in [raw string body] with variables to send a JSON or XML body:
- 
+
 {% raw %}
 ~~~hurl
 PUT https://example.org/api/hits
@@ -158,6 +158,7 @@ Content-Type: application/json
 ```
 ~~~
 {% endraw %}
+
 
 Variables can be initialized via command line:
 
@@ -362,6 +363,7 @@ HTTP/* 302
 ```
 {% endraw %}
 
+
 [Doc]({% link _docs/capturing-response.md %}#xpath-capture)
 
 ### Checking Byte Order Mark (BOM) in Response Body
@@ -384,6 +386,6 @@ bytes startsWith hex,efbbbf;
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
 [`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
-[Hurl tests suit]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests_ok
+[Hurl tests suite]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests_ok
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
-[`-u/--user` option]: {% link _docs/man-page.md %}#user
+[`-u/--user` option]: {% link _docs/{% link _docs/man-page.md %}# %}#user
