@@ -75,8 +75,12 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             )
             p_node = Paragraph(content=content)
             md_escaped.add_child(p_node)
-        elif isinstance(node, RefLink) and ".md" in node.link:
-            # Convert reference links to Jekyll reference link
+        elif (
+            isinstance(node, RefLink)
+            and ".md" in node.link
+            and not node.link.startswith("http")
+        ):
+            # Convert local reference links to Jekyll reference link
             ret = re.match(r"(?P<base>.+\.md)#?(?P<anchor>.*)", node.link)
             base = ret.group("base")
             anchor = ret.group("anchor")
@@ -110,68 +114,74 @@ class ConvertTask:
 
 
 def build():
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/hurl-file.md"),
-        file_dst=Path("sites/hurl.dev/_docs/hurl-file.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/entry.md"),
-        file_dst=Path("sites/hurl.dev/_docs/entry.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/request.md"),
-        file_dst=Path("sites/hurl.dev/_docs/request.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/response.md"),
-        file_dst=Path("sites/hurl.dev/_docs/response.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/capturing-response.md"),
-        file_dst=Path("sites/hurl.dev/_docs/capturing-response.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/asserting-response.md"),
-        file_dst=Path("sites/hurl.dev/_docs/asserting-response.md"),
-        front_matter=FrontMatter(layout="doc", section="File Format"),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/templates.md"),
-        file_dst=Path("sites/hurl.dev/_docs/templates.md"),
-        front_matter=FrontMatter(
-            layout="doc",
-            section="File Format",
-            description="Hurl file format variables and templating.",
+    docs = [
+        (
+            Path("../hurl/docs/installation.md"),
+            Path("sites/hurl.dev/_docs/installation.md"),
+            FrontMatter(
+                layout="doc",
+                section="Getting Started",
+                description="How to install or build Hurl on Linux, macOS and Windows platform.",
+            ),
         ),
-    )
-    task.convert()
-
-    task = ConvertTask(
-        file_src=Path("../hurl/docs/grammar.md"),
-        file_dst=Path("sites/hurl.dev/_docs/grammar.md"),
-        front_matter=FrontMatter(
-            layout="doc",
-            section="File Format",
+        (
+            Path("../hurl/docs/grammar.md"),
+            Path("sites/hurl.dev/_docs/grammar.md"),
+            FrontMatter(layout="doc", section="File Format"),
         ),
-    )
-    task.convert()
+        (
+            Path("../hurl/docs/hurl-file.md"),
+            Path("sites/hurl.dev/_docs/hurl-file.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/entry.md"),
+            Path("sites/hurl.dev/_docs/entry.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/request.md"),
+            Path("sites/hurl.dev/_docs/request.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/response.md"),
+            Path("sites/hurl.dev/_docs/response.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/capturing-response.md"),
+            Path("sites/hurl.dev/_docs/capturing-response.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/asserting-response.md"),
+            Path("sites/hurl.dev/_docs/asserting-response.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/templates.md"),
+            Path("sites/hurl.dev/_docs/templates.md"),
+            FrontMatter(
+                layout="doc",
+                section="File Format",
+                description="Hurl file format variables and templating.",
+            ),
+        ),
+        (
+            Path("../hurl/docs/grammar.md"),
+            Path("sites/hurl.dev/_docs/grammar.md"),
+            FrontMatter(layout="doc", section="File Format"),
+        ),
+    ]
+
+    for (src, dst, front_matter) in docs:
+        task = ConvertTask(
+            file_src=src,
+            file_dst=dst,
+            front_matter=front_matter,
+        )
+        task.convert()
 
 
 def main():
