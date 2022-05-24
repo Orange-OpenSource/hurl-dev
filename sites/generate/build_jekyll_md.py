@@ -125,6 +125,15 @@ def build():
             ),
         ),
         (
+            Path("../hurl/docs/man-page.md"),
+            Path("sites/hurl.dev/_docs/man-page.md"),
+            FrontMatter(
+                layout="doc",
+                section="Getting Started",
+                description="Hurl command line usage, with options descriptions.",
+            ),
+        ),
+        (
             Path("../hurl/docs/grammar.md"),
             Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),

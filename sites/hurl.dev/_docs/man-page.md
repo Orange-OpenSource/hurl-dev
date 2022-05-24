@@ -4,7 +4,8 @@ title: Man Page
 description: Hurl command line usage, with options descriptions.
 section: Getting Started
 ---
-# {{ page.title }}
+
+# Man Page
 
 ## Name
 
@@ -22,16 +23,12 @@ hurl - run and test HTTP requests.
 
 Hurl is very versatile, it enables to chain HTTP requests, capture values from HTTP responses and make asserts.
 
-{% raw %}
 ```
 $ hurl session.hurl
 ```
-{% endraw %}
-
 
 If no input-files are specified, input is read from stdin.
 
-{% raw %}
 ```
 $ echo GET http://httpbin.org/get | hurl
     {
@@ -48,18 +45,13 @@ $ echo GET http://httpbin.org/get | hurl
       "url": "http://httpbin.org/get"
     }
 ```
-{% endraw %}
-
 
 
 Output goes to stdout by default. For output to a file, use the -o option:
 
-{% raw %}
 ```
 $ hurl -o output input.hurl
 ```
-{% endraw %}
-
 
 
 
@@ -73,13 +65,10 @@ The Hurl file format is fully documented in [https://hurl.dev/docs/hurl-file.htm
 
 It consists of one or several HTTP requests
 
-{% raw %}
 ```hurl
 GET http:/example.net/endpoint1
 GET http:/example.net/endpoint2
 ```
-{% endraw %}
-
 
 
 ### Capturing values
@@ -90,14 +79,14 @@ A typical example occurs with csrf tokens.
 
 {% raw %}
 ```hurl
-GET https://example.org
+GET https://example.net
 HTTP/1.1 200
 # Capture the CSRF token value from html body.
 [Captures]
 csrf_token: xpath "normalize-space(//meta[@name='_csrf_token']/@content)"
 
 # Do the login !
-POST https://example.org/login?user=toto&password=1234
+POST https://example.net/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 ```
 {% endraw %}
@@ -109,36 +98,27 @@ The HTTP response defined in the Hurl session are used to make asserts.
 
 At the minimum, the response includes the asserts on the HTTP version and status code.
 
-{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 301
 ```
-{% endraw %}
-
 
 It can also include asserts on the response headers
 
-{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 301
 Location: http://www.google.com
 ```
-{% endraw %}
-
 
 You can also include explicit asserts combining query and predicate
 
-{% raw %}
 ```hurl
 GET http:/google.com
 HTTP/1.1 301
 [Asserts]
 xpath "string(//title)" == "301 Moved"
 ```
-{% endraw %}
-
 
 Thanks to asserts, Hurl can be used as a testing tool to run scenarii.
 
@@ -160,7 +140,7 @@ Option | Description
 <a href="#fail-at-end" id="fail-at-end"><code>--fail-at-end</code></a> | Continue executing requests to the end of the Hurl file even when an assert error occurs.<br/>By default, Hurl exits after an assert error in the HTTP response.<br/><br/>Note that this option does not affect the behavior with multiple input Hurl files.<br/><br/>All the input files are executed independently. The result of one file does not affect the execution of the other Hurl files.<br/>
 <a href="#file-root" id="file-root"><code>--file-root &lt;dir&gt;</code></a> | Set root filesystem to import files in Hurl. This is used for both files in multipart form data and request body.<br/>When this is not explicitly defined, the files are relative to the current directory in which Hurl is running.<br/>
 <a href="#location" id="location"><code>-L, --location</code></a> | Follow redirect.  You can limit the amount of redirects to follow by using the [--max-redirs](#max-redirs) option.<br/>
-<a href="#glob" id="glob"><code>--glob &lt;glob&gt;</code></a> | Specify input files that match the given glob pattern.<br/><br/>Multiple glob flags may be used. This flag supports common Unix glob patterns like *, ? and []. <br/>However, to avoid your shell accidentally expanding glob patterns before Hurl handles them, you must use single quotes or double quotes around each pattern.<br/>
+<a href="#glob" id="glob"><code>--glob &lt;glob&gt;</code></a> | Specify input files that match the given blob pattern.<br/><br/>Multiple glob flags may be used. This flag supports common Unix glob patterns like *, ? and []. <br/>However, to avoid your shell accidentally expanding glob patterns before Hurl handles them, you must use single quotes or double quotes around each pattern.<br/>
 <a href="#include" id="include"><code>-i, --include</code></a> | Include the HTTP headers in the output (last entry).<br/>
 <a href="#ignore-asserts" id="ignore-asserts"><code>--ignore-asserts</code></a> | Ignore all asserts defined in the Hurl file.<br/>
 <a href="#insecure" id="insecure"><code>-k, --insecure</code></a> | This option explicitly allows Hurl to perform "insecure" SSL connections and transfers.<br/>
