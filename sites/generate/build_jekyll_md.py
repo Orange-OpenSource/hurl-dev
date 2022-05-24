@@ -64,8 +64,8 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
         if (
             isinstance(node, Code)
             and re.match(
-                r"[`~]{3}hurl", node.content
-            )  # Hurl language ~~~hurl or ```hurl
+                r"(```|~~~)", node.content
+            )  # Code block
             and re.search(
                 r"\{\{.+}}", node.content, re.MULTILINE
             )  # Hurl snippet containing templates must be escaped
@@ -168,6 +168,11 @@ def build():
                 section="Getting Started",
                 description="How to run multiple tests with run and generate an HTML report.",
             ),
+        ),
+        (
+            Path("../hurl/docs/frequently-asked-questions.md"),
+            Path("sites/hurl.dev/_docs/frequently-asked-questions.md"),
+            FrontMatter(layout="doc", section="Getting Started"),
         ),
         (
             Path("../hurl/docs/grammar.md"),

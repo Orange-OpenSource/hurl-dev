@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 section: Getting Started
 ---
 
-# {{ page.title }}
+# Frequently Asked Questions
 
 - [General](#general)
     - [Why "Hurl"?](#why-hurl)
@@ -31,13 +31,13 @@ While it may have an informal meaning not particularly elegant, [other eminent t
 We think that Hurl has some advantages compared to similar tools.
 
 Hurl is foremost a command line tool and should be easy to use on a local computer, or in a CI/CD pipeline. Some
- tools in the same space as Hurl ([Postman] for instance), are GUI oriented, and we find it
- less attractive than CLI. As a command line tool, Hurl can be used to get HTTP datas (like [curl]), 
- but also as a test tool for HTTP sessions, or even as documentation.
+tools in the same space as Hurl ([Postman] for instance), are GUI oriented, and we find it
+less attractive than CLI. As a command line tool, Hurl can be used to get HTTP datas (like [curl]),
+but also as a test tool for HTTP sessions, or even as documentation.
 
 Having a text based [file format] is another advantage. The Hurl format is simple,
-focused on the HTTP domain, can serve as documentation and can be read or written by non-technical people. 
- 
+focused on the HTTP domain, can serve as documentation and can be read or written by non-technical people.
+
 For instance posting JSON data with Hurl can be done with this simple file:
 
 ``` 
@@ -59,8 +59,8 @@ curl --header "Content-Type: application/json" \
 
 
 [Karate], a tool combining API test automation, mocking, performance-testing, has
- similar features but offers also much more at a cost of an increased complexity.
-  
+similar features but offers also much more at a cost of an increased complexity.
+
 Comparing Karate file format:
 
 ```
@@ -96,13 +96,14 @@ HTTP/* 200
 ```
 {% endraw %}
 
-A key point of Hurl is to work on the HTTP domain. In particular, there is no Javascript runtime, Hurl works on the 
+
+A key point of Hurl is to work on the HTTP domain. In particular, there is no Javascript runtime, Hurl works on the
 raw HTTP requests/responses, and not on a DOM managed by a HTML engine. For security, this can be seen as a feature:
-let's say you want to test backend validation, you want to be able to bypass the browser or javascript validations and 
-directly test a backend endpoint. 
+let's say you want to test backend validation, you want to be able to bypass the browser or javascript validations and
+directly test a backend endpoint.
 
 Finally, with no headless browser and working on the raw HTTP data, Hurl is also
-really reliable with a very small probability of false positives. Integration tests with tools like 
+really reliable with a very small probability of false positives. Integration tests with tools like
 [Selenium] can, in this regard, be challenging to maintain.
 
 Just use what is convenient for you. In our case, it's Hurl!
@@ -113,25 +114,25 @@ Hurl has two main functionalities on top of [curl]:
 
 1. Chain several requests:
 
-    With its [captures], it enables to inject data received from a response into
-    following requests. [CSRF tokens]
-    are typical examples in a standard web session.
+   With its [captures], it enables to inject data received from a response into
+   following requests. [CSRF tokens]
+   are typical examples in a standard web session.
 
 2. Test HTTP responses:
 
-    With its [asserts], responses can be easily tested.
+   With its [asserts], responses can be easily tested.
 
 ### Why shouldn't I use Hurl?
- 
+
 If you need a GUI. Currently, Hurl does not offer a GUI version (like [Postman]). While we
-think that it can be useful, we prefer to focus for the time-being on the core, keeping something simple and fast. 
+think that it can be useful, we prefer to focus for the time-being on the core, keeping something simple and fast.
 Contributions to build a GUI are welcome.
- 
-  
+
+
 ### I have a large numbers of tests, how to run just specific tests?
 
 By convention, you can organize Hurl files into different folders or prefix them.
- 
+
 For example, you can split your tests into two folders critical and additional.
 
 ```
@@ -146,10 +147,10 @@ You can simply run your critical tests with
 ```
 hurl critical/*.hurl
 ```
- 
+
 ### How can I use my Hurl files outside Hurl?
 
-Hurl file can be exported to a json file with `hurlfmt`. 
+Hurl file can be exported to a json file with `hurlfmt`.
 This json file can then be easily parsed for converting a different format, getting ad-hoc information,...
 
 For example, the Hurl file
@@ -221,8 +222,8 @@ hurl --variable "today=$TODAY" --variable "tomorrow=$TOMORROW" test.hurl
 ### How can I use a custom libcurl (from Homebrew by instance)?
 
 No matter how you've installed Hurl (using the precompiled binary for macOS or with [Homebrew])
-Hurl is linked against the built-in system libcurl. If you want to use another libcurl (for instance, 
-if you've installed curl with Homebrew and want Hurl to use Homebrew's libcurl), you can patch Hurl with 
+Hurl is linked against the built-in system libcurl. If you want to use another libcurl (for instance,
+if you've installed curl with Homebrew and want Hurl to use Homebrew's libcurl), you can patch Hurl with
 the following command:
 
 ```shell
@@ -239,7 +240,7 @@ sudo install_name_tool -change /usr/lib/libcurl.4.dylib /usr/local/opt/curl/lib/
 ### Hurl error: SSL certificate has expired
 
 If you have a `SSL certificate has expired` error on valid certificates with Hurl, it can be due to the macOS libcurl certificates
-not updated. On Mojave, the built-in curl (`/usr/bin/curl`) relies on the `/etc/ssl/cert.pem` file for root CA verification, 
+not updated. On Mojave, the built-in curl (`/usr/bin/curl`) relies on the `/etc/ssl/cert.pem` file for root CA verification,
 and some certificates has expired. To solve this problem:
 
 1. Edit `/etc/ssl/cert.pem` and remove the expired certificate (for instance, the `DST Root CA X3` has expired)
@@ -247,8 +248,8 @@ and some certificates has expired. To solve this problem:
 
 ### Hurl warning on Big Sur: Closing connection 0
 
-In Big Sur, the system version of libcurl (7.64.1), has a bug that [erroneously 
-displays `* Closing connection 0` on `stderr`]. To fix Hurl not to output this 
+In Big Sur, the system version of libcurl (7.64.1), has a bug that [erroneously
+displays `* Closing connection 0` on `stderr`]. To fix Hurl not to output this
 warning, one can link Hurl to a newer version of libcurl.
 
 For instance, to use the latest libcurl with Homebrew:
