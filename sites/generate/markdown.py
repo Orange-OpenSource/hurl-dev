@@ -136,7 +136,7 @@ def parse_markdown(text: str) -> "MarkdownDoc":
         # Code parsing:
         if c == "-" or c == "~" or c == "`":
             sep = parser.peek(3)
-            if sep == "---" or sep == "~~~" or sep == "```":
+            if sep in ("---", "~~~", "```"):
                 node = parse_code(parser=parser)
                 root.add_child(node)
                 continue

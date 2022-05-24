@@ -83,15 +83,13 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
 
             # Escape inline code that contains {{ }}.
             content = node.content
-            content = re.sub(
-                r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", content
-            )
+            content = re.sub(r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", content)
 
             # Convert local links to Jekyll link
             content = re.sub(
                 r"\[(?P<title>.+)]\((?P<base>.+\.md)#?(?P<anchor>.*)\)",
                 process_local_link,
-                content
+                content,
             )
             p_node = Paragraph(content=content)
             md_escaped.add_child(p_node)
@@ -160,6 +158,15 @@ def build():
                 layout="doc",
                 section="Getting Started",
                 description="Various Hurl samples to show how to run and tests HTTP requests and responses.",
+            ),
+        ),
+        (
+            Path("../hurl/docs/running-tests.md"),
+            Path("sites/hurl.dev/_docs/running-tests.md"),
+            FrontMatter(
+                layout="doc",
+                section="Getting Started",
+                description="How to run multiple tests with run and generate an HTML report.",
             ),
         ),
         (

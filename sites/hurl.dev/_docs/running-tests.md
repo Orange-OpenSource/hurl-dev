@@ -5,7 +5,7 @@ description: How to run multiple tests with run and generate an HTML report.
 section: Getting Started
 ---
 
-# {{ page.title }}
+# Running Tests
 
 Hurl is run by default as an HTTP client, returning the body of the last HTTP response.
 

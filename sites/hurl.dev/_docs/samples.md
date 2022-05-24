@@ -388,4 +388,4 @@ bytes startsWith hex,efbbbf;
 [`Authorization` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
 [Hurl tests suite]: https://github.com/Orange-OpenSource/hurl/tree/master/integration/tests_ok
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
-[`-u/--user` option]: {% link _docs/{% link _docs/man-page.md %}# %}#user
+[`-u/--user` option]: {% link _docs/man-page.md %}#user
