@@ -73,9 +73,7 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
 
         if (
             isinstance(node, Code)
-            and re.match(
-                r"(```|~~~)", node.content
-            )  # Code block
+            and re.match(r"(```|~~~)", node.content)  # Code block
             and re.search(
                 r"\{\{.+}}", node.content, re.MULTILINE
             )  # Hurl snippet containing templates must be escaped
