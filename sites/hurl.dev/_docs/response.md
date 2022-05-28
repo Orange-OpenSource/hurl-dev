@@ -98,7 +98,7 @@ header by example) and add assert and captures on the decoded body as if there w
 
 
 [requests]: {% link _docs/request.md %}
-[version and status]: {% link _docs/asserting-response.md %}#url
+[version and status]: {% link _docs/asserting-response.md %}#version-status
 [headers]: {% link _docs/asserting-response.md %}#headers
 [captures]: {% link _docs/capturing-response.md %}#captures
 [asserts]: {% link _docs/asserting-response.md %}#asserts

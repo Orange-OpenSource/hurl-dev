@@ -3,11 +3,12 @@ layout: doc
 title: Your First Hurl File
 section: Tutorial
 ---
-# {{ page.title }}
 
-Throughout this tutorial, we'll walk through the creation of multiple 
-Hurl files to test a basic quiz application. We'll show how to test 
-this site locally, and how to automate these integration tests in a CI/CD 
+# Your First Hurl File
+
+Throughout this tutorial, we'll walk through the creation of multiple
+Hurl files to test a basic quiz application. We'll show how to test
+this site locally, and how to automate these integration tests in a CI/CD
 chain like [GitHub Action] and [GitLab CI/CD].
 
 The quiz application consists of:
@@ -19,7 +20,7 @@ With Hurl, we're going to add tests for the website and the apis.
 
 ## Prerequisites
 
-We’ll assume you have Hurl installed already. You can test it by running the 
+We’ll assume you have Hurl installed already. You can test it by running the
 following command in a shell prompt (indicated by the $ prefix):
 
 ```shell
@@ -27,12 +28,12 @@ $ hurl --version
 ```
 
 If Hurl is already installed, you should see the version of Hurl. If it isn't, you
-can check [Installation] to see how to install Hurl. 
+can check [Installation] to see how to install Hurl.
 
 Next, we’re going to install our quiz application locally, in order to test it. We are
 not going to build our application from scratch, in order to focus on how to test it.
 
-> Hurl being really language agnostic, you can use it to validate any type of application: in 
+> Hurl being really language agnostic, you can use it to validate any type of application: in
 > this tutorial, our quiz application is built with [Spring Boot],
 > but this could as well be a [Node.js] or a [Flask] app.
 
@@ -41,7 +42,7 @@ Our quiz application can be launched locally either:
 - using a Docker image
 - directly using the jar of the application
 
-If you want to use the Docker image, you must have Docker installed locally. If it is the case, 
+If you want to use the Docker image, you must have Docker installed locally. If it is the case,
 just run in a shell:
 
 ```shell
@@ -76,9 +77,11 @@ typing the url <http://localhost:8080>:
 
 ## A Basic Test
 
-Next, we’re going to write our first test. 
+Next, we’re going to write our first test.
 
-1. Open a text editor and create a file named `basic.hurl`. In this file, just type the following text and save:
+<ol start="1">
+    <li>Open a text editor and create a file named `basic.hurl`. In this file, just type the following text and save:</li>
+</ol>
 
 ```hurl
 GET http://localhost:8080
@@ -86,12 +89,13 @@ GET http://localhost:8080
 
 This is your first Hurl file, and probably one of the simplest. It consists of only one [entry].
 
-> An entry has a mandatory [request specification]: in this case, we want to perform a 
-> `GET` HTTP request on the endpoint <http://localhost:8080>. A request can be optionally followed by a [response 
+> An entry has a mandatory [request specification]: in this case, we want to perform a
+> `GET` HTTP request on the endpoint <http://localhost:8080>. A request can be optionally followed by a [response
 > description], to add asserts on the HTTP response. For the moment, we don't have any response description.
 
-{:start="2"}
-2. In a shell, execute `hurl` with `basic.hurl` as argument:
+<ol start="2">
+    <li>In a shell, execute `hurl` with `basic.hurl` as argument:</li>
+</ol>
 
 ```shell
 $ hurl basic.hurl
@@ -107,7 +111,7 @@ $ hurl basic.hurl
 </html>
 ```
 
-If the quiz app is running, you should see the content of the html file at <http://localhost:8080>. If the quiz app 
+If the quiz app is running, you should see the content of the html file at <http://localhost:8080>. If the quiz app
 is not running, you'll see an error:
 
 ```shell
@@ -121,24 +125,26 @@ error: Http Connection
 ```
 
 
-As there are no response description, this basic test only checks that an HTTP server is running at 
-<http://localhost:8080> and responds _something_. If the server had a problem on this endpoint, and had responded 
-with a [`500 Internal Server Error`], Hurl would have just executed successfully the HTTP request, 
-without checking the actual HTTP response. 
+As there are no response description, this basic test only checks that an HTTP server is running at
+<http://localhost:8080> and responds _something_. If the server had a problem on this endpoint, and had responded
+with a [`500 Internal Server Error`], Hurl would have just executed successfully the HTTP request,
+without checking the actual HTTP response.
 
-As this test is not sufficient to ensure that our server is alive and running, we're going to add some asserts on 
-the response and, at least, check that the HTTP response status code is [`200 OK`]. 
+As this test is not sufficient to ensure that our server is alive and running, we're going to add some asserts on
+the response and, at least, check that the HTTP response status code is [`200 OK`].
 
-{:start="3"}
-3. Open `basic.hurl` and modify it to test the status code response:
+<ol start="3">
+    <li>Open `basic.hurl` and modify it to test the status code response:</li>
+</ol>
 
 ```hurl
 GET http://localhost:8080
 HTTP/1.1 200
 ```
 
-{:start="4"}
-4. Execute `basic.hurl`:
+<ol start="4">
+    <li>Execute `basic.hurl`:</li>
+</ol>
 
 ```shell
 $ hurl basic.hurl
@@ -147,26 +153,28 @@ $ hurl basic.hurl
 <head>
     <meta charset="utf-8">
     <title>Welcome to Quiz!</title>
-<!--    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>-->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 ....
 </html>
 ```
 
-There is no modification to the output of Hurl, the content of the HTTP request is outputted to the terminal. But, now, 
-we check that our server is responding with a `200 OK`. 
+There is no modification to the output of Hurl, the content of the HTTP request is outputted to the terminal. But, now,
+we check that our server is responding with a `200 OK`.
 
-{:start="5"}
-5. Modify `basic.hurl` to test a different HTTP response status code:
+<ol start="5">
+    <li>Modify `basic.hurl` to test a different HTTP response status code:</li>
+</ol>
 
 ```hurl
 GET http://localhost:8080
 HTTP/1.1 500
 ```
 
-{:start="6"}
-6. Save and execute it:
+<ol start="6">
+    <li>Save and execute it:</li>
+</ol>
 
 ```shell
 $ hurl basic.hurl
@@ -178,8 +186,9 @@ error: Assert Status
    |
 ```
 
-{:start="7"}
-7. Revert your changes and finally add a comment at the beginning of the file:
+<ol start="7">
+    <li>Revert your changes and finally add a comment at the beginning of the file:</li>
+</ol>
 
 ```hurl
 # Our first Hurl file, just checking
@@ -190,7 +199,7 @@ HTTP/1.1 200
 
 ## Recap
 
-That's it, this is your first Hurl file! 
+That's it, this is your first Hurl file!
 
 This is really a basic test, but Hurl's file format strength is its simplicity.
 We're going to see in the next section how to improve our tests while keeping it really simple.
@@ -205,8 +214,4 @@ We're going to see in the next section how to improve our tests while keeping it
 [request specification]: {% link _docs/request.md %}
 [response description]: {% link _docs/response.md %}
 [`500 Internal Server Error`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
-[`200 OK`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200 
-
-
-
-
+[`200 OK`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200

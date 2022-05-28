@@ -25,15 +25,25 @@ class FrontMatter:
         self.section = section
 
 
-def process_local_link(match) -> str:
+def local_to_jekyll(local_path: str) -> str:
+    """Returns a Jekyll path from a local path"""
+    match = re.match(r"(?P<base>.+\.md)#?(?P<anchor>.*)", local_path)
     base = match.group("base")
     anchor = match.group("anchor")
-    title = match.group("title")
+
+    # Transform absolute path to Jekyll relatives path:
+    base = base.replace("/docs/", "_docs/")
     if anchor:
-        link = f"[{title}]({{% link _docs/{base} %}}#{anchor})"
+        return f"{{% link {base} %}}#{anchor}"
     else:
-        link = f"[{title}]({{% link _docs/{base} %}})"
-    return link
+        return f"{{% link {base} %}}"
+
+
+def process_local_link(match) -> str:
+    local_link = match.group("link")
+    jekyll_link = local_to_jekyll(local_link)
+    title = match.group("title")
+    return f"[{title}]({jekyll_link})"
 
 
 def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
@@ -80,14 +90,13 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             md_escaped.add_child(whitespace_node)
             md_escaped.add_child(end_escape_node)
         elif isinstance(node, Paragraph):
-
             # Escape inline code that contains {{ }}.
             content = node.content
             content = re.sub(r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", content)
 
             # Convert local links to Jekyll link
             content = re.sub(
-                r"\[(?P<title>.+)]\((?P<base>.+\.md)#?(?P<anchor>.*)\)",
+                r"\[(?P<title>.+)]\((?P<link>.+\.md#?.*)\)",
                 process_local_link,
                 content,
             )
@@ -99,14 +108,10 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             and not node.link.startswith("http")
         ):
             # Convert local reference links to Jekyll reference link
-            ret = re.match(r"(?P<base>.+\.md)#?(?P<anchor>.*)", node.link)
-            base = ret.group("base")
-            anchor = ret.group("anchor")
-            if anchor:
-                link = f"{{% link _docs/{base} %}}#{anchor}"
-            else:
-                link = f"{{% link _docs/{base} %}}"
-            ref_link = RefLink(ref=node.ref, link=link)
+            ret = re.match(r"(.+\.md#?.*)", node.link)
+            local_link = ret.group(1)
+            jekyll_link = local_to_jekyll(local_link)
+            ref_link = RefLink(ref=node.ref, link=jekyll_link)
             md_escaped.add_child(ref_link)
         else:
             md_escaped.add_child(node)
@@ -222,6 +227,11 @@ def build():
             Path("../hurl/docs/grammar.md"),
             Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),
+        ),
+        (
+            Path("../hurl/docs/tutorial/your-first-hurl-file.md"),
+            Path("sites/hurl.dev/_docs/tutorial/your-first-hurl-file.md"),
+            FrontMatter(layout="doc", section="Tutorial"),
         ),
     ]
 
