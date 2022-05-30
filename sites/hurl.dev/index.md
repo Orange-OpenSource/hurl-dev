@@ -16,7 +16,7 @@ section: Home
 
 Hurl is a command line tool that runs <b>HTTP requests</b> defined in a simple <b>plain text format</b>.
 
-It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very 
+It can perform requests, capture values and evaluate queries on headers and body response. Hurl is very
 versatile: it can be used for both <b>fetching data</b> and <b>testing HTTP</b> sessions.
 
 {% raw %}
@@ -36,6 +36,7 @@ HTTP/1.1 302
 ```
 {% endraw %}
 
+
 Chaining multiple requests is easy:
 
 ```hurl
@@ -48,7 +49,7 @@ GET https://example.org/api/step3
 # Also an HTTP Test Tool
 
 Hurl can run HTTP requests but can also be used to <b>test HTTP responses</b>.
-Different types of queries and predicates are supported, from [XPath] and [JSONPath] on body response, 
+Different types of queries and predicates are supported, from [XPath] and [JSONPath] on body response,
 to assert on status code and response headers.
 
 It is well adapted for <b>REST / JSON apis</b>
@@ -128,9 +129,9 @@ sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 
 # Powered by curl
 
-Hurl is a lightweight binary written in [Rust]. Under the hood, Hurl HTTP engine is 
-powered by [libcurl], one of the most powerful and reliable file transfer library. 
-With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests, 
+Hurl is a lightweight binary written in [Rust]. Under the hood, Hurl HTTP engine is
+powered by [libcurl], one of the most powerful and reliable file transfer library.
+With its text file format, Hurl adds syntactic sugar to run and tests HTTP requests,
 but it's still the [curl] that we love.
 
 # Feedbacks

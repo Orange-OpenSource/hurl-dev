@@ -17,12 +17,14 @@ from markdown import (
 class FrontMatter:
     layout: str
     section: str
+    title: Optional[str]
     description: Optional[str]
 
-    def __init__(self, layout: str, section: str, description: Optional[str] = None):
+    def __init__(self, layout: str, section: str, title: Optional[str] = None, description: Optional[str] = None):
         self.layout = layout
-        self.description = description
         self.section = section
+        self.title = title
+        self.description = description
 
 
 def local_to_jekyll(local_path: str) -> str:
@@ -52,14 +54,17 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
     md_escaped = MarkdownDoc()
 
     # Extract title from source to inject it in the front matter header:
-    h1s = (f for f in md_raw.children if isinstance(f, Header) and f.level == 1)
-    h1 = next(h1s)
+    if front_matter.title:
+        title = front_matter.title
+    else:
+        h1s = (f for f in md_raw.children if isinstance(f, Header) and f.level == 1)
+        h1 = next(h1s)
+        title = h1.title
 
     # Construct front matter header:
     header = "---\n"
     header += f"layout: {front_matter.layout}\n"
-    if h1:
-        header += f"title: {h1.title}\n"
+    header += f"title: {title}\n"
     if front_matter.description:
         header += f"description: {front_matter.description}\n"
     header += f"section: {front_matter.section}\n"
@@ -144,6 +149,16 @@ class ConvertTask:
 
 def build():
     docs = [
+        (
+            Path("../hurl/docs/home.md"),
+            Path("sites/hurl.dev/index.md"),
+            FrontMatter(
+                layout="home",
+                section="Home",
+                title="Hurl - Run and Test HTTP Requests",
+                description="Hurl, run and test HTTP requests with plain text and curl. Hurl can run fast automated integration tests.",
+            ),
+        ),
         (
             Path("../hurl/docs/installation.md"),
             Path("sites/hurl.dev/_docs/installation.md"),
