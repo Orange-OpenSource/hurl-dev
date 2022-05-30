@@ -237,11 +237,20 @@ def build():
         (
             Path("../hurl/docs/tutorial/your-first-hurl-file.md"),
             Path("sites/hurl.dev/_docs/tutorial/your-first-hurl-file.md"),
-            FrontMatter(layout="doc", section="Tutorial"),
+            FrontMatter(
+                layout="doc",
+                section="Tutorial",
+                description="A tutorial to learn how to use Hurl to test REST API and HTML responses.",
+            ),
         ),
         (
             Path("../hurl/docs/tutorial/adding-asserts.md"),
             Path("sites/hurl.dev/_docs/tutorial/adding-asserts.md"),
+            FrontMatter(layout="doc", section="Tutorial"),
+        ),
+        (
+            Path("../hurl/docs/tutorial/chaining-requests.md"),
+            Path("sites/hurl.dev/_docs/tutorial/chaining-requests.md"),
             FrontMatter(layout="doc", section="Tutorial"),
         ),
     ]

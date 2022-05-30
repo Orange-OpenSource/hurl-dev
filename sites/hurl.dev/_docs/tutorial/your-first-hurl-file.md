@@ -1,6 +1,7 @@
 ---
 layout: doc
 title: Your First Hurl File
+description: A tutorial to learn how to use Hurl to test REST API and HTML responses.
 section: Tutorial
 ---
 
