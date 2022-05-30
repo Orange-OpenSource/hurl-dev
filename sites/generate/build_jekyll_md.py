@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import re
+import shutil
 from pathlib import Path
 from typing import Optional
 
@@ -36,7 +37,7 @@ class FrontMatter:
         self.indexed = indexed
 
 
-def local_to_jekyll(local_path: str) -> str:
+def canonical_to_jekyll(local_path: str) -> str:
     """Returns a Jekyll path from a local path"""
     match = re.match(r"(?P<base>.+\.md)#?(?P<anchor>.*)", local_path)
     base = match.group("base")
@@ -50,9 +51,9 @@ def local_to_jekyll(local_path: str) -> str:
         return f"{{% link {base} %}}"
 
 
-def process_local_link(match) -> str:
+def process_canonical_link(match) -> str:
     local_link = match.group("link")
-    jekyll_link = local_to_jekyll(local_link)
+    jekyll_link = canonical_to_jekyll(local_link)
     title = match.group("title")
     return f"[{title}]({jekyll_link})"
 
@@ -113,11 +114,18 @@ def convert_to_jekyll(
             # Convert local links to Jekyll link
             content = re.sub(
                 r"\[(?P<title>.+)]\((?P<link>.+\.md#?.*)\)",
-                process_local_link,
+                process_canonical_link,
                 content,
             )
 
-            # In tutorial, we force list number to be respected, because kramdown is resetting list when they're not
+            # Convert canonical image to jekyll
+            content = re.sub(
+                r'''<img (.*)src="/docs/([a-z/\-.]+)"''',
+                r'''<img \1src="{{ '/\2' | prepend:site.baseurl }}"''',
+                content,
+            )
+
+            # Optionaly force list number to be respected, because kramdown is resetting list when they're not
             # made of consecutive items.
             if force_list_numbering:
                 content = re.sub(
@@ -133,8 +141,8 @@ def convert_to_jekyll(
         ):
             # Convert local reference links to Jekyll reference link
             ret = re.match(r"(.+\.md#?.*)", node.link)
-            local_link = ret.group(1)
-            jekyll_link = local_to_jekyll(local_link)
+            canonical_link = ret.group(1)
+            jekyll_link = canonical_to_jekyll(canonical_link)
             ref_link = RefLink(ref=node.ref, link=jekyll_link)
             md_escaped.add_child(ref_link)
         else:
@@ -355,6 +363,9 @@ def build():
             force_list_numbering=force_list_numbering
         )
         task.convert()
+
+    # TODO: import assert
+    shutil.copy("../hurl/docs/assets/img/github-action-dark.png", "sites/hurl.dev/assets/img/github-action-dark.png")
 
 
 def main():
