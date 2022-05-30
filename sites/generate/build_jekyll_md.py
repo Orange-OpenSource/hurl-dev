@@ -360,12 +360,50 @@ def build():
             file_src=src,
             file_dst=dst,
             front_matter=front_matter,
-            force_list_numbering=force_list_numbering
+            force_list_numbering=force_list_numbering,
         )
         task.convert()
 
-    # TODO: import assert
-    shutil.copy("../hurl/docs/assets/img/github-action-dark.png", "sites/hurl.dev/assets/img/github-action-dark.png")
+    shutil.copy(
+        "../hurl/docs/assets/img/github-action-dark.png",
+        "sites/hurl.dev/assets/img/github-action-dark.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/github-action-light.png",
+        "sites/hurl.dev/assets/img/github-action-light.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/github-new-repository-dark.png",
+        "sites/hurl.dev/assets/img/github-new-repository-dark.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/github-new-repository-light.png",
+        "sites/hurl.dev/assets/img/github-new-repository-light.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/hurl-html-file.png",
+        "sites/hurl.dev/assets/img/hurl-html-file.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/hurl-html-report.png",
+        "sites/hurl.dev/assets/img/hurl-html-report.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/logo-dark.svg",
+        "sites/hurl.dev/assets/img/logo-dark.svg",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/logo-light.svg",
+        "sites/hurl.dev/assets/img/logo-light.svg",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/quiz-dark.png",
+        "sites/hurl.dev/assets/img/quiz-dark.png",
+    )
+    shutil.copy(
+        "../hurl/docs/assets/img/quiz-light.png",
+        "sites/hurl.dev/assets/img/quiz-light.png",
+    )
 
 
 def main():
