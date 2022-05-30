@@ -79,9 +79,8 @@ typing the url <http://localhost:8080>:
 
 Next, we’re going to write our first test.
 
-<ol start="1">
-    <li>Open a text editor and create a file named `basic.hurl`. In this file, just type the following text and save:</li>
-</ol>
+{:start="1"}
+1. Open a text editor and create a file named `basic.hurl`. In this file, just type the following text and save:</li>
 
 ```hurl
 GET http://localhost:8080
@@ -93,9 +92,8 @@ This is your first Hurl file, and probably one of the simplest. It consists of o
 > `GET` HTTP request on the endpoint <http://localhost:8080>. A request can be optionally followed by a [response
 > description], to add asserts on the HTTP response. For the moment, we don't have any response description.
 
-<ol start="2">
-    <li>In a shell, execute `hurl` with `basic.hurl` as argument:</li>
-</ol>
+{:start="2"}
+2. In a shell, execute `hurl` with `basic.hurl` as argument:</li>
 
 ```shell
 $ hurl basic.hurl
@@ -133,18 +131,16 @@ without checking the actual HTTP response.
 As this test is not sufficient to ensure that our server is alive and running, we're going to add some asserts on
 the response and, at least, check that the HTTP response status code is [`200 OK`].
 
-<ol start="3">
-    <li>Open `basic.hurl` and modify it to test the status code response:</li>
-</ol>
+{:start="3"}
+3.Open `basic.hurl` and modify it to test the status code response:</li>
 
 ```hurl
 GET http://localhost:8080
 HTTP/1.1 200
 ```
 
-<ol start="4">
-    <li>Execute `basic.hurl`:</li>
-</ol>
+{:start="4"}
+4. Execute `basic.hurl`:
 
 ```shell
 $ hurl basic.hurl
@@ -163,18 +159,17 @@ $ hurl basic.hurl
 There is no modification to the output of Hurl, the content of the HTTP request is outputted to the terminal. But, now,
 we check that our server is responding with a `200 OK`.
 
-<ol start="5">
-    <li>Modify `basic.hurl` to test a different HTTP response status code:</li>
-</ol>
+{:start="5"}
+5. Modify `basic.hurl` to test a different HTTP response status code:
 
 ```hurl
 GET http://localhost:8080
 HTTP/1.1 500
 ```
 
-<ol start="6">
-    <li>Save and execute it:</li>
-</ol>
+{:start="6"}
+6. Save and execute it:
+
 
 ```shell
 $ hurl basic.hurl
@@ -186,9 +181,9 @@ error: Assert Status
    |
 ```
 
-<ol start="7">
-    <li>Revert your changes and finally add a comment at the beginning of the file:</li>
-</ol>
+{:start="7"}
+7. Revert your changes and finally add a comment at the beginning of the file:
+
 
 ```hurl
 # Our first Hurl file, just checking

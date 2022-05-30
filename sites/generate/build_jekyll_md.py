@@ -98,6 +98,12 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
                 process_local_link,
                 content,
             )
+
+            # In tutorial, we force list number to be respected, because kramdown is resetting list when they're not
+            # made of consecutive items.
+            if "tutorial" in str(path):
+                content = re.sub(r"^(\d+)\.", r'{:start="\1"}\n\1.', content, flags=re.MULTILINE)
+
             p_node = Paragraph(content=content)
             md_escaped.add_child(p_node)
         elif (
@@ -229,6 +235,11 @@ def build():
         (
             Path("../hurl/docs/tutorial/your-first-hurl-file.md"),
             Path("sites/hurl.dev/_docs/tutorial/your-first-hurl-file.md"),
+            FrontMatter(layout="doc", section="Tutorial"),
+        ),
+        (
+            Path("../hurl/docs/tutorial/adding-asserts.md"),
+            Path("sites/hurl.dev/_docs/tutorial/adding-asserts.md"),
             FrontMatter(layout="doc", section="Tutorial"),
         ),
     ]
