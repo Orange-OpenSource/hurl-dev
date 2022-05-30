@@ -19,12 +19,21 @@ class FrontMatter:
     section: str
     title: Optional[str]
     description: Optional[str]
+    indexed: Optional[bool]
 
-    def __init__(self, layout: str, section: str, title: Optional[str] = None, description: Optional[str] = None):
+    def __init__(
+        self,
+        layout: str,
+        section: str,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        indexed: Optional[bool] = None,
+    ):
         self.layout = layout
         self.section = section
         self.title = title
         self.description = description
+        self.indexed = indexed
 
 
 def local_to_jekyll(local_path: str) -> str:
@@ -68,6 +77,8 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
     if front_matter.description:
         header += f"description: {front_matter.description}\n"
     header += f"section: {front_matter.section}\n"
+    if front_matter.indexed is not None:
+        header += f"indexed: {str(front_matter.indexed).lower()}\n"
     header += "---\n"
     header_node = Paragraph(content=header)
     whitespace_node = Whitespace(content="\n")
@@ -287,6 +298,11 @@ def build():
             Path("../hurl/docs/tutorial/ci-cd-integration.md"),
             Path("sites/hurl.dev/_docs/tutorial/ci-cd-integration.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+        ),
+        (
+            Path("../hurl/docs/index.md"),
+            Path("sites/hurl.dev/_docs/index.md"),
+            FrontMatter(layout="doc", section="Documentation", indexed=False),
         ),
     ]
 

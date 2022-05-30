@@ -1,9 +1,11 @@
 ---
 layout: doc
 title: Documentation
+section: Documentation
 indexed: false
 ---
-# {{ page.title }}
+
+# Documentation
 
 ## [Getting Started]
 
@@ -14,12 +16,12 @@ indexed: false
 ## [Resources]
 
 
+
+
+
+
+
 [Getting Started]: {% link _docs/man-page.md %}
 [File Format]: {% link _docs/hurl-file.md %}
 [Tutorial]: {% link _docs/tutorial/your-first-hurl-file.md %}
 [Resources]: {% link _docs/license.md %}
-
-
-
-
-
