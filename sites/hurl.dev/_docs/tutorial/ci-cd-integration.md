@@ -4,20 +4,20 @@ title: CI/CD Integration
 section: Tutorial
 ---
 
-# {{ page.title }}
+# CI/CD Integration
 
 Up until now, we have run our tests files locally. Now, we want to integrate
 them in a CI/CD pipeline (like [GitHub Actions] or [GitLab CI/CD pipelines]). As
-Hurl is very fast, we're going to run our tests on each commit of our project, 
+Hurl is very fast, we're going to run our tests on each commit of our project,
 drastically improving the project quality.
 
 A typical web project pipeline is:
 
-1. build the application, run units tests and static code analysis,
-2. publish the application image to a Docker registry,
-3. pull the application image and run integration tests.
+- build the application, run units tests and static code analysis,
+- publish the application image to a Docker registry,
+- pull the application image and run integration tests.
 
-In this workflow, we're testing the same image that will be used and deployed in 
+In this workflow, we're testing the same image that will be used and deployed in
 production.
 
 > For the tutorial, we are skipping build and publication phases and
@@ -30,6 +30,7 @@ script runs locally, we'll see how to run it automatically in a CI/CD pipeline.
 
 ## Integration Script
 
+{:start="1"}
 1. First, create a directory name `quiz-project`, add [`integration/basic.hurl`]
    and [`integration/create-quiz.hurl`] from the previous tutorial to the directory.
 
@@ -84,8 +85,8 @@ integration tests, we need to ensure that our application server is ready: the
 container have started, but the application server can take a few seconds to be
 really ready to accept incoming HTTP requests.
 
-To do so, we can test our health api. With a function `wait_for_url`, 
-we use Hurl to check a given url to return a `200 OK`. We loop on this function 
+To do so, we can test our health api. With a function `wait_for_url`,
+we use Hurl to check a given url to return a `200 OK`. We loop on this function
 until the check succeed. Once the test has succeeded, we stop the container.
 
 {:start="5"}
@@ -123,7 +124,7 @@ docker stop quiz
 ```
 
 We have now the simplest integration test script: it pulls a Quiz image, then starts
-the container and waits for a `200 OK` response. 
+the container and waits for a `200 OK` response.
 
 Next, we're going to add our Hurl tests to the script.
 
@@ -178,13 +179,14 @@ Stopping Quiz instance
 quiz
 ```
 
-Locally, our test suite is now fully functional. As Hurl is very fast, we can use 
-it to ensure that new developments don't have regression. Our next step is to run 
+Locally, our test suite is now fully functional. As Hurl is very fast, we can use
+it to ensure that new developments don't have regression. Our next step is to run
 the integration tests automatically in a CI/CD pipeline. As an example, we're going
 to create a [GitHub Action].
 
 ## Running Tests with GitHub Action
 
+{:start="1"}
 1. Create a new empty repository in GitHub, named `quiz-project`:
 
 <p>
@@ -194,8 +196,8 @@ to create a [GitHub Action].
 
 
 {:start="2"}
-2. On your computer, create a git repo in `quiz-project` directory and 
-commit the projects files:
+2. On your computer, create a git repo in `quiz-project` directory and
+   commit the projects files:
 
 ```shell
 $ git init
@@ -245,8 +247,8 @@ jobs:
           bin/integration.sh
 ```
 
-{:start="3"}
-3. Commit and push the new action:
+{:start="4"}
+4. Commit and push the new action:
 
 ```shell
 $ git add .github/workflows/ci.yml

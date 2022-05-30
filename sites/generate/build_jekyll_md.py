@@ -268,6 +268,11 @@ def build():
             Path("sites/hurl.dev/_docs/tutorial/security.md"),
             FrontMatter(layout="doc", section="Tutorial"),
         ),
+        (
+            Path("../hurl/docs/tutorial/ci-cd-integration.md"),
+            Path("sites/hurl.dev/_docs/tutorial/ci-cd-integration.md"),
+            FrontMatter(layout="doc", section="Tutorial"),
+        ),
     ]
 
     for (src, dst, front_matter) in docs:
