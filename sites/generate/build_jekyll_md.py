@@ -102,7 +102,9 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
             # In tutorial, we force list number to be respected, because kramdown is resetting list when they're not
             # made of consecutive items.
             if "tutorial" in str(path):
-                content = re.sub(r"^(\d+)\.", r'{:start="\1"}\n\1.', content, flags=re.MULTILINE)
+                content = re.sub(
+                    r"^(\d+)\.", r'{:start="\1"}\n\1.', content, flags=re.MULTILINE
+                )
 
             p_node = Paragraph(content=content)
             md_escaped.add_child(p_node)
