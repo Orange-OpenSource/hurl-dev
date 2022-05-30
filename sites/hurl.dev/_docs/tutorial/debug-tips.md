@@ -3,13 +3,14 @@ layout: doc
 title: Debug Tips
 section: Tutorial
 ---
-# {{ page.title }}
+
+# Debug Tips
 
 Now that we have many requests in our test file, let's review some tips to debug the executed HTTP exchanges.
 
 ## Verbose Mode
 
-We can run our test with [`-v/--verbose` option]. In this mode, each entry is displayed, with debugging 
+We can run our test with [`-v/--verbose` option]. In this mode, each entry is displayed, with debugging
 information like request HTTP headers, response HTTP headers, cookie storage, duration etc...
 
 ```shell
@@ -152,7 +153,7 @@ Date: Sun, 06 Jun 2021 15:11:31 GMT
 [{"id":"c0d80047-4fbe-4d45-a005-91b5c7018b34","created":"1995-12-17T03:24:00Z"....
 ```
 
-If you want to inspect any entry other than the last entry, you can run your test to a 
+If you want to inspect any entry other than the last entry, you can run your test to a
 given entry with the [`--to-entry` option], starting at index 1:
 
 ```shell
@@ -199,6 +200,7 @@ Finally, you can use a proxy between Hurl and your server to inspect requests an
 
 For instance, with [mitmproxy]:
 
+{:start="1"}
 1. First, launch mitmproxy, it will listen to connections on 8888 port
 
     ```shell
@@ -207,6 +209,7 @@ Web server listening at http://127.0.0.1:8889/
 Proxy server listening at http://*:8888
     ```
 
+{:start="2"}
 2. Then, run Hurl with [`-x/--proxy` option]
 
     ```shell

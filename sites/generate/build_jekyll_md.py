@@ -253,6 +253,11 @@ def build():
             Path("sites/hurl.dev/_docs/tutorial/chaining-requests.md"),
             FrontMatter(layout="doc", section="Tutorial"),
         ),
+        (
+            Path("../hurl/docs/tutorial/debug-tips.md"),
+            Path("sites/hurl.dev/_docs/tutorial/debug-tips.md"),
+            FrontMatter(layout="doc", section="Tutorial"),
+        ),
     ]
 
     for (src, dst, front_matter) in docs:
