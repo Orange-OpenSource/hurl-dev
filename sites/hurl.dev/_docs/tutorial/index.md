@@ -4,7 +4,8 @@ title: Tutorial
 section: Tutorial
 indexed: false
 ---
-# {{ page.title }}
+
+# Tutorial
 
 1. [Your First Hurl File]({% link _docs/tutorial/your-first-hurl-file.md %})
 2. [Adding Asserts]({% link _docs/tutorial/adding-asserts.md %})

@@ -57,7 +57,9 @@ def process_local_link(match) -> str:
     return f"[{title}]({jekyll_link})"
 
 
-def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
+def convert_to_jekyll(
+    path: Path, front_matter: FrontMatter, force_list_numbering: bool = False
+) -> str:
     text = path.read_text()
     md_raw = parse_markdown(text)
     md_escaped = MarkdownDoc()
@@ -117,7 +119,7 @@ def convert_to_jekyll(path: Path, front_matter: FrontMatter) -> str:
 
             # In tutorial, we force list number to be respected, because kramdown is resetting list when they're not
             # made of consecutive items.
-            if "tutorial" in str(path):
+            if force_list_numbering:
                 content = re.sub(
                     r"^(\d+)\.", r'{:start="\1"}\n\1.', content, flags=re.MULTILINE
                 )
@@ -145,16 +147,26 @@ class ConvertTask:
     file_src: Path
     file_dst: Path
     front_matter: FrontMatter
+    force_list_numbering: bool
 
     def __init__(
-        self, file_src: Path, file_dst: Path, front_matter: FrontMatter
+        self,
+        file_src: Path,
+        file_dst: Path,
+        front_matter: FrontMatter,
+        force_list_numbering: bool,
     ) -> None:
         self.file_src = file_src
         self.file_dst = file_dst
         self.front_matter = front_matter
+        self.force_list_numbering = force_list_numbering
 
     def convert(self):
-        md = convert_to_jekyll(path=self.file_src, front_matter=self.front_matter)
+        md = convert_to_jekyll(
+            path=self.file_src,
+            front_matter=self.front_matter,
+            force_list_numbering=self.force_list_numbering,
+        )
         self.file_dst.write_text(md)
 
 
@@ -169,6 +181,7 @@ def build():
                 title="Hurl - Run and Test HTTP Requests",
                 description="Hurl, run and test HTTP requests with plain text and curl. Hurl can run fast automated integration tests.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/installation.md"),
@@ -178,6 +191,7 @@ def build():
                 section="Getting Started",
                 description="How to install or build Hurl on Linux, macOS and Windows platform.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/man-page.md"),
@@ -187,6 +201,7 @@ def build():
                 section="Getting Started",
                 description="Hurl command line usage, with options descriptions.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/samples.md"),
@@ -196,6 +211,7 @@ def build():
                 section="Getting Started",
                 description="Various Hurl samples to show how to run and tests HTTP requests and responses.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/running-tests.md"),
@@ -205,46 +221,55 @@ def build():
                 section="Getting Started",
                 description="How to run multiple tests with run and generate an HTML report.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/frequently-asked-questions.md"),
             Path("sites/hurl.dev/_docs/frequently-asked-questions.md"),
             FrontMatter(layout="doc", section="Getting Started"),
+            False,
         ),
         (
             Path("../hurl/docs/grammar.md"),
             Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/hurl-file.md"),
             Path("sites/hurl.dev/_docs/hurl-file.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/entry.md"),
             Path("sites/hurl.dev/_docs/entry.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/request.md"),
             Path("sites/hurl.dev/_docs/request.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/response.md"),
             Path("sites/hurl.dev/_docs/response.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/capturing-response.md"),
             Path("sites/hurl.dev/_docs/capturing-response.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/asserting-response.md"),
             Path("sites/hurl.dev/_docs/asserting-response.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/templates.md"),
@@ -254,11 +279,13 @@ def build():
                 section="File Format",
                 description="Hurl file format variables and templating.",
             ),
+            False,
         ),
         (
             Path("../hurl/docs/grammar.md"),
             Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),
+            False,
         ),
         (
             Path("../hurl/docs/tutorial/your-first-hurl-file.md"),
@@ -268,49 +295,64 @@ def build():
                 section="Tutorial",
                 description="A tutorial to learn how to use Hurl to test REST API and HTML responses.",
             ),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/adding-asserts.md"),
             Path("sites/hurl.dev/_docs/tutorial/adding-asserts.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/chaining-requests.md"),
             Path("sites/hurl.dev/_docs/tutorial/chaining-requests.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/debug-tips.md"),
             Path("sites/hurl.dev/_docs/tutorial/debug-tips.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/captures.md"),
             Path("sites/hurl.dev/_docs/tutorial/captures.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/security.md"),
             Path("sites/hurl.dev/_docs/tutorial/security.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/tutorial/ci-cd-integration.md"),
             Path("sites/hurl.dev/_docs/tutorial/ci-cd-integration.md"),
             FrontMatter(layout="doc", section="Tutorial"),
+            True,
         ),
         (
             Path("../hurl/docs/index.md"),
             Path("sites/hurl.dev/_docs/index.md"),
             FrontMatter(layout="doc", section="Documentation", indexed=False),
+            False,
+        ),
+        (
+            Path("../hurl/docs/tutorial/index.md"),
+            Path("sites/hurl.dev/_docs/tutorial/index.md"),
+            FrontMatter(layout="doc", section="Tutorial", indexed=False),
+            False,
         ),
     ]
 
-    for (src, dst, front_matter) in docs:
+    for (src, dst, front_matter, force_list_numbering) in docs:
         task = ConvertTask(
             file_src=src,
             file_dst=dst,
             front_matter=front_matter,
+            force_list_numbering=force_list_numbering
         )
         task.convert()
 
