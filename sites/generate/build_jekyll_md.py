@@ -111,6 +111,10 @@ def convert_to_jekyll(
             content = node.content
             content = re.sub(r"(`.*\{\{.+}}.*`)", r"{% raw %}\1{% endraw %}", content)
 
+            # If paragraph content is raw html, escape if it contains Hurl template
+            if content.startswith("<div") and "{{" in content:
+                content = f"{{% raw  %}}\n{content}{{% endraw %}}"
+
             # Convert local links to Jekyll link
             content = re.sub(
                 r"\[(?P<title>.+)]\((?P<link>.+\.md#?.*)\)",
@@ -125,7 +129,7 @@ def convert_to_jekyll(
                 content,
             )
 
-            # Optionaly force list number to be respected, because kramdown is resetting list when they're not
+            # Optionally force list number to be respected, because kramdown is resetting list when they're not
             # made of consecutive items.
             if force_list_numbering:
                 content = re.sub(

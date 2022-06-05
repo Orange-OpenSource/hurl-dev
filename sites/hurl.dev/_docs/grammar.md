@@ -16,6 +16,7 @@ Short description:
 
 ## Syntax Grammar
 
+{% raw  %}
 <div class="grammar">
 <div class="rule">
   <div class="non-terminal" id="hurl-file">hurl-file&nbsp;</div>
@@ -340,6 +341,6 @@ Short description:
 <div class="rule">
   <div class="non-terminal" id="integer">integer&nbsp;</div>
   <div class="tokens">=&nbsp;<span class="definition">&lt;-?[1-9][0-9]*&gt;</span></div></div>
-
+{% endraw %}
 </div>
 
