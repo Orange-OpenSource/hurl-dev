@@ -4,7 +4,7 @@ title: License
 section: Resources
 ---
 
-# {{ page.title }}
+# License
 
 ```
 

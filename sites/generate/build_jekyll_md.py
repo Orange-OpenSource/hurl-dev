@@ -353,6 +353,12 @@ def build():
             FrontMatter(layout="doc", section="Tutorial", indexed=False),
             False,
         ),
+        (
+            Path("../hurl/docs/license.md"),
+            Path("sites/hurl.dev/_docs/license.md"),
+            FrontMatter(layout="doc", section="Resources"),
+            False,
+        ),
     ]
 
     for (src, dst, front_matter, force_list_numbering) in docs:
