@@ -8,7 +8,6 @@ __pycache__/
 .jekyll-cache/
 _site/
 # Hurl generated stuff
-sites/hurl.dev/_includes/grammar.html
 sites/hurl.dev/assets/data/index.json
 
 # Python stuf

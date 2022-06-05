@@ -6,16 +6,9 @@ rm -rfd hurl.dev/_site/*
 export CI_COMMIT_SHORT_SHA
 CI_COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)
 
-# Build the grammar html from our spec.
-echo 'Building grammar...'
-echo '-------------------'
-echo '{% raw %}' > hurl.dev/_includes/grammar.html
-python3 grammar2html.py >> hurl.dev/_includes/grammar.html
-echo '{% endraw %}' >> hurl.dev/_includes/grammar.html
-
 echo 'First pass static build...'
 echo '-------------------'
-# First pass, build static site with grammar and git commit.
+# First pass, build static site with git commit.
 jekyll build --source hurl.dev --destination hurl.dev/_site
 
 echo 'Search index build...'
