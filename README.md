@@ -2,14 +2,17 @@
 
 # Hurl Official Documentation Site
 
-The official [documentation site](https://hurl.dev) for [Hurl](https://github.com/Orange-OpenSource/hurl).
-This repo contains only the documentation, tutorials, and test suites for Hurl. If you're looking for
-Hurl source code, please check out <https://github.com/Orange-OpenSource/hurl>.
+The official [documentation site] for [Hurl].
 
+This repo contains only the documentation and tutorials for Hurl. If you're looking for
+Hurl source code, please check out <https://github.com/Orange-OpenSource/hurl>. Please note that the canonical
+sources for the documentation are on the [Hurl] repository. This repo uses this doc to build a Jekyll powered 
+documentation site, so it can be seen as a read-only view on [the canonical docs].
 
 ## Contributing
 
-Edits on documentation are done via pull request. Once a pull request is accepted, modifications are automatically published
+Edits on documentation are done via pull request in the [Hurl repository]. All docs files are under `docs/` repository,
+in Markdown. Once a pull request is accepted, modifications are automatically published
 to <https://hurl.dev> via [the publish GitHub action].
 
 ## Local build
@@ -66,4 +69,7 @@ In this mode, Hurl code snippets haven't any syntax coloring.
 [`build_sitemap.py`]: sites/build_sitemap.py
 [`deploy.sh`]: sites/deploy.sh
 [`highlight.py`]: sites/highlight.py
-
+[Hurl repository]: https://github.com/Orange-OpenSource/hurl
+[Hurl]: https://github.com/Orange-OpenSource/hurl
+[documentation site]: https://hurl.dev
+[the canonical docs]: https://github.com/Orange-OpenSource/hurl/tree/master/docs
