@@ -72,7 +72,9 @@
     - title: Running Tests
       path: /docs/running-tests.html
       items:
-        - title: Generating an HTML report
+        - title: Use --test Option
+        - title: Generating an HTML Report
+        - title: Use Variables in Tests
     - title: Frequently Asked Questions
       path: /docs/frequently-asked-questions.html
       items:

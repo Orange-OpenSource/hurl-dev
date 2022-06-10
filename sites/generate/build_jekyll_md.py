@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""Build hurl.dev Jekyll site from Hurl canonical docs.
+
+This script use Hurl canonical docs to build a Jekyll powered site.
+
+Examples:
+    $ python3 sites/generate/build_jekyll_md.py
+"""
 import re
 import shutil
 from pathlib import Path
