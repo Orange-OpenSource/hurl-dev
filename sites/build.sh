@@ -37,6 +37,7 @@ echo '-------------------'
 python3 build_sitemap.py > hurl.dev/_site/sitemap.txt
 
 
-# Run local site
-# jekyll serve --source hurl.dev --destination hurl.dev/_site
-# python3 -m http.server --dir hurl.dev/_site 4000
+echo 'Run local site'
+echo '-------------------'
+echo '    Build & watch: jekyll serve --source hurl.dev --destination hurl.dev/_site'
+echo '    Static: python3 -m http.server --dir hurl.dev/_site 4000'

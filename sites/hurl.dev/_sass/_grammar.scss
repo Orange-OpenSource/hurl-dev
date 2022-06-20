@@ -1,5 +1,7 @@
 @import "variables";
 
+
+/*
 .grammar {
   font-family: Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   margin-top: $m4;
@@ -23,4 +25,44 @@
     display: table-cell;
     width: 100%;
   }
+}
+ */
+
+.grammar-usedby {
+  color: #999;
+  font-size: 1rem;
+}
+
+.grammar-ruleset {
+  margin-bottom: 40px;
+}
+
+.grammar-rule {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.grammar-rule-id {
+  font-weight: bold;
+}
+
+.grammar-rule-expression {
+  margin-left: 20px;
+}
+
+.grammar-literal {
+  color: #009c00;
+}
+
+.grammar-regex {
+  color: darkcyan
+}
+
+.grammar-nonterminal {
+
+}
+
+.grammar-symbol {
+
 }
