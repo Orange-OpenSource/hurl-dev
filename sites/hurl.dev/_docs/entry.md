@@ -72,11 +72,51 @@ GET http://google.fr
 HTTP/1.1 200
 ```
 
+### Options
+
+[Options] specified on the command line apply to every entry in an Hurl file. For instance, with [`--location` option], 
+every entry of a given file will follow redirection:
+
+```shell
+$ hurl --location foo.hurl
+```
+
+You can use an `[Options]` section to use option only for a specified option. For instance, in this Hurl file:
+
+```hurl
+GET https://google.fr
+HTTP/* 301
+
+GET https://google.fr
+[Options]
+location: true
+HTTP/* 200
+
+GET https://google.fr
+HTTP/* 301
+```
+
+The second entry will follow location (and so we can test the status code to be 200 instead of 301).
+
+You can use it to logs a specific entry:
+
+```hurl
+# ... previous entries
+
+GET https://api.example.org
+[Options]
+very-verbose: true
+
+HTTP/* 200
+
+# ... next entries
+```
+
 [request]: {% link _docs/request.md %}
 [response]: {% link _docs/response.md %}
 [capture values]: {% link _docs/capturing-response.md %}
 [add asserts to HTTP responses]: {% link _docs/asserting-response.md %}
 [`--location`]: {% link _docs/manual.md %}#location
 [`--max-redirs`]: {% link _docs/manual.md %}#max-redirs
-[Options]: /docs/manual.html#options
-[`--location` option]: /docs/manual.html#location
+[Options]: {% link _docs/manual.md %}#options
+[`--location` option]: {% link _docs/manual.md %}#location

@@ -65,13 +65,13 @@ xpath "string(//head/title)" == "Welcome to Quiz!"
 
 ```shell
 $ hurl --test basic.hurl
-basic.hurl: RUNNING [1/1]
-basic.hurl: SUCCESS
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1mbasic.hurl[0m: [1;32mSuccess[0m (1 request(s) in 11 ms)
 --------------------------------------------------------------------------------
-Executed:  1
-Succeeded: 1 (100.0%)
-Failed:    0 (0.0%)
-Duration:  14ms
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        11 ms
 ```
 
 There is no error so everything is good!
@@ -94,16 +94,24 @@ xpath "string(//head/title)" == "Welcome to Quaz!"
 
 ```shell
 $ hurl --test basic.hurl
-error: Assert Failure
-  --> integration/basic.hurl:6:0
-   |
- 6 | xpath "string(//head/title)" == "Welcome to Quaz!"
-   |   actual:   string <Welcome to Quiz!>
-   |   expected: string <Welcome to Quaz!>
-   |
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1;31merror[0m: [1mAssert failure[0m
+  [1;34m-->[0m basic.hurl:7:0
+   [1;34m|[0m
+[1;34m 7[0m [1;34m|[0m xpath "string(//head/title)" == "Welcome to Quaz!"
+   [1;34m|[0m   [1;31mactual:   string <Welcome to Quiz!>[0m
+   [1;34m|[0m   [1;31mexpected: string <Welcome to Quaz!>[0m
+   [1;34m|[0m
+
+[1mbasic.hurl[0m: [1;31mFailure[0m (1 request(s) in 7 ms)
+--------------------------------------------------------------------------------
+Executed files:  1
+Succeeded files: 0 (0.0%)
+Failed files:    1 (100.0%)
+Duration:        6 ms
 ```
 
-Hurl has failed now and provides informations on which assert is not valid.
+Hurl has failed now and provides information on which assert is not valid.
 
 ### Typed predicate
 
@@ -156,13 +164,13 @@ xpath "string((//button)[2])" contains "Create"
 
 ```shell
 $ hurl --test basic.hurl
-basic.hurl: RUNNING [1/1]
-basic.hurl: SUCCESS
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1mbasic.hurl[0m: [1;32mSuccess[0m (1 request(s) in 11 ms)
 --------------------------------------------------------------------------------
-Executed:  1
-Succeeded: 1 (100.0%)
-Failed:    0 (0.0%)
-Duration:  14ms
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        11 ms
 ```
 
 
@@ -277,13 +285,13 @@ cookie "JSESSIONID[HttpOnly]" exists
 
 ```shell
 $ hurl --test basic.hurl
-basic.hurl: RUNNING [1/1]
-basic.hurl: SUCCESS
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1mbasic.hurl[0m: [1;32mSuccess[0m (1 request(s) in 11 ms)
 --------------------------------------------------------------------------------
-Executed:  1
-Succeeded: 1 (100.0%)
-Failed:    0 (0.0%)
-Duration:  16ms
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        11 ms
 ```
 
 ## Performance Test

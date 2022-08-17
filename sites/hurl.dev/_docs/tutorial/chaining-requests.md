@@ -79,13 +79,13 @@ description.
 
 ```shell
 $ hurl --test basic.hurl
-basic.hurl: RUNNING [1/1]
-basic.hurl: SUCCESS
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1mbasic.hurl[0m: [1;32mSuccess[0m (2 request(s) in 12 ms)
 --------------------------------------------------------------------------------
-Executed:  1
-Succeeded: 1 (100.0%)
-Failed:    0 (0.0%)
-Duration:  40ms
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        12 ms
 ```
 
 We can see that the test is still ok, now two requests are ran in chain, and each response can be
@@ -270,13 +270,13 @@ jsonpath "$[0].title" == "What is a pennyroyal?"
 
 ```shell
 $ hurl --test basic.hurl
-basic.hurl: RUNNING [1/1]
-basic.hurl: SUCCESS
+[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
+[1mbasic.hurl[0m: [1;32mSuccess[0m (4 request(s) in 24 ms)
 --------------------------------------------------------------------------------
-Executed:  1
-Succeeded: 1 (100.0%)
-Failed:    0 (0.0%)
-Duration:  33ms
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        31 ms
 ```
 
 ## Recap

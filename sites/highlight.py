@@ -109,6 +109,15 @@ def bash_to_html(snippet: str) -> str:
 def shell_to_html(snippet: str) -> str:
     escaped_snippet = escape_html(snippet)
     output = escaped_snippet.replace("$ ", '<span class="prompt">$ </span>')
+
+    # Replace ANSI escape code with HTML tag
+    output = output.replace("\x1B[1m", '<span class="bold">')
+    output = output.replace("\x1B[0m", "</span>")
+    output = output.replace("\x1B[1;31m", '<span class="bright-red">')
+    output = output.replace("\x1B[1;32m", '<span class="bright-green">')
+    output = output.replace("\x1B[1;34m", '<span class="bright-blue">')
+    output = output.replace("\x1B[1;35m", '<span class="bright-magenta">')
+    output = output.replace("\x1B[1;36m", '<span class="bright-cyan">')
     return output
 
 

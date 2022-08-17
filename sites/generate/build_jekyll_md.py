@@ -4,7 +4,7 @@
 This script use Hurl canonical docs to build a Jekyll powered site.
 
 Examples:
-    $ python3 generate/build_jekyll_md.py
+    $ python3 sites/generate/build_jekyll_md.py
 """
 import re
 import shutil

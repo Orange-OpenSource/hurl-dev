@@ -134,6 +134,28 @@ More information on asserts can be found here [https://hurl.dev/docs/asserting-r
 
 Options that exist in curl have exactly the same semantic.
 
+Options specified on the command line are defined for every Hurl file's entry.
+
+For instance:
+
+```shell
+$ hurl --location foo.hurl
+```
+
+will follow redirection for each entry in `foo.hurl`. You can also define an option only for a particular entry with an `[Options]` section. For instance, this Hurl file:
+
+```hurl
+GET https://google.com
+HTTP/* 301
+
+GET https://google.com
+[Options]
+location: true
+HTTP/* 200
+```
+
+will follow a redirection only for the second entry.
+
 Option | Description
  --- | --- 
 <a href="#cacert" id="cacert"><code>--cacert</code></a> | Specifies the certificate file for peer verification. The file may contain multiple CA certificates and must be in PEM format.<br/>Normally curl is built to use a default file for this, so this option is typically used to alter that default file.<br/>
@@ -205,5 +227,4 @@ Value | Description
 ## See Also
 
 curl(1)  hurlfmt(1)
-
 

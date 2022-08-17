@@ -499,6 +499,29 @@ file,data.bin;
 File are relative to the input Hurl file, and cannot contain implicit parent directory (`..`). You can use  
 [`--file-root` option] to specify the root directory of all file nodes.
 
+### Options
+
+Options used to execute this request. 
+
+Options such as [`--location`], [`--verbose`], [`--insecure`] can be used at the command line and applied to every 
+request of an Hurl file. An `[Options]` section can be used to apply option to only one request (without passing options 
+to the command line), while other requests are unaffected.
+
+```hurl
+GET https://example.org
+# An options section, each option is optional and applied only to this request...
+[Options]
+cacert: /etc/cert.pem   # a custom certificate file
+compressed: true        # request a compressed response
+insecure: true          # allows insecure SSL connections and transfers
+location: true          # follow redirection for this request
+max-redirs: 10          # maximum number of redirections
+verbose: true           # allow verbose output
+very-verbose: true      # allow more verbose output    
+```
+
+
+
 
 [method]: #method
 [url]: #url

@@ -21,7 +21,35 @@ pre, code {
   // A tester:
   // font-family: ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace;
   //  font-size: 0.95rem; // 16px
+
 }
+
+///* Add line numbers to Hurl snippets */
+//pre {
+//  counter-reset: line;
+//}
+//
+//.language-hurl {
+//}
+//
+//.line {
+//  counter-increment: line;
+//}
+//
+//.line:before {
+//  content: counter(line);
+//  color: lighten(#393939, 20%);
+//  display: inline-block;
+//  width: 2em;
+//  pointer-events: none;
+//  -webkit-user-select: none;
+//  -webkit-touch-callout: none;
+//  -moz-user-select: none;
+//  -ms-user-select: none;
+//  user-select: none;
+//  border-right: 1px solid lighten(#393939, 20%);
+//  margin-right: 0.5rem;
+//}
 
 .language-hurl {
   color: $body-text-light;
@@ -149,4 +177,33 @@ pre, code {
     color: $shell-prompt-light;
     color: var(--shell-prompt);
   }
+  .bold {
+    font-weight: bold;
+  }
+  .bright-cyan {
+    color: $ansi-bright-cyan-light;
+    color: var(--ansi-bright-cyan);
+    font-weight: bold;
+  }
+  .bright-green {
+    color: $ansi-bright-green-light;
+    color: var(--ansi-bright-green);
+    font-weight: bold;
+  }
+  .bright-red {
+    color: $ansi-bright-red-light;
+    color: var(--ansi-bright-red);
+    font-weight: bold;
+  }
+  .bright-blue {
+    color: $ansi-bright-blue-light;
+    color: var(--ansi-bright-blue);
+    font-weight: bold;
+  }
+  .bright-magenta {
+    color: $ansi-bright-magenta-light;
+    color: var(--ansi-bright-magenta);
+    font-weight: bold;
+  }
+
 }

@@ -384,7 +384,7 @@ footer {
 
 }
 
-.search, .blog {
+.search {
   margin: 0 auto;
   max-width: 800px;
   padding: $m2 $m2 0 $m2;
@@ -405,22 +405,6 @@ footer {
   min-height: calc(100vh - (72px + 40px + 90px));
 }
 
-.blog-content {
-  min-height: calc(100vh - (72px + 40px + 90px));
-}
-
-.blog-post-link {
-  margin-left: $m2;
-}
-
-.blog-post-date {
-  color: $medium-grey;
-  line-height: 1.25;
-  font-size: 1.2rem; /* 40px */
-  margin: $m3 0;
-  text-align: right;
-}
-
 .search-results {
   summary{
     margin-top: $m4;
@@ -436,6 +420,32 @@ footer {
 #search-input {
   font-size: 1.125rem; /* 18 px */
   min-width: 50%;
+}
+
+.blog {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: $m2 $m2 0 $m2;
+  @media only screen and (min-width: $md) {
+    margin-top: 72px;
+    padding: $m2 $m4 0 $m4;
+  }
+}
+
+.blog-content {
+  min-height: calc(100vh - (72px + 40px + 90px));
+}
+
+.blog-post-link {
+  margin-left: $m2;
+}
+
+.blog-post-date {
+  color: $medium-grey;
+  line-height: 1.25;
+  font-size: 1.2rem; /* 40px */
+  margin: $m3 0;
+  text-align: right;
 }
 
 .marked {
