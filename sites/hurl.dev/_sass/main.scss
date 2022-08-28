@@ -187,8 +187,7 @@ details summary > * {
   }
   height: calc(100vh - 69px);
   overflow-y: auto;
-  padding: $m4;
-  padding-right: $m2;
+  padding: $m3 $m2 $m4 $m4;
 
   details {
     margin: $m5 0 $m2;
@@ -346,8 +345,10 @@ footer {
 }
 
 .doc-toc {
+  position: fixed;
+  right: 0;
   font-size: 0.9rem;
-  padding: $m4 $m2 $m4 $m2;
+  padding: 30px $m2 $m4 $m2;
   color: $medium-grey;
   width: 15%;
   h3:first-child{
@@ -365,7 +366,22 @@ footer {
   }
   a, a:visited, a:focus, a:hover, a:active {
     color: $dark-grey;
+    width: 100%;
+    display: inline-block;
+    border-right-width: 4px;
+    border-right-style: solid;
+    border-right-color: $background-color-light;
+    border-right-color: var(--background-color);
   }
+
+  .visible > a {
+    color: $primary-color-light;
+    color: var(--primary-color);
+    border-right-color: $primary-color-light;
+    border-right-color: var(--primary-color);
+  }
+
+
 }
 
 .search, .blog {
