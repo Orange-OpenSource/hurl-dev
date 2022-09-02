@@ -212,8 +212,8 @@ Resulting in a PUT request with the following JSON body:
 }
 ```
 
-[`--variable` option]: {% link _docs/man-page.md %}#variable
-[`--variables-file` option]: {% link _docs/man-page.md %}#variables-file
+[`--variable` option]: {% link _docs/manual.md %}#variable
+[`--variables-file` option]: {% link _docs/manual.md %}#variables-file
 [CSRF token]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
 [JSONPath]: {% link _docs/asserting-response.md %}#jsonpath-assert
 [JSON body]: {% link _docs/request.md %}#json-body

@@ -144,7 +144,7 @@ echo "Starting Quiz instance to be ready"
 # ...
 
 echo "Running Hurl tests"
-hurl integration/*.hurl --test
+hurl --test integration/*.hurl
 
 echo "Stopping Quiz instance"
 # ...

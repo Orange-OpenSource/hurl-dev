@@ -289,4 +289,4 @@ for your applications.
 [JsonPath assert]: {% link _docs/asserting-response.md %}#jsonpath-assert
 [JsonPath query]: https://goessner.net/articles/JsonPath/
 [query parameter section]: {% link _docs/request.md %}#query-parameters
-[`--test`]: {% link _docs/man-page.md %}#test
+[`--test`]: {% link _docs/manual.md %}#test

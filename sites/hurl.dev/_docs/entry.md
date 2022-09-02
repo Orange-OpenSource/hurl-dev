@@ -76,5 +76,7 @@ HTTP/1.1 200
 [response]: {% link _docs/response.md %}
 [capture values]: {% link _docs/capturing-response.md %}
 [add asserts to HTTP responses]: {% link _docs/asserting-response.md %}
-[`--location`]: {% link _docs/man-page.md %}#location
-[`--max-redirs`]: {% link _docs/man-page.md %}#max-redirs
+[`--location`]: {% link _docs/manual.md %}#location
+[`--max-redirs`]: {% link _docs/manual.md %}#max-redirs
+[Options]: /docs/manual.html#options
+[`--location` option]: /docs/manual.html#location

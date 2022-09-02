@@ -341,7 +341,7 @@ cats_size: jsonpath "$.cats" count
 
 
 [CSRF tokens]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
-[variable values]: {% link _docs/man-page.md %}#variable
+[variable values]: {% link _docs/manual.md %}#variable
 [templates]: {% link _docs/templates.md %}
 [`Set-Cookie`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 [XPath]: https://en.wikipedia.org/wiki/XPath

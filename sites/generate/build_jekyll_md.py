@@ -192,8 +192,8 @@ class ConvertTask:
 def build():
     docs = [
         (
-            Path("../../hurl/docs/home.md"),
-            Path("../sites/hurl.dev/index.md"),
+            Path("../hurl/docs/home.md"),
+            Path("sites/hurl.dev/index.md"),
             FrontMatter(
                 layout="home",
                 section="Home",
@@ -203,8 +203,8 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/installation.md"),
-            Path("../sites/hurl.dev/_docs/installation.md"),
+            Path("../hurl/docs/installation.md"),
+            Path("sites/hurl.dev/_docs/installation.md"),
             FrontMatter(
                 layout="doc",
                 section="Getting Started",
@@ -213,8 +213,8 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/man-page.md"),
-            Path("../sites/hurl.dev/_docs/man-page.md"),
+            Path("../hurl/docs/manual.md"),
+            Path("sites/hurl.dev/_docs/manual.md"),
             FrontMatter(
                 layout="doc",
                 section="Getting Started",
@@ -223,8 +223,8 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/samples.md"),
-            Path("../sites/hurl.dev/_docs/samples.md"),
+            Path("../hurl/docs/samples.md"),
+            Path("sites/hurl.dev/_docs/samples.md"),
             FrontMatter(
                 layout="doc",
                 section="Getting Started",
@@ -233,8 +233,8 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/running-tests.md"),
-            Path("../sites/hurl.dev/_docs/running-tests.md"),
+            Path("../hurl/docs/running-tests.md"),
+            Path("sites/hurl.dev/_docs/running-tests.md"),
             FrontMatter(
                 layout="doc",
                 section="Getting Started",
@@ -243,56 +243,56 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/frequently-asked-questions.md"),
-            Path("../sites/hurl.dev/_docs/frequently-asked-questions.md"),
+            Path("../hurl/docs/frequently-asked-questions.md"),
+            Path("sites/hurl.dev/_docs/frequently-asked-questions.md"),
             FrontMatter(layout="doc", section="Getting Started"),
             False,
         ),
         (
-            Path("../../hurl/docs/grammar.md"),
-            Path("../sites/hurl.dev/_docs/grammar.md"),
+            Path("../hurl/docs/grammar.md"),
+            Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/hurl-file.md"),
-            Path("../sites/hurl.dev/_docs/hurl-file.md"),
+            Path("../hurl/docs/hurl-file.md"),
+            Path("sites/hurl.dev/_docs/hurl-file.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/entry.md"),
-            Path("../sites/hurl.dev/_docs/entry.md"),
+            Path("../hurl/docs/entry.md"),
+            Path("sites/hurl.dev/_docs/entry.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/request.md"),
-            Path("../sites/hurl.dev/_docs/request.md"),
+            Path("../hurl/docs/request.md"),
+            Path("sites/hurl.dev/_docs/request.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/response.md"),
-            Path("../sites/hurl.dev/_docs/response.md"),
+            Path("../hurl/docs/response.md"),
+            Path("sites/hurl.dev/_docs/response.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/capturing-response.md"),
-            Path("../sites/hurl.dev/_docs/capturing-response.md"),
+            Path("../hurl/docs/capturing-response.md"),
+            Path("sites/hurl.dev/_docs/capturing-response.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/asserting-response.md"),
-            Path("../sites/hurl.dev/_docs/asserting-response.md"),
+            Path("../hurl/docs/asserting-response.md"),
+            Path("sites/hurl.dev/_docs/asserting-response.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/templates.md"),
-            Path("../sites/hurl.dev/_docs/templates.md"),
+            Path("../hurl/docs/templates.md"),
+            Path("sites/hurl.dev/_docs/templates.md"),
             FrontMatter(
                 layout="doc",
                 section="File Format",
@@ -301,14 +301,14 @@ def build():
             False,
         ),
         (
-            Path("../../hurl/docs/grammar.md"),
-            Path("../sites/hurl.dev/_docs/grammar.md"),
+            Path("../hurl/docs/grammar.md"),
+            Path("sites/hurl.dev/_docs/grammar.md"),
             FrontMatter(layout="doc", section="File Format"),
             False,
         ),
         (
-            Path("../../hurl/docs/tutorial/your-first-hurl-file.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/your-first-hurl-file.md"),
+            Path("../hurl/docs/tutorial/your-first-hurl-file.md"),
+            Path("sites/hurl.dev/_docs/tutorial/your-first-hurl-file.md"),
             FrontMatter(
                 layout="doc",
                 section="Tutorial",
@@ -317,56 +317,56 @@ def build():
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/adding-asserts.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/adding-asserts.md"),
+            Path("../hurl/docs/tutorial/adding-asserts.md"),
+            Path("sites/hurl.dev/_docs/tutorial/adding-asserts.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/chaining-requests.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/chaining-requests.md"),
+            Path("../hurl/docs/tutorial/chaining-requests.md"),
+            Path("sites/hurl.dev/_docs/tutorial/chaining-requests.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/debug-tips.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/debug-tips.md"),
+            Path("../hurl/docs/tutorial/debug-tips.md"),
+            Path("sites/hurl.dev/_docs/tutorial/debug-tips.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/captures.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/captures.md"),
+            Path("../hurl/docs/tutorial/captures.md"),
+            Path("sites/hurl.dev/_docs/tutorial/captures.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/security.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/security.md"),
+            Path("../hurl/docs/tutorial/security.md"),
+            Path("sites/hurl.dev/_docs/tutorial/security.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/tutorial/ci-cd-integration.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/ci-cd-integration.md"),
+            Path("../hurl/docs/tutorial/ci-cd-integration.md"),
+            Path("sites/hurl.dev/_docs/tutorial/ci-cd-integration.md"),
             FrontMatter(layout="doc", section="Tutorial"),
             True,
         ),
         (
-            Path("../../hurl/docs/index.md"),
-            Path("../sites/hurl.dev/_docs/index.md"),
+            Path("../hurl/docs/index.md"),
+            Path("sites/hurl.dev/_docs/index.md"),
             FrontMatter(layout="doc", section="Documentation", indexed=False),
             False,
         ),
         (
-            Path("../../hurl/docs/tutorial/index.md"),
-            Path("../sites/hurl.dev/_docs/tutorial/index.md"),
+            Path("../hurl/docs/tutorial/index.md"),
+            Path("sites/hurl.dev/_docs/tutorial/index.md"),
             FrontMatter(layout="doc", section="Tutorial", indexed=False),
             False,
         ),
         (
-            Path("../../hurl/docs/license.md"),
-            Path("../sites/hurl.dev/_docs/license.md"),
+            Path("../hurl/docs/license.md"),
+            Path("sites/hurl.dev/_docs/license.md"),
             FrontMatter(layout="doc", section="Resources"),
             False,
         ),
@@ -382,44 +382,44 @@ def build():
         task.convert()
 
     shutil.copy(
-        "../../hurl/docs/assets/img/github-action-dark.png",
-        "../sites/hurl.dev/assets/img/github-action-dark.png",
+        "../hurl/docs/assets/img/github-action-dark.png",
+        "sites/hurl.dev/assets/img/github-action-dark.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/github-action-light.png",
-        "../sites/hurl.dev/assets/img/github-action-light.png",
+        "../hurl/docs/assets/img/github-action-light.png",
+        "sites/hurl.dev/assets/img/github-action-light.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/github-new-repository-dark.png",
-        "../sites/hurl.dev/assets/img/github-new-repository-dark.png",
+        "../hurl/docs/assets/img/github-new-repository-dark.png",
+        "sites/hurl.dev/assets/img/github-new-repository-dark.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/github-new-repository-light.png",
-        "../sites/hurl.dev/assets/img/github-new-repository-light.png",
+        "../hurl/docs/assets/img/github-new-repository-light.png",
+        "sites/hurl.dev/assets/img/github-new-repository-light.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/hurl-html-file.png",
-        "../sites/hurl.dev/assets/img/hurl-html-file.png",
+        "../hurl/docs/assets/img/hurl-html-file.png",
+        "sites/hurl.dev/assets/img/hurl-html-file.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/hurl-html-report.png",
-        "../sites/hurl.dev/assets/img/hurl-html-report.png",
+        "../hurl/docs/assets/img/hurl-html-report.png",
+        "sites/hurl.dev/assets/img/hurl-html-report.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/logo-dark.svg",
-        "../sites/hurl.dev/assets/img/logo-dark.svg",
+        "../hurl/docs/assets/img/logo-dark.svg",
+        "sites/hurl.dev/assets/img/logo-dark.svg",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/logo-light.svg",
-        "../sites/hurl.dev/assets/img/logo-light.svg",
+        "../hurl/docs/assets/img/logo-light.svg",
+        "sites/hurl.dev/assets/img/logo-light.svg",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/quiz-dark.png",
-        "../sites/hurl.dev/assets/img/quiz-dark.png",
+        "../hurl/docs/assets/img/quiz-dark.png",
+        "sites/hurl.dev/assets/img/quiz-dark.png",
     )
     shutil.copy(
-        "../../hurl/docs/assets/img/quiz-light.png",
-        "../sites/hurl.dev/assets/img/quiz-light.png",
+        "../hurl/docs/assets/img/quiz-light.png",
+        "sites/hurl.dev/assets/img/quiz-light.png",
     )
 
 

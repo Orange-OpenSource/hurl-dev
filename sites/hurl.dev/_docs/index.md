@@ -21,7 +21,7 @@ indexed: false
 
 
 
-[Getting Started]: {% link _docs/man-page.md %}
+[Getting Started]: {% link _docs/manual.md %}
 [File Format]: {% link _docs/hurl-file.md %}
 [Tutorial]: {% link _docs/tutorial/your-first-hurl-file.md %}
 [Resources]: {% link _docs/license.md %}

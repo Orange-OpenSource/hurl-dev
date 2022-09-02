@@ -30,8 +30,8 @@
                 - title: Arch based distributions
             - title: Build on macOS
             - title: Build on Windows
-    - title: Man Page
-      path: /docs/man-page.html
+    - title: Manual
+      path: /docs/manual.html
       items:
           - title: Name
           - title: Synopsis

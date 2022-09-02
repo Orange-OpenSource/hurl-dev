@@ -232,5 +232,5 @@ We're going to see in the next section how to improve our tests while keeping it
 [response description]: {% link _docs/response.md %}
 [`500 Internal Server Error`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
 [`200 OK`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200
-[`--test`]: {% link _docs/man-page.md %}#test
+[`--test`]: {% link _docs/manual.md %}#test
 [curl]: https://curl.se

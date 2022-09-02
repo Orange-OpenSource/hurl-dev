@@ -220,9 +220,11 @@ The web interface of mitmproxy allows you to inspect, intercept any requests run
 the returned response to Hurl.
 
 
-[`-v/--verbose` option]: {% link _docs/man-page.md %}#verbose
-[`--interactive` option]: {% link _docs/man-page.md %}#interactive
-[`-i/--include` option]: {% link _docs/man-page.md %}#include
-[`--to-entry` option]: {% link _docs/man-page.md %}#to-entry
+[`-v/--verbose` option]: {% link _docs/manual.md %}#verbose
+[`--very-verbose`]: {% link _docs/manual.md %}#very-verbose
+[`--verbose`]: {% link _docs/manual.md %}#verbose
+[`--interactive` option]: {% link _docs/manual.md %}#interactive
+[`-i/--include` option]: {% link _docs/manual.md %}#include
+[`--to-entry` option]: {% link _docs/manual.md %}#to-entry
 [mitmproxy]: https://mitmproxy.org
-[`-x/--proxy` option]: {% link _docs/man-page.md %}#proxy
+[`-x/--proxy` option]: {% link _docs/manual.md %}#proxy

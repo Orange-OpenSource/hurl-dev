@@ -515,13 +515,16 @@ File are relative to the input Hurl file, and cannot contain implicit parent dir
 [multiline string body]: #multiline-string-body
 [body section]: #body
 [multipart/form-data on MDN]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
-[`--file-root` option]: {% link _docs/man-page.md %}#file-root
+[`--file-root` option]: {% link _docs/manual.md %}#file-root
 [JSON]: https://www.json.org
 [XML]: https://en.wikipedia.org/wiki/XML
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [hexadecimal string]: #hex-body
 [included file]: #file-body
-[`--file-root` option]: {% link _docs/man-page.md %}#file-root
-[`-u/--user` option]: {% link _docs/man-page.md %}#user
+[`--file-root` option]: {% link _docs/manual.md %}#file-root
+[`-u/--user` option]: {% link _docs/manual.md %}#user
 [Hurl unicode literals \u{20}]: {% link _docs/hurl-file.md %}#special-character-in-strings
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
+[`--location`]: {% link _docs/manual.md %}#location
+[`--verbose`]: {% link _docs/manual.md %}#verbose
+[`--insecure`]: {% link _docs/manual.md %}#insecure

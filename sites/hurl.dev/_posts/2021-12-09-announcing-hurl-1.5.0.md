@@ -96,8 +96,8 @@ There are other changes and bug fixes in the Hurl 1.5.0 release: check out [the 
 And, finally, a big thanks to our contributors!
 
 [a new version of Hurl, 1.5.0]: https://github.com/Orange-OpenSource/hurl/releases/tag/1.5.0
-[`--version/-h`]: {% link _docs/man-page.md %}#version
-[`--glob` option]: {% link _docs/man-page.md %}#glob
-[`--variable`]: {% link _docs/man-page.md %}#variable
-[`--variables-file`]: {% link _docs/man-page.md %}#variables-file
+[`--version/-h`]: {% link _docs/manual.md %}#version
+[`--glob` option]: {% link _docs/manual.md %}#glob
+[`--variable`]: {% link _docs/manual.md %}#variable
+[`--variables-file`]: {% link _docs/manual.md %}#variables-file
 [the release note!]: https://github.com/Orange-OpenSource/hurl/releases/tag/1.5.0

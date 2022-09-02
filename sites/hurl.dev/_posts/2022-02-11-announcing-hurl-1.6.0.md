@@ -105,7 +105,7 @@ interactive mode
 
 next request:
 
-GET https://hurl.dev/docs/man-page.html
+GET https://hurl.dev/docs/manual.html
 
 Press Q (Quit) or C (Continue)
 ```
@@ -123,9 +123,9 @@ And, finally, a big thanks to all our contributors!
 [curl]: https://curl.se
 [a new version of Hurl, 1.6.0]: https://github.com/Orange-OpenSource/hurl/releases/tag/1.6.0
 [David Humphrey]: https://github.com/humphd
-[`-u/--user` option]: {% link _docs/man-page.md %}#user
+[`-u/--user` option]: {% link _docs/manual.md %}#user
 [the release note!]: https://github.com/Orange-OpenSource/hurl/releases/tag/1.6.0
-[interactive mode]: {% link _docs/man-page.md %}#interactive
+[interactive mode]: {% link _docs/manual.md %}#interactive
 [debug a session step by step]: {% link _docs/tutorial/debug-tips.md %}#interactive-mode
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
 [to give us a star]: https://github.com/Orange-OpenSource/hurl/stargazers
