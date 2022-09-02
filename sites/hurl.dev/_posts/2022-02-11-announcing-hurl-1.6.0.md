@@ -32,9 +32,9 @@ HTTP/1.1 302
 
 So, __what's new in 1.6.0__?
 
-## Simplify basic authentification
+## Simplify basic authentication
 
-Before 1.6.0, basic authentification could be achieved by computing and sending
+Before 1.6.0, basic authentication could be achieved by computing and sending
 an [Authorization] header:
 
 ```hurl
@@ -44,7 +44,7 @@ GET https://example.org/protected
 Authorization: Basic Ym9iOnNlY3JldA==
 ```
 
-In 1.6.0, we've introduced a basic authentification section to pass username/password
+In 1.6.0, we've introduced a basic authentication section to pass username/password
 explicitly, without base64 encoding:
 
 ```hurl
@@ -53,8 +53,8 @@ GET https://example.org/protected
 bob: secret
 ```
 
-Basic authentification allows per request authentification. If you want to add 
-basic authentification to all the request of a Hurl file you could use [`-u/--user` option].
+Basic authentication allows per request authentication. If you want to add 
+basic authentication to all the request of a Hurl file you could use [`-u/--user` option].
 
 ## Regex literal
 
@@ -83,7 +83,7 @@ jsonpath "$.name" matches /Hello [a-zA-Z]+!/
 
 The new asserts are much more readable and easier to write.
 
-Basic authentification section and regex literal has been suggested to us 
+Basic authentication section and regex literal has been suggested to us 
 by [David Humphrey] so thanks again David for your ideas!
 
 ## Interactive mode improvements
