@@ -22,13 +22,14 @@ hurl - run and test HTTP requests.
 **Hurl** is an HTTP client that performs HTTP requests defined in a simple plain text format.
 
 Hurl is very versatile. It enables chaining HTTP requests, capturing values from HTTP responses, and making assertions.
-```
+
+```shell
 $ hurl session.hurl
 ```
 
 If no input files are specified, input is read from stdin.
 
-```
+```shell
 $ echo GET http://httpbin.org/get | hurl
     {
       "args": {},
@@ -48,7 +49,7 @@ $ echo GET http://httpbin.org/get | hurl
 
 Output goes to stdout by default. To have output go to a file, use the [`-o, --output`](#output) option:
 
-```
+```shell
 $ hurl -o output input.hurl
 ```
 
@@ -56,7 +57,7 @@ By default, Hurl executes all HTTP requests and outputs the response body of the
 
 To have a test oriented output, you can use [`--test`](#test) option:
 
-```
+```shell
 $ hurl --test *.hurl
 ```
 
