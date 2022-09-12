@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+{% if page.indexed == false %}<meta name="robots" content="noindex">{% endif %}
 <title>{{ page.title }}</title>
 <link rel="stylesheet" href="{{ '/assets/css/styles.css' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}">
 <link rel="icon" type="image/png" href="{{ '/assets/img/favicon.png' | prepend:site.baseurl }}">
