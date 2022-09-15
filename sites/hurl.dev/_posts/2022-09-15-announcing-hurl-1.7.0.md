@@ -351,7 +351,7 @@ And, finally, a big thanks to all our contributors!
 [`--location`]: {% link _docs/manual.md %}#location
 [`--color`]: {% link _docs/manual.md %}#color
 [`--no-color`]: {% link _docs/manual.md %}#no-color
-[npm]: https://www.npmjs.com/package/@orangeopensource/hurl
+[available on npm]: https://www.npmjs.com/package/@orangeopensource/hurl
 [Verbose output improvement]: #verbose-output-improvement
 [Use level request options]: #use-level-request-options
 [Using Hurl in Node.js]: #using-hurl-in-nodejs
