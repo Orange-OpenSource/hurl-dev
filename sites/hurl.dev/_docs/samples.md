@@ -89,12 +89,12 @@ Authorization: Basic Ym9iOnNlY3JldA==
 ```
 
 Basic authentication allows per request authentication.
-If you want to add basic authentication to all the request of a Hurl file
+If you want to add basic authentication to all the requests of a Hurl file
 you could use [`-u/--user` option].
 
 ## Sending Data
 
-### Sending HTML Form Datas
+### Sending HTML Form Data
 
 {% raw %}
 ```hurl
@@ -110,7 +110,7 @@ number: 33611223344
 
 [Doc]({% link _docs/request.md %}#form-parameters)
 
-### Sending Multipart Form Datas
+### Sending Multipart Form Data
 
 ```hurl
 POST https://example.org/upload
@@ -221,7 +221,7 @@ header "Location" contains "www.example.net"
 [Doc]({% link _docs/asserting-response.md %}#header-assert)
 
 
-### Testing REST Apis
+### Testing REST APIs
 
 Asserting JSON body response (node values, collection count etc...) with [JSONPath]:
 
@@ -238,7 +238,7 @@ jsonpath "$.hasDevice" == false
 jsonpath "$.links" count == 12
 jsonpath "$.state" != null
 jsonpath "$.order" matches "^order-\\d{8}$"
-jsonpath "$.order" matches /^order-\d{8}$/     # Alternative syntax with regex litteral
+jsonpath "$.order" matches /^order-\d{8}$/     # Alternative syntax with regex literal
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
@@ -333,7 +333,7 @@ duration < 1000   # Check that response time is less than one second
 
 [Doc]({% link _docs/asserting-response.md %}#duration-assert)
 
-### Using SOAP Apis
+### Using SOAP APIs
 
 ```hurl
 POST https://example.org/InStock

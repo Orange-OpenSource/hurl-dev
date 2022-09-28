@@ -6,14 +6,14 @@ section: Tutorial
 
 # CI/CD Integration
 
-Up until now, we have run our tests files locally. Now, we want to integrate
+Up until now, we have run our test files locally. Now, we want to integrate
 them in a CI/CD pipeline (like [GitHub Actions] or [GitLab CI/CD pipelines]). As
 Hurl is very fast, we're going to run our tests on each commit of our project,
 drastically improving the project quality.
 
 A typical web project pipeline is:
 
-- build the application, run units tests and static code analysis,
+- build the application, run unit tests and static code analysis,
 - publish the application image to a Docker registry,
 - pull the application image and run integration tests.
 
@@ -45,7 +45,7 @@ $ vi integration/create-quiz.hurl
 
 # Import <a href="https://raw.githubusercontent.com/jcamiel/quiz/master/integration/create-quiz.hurl">create-quiz.hurl</a> here!</code></pre>
 
-Next, we are going to write a first version of our integration script that will
+Next, we are going to write the first version of our integration script that will
 just pull the Quiz image and run it:
 
 {:start="2"}
@@ -82,12 +82,12 @@ quiz
 
 Now, we have a basic script that starts our container. Before adding our
 integration tests, we need to ensure that our application server is ready: the
-container have started, but the application server can take a few seconds to be
+container has started, but the application server can take a few seconds to be
 really ready to accept incoming HTTP requests.
 
-To do so, we can test our health api. With a function `wait_for_url`,
+To do so, we can test our health API. With a function `wait_for_url`,
 we use Hurl to check a given url to return a `200 OK`. We loop on this function
-until the check succeed. Once the test has succeeded, we stop the container.
+until the check succeeds. Once the test has succeeded, we stop the container.
 
 {:start="5"}
 5. Modify `bin/integration.sh` to wait for the application to be ready:
@@ -129,7 +129,7 @@ the container and waits for a `200 OK` response.
 Next, we're going to add our Hurl tests to the script.
 
 {:start="6"}
-6. Modify `bin/integration.sh` to add integraion tests:
+6. Modify `bin/integration.sh` to add integration tests:
 
 ```bash
 #!/bin/bash
@@ -275,7 +275,7 @@ TBD
 
 ## Recap
 
-In less than half an hour, we have added a fully CI/CD pipeline to our project.
+In less than half an hour, we have added a full CI/CD pipeline to our project.
 Now, we can add more Hurl tests and start developing new features with confidence!
 
 

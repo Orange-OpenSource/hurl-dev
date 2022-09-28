@@ -28,7 +28,7 @@ cookie "JSESSIONID[HttpOnly]" exists
 ```
 
 We're only running one HTTP request and have already added lots of tests on the response. Don't hesitate to add
-many tests, the more asserts you will write, the less fragile will be your tests suite.
+many tests, the more asserts you write, the less fragile your tests suite will become.
 
 Now, we want to perform other HTTP requests and keep adding tests. In the same file, we can simply write another
 request following our first request. Let's say we want to test that we have a [404 page] on a broken link:
@@ -64,7 +64,7 @@ xpath "string(//h1)" == "Error 404, Page not Found!"
 Now, we have two entries in our Hurl file: each entry is composed of one request and one expected response
 description.
 
-> In a Hurl file, response description are optional. We could also have written
+> In a Hurl file, response descriptions are optional. We could also have written
 > our file with only requests:
 >
 > ```hurl
@@ -88,12 +88,12 @@ Failed files:    0 (0.0%)
 Duration:        12 ms
 ```
 
-We can see that the test is still ok, now two requests are ran in chain, and each response can be
+We can see that the test is still ok, now two requests are being run in sequence, and each response can be
 tested independently.
 
-## Test REST Api
+## Test REST API
 
-So far, we have tested two HTML endpoints. We're going to see now how to test a REST api.
+So far, we have tested two HTML endpoints. We're going to see now how to test a REST API.
 
 Our quiz application exposes a health REST resource, available at <http://localhost:8080/api/health>.
 Let's use Hurl to check it.
@@ -109,7 +109,7 @@ $ echo 'GET http://localhost:8080/api/health' | hurl
 > Being a classic CLI application, we can use the standard input with Hurl to provide requests
 > to be executed, instead of a file.
 
-So, our health api returns this JSON resource:
+So, our health API returns this JSON resource:
 
 ```
 {
@@ -121,10 +121,10 @@ So, our health api returns this JSON resource:
 ```
 
 We can test it with a [JsonPath assert]. JsonPath asserts have the same structure as XPath asserts: a query
-followed by a predicate. [JsonPath query] are simple expressions to inspect a JSON object.
+followed by a predicate. A [JsonPath query] is a simple expression to inspect a JSON object.
 
 {:start="2"}
-2. Modify `basic.hurl` to add a third request that asserts our </api/health> REST api:
+2. Modify `basic.hurl` to add a third request that asserts our </api/health> REST API:
 
 ```hurl
 # Checking our home page:
@@ -133,7 +133,7 @@ followed by a predicate. [JsonPath query] are simple expressions to inspect a JS
 # Check that we have a 404 response for broken links:
 # ...
 
-# Check our health api:
+# Check our health API:
 GET http://localhost:8080/api/health
 
 HTTP/1.1 200
@@ -144,14 +144,14 @@ jsonpath "$.healthy" == true
 jsonpath "$.operationId" exists
 ```
 
-Like XPath assert, JsonPath predicates values are typed. String, boolean, number and
-collections are supported. Let's practice it by using another api. In our Quiz model, a
+Like XPath assert, JsonPath predicate values are typed. String, boolean, number and
+collections are supported. Let's practice writing JsonPath asserts by using another API. In our Quiz model, a
 quiz is a set of questions, and a question resource is exposed through a
-REST api exposed et <http://localhost:8080/api/questions>. We can use it to add checks on getting questions
-through the api endpoint.
+REST API exposed at <http://localhost:8080/api/questions>. We can use it to add checks on getting questions
+through the API endpoint.
 
 {:start="3"}
-3. Add JSONPath asserts on the </api/questions> REST apis:
+3. Add JSONPath asserts on the </api/questions> REST APIs:
 
 ```hurl
 # Checking our home page:
@@ -160,10 +160,10 @@ through the api endpoint.
 # Check that we have a 404 response for broken links:
 # ...
 
-# Check our health api:
+# Check our health API:
 # ...
 
-# Check question api:
+# Check question API:
 GET http://localhost:8080/api/questions?offset=0&size=20&sort=oldest
 
 HTTP/1.1 200
@@ -178,11 +178,11 @@ jsonpath "$[0].title" == "What is a pennyroyal?"
 > in our Quiz application. That's something you don't want to do when building
 > your application, you want to build an app production ready. A better way to
 > do this should have been to expose a "debug" or "integration" mode on our app
-> positioned by environnement variables. If our app is launched in "integration" mode,
+> defined by environment variables. If our app is launched in "integration" mode,
 > mocked data is used and asserts can be tested on known values. Our app could also use
 > a mocked database, configured in our tests suits.
 
-Note that the question api use query parameters `offset`, `size` and `sort`, that's why we have written the url with
+Note that the question API use query parameters `offset`, `size` and `sort`, that's why we have written the url with
 query parameters <http://localhost:8080/api/questions?offset=0&size=20&sort=oldest>. We can set the query parameters
 in the url, or use a [query parameter section].
 
@@ -196,10 +196,10 @@ in the url, or use a [query parameter section].
 # Check that we have a 404 response for broken links:
 # ...
 
-# Check our health api:
+# Check our health API:
 # ...
 
-# Check question api:
+# Check question API:
 GET http://localhost:8080/api/questions
 [QueryStringParams]
 offset: 0
@@ -240,7 +240,7 @@ HTTP/1.1 404
 header "Content-Type" == "text/html;charset=UTF-8"
 xpath "string(//h1)" == "Error 404, Page not Found!"
 
-# Check our health api:
+# Check our health API:
 GET http://localhost:8080/api/health
 
 HTTP/1.1 200
@@ -250,7 +250,7 @@ jsonpath "$.status" == "RUNNING"
 jsonpath "$.healthy" == true
 jsonpath "$.operationId" exists
 
-# Check question api:
+# Check question API:
 GET http://localhost:8080/api/questions
 [QueryStringParams]
 offset: 0

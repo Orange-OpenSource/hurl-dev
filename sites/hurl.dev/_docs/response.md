@@ -9,7 +9,7 @@ section: File Format
 ## Definition
 
 Responses can be used to capture values to perform subsequent requests, or add asserts to HTTP responses. Response on
-requests are optional, a Hurl file can only be a sequence of [requests].
+requests are optional, a Hurl file can just consist of a sequence of [requests].
 
 A response describes the expected HTTP response, with mandatory [version and status], followed by optional [headers],
 [captures], [asserts] and [body]. Assertions in the expected HTTP response describe values of the received HTTP response.

@@ -7,12 +7,12 @@ section: Tutorial
 # Captures
 
 We have seen how to chain requests in a Hurl file. In some use cases, you want
-to use data from one request and inject it in another one. That what captures
+to use data from one request and inject it in another one. That's what captures
 are all about.
 
 ## Capturing a CSRF Token
 
-In our quiz application, user can create a quiz at <http://localhost:8080/new-quiz>.
+In our quiz application, a user can create a quiz at <http://localhost:8080/new-quiz>.
 The HTML page is a [form] where the user can input:
 
 - a required name
@@ -46,7 +46,7 @@ page of the new quiz, indicating creation success.
 
 Let's try to test it!
 
-Form values can be sent using a [Form parameters section], with each key followed by it
+Form values can be sent using a [Form parameters section], with each key followed by its
 corresponding value.
 
 {:start="1"}
@@ -65,8 +65,8 @@ question4: 0fec576c
 HTTP/1.1 302
 ```
 
-> When sending form datas with a Form parameters section, you don't need to set the
-> `Content-Type` HTTP header: Hurl enfers that the content type of the request is `application/x-www-form-urlencoded`.
+> When sending form data with a Form parameters section, you don't need to set the
+> `Content-Type` HTTP header: Hurl infers that the content type of the request is `application/x-www-form-urlencoded`.
 
 {:start="2"}
 2. Run `create-quiz.hurl`:
@@ -262,7 +262,7 @@ header "Location" matches "/quiz/detail/[a-f0-9]{8}"
 
 
 {:start="3"}
-3. Add a request to get the detail page where the user has been redirected:
+3. Add a request to get the detail page that the user has been redirected to:
 
 {% raw %}
 ```hurl
@@ -337,7 +337,7 @@ HTTP/1.1 200
 
 
 We have seen how to [capture response data] in a variable and use it in others request.
-Captures and asserts share the sames queries, and can be inter-mixed in the same response.
+Captures and asserts share the same queries, and can be inter-mixed in the same response.
 Finally, Hurl doesn't follow redirect by default, but captures can be used to run each step
 of a redirection.
 

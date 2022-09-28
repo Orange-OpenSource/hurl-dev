@@ -55,21 +55,21 @@
             - title: Basic Authentication
         - title: Sending Data
           items:
-            - title: Sending HTML Form Datas
-            - title: Sending Multipart Form Datas
+            - title: Sending HTML Form Data
+            - title: Sending Multipart Form Data
             - title: Posting a JSON Body
             - title: Templating a JSON / XML Body
         - title: Testing Response
           items:
             - title: Testing Response Headers
-            - title: Testing REST Apis
+            - title: Testing REST APIs
             - title: Testing HTML Response
             - title: Testing Set-Cookie Attributes
             - title: Testing Bytes Content
         - title: Others
           items:
             - title: Testing Endpoint Performance
-            - title: Using SOAP Apis
+            - title: Using SOAP APIs
             - title: Capturing and Using a CSRF Token
             - title: Checking Byte Order Mark (BOM) in Response Body
     - title: Running Tests

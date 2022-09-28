@@ -15,9 +15,9 @@ chain like [GitHub Action] and [GitLab CI/CD].
 The quiz application consists of:
 
 - a website that lets people create or play a series of quizzes
-- a set of REST apis to list, create and delete question and quiz
+- a set of REST APIs to list, create and delete question and quiz
 
-With Hurl, we're going to add tests for the website and the apis.
+With Hurl, we're going to add tests for the website and the APIs.
 
 ## Prerequisites
 
@@ -124,8 +124,8 @@ $ hurl basic.hurl
 ```
 
 
-As there are no response description, this basic test only checks that an HTTP server is running at
-<http://localhost:8080> and responds _something_. If the server had a problem on this endpoint, and had responded
+As there is no response description, this basic test only checks that an HTTP server is running at
+<http://localhost:8080> and responds with _something_. If the server had a problem on this endpoint, and had responded
 with a [`500 Internal Server Error`], Hurl would have just executed successfully the HTTP request,
 without checking the actual HTTP response.
 
@@ -226,7 +226,7 @@ HTTP/1.1 200
 
 That's it, this is your first Hurl file!
 
-This is really a basic test, but Hurl's file format strength is its simplicity.
+This is really a basic test, but it shows how powerful Hurl's simple file format is.
 We're going to see in the next section how to improve our tests while keeping it really simple.
 
 [GitHub Action]: https://github.com/features/actions

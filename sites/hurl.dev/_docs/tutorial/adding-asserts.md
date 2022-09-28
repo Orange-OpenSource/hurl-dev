@@ -28,7 +28,7 @@ of an HTTP request with Hurl, we have to _describe_ tests that the response cont
 To do so, we're going to use [asserts].
 
 As our endpoint <http://localhost:8080> is serving HTML content, it makes sense to use [XPath asserts].
-If we want to test a REST api or any sort of api that serves JSON content,
+If we want to test a REST API or any sort of API that serves JSON content,
 we could use [JSONPath asserts] instead. There are other type of asserts but every one shares
 the same structure. So, let's look how to write a [XPath asserts].
 
@@ -201,7 +201,7 @@ header "Content-Type" == "text/html;charset=UTF-8"
 > In this case, the `header` query will return collections and could be tested with
 > `countEqual` or `include` predicates.
 
-For HTTP headers, we can also use an [implicit header assert]. You can use indifferently implicit or
+For HTTP headers, we can also use an [implicit header assert]. You can use either implicit or
 explicit header assert: the implicit one allows you to only check the exact value of the header,
 while the explicit one allows you to use other [predicates] (like `contains`, `startsWith`, `matches` etc...).
 
@@ -258,7 +258,7 @@ it simplifies tests on cookies, particularly when there are multiple `Set-Cookie
 > has no Javascript runtime and stays close to the HTTP layer. With others tools relying on headless browser, it can be
 > difficult to access some HTTP requests attributes, like `Set-Cookie` header.
 
-So to test that our server is responding a `HttpOnly` session cookie, we can modify our file and add cookie asserts.
+So to test that our server is responding with a `HttpOnly` session cookie, we can modify our file and add cookie asserts.
 
 {:start="4"}
 4. Add two cookie asserts on the cookie `JESSIONID`:
@@ -309,7 +309,7 @@ Our Hurl file is now around 10 lines long, but we're already testing a lot on ou
 
 You can see now that launching and running requests with Hurl is fast, _really_ fast.
 
-In the next session, we're going to see how we chain request tests, and how we add basic check on a REST api.
+In the next session, we're going to see how we chain request tests, and how we add basic check on a REST API.
 
 
 [asserts]: {% link _docs/asserting-response.md %}

@@ -6,17 +6,17 @@ section: Tutorial
 
 # Debug Tips
 
-Now that we have many requests in our test file, let's review some tips to debug the executed HTTP exchanges.
+Now that we have many requests in our test file, let's review some tips on how to debug the executed HTTP exchanges.
 
 ## Verbose Mode
 
 ### Using --verbose and --very-verbose for all entries
 
-We can run our test with [`-v/--verbose` option]. In this mode, each entry is displayed, with debugging
+We can run our test with [`-v/--verbose` option]. In this mode, each entry is displayed with debugging
 information like request HTTP headers, response HTTP headers, cookie storage, duration etc...
 
 ```shell
-$ hurl --verbose --no-ouput basic.hurl
+$ hurl --verbose --no-output basic.hurl
 [1;34m*[0m [1mOptions:[0m
 [1;34m*[0m     fail fast: true
 [1;34m*[0m     insecure: false
@@ -93,14 +93,14 @@ $ hurl --verbose --no-ouput basic.hurl
 ...
 ```
 
-Lines beginning by `*` are debug info, lines that begin by `>` are HTTP request headers and lines that begin with
+Lines beginning with `*` are debug info, lines that begin with `>` are HTTP request headers and lines that begin with
 `<` are HTTP response headers.
 
 In verbose mode, HTTP request and response bodies are not displayed in the debug logs. If you need to inspect the 
 request or response body, you can display more logs with [`--very-verbose`] option:
 
 ```shell
-$ hurl --very-verbose --no-ouput basic.hurl
+$ hurl --very-verbose --no-output basic.hurl
 [1;34m*[0m [1mOptions:[0m
 [1;34m*[0m     fail fast: true
 [1;34m*[0m     insecure: false
@@ -221,7 +221,7 @@ $ hurl --very-verbose --no-ouput basic.hurl
 
 ### Debugging a specific entry
 
-If you have a lots of entry (a request / response pair) in your Hurl file, using [`--verbose`] or [`--very-verbose`]
+If you have a lot of entries (request / response pairs) in your Hurl file, using [`--verbose`] or [`--very-verbose`]
 can produce a lot of logs and can be difficult to analyse. Instead of passing options to the command line, you can
 use an `[Options]` section that will activate logs only for the specified entry:
 
@@ -232,10 +232,10 @@ use an `[Options]` section that will activate logs only for the specified entry:
 # Check that we have a 404 response for broken links:
 # ...
 
-# Check our health api:
+# Check our health API:
 # ...
 
-# Check question api:
+# Check question API:
 GET http://localhost:8080/api/questions
 # You can pass options to this entry only
 [Options]
@@ -252,7 +252,7 @@ HTTP/1.1 200
 And run it without [`--verbose`] option:
 
 ```shell
-$ hurl --no-ouput basic.hurl
+$ hurl --no-output basic.hurl
 [1;34m*[0m [1m------------------------------------------------------------------------------[0m
 [1;34m*[0m [1mExecuting entry 4[0m
 [1;34m*[0m
@@ -377,7 +377,7 @@ Date: Sun, 06 Jun 2021 15:11:31 GMT
 [{"id":"c0d80047-4fbe-4d45-a005-91b5c7018b34","created":"1995-12-17T03:24:00Z"....
 ```
 
-If you want to inspect any entry other than the last entry, you can run your test to a
+If you want to inspect any entry other than the last one, you can run your test to a
 given entry with the [`--to-entry` option], starting at index 1:
 
 ```shell

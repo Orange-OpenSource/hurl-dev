@@ -64,7 +64,7 @@ Failed files:    1 (50.0%)
 Duration:        499 ms
 ```
 
-You can use [`--glob` option] to test files that match a given patten:
+You can use [`--glob` option] to test files that match a given pattern:
 
 ```shell
 $ hurl --test --glob "test/integration/**/*.hurl"
@@ -91,7 +91,7 @@ To use variables in your tests, you can:
 - use [`--variables-file` option]
 - define environment variables, for instance `HURL_foo=bar`
 
-You will find a detail description in the [Injecting Variables] section of the doc.
+You will find a detailed description in the [Injecting Variables] section of the docs.
 
 [`--output /dev/null`]: {% link _docs/manual.md %}#output
 [`--test`]: {% link _docs/manual.md %}#test
