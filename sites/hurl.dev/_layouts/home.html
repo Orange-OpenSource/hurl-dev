@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         {% include head.html %}
+        <link rel="stylesheet" type="text/css" href="{{ '/assets/css/asciinema-player.css' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}" />
     </head>
     <body>
         <div>
@@ -24,5 +25,14 @@
             </div>
 
         </div>
+        <script src="{{ '/assets/js/asciinema-player.min.js' | prepend:site.baseurl }}"></script>
+        <script>
+            AsciinemaPlayer.create('/assets/cast/hurl.cast', document.getElementById('demo'), {
+                loop: true,
+                speed: 6,
+                theme: "asciinema",
+                poster: "npt:1:00",
+            });
+        </script>
     </body>
 </html>
