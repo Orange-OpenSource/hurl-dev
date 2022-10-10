@@ -69,6 +69,16 @@ def convert_to_jekyll(
     path: Path, front_matter: FrontMatter, force_list_numbering: bool = False
 ) -> str:
     text = path.read_text()
+
+    # Temporary: Add asciinema div to index.md
+    # The target is to have a link in the original index.md that we'll replace with this div.
+    if "It is well adapted for <b>REST / JSON APIs</b>" in text:
+        asciinema_div = '<div id="home-demo"></div>'
+        text = text.replace(
+            "It is well adapted for <b>REST / JSON APIs</b>",
+            f"{asciinema_div}\n\nIt is well adapted for <b>REST / JSON APIs</b>",
+        )
+
     md_raw = parse_markdown(text)
     md_escaped = MarkdownDoc()
 
