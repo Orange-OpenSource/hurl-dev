@@ -70,13 +70,11 @@ def convert_to_jekyll(
 ) -> str:
     text = path.read_text()
 
-    # Temporary: Add asciinema div to index.md
-    # The target is to have a link in the original index.md that we'll replace with this div.
-    if "It is well adapted for <b>REST / JSON APIs</b>" in text:
-        asciinema_div = '<div id="home-demo"></div>'
+    # Add asciinema div to index.md
+    if path == Path("../hurl/docs/home.md"):
         text = text.replace(
-            "It is well adapted for <b>REST / JSON APIs</b>",
-            f"{asciinema_div}\n\nIt is well adapted for <b>REST / JSON APIs</b>",
+            '<a href="https://hurl.dev/demo.html"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/assets/img/demo.png" width="100%" alt="Hurl Demo"/></a>',
+            '<div id="home-demo"></div>',
         )
 
     md_raw = parse_markdown(text)

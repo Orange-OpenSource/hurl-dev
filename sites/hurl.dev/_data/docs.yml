@@ -11,6 +11,9 @@
                 - title: Arch Linux / Manjaro
                 - title: NixOS / Nix
             - title: macOS
+              items:
+                - title: Homebrew
+                - title: MacPorts
             - title: Windows
               items:
                 - title: Zip File
