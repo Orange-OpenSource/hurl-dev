@@ -65,6 +65,11 @@
                     observer.observe(target);
                 }
             }
+
+            function onJumperSelectChange(url) {
+                location = url;
+            }
+
             if(!!window.IntersectionObserver) {
                 window.addEventListener("load", () => {
                     toc = buildToc();
@@ -92,6 +97,9 @@
                 <div class="doc-content" data-section="{{ page.section }}" data-indexed="{{ indexed }}">
 
                     <div class="doc-content-col">
+
+                        {% include doc-jumper.html docs=site.data.docs title=page.title %}
+
 
                         {{ content }}
 
@@ -146,51 +154,7 @@
                 </div>
 
                 <div class="doc-toc u-d-block-lg">
-                    {% for li0 in site.data.docs %}
-                    {% for li1 in li0.items %}
-                    {% if li1.title != page.title %}
-                    {% continue %}
-                    {% endif %}
-                    {% unless li1.items %}
-                    {% continue %}
-                    {% endunless %}
-                    <h3>TABLE OF CONTENTS</h3>
-                    <ul>
-                        {% for li2 in li1.items %}
-                        <li>
-                            {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | slugify }}{% endcapture %}
-
-                            <a href="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</a>
-
-                            {% unless li2.items %}
-                        </li>
-                        {% continue %}
-                        {% endunless %}
-                        <ul>
-                            {% for li3 in li2.items %}
-
-                            {% capture li3_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li3.title | remove: "'" | slugify }}{% endcapture %}
-
-                            <li><a href="{{ li3_url | prepend: site.baseurl }}">{{ li3.title }}</a>
-
-                                {% unless li3.items %}
-                            </li>       {% continue %}
-                            {% endunless %}
-
-                            <ul>
-                                {% for li4 in li3.items %}
-                                {% capture li4_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li4.title | remove: "'" | slugify }}{% endcapture %}
-                                <li><a href="{{ li4_url | prepend: site.baseurl }}">{{ li4.title }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endfor %}
-                    {% endfor %}
+                    {% include doc-toc.html docs=site.data.docs title=page.title %}
                 </div>
 
             </div>

@@ -63,7 +63,7 @@ h1 {
   margin: $m7 0 $m3;
 }
 
-h1:first-child{
+h1:first-of-type{
   margin-top: 0;
 }
 
@@ -242,7 +242,7 @@ footer {
 
 .home-logo {
   margin-top: $m4;
-  margin-bottom: $m4;
+  margin-bottom: $m8;
 }
 
 .home-content {
@@ -354,6 +354,9 @@ footer {
   padding: 30px $m2 $m4 $m2;
   color: $medium-grey;
   width: 15%;
+  max-height: calc(100% - 64px);
+  overflow-y: auto;
+
   h3:first-child{
     margin-top: 0;
   }
@@ -383,9 +386,29 @@ footer {
     border-right-color: $primary-color-light;
     border-right-color: var(--primary-color);
   }
-
-
 }
+
+.doc-jumper {
+  text-align: right;
+  select {
+    font-size: 0.8rem;
+    font-weight: bold;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $background-color-light;
+    background-color: var(--background-color);
+    border-style: solid;
+    border-width: 1px;
+    border-color: $medium-grey;
+    padding: 6px 6px 6px 12px;
+    border-radius: 6px;
+    color: $medium-grey;
+  }
+  margin-top: $m2;
+  margin-bottom: $m2;
+}
+
 
 .demo {
   margin: 0 auto;

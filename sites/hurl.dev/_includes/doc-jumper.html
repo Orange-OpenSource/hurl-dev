@@ -1,0 +1,29 @@
+{% for li0 in include.docs %}
+{% for li1 in li0.items %}
+{% if li1.title != include.title %}
+{% continue %}
+{% endif %}
+{% unless li1.items %}
+{% continue %}
+{% endunless %}
+
+<div class="doc-jumper">
+    <select onchange="onJumperSelectChange(this.value)">
+        {% for li2 in li1.items %}
+        {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | slugify }}{% endcapture %}
+        <option value="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</option>
+        {% for li3 in li2.items %}
+        {% capture li3_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li3.title | remove: "'" | slugify }}{% endcapture %}
+        <option value="{{ li3_url | prepend: site.baseurl }}">&nbsp;&nbsp;{{ li3.title }}</option>
+        {% for li4 in li3.items %}
+        {% capture li4_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li4.title | remove: "'" | slugify }}{% endcapture %}
+        <option value="{{ li4_url | prepend: site.baseurl }}">&nbsp;&nbsp;&nbsp;&nbsp;{{ li4.title }}</option>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </select>
+</div>
+
+
+{% endfor %}
+{% endfor %}
