@@ -425,6 +425,20 @@ footer {
   min-height: calc(100vh - (72px + 40px + 90px));
 }
 
+.player {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: $m2 $m2 0 $m2;
+  @media only screen and (min-width: $md) {
+    margin-top: 72px;
+    padding: $m2 $m4 0 $m4;
+  }
+}
+
+.player-content {
+  min-height: calc(100vh - (72px + 40px + 90px));
+}
+
 
 .search {
   margin: 0 auto;

@@ -73,7 +73,7 @@ def convert_to_jekyll(
     # Add asciinema div to index.md
     if path == Path("../hurl/docs/home.md"):
         text = text.replace(
-            '<a href="https://hurl.dev/demo.html"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/assets/img/demo.png" width="100%" alt="Hurl Demo"/></a>',
+            '<a href="https://hurl.dev/player.html?id=hurl&speed=3"><img src="https://raw.githubusercontent.com/Orange-OpenSource/hurl/master/docs/assets/img/poster-hurl.png" width="100%" alt="Hurl Demo"/></a>',
             '<div id="home-demo"></div>',
         )
 
