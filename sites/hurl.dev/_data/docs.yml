@@ -71,6 +71,7 @@
             - title: Testing Bytes Content
         - title: Others
           items:
+            - title: Polling and Retry
             - title: Testing Endpoint Performance
             - title: Using SOAP APIs
             - title: Capturing and Using a CSRF Token
@@ -114,9 +115,10 @@
         - title: Example
         - title: Description
           items:
+            - title: Options
             - title: Cookie storage
             - title: Redirects
-            - title: Options
+            - title: Retry
     - title: Request
       path: /docs/request.html
       items:
@@ -159,6 +161,7 @@
             - title: Query
             - title: Status capture
             - title: Header capture
+            - title: URL capture
             - title: Cookie capture
             - title: Body capture
             - title: Bytes capture
@@ -167,10 +170,10 @@
             - title: Regex capture
             - title: Variable capture
             - title: Duration capture
-            - title: Subquery
-              items:
-                - title: Regex subquery
-                - title: Count subquery
+        - title: Filters
+          items:
+            - title: Count filter
+            - title: Regex filter
     - title: Asserting Response
       path: /docs/asserting-response.html
       items:
@@ -181,6 +184,7 @@
             - title: Predicates
             - title: Status assert
             - title: Header assert
+            - title: URL assert
             - title: Cookie assert
             - title: Body assert
             - title: Bytes assert
@@ -191,6 +195,10 @@
             - title: MD5 assert
             - title: Variable assert
             - title: Duration assert
+        - title: Filters
+          items:
+            - title: Count filter
+            - title: Regex filter
         - title: Body
           items:
             - title: JSON body
@@ -223,6 +231,7 @@
             - title: Strings
             - title: JSON
             - title: Template / Expression
+            - title: Filter
             - title: Lexical Grammar
 - title: Tutorial
   items:

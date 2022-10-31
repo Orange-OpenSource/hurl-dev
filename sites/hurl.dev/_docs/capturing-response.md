@@ -59,6 +59,7 @@ Query can be of the following type:
 
 - [`status`](#status-capture)
 - [`header`](#header-capture)
+- [`url`](#url-capture)
 - [`cookie`](#cookie-capture)
 - [`body`](#body-capture)
 - [`bytes`](#bytes-capture)
@@ -96,6 +97,21 @@ password: 12345678
 HTTP/1.1 302
 [Captures]
 next_url: header "Location"
+```
+
+### URL capture
+
+Capture the last fetched URL. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section][options] or
+[`--location` option]). URL capture consists of a variable name, followed by a `:`, and the keyword `url`.
+
+```hurl
+GET https://example.org/redirecting
+[Options]
+location: true
+
+HTTP/* 200
+[Captures]
+landing_url: url
 ```
 
 ### Cookie capture
@@ -298,35 +314,20 @@ duration_in_ms: duration
 
 ```
 
-### Subquery
+## Filters
 
-Optionally, query can be refined using subqueries `regex` and `count`.
+Optionally, query can be refined using filters `count` and `regex`.
 
 <div class="schema-container u-font-size-0 u-font-size-1-sm u-font-size-3-md">
  <div class="schema">
    <span class="schema-token schema-color-1">my_var<span class="schema-label">variable</span></span>
    <span> : </span>
    <span class="schema-token schema-color-2">xpath "string(//h1)"<span class="schema-label">query</span></span>
-   <span class="schema-token">regex "(\\d+)"<span class="schema-label">subquery (optional)</span></span>
+   <span class="schema-token">regex "(\\d+)"<span class="schema-label">filter (optional)</span></span>
  </div>
 </div>
 
-#### Regex subquery
-
-```hurl
-GET https://pets.org/cats/cutest
-
-HTTP/1.0 200
-# Cat name are structured like this `meow + id`: for instance `meow123456` 
-[Captures]
-id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
-```
-
-Pattern of the regex subquery must have at least one capture group, otherwise the
-capture will fail. Metacharacters beginning with a backslash in the pattern
-(like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
-
-#### Count subquery
+### Count filter
 
 Returns the count of a collection.
 
@@ -338,6 +339,20 @@ HTTP/1.0 200
 cats_size: jsonpath "$.cats" count
 ```
 
+### Regex filter
+
+```hurl
+GET https://pets.org/cats/cutest
+
+HTTP/1.0 200
+# Cat name are structured like this `meow + id`: for instance `meow123456` 
+[Captures]
+id: jsonpath "$.cats[0].name" regex "meow(\\d+)"
+```
+
+Pattern of the regex filter must have at least one capture group, otherwise the
+capture will fail. Metacharacters beginning with a backslash in the pattern
+(like `\d`, `\s`) must be escaped: `regex "(\\d+)!"` will capture one or more digit.
 
 
 [CSRF tokens]: https://en.wikipedia.org/wiki/Cross-site_request_forgery
@@ -348,3 +363,5 @@ cats_size: jsonpath "$.cats" count
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [XPath captures]: #xpath-capture
 [Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+[options]: {% link _docs/request.md %}#options
+[`--location` option]: {% link _docs/manual.md %}#location

@@ -126,6 +126,7 @@ is shared with [captures], and can be one of :
 
 - [`status`](#status-assert)
 - [`header`](#header-assert)
+- [`url`](#url-assert)
 - [`cookie`](#cookie-assert)
 - [`body`](#body-assert)
 - [`bytes`](#bytes-assert)
@@ -301,6 +302,20 @@ Vary: User-Agent
 Vary: Content-Type
 ```
 
+### URL assert
+
+Check the last fetched URL. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section][options] or
+[`--location` option]). URL assert consists of the keyword `url` followed by a predicate function and value.
+
+```hurl
+GET https://example.org/redirecting
+[Options]
+location: true
+
+HTTP/* 200
+[Asserts]
+url == "https://example.org/redirected"
+```
 
 
 ### Cookie assert
@@ -582,6 +597,32 @@ HTTP/1.0 200
 duration < 1000   # Check that response time is less than one second
 ```
 
+## Filters
+
+Optionally, asserts can be refined using filters `count` and `regex`.
+
+### Count filter
+
+```hurl
+GET https://pets.org/cats/cutest
+
+HTTP/1.0 200
+[Asserts]
+jsonpath "$.cats" count == 12
+```
+
+### Regex filter
+
+```hurl
+GET https://pets.org/cats/cutest
+
+HTTP/1.0 200
+# Cat name are structured like this `meow + id`: for instance `meow123456` 
+[Asserts]
+jsonpath "$.cats[0].name" regex /meow(\d+)/ == "123456"
+```
+
+
 ## Body
 
 Optional assertion on the received HTTP response body. Body section can be seen
@@ -714,6 +755,7 @@ File are relative to the input Hurl file, and cannot contain implicit parent
 directory (`..`). You can use [`--file-root` option] to specify the root directory
 of all file nodes.
 
+
 [predicates]: #predicates
 [header assert]: #header-assert
 [captures]: {% link _docs/capturing-response.md %}#query
@@ -731,3 +773,5 @@ of all file nodes.
 [Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 [MD5]: https://en.wikipedia.org/wiki/MD5
 [SHA-256]: https://en.wikipedia.org/wiki/SHA-2
+[options]: {% link _docs/request.md %}#options
+[`--location` option]: {% link _docs/manual.md %}#location

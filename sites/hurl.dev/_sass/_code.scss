@@ -180,6 +180,10 @@ pre, code {
   .bold {
     font-weight: bold;
   }
+  .green {
+    color: $ansi-green-light;
+    color: var(--ansi-green);
+  }
   .bright-cyan {
     color: $ansi-bright-cyan-light;
     color: var(--ansi-bright-cyan);

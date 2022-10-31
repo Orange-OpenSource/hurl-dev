@@ -113,7 +113,7 @@ So if you want to use typed values (in asserts for instances), you can use {% ra
 If you're interested in the string representation of a variable, you can surround the variable with double quotes
 , as in {% raw %}`"{{my_var}}"`{% endraw %}.
 
-> When there is no possible ambiguities, like using a variable in an url, or
+> When there is no possible ambiguities, like using a variable in an URL, or
 > in a header, you can omit the double quotes. The value will always be rendered
 > as a string.
 

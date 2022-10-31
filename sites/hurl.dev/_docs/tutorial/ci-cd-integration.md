@@ -86,7 +86,7 @@ container has started, but the application server can take a few seconds to be
 really ready to accept incoming HTTP requests.
 
 To do so, we can test our health API. With a function `wait_for_url`,
-we use Hurl to check a given url to return a `200 OK`. We loop on this function
+we use Hurl to check a given URL to return a `200 OK`. We loop on this function
 until the check succeeds. Once the test has succeeded, we stop the container.
 
 {:start="5"}

@@ -115,6 +115,10 @@ select {
   max-width: 100%;
 }
 
+.emoji {
+  vertical-align: middle;
+  margin-top: -4px;
+}
 
 .top-nav {
   padding: $m2;

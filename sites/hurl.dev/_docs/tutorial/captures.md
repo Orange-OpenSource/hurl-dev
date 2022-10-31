@@ -201,7 +201,7 @@ What if we want to follow redirections? We can simply use captures!
 
 After having created a new quiz, we would like to test the page where the user has been redirected.
 This is really simple and can be achieved with a [header capture]: on the response to the POST creation request, we
-are going to capture the [`Location`] header, which indicates the redirection url target, and use it to
+are going to capture the [`Location`] header, which indicates the redirection URL target, and use it to
 go to the next page.
 
 {:start="1"}
@@ -231,10 +231,10 @@ detail_url: header "Location"
 
 
 Captures and asserts can be mixed in the same response spec. For example, we can check that the redirection after
-the quiz creation matches a certain url, and add a header assert with a matches predicate.
+the quiz creation matches a certain URL, and add a header assert with a matches predicate.
 
 {:start="2"}
-2. Add a header assert on the POST response to check the redirection url:
+2. Add a header assert on the POST response to check the redirection URL:
 
 {% raw %}
 ```hurl

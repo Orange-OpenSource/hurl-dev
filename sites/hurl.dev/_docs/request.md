@@ -8,7 +8,7 @@ section: File Format
 
 ## Definition
 
-Request describes an HTTP request: a mandatory [method] and [url], followed by optional [headers].
+Request describes an HTTP request: a mandatory [method] and [URL], followed by optional [headers].
 
 Then, [query parameters], [form parameters], [multipart form data], [cookies] and
 [basic authentication] can be used to configure the HTTP request.
@@ -97,7 +97,7 @@ alice: secret
 </div>
 
 
-[Headers], if present, follow directly after the [method] and [url]. This allows Hurl format to 'look like' the real HTTP format.
+[Headers], if present, follow directly after the [method] and [URL]. This allows Hurl format to 'look like' the real HTTP format.
 Contrary to HTTP headers, other parameters are defined in sections (`[Cookies]`, `[QueryStringParams]`, `[FormParams]` etc...)
 These sections are not ordered and can be mixed in any way:
 
@@ -141,12 +141,12 @@ Mandatory HTTP request method, one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `C
 
 ### URL
 
-Mandatory HTTP request url.
+Mandatory HTTP request URL.
 
-Url can contain query parameters, even if using a [query parameters section] is preferred.
+URL can contain query parameters, even if using a [query parameters section] is preferred.
 
 ```hurl
-# A request with url containing query parameters.
+# A request with URL containing query parameters.
 GET https://example.org/forum/questions/?search=Install%20Linux&order=newest
 
 # A request with query parameters section, equivalent to the first request.
@@ -156,9 +156,9 @@ search: Install Linux
 order: newest
 ```
 
-> Query parameters in query parameter section are not url encoded.
+> Query parameters in query parameter section are not URL encoded.
 
-When query parameters are present in the url and in a query parameters section, the resulting request will
+When query parameters are present in the URL and in a query parameters section, the resulting request will
 have both parameters.
 
 ### Headers
@@ -176,7 +176,7 @@ Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 ```
 
-> Headers directly follow url, without any section name, contrary to query parameters, form parameters
+> Headers directly follow URL, without any section name, contrary to query parameters, form parameters
 > or cookies
 
 Note that header usually don't start with double quotes. If the header value starts with double quotes, the double
@@ -189,15 +189,15 @@ If-Match: "e0023aa4e"
 
 `If-Match` request header will be sent will the following value `"e0023aa4e"` (started and ended with double quotes).
 
-Headers must follow directly after the [method] and [url].
+Headers must follow directly after the [method] and [URL].
 
 ### Query parameters
 
 Optional list of query parameters.
 
 A query parameter consists of a field, followed by a `:` and a value. The query parameters section starts with
-`[QueryStringParams]`. Contrary to query parameters in the url, each value in the query parameters section is not
-url encoded.
+`[QueryStringParams]`. Contrary to query parameters in the URL, each value in the query parameters section is not
+URL encoded.
 
 {% raw %}
 ```hurl
@@ -211,7 +211,7 @@ count: 100
 {% endraw %}
 
 
-If there are any parameters in the url, the resulted request will have both parameters.
+If there are any parameters in the URL, the resulted request will have both parameters.
 
 ### Form parameters
 
@@ -235,7 +235,7 @@ number: 33611223344
 
 
 Form parameters section can be seen as syntactic sugar over body section (values in form parameters section
-are not url encoded.). A [multiline string body] could be used instead of a forms parameters section.
+are not URL encoded.). A [multiline string body] could be used instead of a forms parameters section.
 
 ~~~hurl
 # Run a POST request with form parameters section:
@@ -521,10 +521,8 @@ very-verbose: true      # allow more verbose output
 ```
 
 
-
-
 [method]: #method
-[url]: #url
+[URL]: #url
 [headers]: #headers
 [Headers]: #headers
 [query parameters]: #query-parameters
@@ -546,7 +544,7 @@ very-verbose: true      # allow more verbose output
 [included file]: #file-body
 [`--file-root` option]: {% link _docs/manual.md %}#file-root
 [`-u/--user` option]: {% link _docs/manual.md %}#user
-[Hurl unicode literals \u{20}]: {% link _docs/hurl-file.md %}#special-character-in-strings
+[Hurl unicode literals \u{20}]: {% link _docs/hurl-file.md %}#special-characters-in-strings
 [Authorization]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
 [`--location`]: {% link _docs/manual.md %}#location
 [`--verbose`]: {% link _docs/manual.md %}#verbose

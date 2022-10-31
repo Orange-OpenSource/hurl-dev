@@ -34,7 +34,7 @@ Now, we want to perform other HTTP requests and keep adding tests. In the same f
 request following our first request. Let's say we want to test that we have a [404 page] on a broken link:
 
 {:start="1"}
-1. Modify `basic.hurl` to add a second request on a broken url:
+1. Modify `basic.hurl` to add a second request on a broken URL:
 
 ```hurl
 # Checking our home page:
@@ -182,9 +182,9 @@ jsonpath "$[0].title" == "What is a pennyroyal?"
 > mocked data is used and asserts can be tested on known values. Our app could also use
 > a mocked database, configured in our tests suits.
 
-Note that the question API use query parameters `offset`, `size` and `sort`, that's why we have written the url with
+Note that the question API use query parameters `offset`, `size` and `sort`, that's why we have written the URL with
 query parameters <http://localhost:8080/api/questions?offset=0&size=20&sort=oldest>. We can set the query parameters
-in the url, or use a [query parameter section].
+in the URL, or use a [query parameter section].
 
 {:start="4"}
 4. Use a query parameter section in `basic.hurl`:
