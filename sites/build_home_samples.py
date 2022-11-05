@@ -176,6 +176,7 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
             name="Text Body",
             src='''\
 POST https://example.org/models
+Content-Type: text/csv
 ```
 Year,Make,Model,Description,Price
 1997,Ford,E350,"ac, abs, moon",3000.00
