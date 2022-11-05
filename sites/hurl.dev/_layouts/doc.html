@@ -66,7 +66,7 @@
                 }
             }
 
-            function onJumperSelectChange(url) {
+            function onPickerSelectChange(url) {
                 location = url;
             }
 
@@ -98,7 +98,7 @@
 
                     <div class="doc-content-col">
 
-                        {% include doc-jumper.html docs=site.data.docs title=page.title %}
+                        {% include doc-picker.html docs=site.data.docs title=page.title %}
 
 
                         {{ content }}

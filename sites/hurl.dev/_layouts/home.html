@@ -3,6 +3,15 @@
     <head>
         {% include head.html %}
         <link rel="stylesheet" type="text/css" href="{{ '/assets/css/asciinema-player.css' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}" />
+        <script type="text/javascript">
+
+            function onSampleChange(sampleId) {
+                const divSample = document.querySelector(".home-sample");
+                const sample = document.querySelector("." + sampleId);
+                divSample.innerHTML = sample.outerHTML;
+            }
+
+        </script>
     </head>
     <body>
         <div>

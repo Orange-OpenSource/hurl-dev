@@ -7,8 +7,8 @@
 {% continue %}
 {% endunless %}
 
-<div class="doc-jumper">
-    <select onchange="onJumperSelectChange(this.value)">
+<div class="doc-picker">
+    <select onchange="onPickerSelectChange(this.value)">
         {% for li2 in li1.items %}
         {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | slugify }}{% endcapture %}
         <option value="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</option>

@@ -28,6 +28,11 @@ echo '-------------------'
 # Highlight Hurl snippet.
 python3 highlight.py
 
+echo 'Replace home samples...'
+echo '-------------------'
+python3 build_home_samples.py
+
+
 echo 'Add title anchors...'
 echo '-------------------'
 python3 build_anchors.py

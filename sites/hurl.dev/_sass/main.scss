@@ -98,6 +98,24 @@ small {
   color: $dark-grey;
 }
 
+select {
+  font-size: 0.8rem;
+  font-weight: bold;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: $background-color-light;
+  background-color: var(--background-color);
+  border-style: solid;
+  border-width: 1px;
+  border-color: $medium-grey;
+  padding: 6px 6px 6px 12px;
+  border-radius: 6px;
+  color: $medium-grey;
+  max-width: 100%;
+}
+
+
 .top-nav {
   padding: $m2;
   @media only screen and (min-width: $md) {
@@ -245,6 +263,22 @@ footer {
   margin-bottom: $m8;
 }
 
+.home-picker {
+  text-align: right;
+  margin-top: $m4;
+  margin-bottom: $m1;
+}
+
+.home-picker-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: $medium-grey;
+}
+
+.home-sample {
+  margin-bottom: $m4;
+}
+
 .home-content {
   margin-left: 0;
   padding: $m2 $m2 0 $m2;
@@ -265,7 +299,7 @@ footer {
 }
 
 .home-content-col {
-  max-width: 1200px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto
 }
@@ -388,24 +422,8 @@ footer {
   }
 }
 
-.doc-jumper {
+.doc-picker {
   text-align: right;
-  select {
-    font-size: 0.8rem;
-    font-weight: bold;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: $background-color-light;
-    background-color: var(--background-color);
-    border-style: solid;
-    border-width: 1px;
-    border-color: $medium-grey;
-    padding: 6px 6px 6px 12px;
-    border-radius: 6px;
-    color: $medium-grey;
-    max-width: 100%;
-  }
   margin-top: $m2;
   margin-bottom: $m2;
 }

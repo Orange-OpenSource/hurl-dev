@@ -42,7 +42,7 @@ def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
         dst = src
         for snippet in snippets:
             unescaped_snippet = unescape_html(snippet)
-            colored_snippet = to_html_func(unescaped_snippet)
+            colored_snippet = to_html_func(unescaped_snippet.strip())
             dst = dst.replace(
                 f'<pre><code class="language-{language}">{snippet}</code></pre>',
                 f'<pre><code class="language-{language}">{colored_snippet}</code></pre>',
@@ -75,7 +75,7 @@ def hurl_to_html(snippet: str) -> str:
             encoding="utf-8",
             stdout=subprocess.PIPE,
             # stderr=subprocess.PIPE,
-            input=snippet.strip(),
+            input=snippet,
         )
     except CalledProcessError:
         print(f"Error highlighting snippet:\n{snippet}")
