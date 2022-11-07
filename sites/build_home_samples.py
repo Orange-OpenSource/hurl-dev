@@ -156,7 +156,7 @@ POST https://example.org/api/dogs
 """,
         ),
         Sample(
-            name="SOAP/XML Body",
+            name="SOAP / XML Body",
             src="""\
 POST https://example.org/InStock
 Content-Type: application/soap+xml; charset=utf-8
@@ -295,6 +295,19 @@ GET https://example.org/data.bin
 HTTP/* 200
 [Asserts]
 bytes startsWith hex,efbbbf;
+""",
+        ),
+        Sample(
+            name="Polling / Retry",
+            src="""\
+# Pull job status until it is completed
+GET https://api.example.org/jobs/{{job_id}}
+[Options]
+retry: true
+
+HTTP/* 200
+[Asserts]
+jsonpath "$.state" == "COMPLETED"
 """,
         ),
     ]
