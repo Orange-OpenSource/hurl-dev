@@ -139,7 +139,7 @@
               items:
                 - title: JSON body
                 - title: XML body
-                - title: Raw string body
+                - title: Multiline string body
                 - title: Base64 body
                 - title: Hex body
                 - title: File body
@@ -203,7 +203,7 @@
           items:
             - title: JSON body
             - title: XML body
-            - title: Raw string body
+            - title: Multiline string body
             - title: Base64 body
             - title: File body
     - title: Templates
