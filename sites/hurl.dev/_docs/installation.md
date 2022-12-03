@@ -52,6 +52,11 @@ $ brew install hurl
 $ sudo port install hurl
 ```
 
+### FreeBSD
+
+```shell
+$ sudo pkg install hurl
+```
 
 ### Windows
 
