@@ -282,6 +282,7 @@
       items:
         - title: Integration Script
         - title: Running Tests with GitHub Action
+        - title: Running Tests with GitLab CI/CD
         - title: Tests Report
         - title: Recap
 - title: Resources
