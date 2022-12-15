@@ -10,7 +10,7 @@
 <ul>
     {% for li2 in li1.items %}
     <li>
-        {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | slugify }}{% endcapture %}
+        {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | remove: "/" | slugify }}{% endcapture %}
 
         <a href="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</a>
 
@@ -21,7 +21,7 @@
     <ul>
         {% for li3 in li2.items %}
 
-        {% capture li3_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li3.title | remove: "'" | slugify }}{% endcapture %}
+        {% capture li3_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li3.title | remove: "'" | remove: "/" | slugify }}{% endcapture %}
 
         <li><a href="{{ li3_url | prepend: site.baseurl }}">{{ li3.title }}</a>
 
@@ -31,7 +31,7 @@
 
         <ul>
             {% for li4 in li3.items %}
-            {% capture li4_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li4.title | remove: "'" | slugify }}{% endcapture %}
+            {% capture li4_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li4.title | | remove: "'" | remove: "/" | slugify }}{% endcapture %}
             <li><a href="{{ li4_url | prepend: site.baseurl }}">{{ li4.title }}</a></li>
             {% endfor %}
         </ul>
