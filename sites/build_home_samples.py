@@ -47,7 +47,7 @@ Connection: keep-alive
 GET https://example.org/api/health
 
 GET https://example.org/api/step1
-HTTP/* 200
+HTTP 200
 
 GET https://example.org/api/step2
 
@@ -115,7 +115,7 @@ GET http://localhost:8000/cookies/set-multiple-request-cookies
 user1: Bob
 user2: Bill
 user3: {{name}}
-HTTP/1.0 200
+HTTP 200
 
 
 # Or we can simply use a Cookie header
@@ -124,20 +124,21 @@ Cookie: theme=light; sessionToken=abc123
 """,
         ),
         Sample(
-            name="Capture data",
+            name="Capture Data",
             src="""\
 # Get home:
 GET https://example.org
 
-HTTP/1.1 200
+HTTP 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
 
 # Do login!
 POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 
-HTTP/1.1 302
+HTTP 302
 """,
         ),
         Sample(
@@ -170,6 +171,22 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
     </m:GetStockPrice>
   </soap:Body>
 </soap:Envelope>
+""",
+        ),
+        Sample(
+            name="GraphQL",
+            src="""\
+# GraphQL queries are supported, even with variables            
+POST https://example.org/starwars/graphql
+```graphql
+{
+  human(id: "1000") {
+    name
+    appearsIn
+    height(unit: FOOT)
+  }
+}
+```
 """,
         ),
         Sample(
@@ -207,14 +224,14 @@ file,data.bin;
 # Using implicit response asserts 
 GET https://example.org/index.html
 
-HTTP/1.0 200
+HTTP 200
 Set-Cookie: theme=light
 Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 
 # Or explicit response asserts
 GET https://example.org
 
-HTTP/1.1 302
+HTTP 302
 [Asserts]
 header "Location" contains "www.example.net"
 """,
@@ -224,24 +241,43 @@ header "Location" contains "www.example.net"
             src="""\
 # Testing 200 OK
 GET https://example.org/order/435
-HTTP/1.1 200
+HTTP 200
 
 
 # Testing status code is in a 200-300 range
 GET https://example.org/order/435
 
-HTTP/1.1 *
+HTTP *
 [Asserts]
 status >= 200
 status < 300
 """,
         ),
         Sample(
+            name="Testing HTTP Version",
+            src="""\
+# You can explicitly test HTTP version 1.0, 1.1 or 2:
+GET https://example.org/http10
+HTTP/1.0 200
+
+GET https://example.org/http11
+HTTP/1.1 200
+
+GET https://example.org/http2
+HTTP/2 200
+
+# Or simply use HTTP to not test version!
+GET https://example.org/http2
+HTTP 200
+""",
+        ),
+        Sample(
             name="Testing XPath",
             src="""\
+# XPath asserts can be used to check HTML content            
 GET https://example.org
 
-HTTP/1.1 200
+HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
 xpath "string(/html/head/title)" contains "Example" # Check title
@@ -255,9 +291,10 @@ xpath "string(//div[1])" matches /Hello.*/
         Sample(
             name="Testing JSONPath",
             src="""\
+# Testing a JSON response with JSONPath
 GET https://example.org/api/tests/4567
 
-HTTP/1.1 200
+HTTP 200
 [Asserts]
 jsonpath "$.status" == "RUNNING"    # Check the status code
 jsonpath "$.tests" count == 25      # Check the number of items
@@ -269,7 +306,7 @@ jsonpath "$.id" matches /\d{4}/     # Check the format of the id
             src="""\
 GET http://myserver.com/home
 
-HTTP/1.0 200
+HTTP 200
 [Asserts]
 cookie "JSESSIONID" == "8400BAFE2F66443613DC38AE3D9D6239"
 cookie "JSESSIONID[Value]" == "8400BAFE2F66443613DC38AE3D9D6239"
@@ -285,14 +322,14 @@ cookie "JSESSIONID[SameSite]" == "Lax"
 # Check the SHA-256 response body hash:             
 GET https://example.org/data.tar.gz
 
-HTTP/* *
+HTTP 200
 [Asserts]
 sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 
 # Checking Byte Order Mark (BOM) in Response Body
 GET https://example.org/data.bin
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 bytes startsWith hex,efbbbf;
 """,
@@ -305,7 +342,7 @@ GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: true
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
 """,

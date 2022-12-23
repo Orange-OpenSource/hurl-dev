@@ -299,6 +299,12 @@ def build():
             False,
         ),
         (
+            Path("../hurl/docs/filters.md"),
+            Path("sites/hurl.dev/_docs/filters.md"),
+            FrontMatter(layout="doc", section="File Format"),
+            False,
+        ),
+        (
             Path("../hurl/docs/templates.md"),
             Path("sites/hurl.dev/_docs/templates.md"),
             FrontMatter(

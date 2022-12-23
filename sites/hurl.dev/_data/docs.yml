@@ -62,7 +62,9 @@
             - title: Sending HTML Form Data
             - title: Sending Multipart Form Data
             - title: Posting a JSON Body
-            - title: Templating a JSON / XML Body
+            - title: Templating a JSON Body
+            - title: Templating a XML Body
+            - title: Using GraphQL Query
         - title: Testing Response
           items:
             - title: Testing Response Headers
@@ -72,6 +74,7 @@
             - title: Testing Bytes Content
         - title: Others
           items:
+            - title: HTTP Version
             - title: Polling and Retry
             - title: Testing Endpoint Performance
             - title: Using SOAP APIs
@@ -81,7 +84,10 @@
       path: /docs/running-tests.html
       items:
         - title: Use --test Option
-        - title: Generating an HTML Report
+        - title: Generating Report
+          items:
+            - title: HTML Report
+            - title: JUnit Report
         - title: Use Variables in Tests
     - title: Frequently Asked Questions
       path: /docs/frequently-asked-questions.html
@@ -140,7 +146,9 @@
               items:
                 - title: JSON body
                 - title: XML body
+                - title: GraphQL query
                 - title: Multiline string body
+                - title: Oneline string body
                 - title: Base64 body
                 - title: Hex body
                 - title: File body
@@ -171,16 +179,15 @@
             - title: Regex capture
             - title: Variable capture
             - title: Duration capture
-        - title: Filters
-          items:
-            - title: Count filter
-            - title: Regex filter
     - title: Asserting Response
       path: /docs/asserting-response.html
       items:
-        - title: Version - Status
-        - title: Headers
         - title: Asserts
+        - title: Implicit asserts
+          items:
+            - title: Version - Status
+            - title: Headers
+        - title: Explicit asserts
           items:
             - title: Predicates
             - title: Status assert
@@ -196,17 +203,31 @@
             - title: MD5 assert
             - title: Variable assert
             - title: Duration assert
-        - title: Filters
-          items:
-            - title: Count filter
-            - title: Regex filter
         - title: Body
           items:
             - title: JSON body
             - title: XML body
             - title: Multiline string body
+            - title: Oneline string body
             - title: Base64 body
             - title: File body
+    - title: Filters
+      path: /docs/filters.html
+      items:
+        - title: Definition
+        - title: Example
+        - title: Description
+          items:
+            - title: count
+            - title: htmlEscape
+            - title: htmlUnescape
+            - title: nth
+            - title: regex
+            - title: replace
+            - title: split
+            - title: toInt
+            - title: urlDecode
+            - title: urlEncode
     - title: Templates
       path: /docs/templates.html
       items:

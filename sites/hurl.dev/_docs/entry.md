@@ -19,22 +19,21 @@ to [capture values] to perform subsequent requests, or [add asserts to HTTP resp
 # First, test home title.
 GET https://acmecorp.net
 
-HTTP/1.1 200
+HTTP 200
 [Asserts]
 xpath "normalize-space(//head/title)" == "Hello world!"
 
 # Get some news, response description is optional
 GET https://acmecorp.net/news
 
-# Do a POST request without csrf token and check
+# Do a POST request without CSRF token and check
 # that status code is Forbidden 403
 POST https://acmecorp.net/contact
 [FormParams]
 default: false
 email: john.doe@rookie.org
 number: 33611223344
-
-HTTP/1.1 403
+HTTP 403
 ```
 
 ## Description
@@ -48,24 +47,24 @@ every entry of a given file will follow redirection:
 $ hurl --location foo.hurl
 ```
 
-You can use an [`[Options]` section] to use option only for a specified option. For instance, in this Hurl file:
+You can use an [`[Options]` section][options] to use option only for a specified option. For instance, in this Hurl file:
 
 ```hurl
 GET https://google.fr
-HTTP/* 301
+HTTP 301
 
 GET https://google.fr
 [Options]
 location: true
-HTTP/* 200
+HTTP 200
 
 GET https://google.fr
-HTTP/* 301
+HTTP 301
 ```
 
-The second entry will follow location (and so we can test the status code to be 200 instead of 301).
+The second entry will follow location (so we can test the status code to be 200 instead of 301).
 
-You can use it to logs a specific entry:
+You can use it to log a specific entry:
 
 ```hurl
 # ... previous entries
@@ -73,8 +72,7 @@ You can use it to logs a specific entry:
 GET https://api.example.org
 [Options]
 very-verbose: true
-
-HTTP/* 200
+HTTP 200
 
 # ... next entries
 ```
@@ -89,17 +87,15 @@ By default, Hurl doesn't follow redirection. To effectively run a redirection, e
 of the redirection, allowing insertion of asserts in each response.
 
 ```hurl
-# First entry, test the redirection (status code and
-# Location header)
+# First entry, test the redirection (status code and 'Location' header)
 GET https://google.fr
 
-HTTP/1.1 301
+HTTP 301
 Location: https://www.google.fr/
 
 # Second entry, the 200 OK response
 GET https://www.google.fr
-
-HTTP/1.1 200
+HTTP 200
 ```
 
 Alternatively, one can use [`--location`] option to force redirection
@@ -109,7 +105,7 @@ redirections can be limited with [`--max-redirs`].
 ```hurl
 # Running hurl --location google.hurl
 GET https://google.fr
-HTTP/1.1 200
+HTTP 200
 ```
 
 Finally, you can force redirection on a particular request with an [`[Options]` section][options] and the [`--location` option]:
@@ -118,7 +114,7 @@ Finally, you can force redirection on a particular request with an [`[Options]` 
 GET https://google.fr
 [Options]
 location: true
-HTTP/1.1 200
+HTTP 200
 ```
 
 ### Retry
@@ -136,7 +132,7 @@ For example, in this Hurl file, first we create a new job, then we poll the new 
 # Create a new job
 POST http://api.example.org/jobs
 
-HTTP/* 201
+HTTP 201
 [Captures]
 job_id: jsonpath "$.id"
 [Asserts]
@@ -148,7 +144,7 @@ GET http://api.example.org/jobs/{{job_id}}
 [Options]
 retry: true
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
 ```
@@ -164,7 +160,7 @@ jsonpath "$.state" == "COMPLETED"
 [`--location`]: {% link _docs/manual.md %}#location
 [`--max-redirs`]: {% link _docs/manual.md %}#max-redirs
 [Options]: {% link _docs/manual.md %}#options
-[options]: {% link _docs/manual.md %}#options
+[options]: {% link _docs/request.md %}#options
 [`--location` option]: {% link _docs/manual.md %}#location
 [headers]: {% link _docs/response.md %}#headers
 [status code]: {% link _docs/response.md %}#version-status
