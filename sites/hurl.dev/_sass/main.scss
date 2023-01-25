@@ -534,6 +534,8 @@ table {
   max-width: 100%;
   overflow: auto;
   border-collapse: collapse;
+  margin-top: $m4;
+  margin-bottom: $m4;
 }
 
 th, td {
@@ -546,11 +548,11 @@ th, td {
 th {
   background-color: $row-n0-light;
   background-color: var(--row-n0);
-  padding: $m2;
+  padding: 12px $m2;
 }
 
 td {
-  padding: $m2;
+  padding: 12px $m2;
 }
 
 table tr:nth-child(2n) {

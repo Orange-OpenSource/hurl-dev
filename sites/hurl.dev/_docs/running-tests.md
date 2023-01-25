@@ -70,17 +70,25 @@ You can use [`--glob` option] to test files that match a given pattern:
 $ hurl --test --glob "test/integration/**/*.hurl"
 ```
 
-## Generating an HTML Report
+## Generating Report
 
-Hurl can also generate an HTML report by using the [`--report-html HTML_DIR`] option.
+### HTML Report
+
+Hurl can generate an HTML report by using the [`--report-html HTML_DIR`] option.
 
 If the HTML report already exists, the test results will be appended to it.
 
-<img src="{{ '/assets/img/hurl-html-report.png' | prepend:site.baseurl }}" width="320" height="258" alt="Hurl HTML Report">
+<img src="{{ '/assets/img/hurl-html-report.png' | prepend:site.baseurl }}" style="max-width:670px;width:100%" alt="Hurl HTML Report">
 
 The input Hurl files (HTML version) are also included and are easily accessed from the main page.
 
-<img src="{{ '/assets/img/hurl-html-file.png' | prepend:site.baseurl }}"  width="380" height="206" alt="Hurl HTML file">
+<img src="{{ '/assets/img/hurl-html-file.png' | prepend:site.baseurl }}" style="max-width:380px;width:100%" alt="Hurl HTML file">
+
+### JUnit Report
+
+A JUnit report can be produced by using the [`--report-junit FILE`] option.
+
+If the JUnit file already exists, it will be updated with the new test results.
 
 
 ## Use Variables in Tests
@@ -96,6 +104,7 @@ You will find a detailed description in the [Injecting Variables] section of the
 [`--output /dev/null`]: {% link _docs/manual.md %}#output
 [`--test`]: {% link _docs/manual.md %}#test
 [`--report-html HTML_DIR`]: {% link _docs/manual.md %}#report-html
+[`--report-junit FILE`]: {% link _docs/manual.md %}#report-junit
 [`--test` option]: {% link _docs/manual.md %}#test
 [`--glob` option]: {% link _docs/manual.md %}#glob
 [`--variable` option]: {% link _docs/manual.md %}#variable

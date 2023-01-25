@@ -17,22 +17,25 @@ section: Home
 Hurl is a command line tool that runs <b>HTTP requests</b> defined in a simple <b>plain text format</b>.
 
 It can chain requests, capture values and evaluate queries on headers and body response. Hurl is very
-versatile: it can be used for <b>fetching data</b>, <b>testing HTTP</b> sessions and testing <b>XML / JSON APIs</b>.
+versatile: it can be used for both <b>fetching data</b> and <b>testing HTTP</b> sessions.
+
+Hurl makes it easy to work with <b>HTML</b> content, <b>REST / SOAP / GraphQL</b> APIs, or any other <b>XML / JSON</b> based APIs. 
 
 {% raw %}
 ```hurl
 # Get home:
 GET https://example.org
 
-HTTP/1.1 200
+HTTP 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
 
 # Do login!
 POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
 
-HTTP/1.1 302
+HTTP 302
 ```
 {% endraw %}
 
@@ -63,7 +66,7 @@ POST https://example.org/api/tests
     "evaluate": true
 }
 
-HTTP/1.1 200
+HTTP 200
 [Asserts]
 header "X-Frame-Options" == "SAMEORIGIN"
 jsonpath "$.status" == "RUNNING"    # Check the status code
@@ -76,12 +79,27 @@ jsonpath "$.id" matches /\d{4}/     # Check the format of the id
 ```hurl
 GET https://example.org
 
-HTTP/1.1 200
+HTTP 200
 [Asserts]
 xpath "normalize-space(//head/title)" == "Hello world!"
 ```
 
-and even SOAP APIs
+<b>GraphQL</b> 
+
+~~~hurl
+POST https://example.org/graphql
+```graphql
+{
+  human(id: "1000") {
+    name
+    height(unit: FOOT)
+  }
+}
+```
+HTTP 200
+~~~
+
+and even <b>SOAP APIs</b>
 
 ```hurl
 POST https://example.org/InStock
@@ -96,8 +114,7 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
     </m:GetStockPrice>
   </soap:Body>
 </soap:Envelope>
-
-HTTP/1.1 200
+HTTP 200
 ```
 
 Hurl can also be used to performance test HTTP endpoints:
@@ -105,7 +122,7 @@ Hurl can also be used to performance test HTTP endpoints:
 ```hurl
 GET https://example.org/api/v1/pets
 
-HTTP/1.0 200
+HTTP 200
 [Asserts]
 duration < 1000  # Duration in ms
 ```
@@ -115,7 +132,7 @@ And response bytes
 ```hurl
 GET https://example.org/data.tar.gz
 
-HTTP/1.0 200
+HTTP 200
 [Asserts]
 sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 ```
@@ -146,7 +163,7 @@ POST https://hurl.dev/api/feedback
   "name": "John Doe",
   "feedback": "Hurl is awesome !"
 }
-HTTP/1.1 200
+HTTP 200
 ```
 
 # Resources

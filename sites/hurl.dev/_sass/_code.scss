@@ -62,9 +62,9 @@ pre, code {
     color: $hurl-name-light;
     color: var(--hurl-name);
   }
-  .raw {
-    color: $hurl-raw-light;
-    color: var(--hurl-raw);
+  .multiline {
+    color: $hurl-string-light;
+    color: var(--hurl-string);
   }
   .number {
     color: $hurl-number-light;
@@ -122,9 +122,9 @@ pre, code {
     color: $hurl-query-type-light;
     color: var(--hurl-query-type);
   }
-  .subquery-type {
-    color: $hurl-subquery-type-light;
-    color: var(--hurl-subquery-type);
+  .filter-type {
+    color: $hurl-filter-type-light;
+    color: var(--hurl-filter-type);
   }
   .not {
     color: $hurl-not-light;
