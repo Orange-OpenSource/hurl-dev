@@ -97,7 +97,7 @@ $ cargo install hurl
 ### Docker
 
 ```shell
-$ docker pull orangeopensource/hurl
+$ docker pull ghcr.io/orange-opensource/hurl:latest
 ```
 
 ### npm
