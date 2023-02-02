@@ -127,7 +127,6 @@ def shell_to_html(snippet: str) -> str:
 
 
 def extract_snippet(language: str, text: str) -> List[str]:
-
     prefix = f'<pre><code class="language-{language}">'
     suffix = "</code></pre>"
     index = 0

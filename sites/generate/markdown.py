@@ -118,7 +118,6 @@ def parse_ref_link(parser: Parser) -> RefLink:
 
 
 def parse_markdown(text: str) -> "MarkdownDoc":
-
     processed_text = text
     parser = Parser(buffer=processed_text)
 

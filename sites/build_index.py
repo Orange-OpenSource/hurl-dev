@@ -300,7 +300,6 @@ def flatten(list_of_lists):
 
 
 def serialize(pages: List[Page], tokens: List[Token], anchors: Anchors) -> str:
-
     hits: Dict[str, List[int]] = {}
 
     pages_json = [p.to_json() for p in pages]

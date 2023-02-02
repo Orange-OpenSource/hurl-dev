@@ -26,7 +26,6 @@ class Sample:
 
 
 def make_home_samples():
-
     samples = [
         Sample(
             name="Request Headers",

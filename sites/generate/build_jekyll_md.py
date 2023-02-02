@@ -104,7 +104,6 @@ def convert_to_jekyll(
     md_escaped.add_child(whitespace_node)
 
     for node in md_raw.children:
-
         if (
             isinstance(node, Code)
             and re.match(r"(```|~~~)", node.content)  # Code block
@@ -386,7 +385,7 @@ def build():
         ),
     ]
 
-    for (src, dst, front_matter, force_list_numbering) in docs:
+    for src, dst, front_matter, force_list_numbering in docs:
         task = ConvertTask(
             file_src=src,
             file_dst=dst,
