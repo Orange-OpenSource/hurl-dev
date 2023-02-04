@@ -154,6 +154,8 @@ but it's still the [curl] that we love.
 
 # Feedbacks
 
+To support its development, [star Hurl on GitHub]!.
+
 [Feedback, suggestion, bugs or improvements] are welcome!
 
 ```hurl
@@ -189,3 +191,4 @@ HTTP 200
 [Blog]: {% link blog.md %}
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [libcurl]: https://curl.se/libcurl/
+[star Hurl on GitHub]: https://github.com/Orange-OpenSource/hurl/stargazers
