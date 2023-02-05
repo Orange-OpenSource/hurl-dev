@@ -154,7 +154,7 @@ but it's still the [curl] that we love.
 
 # Feedbacks
 
-To support its development, [star Hurl on GitHub]!.
+To support its development, [star Hurl on GitHub]!
 
 [Feedback, suggestion, bugs or improvements] are welcome.
 
