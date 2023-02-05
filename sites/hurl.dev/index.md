@@ -156,7 +156,7 @@ but it's still the [curl] that we love.
 
 To support its development, [star Hurl on GitHub]!.
 
-[Feedback, suggestion, bugs or improvements] are welcome!
+[Feedback, suggestion, bugs or improvements] are welcome.
 
 ```hurl
 POST https://hurl.dev/api/feedback
