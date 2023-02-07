@@ -15,7 +15,7 @@ Precompiled binary is available at [hurl-2.0.1-x86_64-linux.tar.gz]:
 
 ```shell
 $ INSTALL_DIR=/tmp
-$ curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/2.0.1/hurl-2.0.1-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
+$ curl -silent --location https://github.com/Orange-OpenSource/hurl/releases/download/2.0.1/hurl-2.0.1-x86_64-linux.tar.gz | tar xvz -C $INSTALL_DIR
 $ export PATH=$INSTALL_DIR/hurl-2.0.1:$PATH
 ```
 
@@ -24,7 +24,7 @@ $ export PATH=$INSTALL_DIR/hurl-2.0.1:$PATH
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
 
 ```shell
-$ curl -LO https://github.com/Orange-OpenSource/hurl/releases/download/2.0.1/hurl_2.0.1_amd64.deb
+$ curl --location --remote-name https://github.com/Orange-OpenSource/hurl/releases/download/2.0.1/hurl_2.0.1_amd64.deb
 $ sudo apt update && apt install ./hurl_2.0.1_amd64.deb
 ```
 
@@ -161,8 +161,6 @@ $ ./target/release/hurl --version
 ### Build on Windows
 
 Please follow the [contrib on Windows section].
-
-
 
 
 [GitHub]: https://github.com/Orange-OpenSource/hurl
