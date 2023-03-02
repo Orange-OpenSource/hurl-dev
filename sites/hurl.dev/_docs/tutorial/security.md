@@ -63,7 +63,7 @@ Our HTML form is:
 </form>
 ```
 
-The first input, name, has validation HTML attributes: `minlenght="4"`, `maxlenght="32"` and `required`.
+The first input, name, has validation HTML attributes: `minlength="4"`, `maxlength="32"` and `required`.
 In a browser, these attributes will prevent the user from entering invalid data like a missing value or a name that is too long. If your
 tests rely on a "headless" browser, it can stop you from testing your server-side
 validation. Client-side validation can also use JavaScript, and it can be a challenge to send invalid data to your server.
@@ -332,7 +332,7 @@ HTTP 403
 {% endraw %}
 
 
-We have seen that Hurl can be used as a security tool, to check you server-side validation.
+We have seen that Hurl can be used as a security tool, to check your server-side validation.
 Until now, we have done all our tests locally, and in the next session we are going to see how simple
 it is to integrate Hurl in a CI/CD pipeline like [GitHub Action] or [GitLab CI/CD].
 
