@@ -1,0 +1,1104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" >
+    <title>Hurl Blog</title>
+    <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
+    <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
+    <updated>2023-04-25T18:04:46+02:00</updated>
+    <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Hurl 2.0.0, the GraphQL Edition</title>
+        <link href="https://hurl.dev/blog/2023/01/25/hurl-2.0.0-the-graphql-edition.html" rel="alternate" type="text/html" title="Hurl 2.0.0, the GraphQL Edition" />
+        <published>2023-01-25T00:00:00+02:00</published>
+        <updated>2023-01-25T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2023/01/25/hurl-2.0.0-the-graphql-edition.html</id>
+        <content type="html"><![CDATA[<h1 id="hurl-200-the-graphql-edition">Hurl 2.0.0, the GraphQL Edition</h1>
+
+<div class="blog-post-date">Jan. 25, 2023</div>
+
+<p>
+    <img class="light-img u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
+    <img class="dark-img u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-dark.png" width="100%" alt="Hurl plus GraphQL equals love" />
+</p>
+
+<p>Christmas has been busy for the Hurl team! We’re happy to announce <strong>Hurl 2.0.0</strong>, with a lot of new features
+and bug fixes. If you don’t know <a href="https://hurl.dev">Hurl</a>, it’s a command line tool powered by <a href="https://curl.se">curl</a> that runs HTTP requests defined in
+a simple text format:</p>
+
+<pre><code class="language-hurl"># Create a new cat:
+POST https://example.org/api/cats
+{
+ "name": "Kitty",
+ "color": "black"
+}
+HTTP 201
+[Captures]
+cat-id: jsonpath "$.id"
+
+
+# Get our new cat:
+GET https://example.org/api/cats/{{cat-id}}
+HTTP 200
+[Asserts]
+jsonpath "$.lives" == 9
+</code></pre>
+
+<p>Hurl can be used to get data like <a href="https://curl.se">curl</a>, or as a <strong>testing tool for JSON/XML apis</strong> and HTML content.</p>
+
+<p>So, <strong>what’s new in 2.0.0</strong>?</p>
+
+<ul>
+  <li><a href="#graphql-query-support">GraphQL Query Support</a></li>
+  <li><a href="#processing-data-with-filters">Processing Data with Filters</a></li>
+  <li><a href="#various-curl-options">Various curl Options</a></li>
+  <li><a href="#minor-syntax-changes">Minor Syntax Changes</a></li>
+</ul>
+
+<h2 id="graphql-query-support">GraphQL Query Support</h2>
+
+<p>Hurl can now be used to send <a href="https://graphql.org">GraphQL</a> query request very easily. The syntax is natural and use <code>&#96;&#96;&#96;</code> body with a <code>graphql</code> hint.</p>
+
+<p>For instance, using <a href="https://docs.github.com/en/graphql">GitHub GraphQL APIs</a>, we can check the number of stars of a project:</p>
+
+<pre><code class="language-hurl">POST https://api.github.com/graphql
+Authorization: bearer {{token}}
+```graphql
+{
+  repository(owner: "Orange-OpenSource", name: "hurl") {
+    stargazerCount
+  }
+}
+```
+HTTP 200
+</code></pre>
+
+<p>And this Hurl file can be run like this:</p>
+
+<pre><code class="language-shell">$ hurl --variable token=FOO github.hurl | jq
+{
+  "data": {
+    "repository": {
+      "stargazerCount": 3578
+    }
+  }
+}
+</code></pre>
+
+<p>It’s a very <em>“Markdowny”</em> syntax which re-use existing Hurl <a href="/docs/request.html#multiline-string-body">multiline body</a>.</p>
+
+<p>GraphQL queries, of course, can use GraphQL variables:</p>
+
+<pre><code class="language-hurl">POST https://api.starwars.com/graphql
+```graphql
+query HeroNameAndFriends($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+variables {
+  "episode": "JEDI"
+}
+```
+HTTP 200
+</code></pre>
+
+<p>And, as any multiline body, GraphQL queries can be templatized with Hurl variables!</p>
+
+<pre><code class="language-hurl">POST https://api.starwars.com/graphql
+```graphql
+query HeroNameAndFriends($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+variables {
+  "episode": {{episode}}
+}
+```
+HTTP 200
+</code></pre>
+
+<p>As GraphQL APIs return JSON, we can add asserts on the HTTP response:</p>
+
+<pre><code class="language-hurl">POST https://api.starwars.com/graphql
+```graphql
+{
+  human(id: "1000") {
+    name
+    height
+  }
+}
+```
+
+HTTP 200
+[Asserts]
+jsonpath "$.data.human.name" == "Luke Skywalker"
+jsonpath "$.data.human.height" == 1.72
+</code></pre>
+
+<h2 id="processing-data-with-filters">Processing Data with Filters</h2>
+
+<p>Sometimes you want to process response body before capturing data or adding tests.</p>
+
+<p>Let’s say we have an endpoint that returns an HTTP header <code>x-servers</code> containing a joined list of servers (for instance <code>rec1.org,rec3.org</code>).
+You want to test the value of this header: number of server, value of server 1 etc... You can now use <a href="/docs/filters.html">filters</a>
+to process the response headers and add clean asserts:</p>
+
+<pre><code class="language-hurl">GET https://example.org/api
+
+HTTP 200
+[Asserts]
+header "x-servers" split "," count == 2
+header "x-servers" split "," nth 0 == "rec1.org"
+header "x-servers" split "," nth 1 == "rec3.org"
+jsonpath "$.books" count == 12
+</code></pre>
+
+<p>In this sample, <code>header "x-servers"</code> extracts the HTTP header from the response. Then, we have a chain of two filters
+<code>split "," nth 0</code>. The first filter <code>split</code> turns the header to a list, and the second filter, <code>nth</code>, returns an element of the list.
+Then we have our final test with <code>== "rec1.org"</code>.</p>
+
+<div class="schema-container schema-container u-font-size-1 u-font-size-3-md">
+ <div class="schema">
+    <span class="schema-token schema-color-2">header "x-servers"<span class="schema-label">query</span></span>
+    <span class="schema-token schema-color-1">split "," nth 0<span class="schema-label">2 filters</span></span>
+    <span class="schema-token schema-color-3">== "rec1.org"<span class="schema-label">predicate</span></span>
+ </div>
+</div>
+
+<p>Filters can also be applied on captures:</p>
+
+<pre><code class="language-hurl">GET https://example.org/api
+
+HTTP 200
+[Captures]
+name: jsonpath "$user.id" replace /\d/ "x" # Make our user anonymous
+</code></pre>
+
+<p>Let’s take a final example, with a live existing service that
+returns a CSV of stock exchanges <a href="https://csvbase.com/meripaterson/stock-exchanges">https://csvbase.com/meripaterson/stock-exchanges</a></p>
+
+<p>First, we split our response body by lines and save it in a variable <code>lines</code>.</p>
+
+<pre><code class="language-hurl">GET https://csvbase.com/meripaterson/stock-exchanges
+
+HTTP 200
+[Captures]
+rows: body split "\n"
+</code></pre>
+
+<p>Then, we create two other variables <code>australia</code> and <code>algeria</code> that are row 7 and 18.</p>
+
+<pre><code class="language-hurl">GET https://csvbase.com/meripaterson/stock-exchanges
+
+HTTP 200
+[Captures]
+rows: body split "\n"
+australia: variable "rows" nth 7 split ","
+algeria: variable "rows" nth 18 split ","
+</code></pre>
+
+<p>Now that we have our row 7 and 18, we can add assert on specifics columns:</p>
+
+<pre><code class="language-hurl">GET https://csvbase.com/meripaterson/stock-exchanges
+
+HTTP 200
+[Captures]
+lines: body split "\n"
+australia: variable "lines" nth 7 split ","
+algeria: variable "lines" nth 18 split ","
+[Asserts]
+variable "australia" nth 1 == "Australia &amp; Oceania"
+variable "australia" nth 2 == "Australia"
+variable "algeria" nth 1 == "Africa"
+variable "algeria" nth 2 == "Algeria"
+</code></pre>
+
+<p>Et voilà <img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" />!</p>
+
+<p>Filters can be used to transform the HTTP response data easily. We have included a <a href="/docs/filters.html#description">first round of filters</a> <code>count</code>,
+<code>htmlEscape</code>, <code>htmlUnescape</code>, <code>nth</code>, <code>regex</code>, <code>replace</code>, <code>split</code>, <code>toInt</code>, <code>urlDecode</code> and <code>urlEncode</code>. Don’t hesitate to give us some
+feedbacks on this nice new feature!</p>
+
+<h2 id="various-curl-options">Various curl Options</h2>
+
+<p>Under the hood, Hurl uses <a href="https://curl.se">curl</a> for HTTP transfers. We have implemented the following curl options: <a href="/docs/manual.html#cert"><code>-E/--cert</code></a>, <a href="/docs/manual.html#connect-to"><code>--connect-to</code></a>,
+<a href="/docs/manual.html#key"><code>--key</code></a>, <a href="/docs/manual.html#resolve"><code>--resolve</code></a> and <a href="/docs/manual.html#ssl-no-revoke"><code>--ssl-no-revoke</code></a>. For instance, given this Hurl file <code>hello.hurl</code>:</p>
+
+<pre><code class="language-hurl">GET http://foo.com/hello
+HTTP 200
+`Hello World!`
+
+GET http://bar.com/hello
+HTTP 200
+`Hello World!`
+
+GET http://baz.com/hello
+HTTP 200
+`Hello World!`
+</code></pre>
+
+<p>You can force the resolution of <code>foo.com</code>, <code>bar.com</code> and <code>baz.com</code> to <code>localhost</code> with <a href="/docs/manual.html#connect-to"><code>--connect-to</code></a>:</p>
+
+<pre><code class="language-shell">$ hurl --connect-to foo.com:80:localhost:8000 \
+       --connect-to bar.com:80:localhost:8000 \
+       --connect-to baz.com:80:localhost:8000 \
+       hello.hurl
+</code></pre>
+
+<h2 id="minor-syntax-changes">Minor Syntax Changes</h2>
+
+<p>Astute readers have already spot some minor syntax changes. Instead of <strong><code>HTTP/*</code></strong> for wildcard HTTP version test, you can simply
+write <strong><code>HTTP</code></strong> now (the first syntax still work but is deprecated)</p>
+
+<pre><code class="language-hurl"># New Syntax
+GET https://foo.com
+HTTP 200
+
+# Deprecated syntax
+GET https://foo.com
+HTTP/* 200
+</code></pre>
+
+<p>If you want to add precise tests on HTTP version, you can still use <code>HTTP/1.0</code>, <code>HTTP/1.1</code> and <code>HTTP/2</code>:</p>
+
+<pre><code class="language-hurl">GET https://foo.com
+HTTP/2 200
+
+GET https://bar.com
+HTTP/1.1 200
+
+GET https://baz.com
+HTTP/1.0 200
+</code></pre>
+
+<p>Thanks to <a href="https://github.com/jmoore34">@jmoore34</a> for this idea, it’s obvious now you see it!</p>
+
+<p>Finally, plain text body have been tweaked, to allow the use of a language hint like <code>graphql</code> or <code>json</code>:</p>
+
+<ul>
+  <li>
+    <p>Post a CSV:</p>
+
+    <pre><code class="language-hurl">POST https://example.com/csv
+```
+line1,red,1
+line2,green,2
+line3,green,3
+```
+</code></pre>
+  </li>
+  <li>
+    <p>Use a GraphQL query</p>
+
+    <pre><code class="language-hurl">POST https://example.com/graphql
+```graphql
+{
+  human {
+    name
+    }
+}
+```
+</code></pre>
+  </li>
+  <li>
+    <p>Post a JSON body</p>
+
+    <pre><code class="language-hurl">POST https://example.com/json
+```json
+{
+  "name": "toto",
+  "age": 18
+}
+```
+</code></pre>
+  </li>
+  <li>
+    <p>Post a JSON body without <code>&#96;&#96;&#96;</code> (this shorter syntax is prefered over the previous one)</p>
+
+    <pre><code class="language-hurl">POST https://example.com/json
+{
+  "name": "toto",
+  "age": 18
+}
+</code></pre>
+  </li>
+  <li>
+    <p>And finally, post a single string without newline:</p>
+
+    <pre><code class="language-hurl">POST https://example.com/csv
+`Hello world!`
+</code></pre>
+  </li>
+</ul>
+
+<p>You may notice that the syntax takes huge inspiration from Markdown and that’s <em>very intentional</em>!</p>
+
+<h2 id="thats-all">That’s All</h2>
+
+<p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/blob/master/CHANGELOG.md#2.0.0">in our release note</a>.
+If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Hurl 2.0.0, the GraphQL Edition]]></summary></entry>
+    <entry>
+        <title>Announcing Hurl 1.8.0</title>
+        <link href="https://hurl.dev/blog/2022/11/07/announcing-hurl-1.8.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.8.0" />
+        <published>2022-11-07T00:00:00+02:00</published>
+        <updated>2022-11-07T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2022/11/07/announcing-hurl-1.8.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-180">Announcing Hurl 1.8.0</h1>
+
+<div class="blog-post-date">Nov. 07, 2022</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.8.0">Hurl 1.8.0</a> <img class="emoji" src="/assets/img/emoji-partying-face.png" width="20" height="20" alt="Partying Face" />!
+.</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a <strong>simple plain text format</strong>:</p>
+
+<pre><code class="language-hurl"># Get home:
+GET https://example.org
+
+HTTP/1.1 200
+[Captures]
+csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
+# Do login!
+POST https://example.org/login?user=toto&amp;password=1234
+X-CSRF-TOKEN:
+
+HTTP/1.1 302
+</code></pre>
+
+<p>Hurl can be used to get data like <a href="https://curl.se">curl</a>, or as a <strong>testing tool for JSON/XML apis</strong> and HTML content.</p>
+
+<p>So, <strong>what’s new in 1.8.0</strong>?</p>
+
+<ul>
+  <li><a href="#polling-and-retry">Polling and Retry</a></li>
+  <li><a href="#url-assert">URL Assert</a></li>
+  <li><a href="#libcurl-debug-logs">curl Debug Logs</a></li>
+</ul>
+
+<h2 id="polling-and-retry">Polling and Retry</h2>
+
+<p>You can now <strong>retry requests</strong> which asserts and captures have failed. This way, you can write
+<strong>polling scenarios</strong> or create robust tests even in flaky conditions. To activate retry, you can either use <a href="/docs/manual.html#retry"><code>--retry</code> option</a> (every request of the run can be retried), or you can target a specific request with an <a href="/docs/request.html#options"><code>[Options]</code> section</a>.</p>
+
+<p>Let’s say we have an API to create a ressource. Once created, we want to poll this resource and wait until it reaches
+a certain state.</p>
+
+<p>First we create a new resource with a <code>POST</code> request. We capture the id of the resource to be able to use it
+in the following requests:</p>
+
+<pre><code class="language-hurl"># Create a new job
+POST https://api.example.org/jobs
+
+HTTP/* 201
+[Captures]
+job_id: jsonpath "$.id"
+[Asserts]
+jsonpath "$.state" == "RUNNING"
+</code></pre>
+
+<p>Then, we pull the resource with a <code>GET</code> request and check its <code>state</code> value. We’ve configured the <code>GET</code> request to
+be retried with an <a href="/docs/request.html#options"><code>[Options]</code> section</a>. The <a href="/docs/asserting-response.html#jsonpath-assert">JSONPath assert</a> tests the value of <code>state</code> field. Because
+of the retry option, the <code>GET</code> request is going to be retried until <code>state</code>’s value is <code>COMPLETED</code>:</p>
+
+<pre><code class="language-hurl"># ...
+
+# Pull job status until it is completed
+GET https://api.example.org/jobs/
+[Options]
+retry: true
+
+HTTP/* 200
+[Asserts]
+jsonpath "$.state" == "COMPLETED"
+</code></pre>
+
+<p>So, the full scenario looks like:</p>
+
+<pre><code class="language-hurl"># Create a new job
+POST https://api.example.org/jobs
+
+HTTP/* 201
+[Captures]
+job_id: jsonpath "$.id"
+[Asserts]
+jsonpath "$.state" == "RUNNING"
+
+
+# Pull job status until it is completed
+GET https://api.example.org/
+[Options]
+retry: true
+
+HTTP/* 200
+[Asserts]
+jsonpath "$.state" == "COMPLETED"
+</code></pre>
+
+<p>Retry work on any asserts, whether they’re explicit (with an <a href="/docs/asserting-response.html#asserts"><code>[Asserts]</code> section</a>), or implicit (the <a href="/docs/asserting-response.html#version-status">status code</a>). For instance, the following snippet:</p>
+
+<pre><code class="language-hurl">GET https://api.example.org/123456
+[Options]
+retry: true
+retry-interval: 4000
+HTTP/* 200
+</code></pre>
+
+<p>will poll until <code>https://api.example.org/123456</code> returns a <code>200 OK</code>, with a 4 seconds delay between each retry.</p>
+
+<p>Finally, one common need in shell script is to wait until a specific URL is ready and returns a 200 OK. This can be
+easily done now with Hurl:</p>
+
+<pre><code class="language-shell">$ echo -e 'GET https://example.org/health\nHTTP/* 200' | hurl --retry
+</code></pre>
+
+<h2 id="url-assert">URL Assert</h2>
+
+<p>The <a href="/docs/asserting-response.html#url-assert">URL assert</a> allows check on the final URL of a request: it’s particularly interesting when you tell Hurl to follow
+redirects (either with <a href="/docs/manual.html#location"><code>--location</code> option</a> or with an <a href="/docs/request.html#options"><code>Options</code> section</a>):</p>
+
+<pre><code class="language-hurl"># Check that HTTP is redirected to HTTPS:
+GET http://example.org
+[Options]
+location: true
+
+HTTP/* 200
+[Asserts]
+url == "https://example.org"
+</code></pre>
+
+<h2 id="curl-debug-logs">curl Debug Logs</h2>
+
+<p>In Hurl 1.7.0, we introduced <a href="/docs/manual.html#very-verbose"><code>--very-verbose</code> option</a> to output request and response bodies. Now, when <code>very-verbose</code> is used, Hurl displays debug logs from libcurl (prefixed with <code>**</code>), allowing displaying SSL certificates infos for instance:</p>
+
+<pre><code class="language-shell">$ echo 'HEAD https://hurl.dev' | hurl --very-verbose
+* Options:
+*     fail fast: true
+*     follow redirect: false
+*     insecure: false
+*     max redirect: 50
+*     retry: false
+*     retry max count: 10
+* ------------------------------------------------------------------------------
+* Executing entry 1
+*
+* Cookie store:
+*
+* Request:
+* HEAD https://hurl.dev
+*
+* Request can be run with the following curl command:
+* curl 'https://hurl.dev' --head
+*
+**   Trying 145.239.78.213:443...
+** Connected to hurl.dev (145.239.78.213) port 443 (#0)
+** ALPN, offering h2
+** ALPN, offering http/1.1
+** successfully set certificate verify locations:
+**  CAfile: /etc/ssl/cert.pem
+**  CApath: none
+** (304) (OUT), TLS handshake, Client hello (1):
+** (304) (IN), TLS handshake, Server hello (2):
+** TLSv1.2 (IN), TLS handshake, Certificate (11):
+** TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+** TLSv1.2 (IN), TLS handshake, Server finished (14):
+** TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+** TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+** TLSv1.2 (OUT), TLS handshake, Finished (20):
+** TLSv1.2 (IN), TLS change cipher, Change cipher spec (1):
+** TLSv1.2 (IN), TLS handshake, Finished (20):
+** SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305
+** ALPN, server accepted to use h2
+** Server certificate:
+**  subject: CN=hurl.dev
+**  start date: Sep 30 22:15:32 2022 GMT
+**  expire date: Dec 29 22:15:31 2022 GMT
+**  subjectAltName: host "hurl.dev" matched cert's "hurl.dev"
+**  issuer: C=US; O=Let's Encrypt; CN=R3
+**  SSL certificate verify ok.
+** Using HTTP2, server supports multiplexing
+** Connection state changed (HTTP/2 confirmed)
+** Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+** Using Stream ID: 1 (easy handle 0x14c811800)
+&gt; HEAD / HTTP/2
+&gt; Host: hurl.dev
+&gt; accept: */*
+&gt; user-agent: hurl/1.8.0-SNAPSHOT
+&gt;
+* Request body:
+*
+** Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+** Connection #0 to host hurl.dev left intact
+* Response: (received 0 bytes in 110 ms)
+*
+&lt; HTTP/2 200
+&lt; server: nginx/1.14.2
+&lt; date: Mon, 31 Oct 2022 13:12:41 GMT
+&lt; content-type: text/html
+&lt; content-length: 28370
+&lt; last-modified: Thu, 27 Oct 2022 14:15:30 GMT
+&lt; etag: "635a9282-6ed2"
+&lt; accept-ranges: bytes
+&lt;
+* Response body:
+*
+*
+</code></pre>
+
+<h2 id="thats-all">That’s All</h2>
+
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Announcing Hurl 1.8.0]]></summary></entry>
+    <entry>
+        <title>Announcing Hurl 1.7.0</title>
+        <link href="https://hurl.dev/blog/2022/09/15/announcing-hurl-1.7.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.7.0" />
+        <published>2022-09-15T00:00:00+02:00</published>
+        <updated>2022-09-15T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2022/09/15/announcing-hurl-1.7.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-170">Announcing Hurl 1.7.0</h1>
+
+<div class="blog-post-date">Sep. 15, 2022</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.7.0">a new version of Hurl, 1.7.0</a>.</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a simple plain text format:</p>
+
+<pre><code class="language-hurl"># Get home:
+GET https://example.org
+
+HTTP/1.1 200
+[Captures]
+csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
+# Do login!
+POST https://example.org/login?user=toto&amp;password=1234
+X-CSRF-TOKEN:
+
+HTTP/1.1 302
+</code></pre>
+
+<p>Hurl can be used to get data like curl, or as an integration testing tool for JSON/XML HTTP apis / HTML content.</p>
+
+<p>So, <strong>what’s new in 1.7.0</strong>?</p>
+
+<ul>
+  <li><a href="#verbose-output-improvement">Verbose output improvement</a></li>
+  <li><a href="#use-level-request-options">Use level request options</a></li>
+  <li><a href="#using-hurl-in-nodejs">Using Hurl in Node.js</a></li>
+  <li><a href="#support-for-xml-namespace-in-xpath">Support for XML namespace in XPath</a></li>
+  <li><a href="#others">Others...</a></li>
+</ul>
+
+<h2 id="verbose-output-improvement">Verbose Output Improvement</h2>
+
+<p>We’ve improved <a href="/docs/manual.html#verbose"><code>-v/--verbose</code> option</a>:</p>
+
+<ul>
+  <li>add more color!</li>
+  <li>add <a href="/docs/manual.html#very-verbose"><code>--very-verbose</code> option</a> to output request and response body for each entry of your Hurl file</li>
+</ul>
+
+<p>First, we’ve added more color to the debug output.</p>
+
+<p>In 1.6.1, a verbose output of Hurl looks like:</p>
+
+<pre><code class="language-shell">$ echo 'GET https://google.fr' | hurl --verbose
+* fail fast: true
+* insecure: false
+* follow redirect: false
+* max redirect: 50
+* ------------------------------------------------------------------------------
+* executing entry 1
+*
+* Cookie store:
+*
+* Request
+* GET https://google.fr
+*
+* request can be run with the following curl command:
+* curl 'https://google.fr'
+*
+&gt; GET / HTTP/2
+&gt; Host: google.fr
+&gt; accept: */*
+&gt; user-agent: hurl/1.6.1
+&gt;
+&lt; HTTP/2 301
+&lt; location: https://www.google.fr/
+&lt; content-type: text/html; charset=UTF-8
+&lt; date: Thu, 18 Aug 2022 09:55:23 GMT
+&lt; expires: Thu, 18 Aug 2022 09:55:23 GMT
+&lt; cache-control: private, max-age=2592000
+&lt; server: gws
+&lt; content-length: 219
+&lt; x-xss-protection: 0
+&lt; x-frame-options: SAMEORIGIN
+&lt; set-cookie: CONSENT=PENDING+677; expires=Sat, 17-Aug-2024 09:55:23 GMT; path=/; domain=.google.fr; Secure
+&lt; p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+&lt; alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+&lt;
+*
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="https://www.google.fr/"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre>
+
+<p>In 1.7.0, headers are highlighted and requests and responses are more visible:</p>
+
+<pre><code class="language-shell">$ echo 'GET https://google.fr' | hurl --verbose
+* Options:
+*     fail fast: true
+*     insecure: false
+*     follow redirect: false
+*     max redirect: 50
+* ------------------------------------------------------------------------------
+* Executing entry 1
+*
+* Cookie store:
+*
+* Request:
+* GET https://google.fr
+*
+* Request can be run with the following curl command:
+* curl 'https://google.fr'
+*
+&gt; GET / HTTP/2
+&gt; Host: google.fr
+&gt; accept: */*
+&gt; user-agent: hurl/1.7.0-snapshot
+&gt;
+* Response: (received 219 bytes in 111 ms)
+*
+&lt; HTTP/2 301
+&lt; location: https://www.google.fr/
+&lt; content-type: text/html; charset=UTF-8
+&lt; date: Thu, 18 Aug 2022 09:56:40 GMT
+&lt; expires: Thu, 18 Aug 2022 09:56:40 GMT
+&lt; cache-control: private, max-age=2592000
+&lt; server: gws
+&lt; content-length: 219
+&lt; x-xss-protection: 0
+&lt; x-frame-options: SAMEORIGIN
+&lt; set-cookie: CONSENT=PENDING+308; expires=Sat, 17-Aug-2024 09:56:40 GMT; path=/; domain=.google.fr; Secure
+&lt; p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+&lt; alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+&lt;
+*
+&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;301 Moved&lt;/H1&gt;
+The document has moved
+&lt;A HREF="https://www.google.fr/"&gt;here&lt;/A&gt;.
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre>
+
+<p>Error on asserts are also colored now:</p>
+
+<pre><code class="language-shell">error: Assert status code
+  --&gt; /tmp/test.hurl:2:8
+   |
+ 2 | HTTP/* 200
+   |        ^^^ actual value is &lt;301&gt;
+   |
+</code></pre>
+
+<p>Colors can be forced with <a href="/docs/manual.html#color"><code>--color</code></a>, or deactivated with <a href="/docs/manual.html#no-color"><code>--no-color</code></a>, and Hurl supports now <code>NO_COLOR</code> environnement
+variables (see <a href="http://no-color.org">http://no-color.org</a>).</p>
+
+<p>Secondly, intermediary request and response bodies can be outputted in debug with <a href="/docs/manual.html#very-verbose"><code>--very-verbose</code> option</a>. By default,
+the last HTTP body response is outputted on standard output (like <a href="https://curl.se">curl</a>). With <a href="/docs/manual.html#verbose"><code>--verbose</code> option</a>, request and response
+headers are also displayed on standard error, and with <a href="/docs/manual.html#very-verbose"><code>--very-verbose</code> option</a>, request and response bodies are finally also
+displayed on standard error. If your Hurl file has a lot of entries, debug logs can be pretty large, but you can mitigate it
+with the brand new <code>[Options]</code> section that we’re going to present now.</p>
+
+<h2 id="use-level-request-options">Use Level Request Options</h2>
+
+<p>Options such as <a href="/docs/manual.html#location"><code>--location</code></a>, <a href="/docs/manual.html#verbose"><code>--verbose</code></a>, <a href="/docs/manual.html#insecure"><code>--insecure</code></a> can be used at the command line and applied to every
+request of an Hurl file. An <code>[Options]</code> section can be used to apply option to only one request (without passing options
+to the command line), while other requests are unaffected.</p>
+
+<pre><code class="language-hurl">GET https://example.org
+# An options section, each option is optional and applied only to this request...
+[Options]
+cacert: /etc/cert.pem   # a custom certificate file
+compressed: true        # request a compressed response
+insecure: true          # allows insecure SSL connections and transfers
+location: true          # follow redirection for this request
+max-redirs: 10          # maximum number of redirections
+verbose: true           # allow verbose output
+very-verbose: true      # allow more verbose output
+</code></pre>
+
+<p>So, given this Hurl file</p>
+
+<pre><code class="language-hurl">GET https://google.fr
+HTTP/* 301
+
+GET https://google.fr
+[Options]
+location: true
+HTTP/* 200
+
+GET https://google.fr
+HTTP/* 301
+</code></pre>
+
+<p>The second entry will follow location (and so we can test the status code to be 200 instead of 301).</p>
+
+<p>You can use it to logs a specific entry:</p>
+
+<pre><code class="language-hurl"># ... previous entries
+
+GET https://api.example.org
+[Options]
+very-verbose: true
+
+HTTP/* 200
+
+# ... next entries
+</code></pre>
+
+<p>And only the debug logs of the specific entry will be displayed on standard error.</p>
+
+<h2 id="using-hurl-in-nodejs">Using Hurl in Node.js</h2>
+
+<p>Started since 1.6.1, Hurl is <a href="https://www.npmjs.com/package/@orangeopensource/hurl">available on npm</a>, and can be easily integrated in various JavaScript projects.
+Hurl on npm is a thin JavaScript wrapper around the native binary.</p>
+
+<p>To install it, just run:</p>
+
+<pre><code class="language-shell">$ npm install --save-dev @orangeopensource/hurl
+</code></pre>
+
+<p>And then edit your <code>package.json</code>:</p>
+
+<pre><code class="language-json">{
+  "name": "sample-app",
+  "scripts": {
+    "test": "hurl --test --glob test/*.hurl",
+    ...
+  },
+  ...
+</code></pre>
+
+<p>Now you can run your integration tests with Hurl:</p>
+
+<pre><code class="language-shell">$ npm test
+test/bar.hurl: Running [1/3]
+test/bar.hurl: Success (5 request(s) in 136 ms)
+test/baz.hurl: Running [2/3]
+error: Assert failure
+  --&gt; test/baz.hurl:6:0
+   |
+ 6 | xpath "string(//title)" == "Something"
+   |   actual:   string &lt;301 Moved&gt;
+   |   expected: string &lt;Something&gt;
+   |
+
+test/baz.hurl: Failure (4 request(s) in 62 ms)
+test/foo.hurl: Running [3/3]
+test/foo.hurl: Success (10 request(s) in 527 ms)
+--------------------------------------------------------------------------------
+Executed files:  3
+Succeeded files: 2 (66.7%)
+Failed files:    1 (33.3%)
+Duration:        766 ms
+</code></pre>
+
+<h2 id="support-for-xml-namespace-in-xpath">Support for XML namespace in XPath</h2>
+
+<p>JSON and XML are first class citizens in Hurl with <a href="/docs/asserting-response.html#jsonpath-assert">JSONPath assert</a> and <a href="/docs/asserting-response.html#xpath-assert">XPath assert</a>.
+For XPath, we now support asserts with namespaces:</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!-- both namespace prefixes are available throughout --&gt;
+&lt;bk:book xmlns:bk='urn:loc.gov:books'
+         xmlns:isbn='urn:ISBN:0-395-36341-6'&gt;
+    &lt;bk:title&gt;Cheaper by the Dozen&lt;/bk:title&gt;
+    &lt;isbn:number&gt;1568491379&lt;/isbn:number&gt;
+&lt;/bk:book&gt;
+</code></pre>
+
+<p>Can be tested with the following Hurl file:</p>
+
+<pre><code class="language-hurl">GET http://localhost:8000/assert-xpath
+
+HTTP/1.0 200
+[Asserts]
+
+xpath "string(//bk:book/bk:title)" == "Cheaper by the Dozen"
+xpath "string(//*[name()='bk:book']/*[name()='bk:title'])" == "Cheaper by the Dozen"
+xpath "string(//*[local-name()='book']/*[local-name()='title'])" == "Cheaper by the Dozen"
+
+xpath "string(//bk:book/isbn:number)" == "1568491379"
+xpath "string(//*[name()='bk:book']/*[name()='isbn:number'])" == "1568491379"
+xpath "string(//*[local-name()='book']/*[local-name()='number'])" == "1568491379"
+</code></pre>
+
+<p>For convenience, the first default namespace can be used with <code>_</code>.</p>
+
+<p>This sample:</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;style type="text/css"&gt;
+    circle:hover {fill-opacity:0.9;}
+  &lt;/style&gt;
+  &lt;g style="fill-opacity:0.7;"&gt;
+    &lt;circle cx="6.5cm" cy="2cm" r="100" style="fill:red; stroke:black; stroke-width:0.1cm" transform="translate(0,50)" /&gt;
+    &lt;circle cx="6.5cm" cy="2cm" r="100" style="fill:blue; stroke:black; stroke-width:0.1cm" transform="translate(70,150)" /&gt;
+    &lt;circle cx="6.5cm" cy="2cm" r="100" style="fill:green; stroke:black; stroke-width:0.1cm" transform="translate(-70,150)"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p>Can be tested with the following Hurl file:</p>
+
+<pre><code class="language-hurl">GET http://localhost:8000/assert-xpath-svg
+
+HTTP/1.0 200
+[Asserts]
+xpath "//_:svg/_:g/_:circle" count == 3
+xpath "//*[local-name()='svg']/*[local-name()='g']/*[local-name()='circle']" count ==  3
+xpath "//*[name()='svg']/*[name()='g']/*[name()='circle']" count == 3
+</code></pre>
+
+<h2 id="others">Others...</h2>
+
+<p>Under the hood, we’ve improved our code and Hurl should be quicker than ever. We’ve completely
+rewritten <a href="/docs/grammar.html">our grammar</a> to be more correct and support Hurl future evolutions.</p>
+
+<p>There are other changes and bug fixes in the Hurl 1.7.0 release: check out <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.7.0">the release note!</a></p>
+
+<p>And, finally, a big thanks to all our contributors!</p>]]></content>
+        <author><name></name></author>
+        <summary>Announcing Hurl 1.7.0</summary>
+    </entry>
+    <entry>
+        <title>Announcing Hurl 1.6.0</title>
+        <link href="https://hurl.dev/blog/2022/02/11/announcing-hurl-1.6.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.6.0" />
+        <published>2022-02-11T00:00:00+02:00</published>
+        <updated>2022-02-11T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2022/02/11/announcing-hurl-1.6.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-160">Announcing Hurl 1.6.0</h1>
+
+<div class="blog-post-date">Feb. 11, 2022</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.6.0">a new version of Hurl, 1.6.0</a>.</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a simple plain text format:</p>
+
+<pre><code class="language-hurl"># Get home:
+GET https://example.org
+
+HTTP/1.1 200
+[Captures]
+csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
+# Do login!
+POST https://example.org/login?user=toto&amp;password=1234
+X-CSRF-TOKEN:
+
+HTTP/1.1 302
+</code></pre>
+
+<p>So, <strong>what’s new in 1.6.0</strong>?</p>
+
+<h2 id="simplify-basic-authentication">Simplify basic authentication</h2>
+
+<p>Before 1.6.0, basic authentication could be achieved by computing and sending
+an <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization">Authorization</a> header:</p>
+
+<pre><code class="language-hurl"># Authorization header value can be computed with:
+# `echo -n 'bob:secret' | base64`
+GET https://example.org/protected
+Authorization: Basic Ym9iOnNlY3JldA==
+</code></pre>
+
+<p>In 1.6.0, we’ve introduced a basic authentication section to pass username/password
+explicitly, without base64 encoding:</p>
+
+<pre><code class="language-hurl">GET https://example.org/protected
+[BasicAuth]
+bob: secret
+</code></pre>
+
+<p>Basic authentication allows per request authentication. If you want to add
+basic authentication to all the request of a Hurl file you could use <a href="/docs/manual.html#user"><code>-u/--user</code> option</a>.</p>
+
+<h2 id="regex-literal">Regex literal</h2>
+
+<p><code>matches</code> predicates values are regex. Before 1.6.0, metacharacters in pattern
+values should be escaped (like <code>\d</code> etc...):</p>
+
+<pre><code class="language-hurl">GET https://sample.org/hello
+
+HTTP/1.0 200
+[Asserts]
+jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"
+jsonpath "$.name" matches "Hello [a-zA-Z]+!"
+</code></pre>
+
+<p>In 1.6.0, we’ve added regex literal for <code>matches</code>:</p>
+
+<pre><code class="language-hurl">GET https://sample.org/hello
+
+HTTP/1.0 200
+[Asserts]
+jsonpath "$.date" matches /^\d{4}-\d{2}-\d{2}$/
+jsonpath "$.name" matches /Hello [a-zA-Z]+!/
+</code></pre>
+
+<p>The new asserts are much more readable and easier to write.</p>
+
+<p>Basic authentication section and regex literal has been suggested to us
+by <a href="https://github.com/humphd">David Humphrey</a> so thanks again David for your ideas!</p>
+
+<h2 id="interactive-mode-improvements">Interactive mode improvements</h2>
+
+<p>In <a href="/docs/manual.html#interactive">interactive mode</a>, Hurl plays each request and pauses between each entry,
+allowing to <a href="/docs/tutorial/debug-tips.html#interactive-mode">debug a session step by step</a>. We’ve improved the interactive
+mode to display the next request to be played:</p>
+
+<pre><code>...
+&lt; Last-Modified: Fri, 11 Feb 2022 13:28:20 GMT
+&lt; Connection: keep-alive
+&lt; ETag: "62066474-6f02"
+&lt; Accept-Ranges: bytes
+&lt;
+*
+
+interactive mode
+
+next request:
+
+GET https://hurl.dev/docs/manual.html
+
+Press Q (Quit) or C (Continue)
+</code></pre>
+
+<h2 id="other-changes">Other changes</h2>
+
+<p>Under the hood, we’ve improved our code and Hurl should be quicker than ever.
+There are other changes and bug fixes in the Hurl 1.6.0 release: check out <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.6.0">the release note!</a></p>
+
+<p>If you like Hurl, don’t hesitate <a href="https://github.com/Orange-OpenSource/hurl/stargazers">to give us a star</a>!</p>
+
+<p>And, finally, a big thanks to all our contributors!</p>]]></content>
+        <author><name></name></author>
+        <summary>Announcing Hurl 1.6.0></summary>
+    </entry>
+    <entry>
+        <title>Announcing Hurl 1.5.0</title>
+        <link href="https://hurl.dev/blog/2021/12/09/announcing-hurl-1.5.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.5.0" />
+        <published>2021-12-09T00:00:00+02:00</published>
+        <updated>2021-12-09T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2021/12/09/announcing-hurl-1.5.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-150">Announcing Hurl 1.5.0</h1>
+
+<div class="blog-post-date">Dec. 09, 2021</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.5.0">a new version of Hurl, 1.5.0</a>.
+Hurl is a command line tool that runs HTTP requests defined in a simple plain text format.</p>
+
+<p>So, <strong>what’s new in 1.5.0</strong>?</p>
+
+<h2 id="which-curl-is-used-by-hurl">Which curl is used by Hurl?</h2>
+
+<p>Hurl relies upon curl for the HTTP engine. We’ve improved the version output
+<a href="/docs/manual.html#version"><code>--version/-h</code></a> to provide informations about which libcurl Hurl is linked with:</p>
+
+<pre><code class="language-shell">$ hurl --version
+hurl 1.5.0 libcurl/7.54.0 LibreSSL/2.6.5 zlib/1.2.11
+</code></pre>
+
+<h2 id="tests-can-be-launched-with-glob-pattern">Tests can be launched with glob pattern</h2>
+
+<p>Now tests can be launched with <a href="/docs/manual.html#glob"><code>--glob</code> option</a>. This is particularly useful on
+Windows where it is less easy to <code>grep</code> and <code>find</code> your test:</p>
+
+<pre><code class="language-shell">$ hurl --glob "tests/**/*.hurl"
+</code></pre>
+
+<p>This command will run <code>tests/project1/test1.hurl</code>, <code>tests/project1/test2.hurl</code> and
+<code>tests/project2/test3.hurl</code>. Note that to avoid your shell accidentally expanding glob patterns
+before Hurl handles them, you should use single quotes or double quotes around each pattern.</p>
+
+<h2 id="using-environment-variables-in-hurl-files">Using Environment Variables in Hurl files</h2>
+
+<p>Before 1.5.0, to inject variables in a Hurl file you can</p>
+
+<ul>
+  <li>
+    <p>use command line option, with <a href="/docs/manual.html#variable"><code>--variable</code></a>:</p>
+
+    <pre><code class="language-shell">$ hurl --variable host=example.org --variable user=jc test.hurl
+</code></pre>
+  </li>
+  <li>
+    <p>use an input file, with <a href="/docs/manual.html#variables-file"><code>--variables-file</code></a>:</p>
+
+    <p>Given <code>file.env</code> defining each variable on a new line:</p>
+
+    <pre><code>host=example.org
+user=jc
+</code></pre>
+
+    <p>Variables are injected with <code>file.env</code>:</p>
+
+    <pre><code class="language-shell">$ hurl --variables-files file.env test.hurl
+</code></pre>
+  </li>
+</ul>
+
+<p>Starting in 1.5.0, environment variables can be used to inject variables:</p>
+
+<pre><code class="language-shell">$ echo HURL_host=example.org
+$ echo HURL_user=jc
+$ hurl test.hurl
+</code></pre>
+
+<p>Each <code>HURL_foo</code> environment variables will resolve as a <code>foo</code> variable inside
+the Hurl file.</p>
+
+<h2 id="junit-and-html-report">JUnit and HTML report</h2>
+
+<p>Test report can be exported in JUnit format:</p>
+
+<pre><code class="language-shell">$ hurl --test --report-junit /tmp/result.xml *.hurl
+</code></pre>
+
+<p>To be consistent, we’ve also rename <code>--html</code> options to <code>--report-html</code>. Of course,
+one can combine the two kind of reports:</p>
+
+<pre><code class="language-shell">$ hurl --test --report-junit /tmp/result.xml --report-html /tmp/report/ *.hurl
+</code></pre>
+
+<h2 id="other-changes">Other changes</h2>
+
+<p>There are other changes and bug fixes in the Hurl 1.5.0 release: check out <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.5.0">the release note!</a></p>
+
+<p>And, finally, a big thanks to our contributors!</p>]]></content>
+        <author><name></name></author>
+        <summary>Announcing Hurl 1.5.0</summary>
+    </entry>
+</feed>

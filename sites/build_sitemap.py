@@ -24,7 +24,6 @@ def sitemap() -> List[str]:
 
 
 def main():
-    sys.stderr.write("Generating sitemap...\n")
     [print(f) for f in sitemap()]
 
 
