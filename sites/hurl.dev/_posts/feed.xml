@@ -17,7 +17,6 @@
 
 <p>
     <img class="light-img u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
-    <img class="dark-img u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-dark.png" width="100%" alt="Hurl plus GraphQL equals love" />
 </p>
 
 <p>Christmas has been busy for the Hurl team! We’re happy to announce <strong>Hurl 2.0.0</strong>, with a lot of new features
@@ -221,7 +220,7 @@ variable "algeria" nth 1 == "Africa"
 variable "algeria" nth 2 == "Algeria"
 </code></pre>
 
-<p>Et voilà <img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" />!</p>
+<p>Et voilà 🎉!</p>
 
 <p>Filters can be used to transform the HTTP response data easily. We have included a <a href="/docs/filters.html#description">first round of filters</a> <code>count</code>,
 <code>htmlEscape</code>, <code>htmlUnescape</code>, <code>nth</code>, <code>regex</code>, <code>replace</code>, <code>split</code>, <code>toInt</code>, <code>urlDecode</code> and <code>urlEncode</code>. Don’t hesitate to give us some
@@ -346,7 +345,9 @@ line3,green,3
 <p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/blob/master/CHANGELOG.md#2.0.0">in our release note</a>.
 If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
 
-<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Hurl 2.0.0, the GraphQL Edition]]></summary></entry>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author>
+        <summary>Christmas has been busy for the Hurl team! We’re happy to announce Hurl 2.0.0, with a lot of new features and bug fixes.</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 1.8.0</title>
         <link href="https://hurl.dev/blog/2022/11/07/announcing-hurl-1.8.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.8.0" />
@@ -357,7 +358,7 @@ If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSou
 
 <div class="blog-post-date">Nov. 07, 2022</div>
 
-<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.8.0">Hurl 1.8.0</a> <img class="emoji" src="/assets/img/emoji-partying-face.png" width="20" height="20" alt="Partying Face" />!
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/1.8.0">Hurl 1.8.0</a> 🥳!
 .</p>
 
 <p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
@@ -560,7 +561,9 @@ url == "https://example.org"
 
 <p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
 
-<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Announcing Hurl 1.8.0]]></summary></entry>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content><author><name></name></author>
+        <summary>The Hurl team is happy to announce Hurl 1.8.0.</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 1.7.0</title>
         <link href="https://hurl.dev/blog/2022/09/15/announcing-hurl-1.7.0.html" rel="alternate" type="text/html" title="Announcing Hurl 1.7.0" />
@@ -890,7 +893,7 @@ rewritten <a href="/docs/grammar.html">our grammar</a> to be more correct and su
 
 <p>And, finally, a big thanks to all our contributors!</p>]]></content>
         <author><name></name></author>
-        <summary>Announcing Hurl 1.7.0</summary>
+        <summary>The Hurl team is happy to announce a new version of Hurl, 1.7.0.</summary>
     </entry>
     <entry>
         <title>Announcing Hurl 1.6.0</title>
@@ -1005,7 +1008,7 @@ There are other changes and bug fixes in the Hurl 1.6.0 release: check out <a hr
 
 <p>And, finally, a big thanks to all our contributors!</p>]]></content>
         <author><name></name></author>
-        <summary>Announcing Hurl 1.6.0></summary>
+        <summary>The Hurl team is happy to announce a new version of Hurl, 1.6.0.</summary>
     </entry>
     <entry>
         <title>Announcing Hurl 1.5.0</title>
@@ -1099,6 +1102,6 @@ one can combine the two kind of reports:</p>
 
 <p>And, finally, a big thanks to our contributors!</p>]]></content>
         <author><name></name></author>
-        <summary>Announcing Hurl 1.5.0</summary>
+        <summary>The Hurl team is happy to announce a new version of Hurl, 1.5.0.</summary>
     </entry>
 </feed>
