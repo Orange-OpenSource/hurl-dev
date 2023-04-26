@@ -496,7 +496,7 @@ footer {
 }
 
 .blog-content {
-  min-height: calc(100vh - (72px + 40px + 90px));
+  min-height: calc(100vh - (72px + 40px + 90px + 74px));
 }
 
 .blog-post-link {
@@ -510,6 +510,12 @@ footer {
   margin: $m3 0;
   text-align: right;
 }
+
+.blog-feed-link {
+  text-align: right;
+  margin: $m4 0;
+}
+
 
 .marked {
   background-color: $marked-background-light;
