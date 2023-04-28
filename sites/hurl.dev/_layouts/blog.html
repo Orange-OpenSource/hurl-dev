@@ -21,11 +21,16 @@
                     {{ content }}
                 </div>
                 <div class="blog-footer">
-                    <div class="blog-feed-link"><a href="https://hurl.dev/blog/feed.xml">RSS feed</a></div>
+                    <div class="blog-feed-link">
+                         <span class="svg-icon"><svg viewBox="0 0 448 512" width="18" height="18"><use href="#rss"></use></svg></span>&nbsp;<a href="https://hurl.dev/blog/feed.xml">RSS feed</a>
+                    </div>
 
                     {% include footer.html %}
                 </div>
             </div>
+        </div>
+        <div style="display: block; position: absolute; height: 0; width: 0; margin: 0; padding: 0; border: none; overflow: hidden;">
+            {% include rss-icon.svg %}
         </div>
     </body>
 </html>
