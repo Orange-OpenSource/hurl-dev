@@ -183,12 +183,8 @@ select {
   text-decoration: none;
 }
 
-.top-nav-link-icon {
+.svg-icon {
   margin-top: 3px;
-}
-
-.top-nav-link-text {
-  text-decoration: underline;
 }
 
 
@@ -512,10 +508,15 @@ footer {
 }
 
 .blog-feed-link {
-  text-align: right;
+  display: flex;
+  justify-content: end;
   margin: $m4 0;
 }
 
+.blog-feed-link .svg-icon {
+  color: $secondary-color-light;
+  color: var(--secondary-color);
+}
 
 .marked {
   background-color: $marked-background-light;

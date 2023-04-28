@@ -12,8 +12,8 @@ function toggleMenu() {
 // Courtesy of https://derekkedziora.com/blog/dark-mode-revisited
 // Source code from: https://github.com/derekkedziora/jekyll-demo
 
-const lightElem = "<span class=\"top-nav-link-icon\"><svg viewBox=\"0 0 512 512\" width=\"18\" height=\"18\"><use href=\"#sun\"></use></svg>&nbsp;</span><span class=\"top-nav-link-text\">Theme</span>";
-const darkElem = "<span class=\"top-nav-link-icon\"><svg viewBox=\"0 0 512 512\" width=\"18\" height=\"18\"><use href=\"#moon\"></use></svg>&nbsp;</span><span class=\"top-nav-link-text\">Theme</span>";
+const lightElem = "<span class=\"svg-icon\"><svg viewBox=\"0 0 512 512\" width=\"18\" height=\"18\"><use href=\"#sun\"></use></svg>&nbsp;</span><span class=\"u-underline\">Theme</span>";
+const darkElem = "<span class=\"svg-icon\"><svg viewBox=\"0 0 512 512\" width=\"18\" height=\"18\"><use href=\"#moon\"></use></svg>&nbsp;</span><span class=\"u-underline\">Theme</span>";
 
 
 // This checks whether system dark mode is set
