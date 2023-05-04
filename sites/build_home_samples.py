@@ -334,6 +334,20 @@ bytes startsWith hex,efbbbf;
 """,
         ),
         Sample(
+            name="SSL Certificate",
+            src="""\
+# Check attributes of the SSL certificate            
+GET https://example.org
+
+HTTP 200
+[Asserts]
+certificate "Subject" == "CN=example.org"
+certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
+certificate "Expire-Date" daysAfterNow > 15
+certificate "Serial-Number" matches /[\da-f]+/
+""",
+        ),
+        Sample(
             name="Polling / Retry",
             src="""\
 # Pull job status until it is completed

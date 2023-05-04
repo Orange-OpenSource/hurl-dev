@@ -123,6 +123,36 @@ field3: file,example.zip; application/zip
 
 [Doc]({% link _docs/request.md %}#multipart-form-data)
 
+Multipart forms can also be sent with a [multiline string body]:
+
+~~~hurl
+POST https://example.org/upload
+Content-Type: multipart/form-data; boundary="boundary"
+```
+--boundary
+Content-Disposition: form-data; name="key1"
+
+value1
+--boundary
+Content-Disposition: form-data; name="upload1"; filename="data.txt"
+Content-Type: text/plain
+
+Hello World!
+--boundary
+Content-Disposition: form-data; name="upload2"; filename="data.html"
+Content-Type: text/html
+
+<div>Hello <b>World</b>!</div>
+--boundary--
+```
+~~~
+
+In that case, files have to be inlined in the Hurl file.
+
+[Doc]({% link _docs/request.md %}#multiline-string-body)
+
+
+
 ### Posting a JSON Body
 
 With an inline JSON:
@@ -346,7 +376,7 @@ xpath "string(//div[1])" matches /Hello.*/
 ### Testing Set-Cookie Attributes
 
 ```hurl
-GET http://myserver.com/home
+GET https://example.org/home
 
 HTTP 200
 [Asserts]
@@ -362,7 +392,6 @@ cookie "JSESSIONID[SameSite]" == "Lax"
 
 ### Testing Bytes Content
 
-
 Check the SHA-256 response body hash:
 
 ```hurl
@@ -374,6 +403,23 @@ sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#sha-256-assert)
+
+### SSL Certificate
+
+Check the properties of a SSL certificate:
+
+```hurl
+GET https://example.org
+
+HTTP 200
+[Asserts]
+certificate "Subject" == "CN=example.org"
+certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
+certificate "Expire-Date" daysAfterNow > 15
+certificate "Serial-Number" matches /[\da-f]+/
+```
+
+[Doc]({% link _docs/asserting-response.md %}#ssl-certificate-assert)
 
 
 ## Others
@@ -490,6 +536,7 @@ bytes startsWith hex,efbbbf;
 [JSON body]: {% link _docs/request.md %}#json-body
 [XML body]: {% link _docs/request.md %}#xml-body
 [XML multiline string body]: {% link _docs/request.md %}#multiline-string-body
+[multiline string body]: {% link _docs/request.md %}#multiline-string-body
 [predicates]: {% link _docs/asserting-response.md %}#predicates
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [Basic authentication]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme
