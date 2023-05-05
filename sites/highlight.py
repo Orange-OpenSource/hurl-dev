@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Callable
 import platform
 from pygments import highlight
-from pygments.lexers import BashLexer
+from pygments.lexers import BashLexer, RustLexer
 from pygments.formatters import HtmlFormatter
 
 
@@ -14,14 +14,15 @@ def main():
     highlight_code(language="hurl", to_html_func=hurl_to_html)
     highlight_code(language="bash", to_html_func=bash_to_html)
     highlight_code(language="shell", to_html_func=shell_to_html)
+    highlight_code(language="rust", to_html_func=rust_to_html)
 
 
 def get_os() -> str:
-    """Return linux, osx or windows."""
+    """Return linux, macos or windows."""
     if platform.system() == "Linux":
         return "linux"
     elif platform.system() == "Darwin":
-        return "osx"
+        return "macos"
     elif platform.system() == "Windows":
         return "windows"
     else:
@@ -67,7 +68,7 @@ def escape_html(text: str) -> str:
 def hurl_to_html(snippet: str) -> str:
     # import sys
     # sys.stderr.write('<<<' + snippet + '>>>\n')
-    cmd = [get_os() + "/hurlfmt", "--format", "html"]
+    cmd = [get_os() + "/hurlfmt", "--out", "html"]
     try:
         ret = subprocess.run(
             args=cmd,
@@ -93,16 +94,43 @@ def bash_to_html(snippet: str) -> str:
     output = output.replace('class="ch"', 'class="comment-hashbang"')
     output = output.replace('class="c1"', 'class="comment-single"')
     output = output.replace('class="k"', 'class="keyword"')
+    output = output.replace('class="kc"', 'class="literal-constant"')
+    output = output.replace('class="kd"', 'class="keyword"')
     output = output.replace('class="m"', 'class="literal-number"')
     output = output.replace('class="nb"', 'class="name-builtin"')
+    output = output.replace('class="n"', 'class="name-variable"')
     output = output.replace('class="nv"', 'class="name-variable"')
     output = output.replace('class="o"', 'class="operator"')
+    output = output.replace('class="p"', "")
+    output = output.replace('class="s"', 'class="literal-string-double"')
     output = output.replace('class="s2"', 'class="literal-string-double"')
     output = output.replace('class="si"', 'class="literal-string-interpol"')
+    output = output.replace('class="w"', "")
 
     # FIXME: Simulate docker as built-in
     for word in ["docker", "wait_for_url", "sleep"]:
         output = output.replace(word, f'<span class="name-builtin">{word}</span>')
+
+
+def rust_to_html(snippet: str) -> str:
+    output = highlight(snippet, RustLexer(), HtmlFormatter(nowrap=True))
+    # From https://github.com/richleland/pygments-css/blob/master/default.css
+    output = output.replace('class="ch"', 'class="comment-hashbang"')
+    output = output.replace('class="c1"', 'class="comment-single"')
+    output = output.replace('class="k"', 'class="keyword"')
+    output = output.replace('class="kc"', 'class="literal-constant"')
+    output = output.replace('class="kd"', 'class="keyword"')
+    output = output.replace('class="m"', 'class="literal-number"')
+    output = output.replace('class="nb"', 'class="name-builtin"')
+    output = output.replace('class="n"', 'class="name-variable"')
+    output = output.replace('class="nv"', 'class="name-variable-toto"')
+    output = output.replace('class="o"', 'class="operator"')
+    output = output.replace('class="p"', "")
+    output = output.replace('class="s"', 'class="literal-string-double"')
+    output = output.replace('class="s2"', 'class="literal-string-double"')
+    output = output.replace('class="si"', 'class="literal-string-interpol"')
+    output = output.replace('class="w"', "")
+
     return output
 
 

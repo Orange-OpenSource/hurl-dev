@@ -72,6 +72,7 @@
             - title: Testing HTML Response
             - title: Testing Set-Cookie Attributes
             - title: Testing Bytes Content
+            - title: SSL Certificate
         - title: Others
           items:
             - title: HTTP Version
@@ -104,7 +105,6 @@
         - title: macOS
           items:
             - title: How can I use a custom libcurl (from Homebrew by instance)?
-            - title: "Hurl error: SSL certificate has expired"
 - title: File Format
   items:
     - title: Hurl File
@@ -178,6 +178,7 @@
             - title: Regex capture
             - title: Variable capture
             - title: Duration capture
+            - title: SSL certificate capture
     - title: Asserting Response
       path: /docs/asserting-response.html
       items:
@@ -202,6 +203,7 @@
             - title: MD5 assert
             - title: Variable assert
             - title: Duration assert
+            - title: SSL certificate assert
         - title: Body
           items:
             - title: JSON body
@@ -218,12 +220,16 @@
         - title: Description
           items:
             - title: count
+            - title: daysAfterNow
+            - title: daysBeforeNow
+            - title: format
             - title: htmlEscape
             - title: htmlUnescape
             - title: nth
             - title: regex
             - title: replace
             - title: split
+            - title: toDate
             - title: toInt
             - title: urlDecode
             - title: urlEncode

@@ -3,8 +3,274 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2023-04-25T18:04:46+02:00</updated>
+    <updated>2023-05-05T17:22:51+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 3.0.0</title>
+        <link href="https://hurl.dev/blog/2023/05/05/announcing-hurl-3.0.0.html" rel="alternate" type="text/html" title="Announcing Hurl 3.0.0" />
+        <published>2023-05-05T00:00:00+02:00</published>
+        <updated>2023-05-05T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2023/05/05/announcing-hurl-3.0.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-300">Announcing Hurl 3.0.0</h1>
+
+<div class="blog-post-date">May. 06, 2023</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/3.0.0">Hurl 3.0.0</a>!</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a simple plain text format:</p>
+
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+
+<p>What’s new in this release:</p>
+
+<ul>
+  <li><a href="#checking-ssl-attributes-expiration-date-issuer-etc">Checking SSL Attributes (Expiration Date, Issuer, etc...)</a></li>
+  <li><a href="#working-with-date-values">Working with Date Values</a></li>
+  <li><a href="#convert-curl-to-hurl">Convert curl to Hurl</a></li>
+  <li><a href="#simplify-hurls-rust-apis">Simplify Hurl’s Rust APIs</a></li>
+</ul>
+
+<h2 id="checking-ssl-attributes-expiration-date-issuer-etc">Checking SSL Attributes (Expiration Date, Issuer, etc...)</h2>
+
+<p>In Hurl 3.0.0, we can now check various attributes of a SSL certificate:</p>
+
+<pre><code class="language-hurl"># Check attributes of the SSL certificate
+GET https://example.org
+
+HTTP 200
+[Asserts]
+certificate "Subject" == "CN=example.org"
+certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
+certificate "Expire-Date" daysAfterNow &gt; 15
+certificate "Serial-Number" matches /[\da-f]+/
+</code></pre>
+
+<p>The following properties are available to check: <code>Subject</code>,  <code>Issuer</code>, <code>Start-Date</code>, <code>Expire-Date</code> and  <code>Serial-Number</code>.
+Using certificate asserts, you can simply create a cron job that will warn you if your certificate expires soon.</p>
+
+<p>If you want more information on the SSL layer, you can also use <a href="/docs/manual.html#very-verbose"><code>--very-verbose</code></a> option that will output curl debug logs,
+including SSL informations:</p>
+
+<pre><code class="language-shell">$ echo 'HEAD https://hurl.dev' | hurl --very-verbose
+* Options:
+*     fail fast: true
+...
+*
+* Request can be run with the following curl command:
+* curl 'https://hurl.dev' --head
+*
+**   Trying 145.239.78.213:443...
+** Connected to hurl.dev (145.239.78.213) port 443 (#0)
+** ALPN, offering h2
+** ALPN, offering http/1.1
+** successfully set certificate verify locations:
+**  CAfile: /etc/ssl/cert.pem
+**  CApath: none
+** (304) (OUT), TLS handshake, Client hello (1):
+** (304) (IN), TLS handshake, Server hello (2):
+** TLSv1.2 (IN), TLS handshake, Certificate (11):
+** TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+** TLSv1.2 (IN), TLS handshake, Server finished (14):
+** TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+...
+</code></pre>
+
+<h2 id="working-with-date-values">Working with Date Values</h2>
+
+<p>Introduced in <a href="https://hurl.dev/blog/2023/01/25/hurl-2.0.0-the-graphql-edition.html">Hurl 2.0.0</a>, <a href="/docs/filters.html">filters</a> allow you to transform the data extracted from an HTTP response, whether in asserts
+or in captures:</p>
+
+<pre><code class="language-hurl">GET https://example.org/api
+
+HTTP 200
+[Captures]
+name: jsonpath "$user.id" replace /\d/ "x"
+[Asserts]
+header "x-servers" split "," count == 2
+header "x-servers" split "," nth 0 == "rec1"
+header "x-servers" split "," nth 1 == "rec3"
+jsonpath "$.books" count == 12
+</code></pre>
+
+<p>Now, we have filters to work on dates: <a href="/docs/filters.html#daysafternow"><code>daysAfterNow</code></a>, <a href="/docs/filters.html#daysbeforenow"><code>daysBeforeNow</code></a>, <a href="/docs/filters.html#format"><code>format</code></a> and <a href="/docs/filters.html#todate"><code>toDate</code></a>. For instance, let’s say we
+have a JSON response like this:</p>
+
+<pre><code class="language-json">{
+  "published": "2023-01-23T18:25:43.511Z"
+}
+</code></pre>
+
+<p>We can do the following:</p>
+
+<ul>
+  <li>extract the <code>published</code> string from the response =&gt; <code>jsonpath "$.published"</code></li>
+  <li>transform this value to a date variable =&gt; <code>toDate "%Y-%m-%dT%H:%M:%S%.fZ"</code></li>
+  <li>reformat this date to the day of the week =&gt; <code>format "%A"</code></li>
+</ul>
+
+<p>So, our Hurl test becomes:</p>
+
+<pre><code class="language-hurl">GET https://example.org/books/123
+HTTP 200
+[Asserts]
+jsonpath "$.published" == "2023-01-23T18:25:43.511Z"
+jsonpath "$.published" toDate "%Y-%m-%dT%H:%M:%S%.fZ" format "%A" == "Monday"
+</code></pre>
+
+<p>ISO 8601 / RFC 3339 date and time format have shorthand format <code>%+</code> so we can write:</p>
+
+<pre><code class="language-hurl">GET https://example.org/books/123
+HTTP 200
+[Asserts]
+jsonpath "$.published" == "2023-01-23T18:25:43.511Z"
+jsonpath "$.published" toDate "%+" format "%A" == "Monday"
+</code></pre>
+
+<p>Some queries are natively returning date values: <a href="/docs/asserting-response.html#ssl-certificate-assert">expiration date of SSL certificates</a> or <a href="/docs/asserting-response.html#cookie-assert">expiration date of cookies</a> for instance:</p>
+
+<pre><code class="language-hurl">GET https://example.org
+HTTP 200
+[Asserts]
+cookie "LSID[Expires]" format "%a, %d %b %Y %H:%M:%S" == "Thu, 13 Jan 2078 22:23:01"
+certificate "Expire-Date" daysAfterNow &gt; 15
+</code></pre>
+
+<h2 id="convert-curl-to-hurl">Convert curl to Hurl</h2>
+
+<p><code>hurlfmt</code> is our Swiss knife for working with Hurl formatted files. We use it to convert an Hurl file to a JSON file:</p>
+
+<pre><code>$ hurlfmt --out json test.hurl | jq
+{
+  "entries": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8000/test.json"
+      },
+      "response": {
+        "status": 200,
+...
+</code></pre>
+
+<p>This can be useful if you want to convert your big Hurl tests suite to a solution that uses a different format.</p>
+
+<p>With 3.0.0, we’ve added the ability to convert curl command lines to Hurl.</p>
+
+<p>For instance, using <code>hurlfmt</code>:</p>
+
+<pre><code class="language-shell">$ hurlfmt --in curl curl.txt
+</code></pre>
+
+<p>We can convert this chain of curl commands:</p>
+
+<pre><code>curl http://localhost:8000/hello
+curl http://localhost:8000/custom-headers -H 'Fruit:Raspberry' -H 'Fruit:Apple' -H 'Fruit:Banana' -H 'Fruit: Grape' -H 'Color:Green'
+curl --header 'Content-Type: application/json' --data $'{"name": "Bob","password":"secret","age": 30}' 'http://localhost:8000/post-json'
+curl --header 'Content-Type:' --data '@tests_ok/data.bin' 'http://localhost:8000/post-file'
+curl --location 'http://localhost:8000/redirect-absolute'
+curl -k https://localhost:8001/hello
+</code></pre>
+
+<p>to this Hurl file:</p>
+
+<pre><code class="language-hurl">GET http://localhost:8000/hello
+
+GET http://localhost:8000/custom-headers
+Fruit: Raspberry
+Fruit: Apple
+Fruit: Banana
+Fruit: Grape
+Color: Green
+
+POST http://localhost:8000/post-json
+Content-Type: application/json
+```
+{"name": "Bob","password":"secret","age": 30}
+```
+
+POST http://localhost:8000/post-file
+Content-Type:
+file, tests_ok/data.bin;
+
+GET http://localhost:8000/redirect-absolute
+[Options]
+location: true
+
+GET https://localhost:8001/hello
+[Options]
+insecure: true
+</code></pre>
+
+<h3 id="from-your-browser-to-hurl">From your browser to Hurl</h3>
+
+<p>Another use case is to convert a request played in your favorite browser to Hurl format and replay it with Hurl. Using
+Firefox, in the Developer Tools / Network tab, you can export an HTTP request to a curl command:</p>
+
+<p>
+    <img class="u-drop-shadow u-border" src="/assets/img/firefox.png" width="100%" alt="Export request to curl in Firefox" />
+</p>
+
+<p>Then using <code>hurlfmt</code>, you will be able to convert this request to Hurl. We’re very happy to have
+implemented this feature and we’re looking forward to feedback!</p>
+
+<h2 id="simplify-hurls-rust-apis">Simplify Hurl’s Rust APIs</h2>
+
+<p>Hurl purpose has always been to be an excellent command line application, whether you want to get datas from a website or
+you want to add integration tests in A CI/CD pipeline. Some people (to our surprise), are also using <a href="https://crates.io/crates/hurl">Hurl’s crate</a> (a library in the Rust world)
+to integrate Hurl in there own program. With 3.0.0, we’ve given some attention to the APIs exposed by Hurl’s crate and, now,
+it’s even simpler to run an Hurl content and get result.</p>
+
+<p>A minimal Rust sample using the <code>run</code> method:</p>
+
+<pre><code class="language-rust">// A simple Hurl sample
+let content = r#"
+GET http://localhost:8000/hello
+HTTP 200
+"#;
+
+// Define runner options and logger
+let options = RunnerOptionsBuilder::new()
+    .follow_location(true)
+    .verbosity(Some(Verbosity::Verbose))
+    .build();
+let logger = LoggerBuilder::new().build();
+
+// Set variables
+let mut variables = HashMap::default();
+variables.insert("name".to_string(), Value::String("toto".to_string()));
+
+// Run the Hurl sample
+let result = runner::run(
+    content,
+    &amp;options,
+    &amp;variables,
+    &amp;logger
+);
+</code></pre>
+
+<p>To run a Hurl content, you have to provide the content as a string slice, a logger, some variables and runner options.
+Runner options and logger are created <a href="https://rust-unofficial.github.io/patterns/patterns/creational/builder.html">using the Rust builder pattern</a>: this way we can add more options without breaking binary
+compatibility (thanks <a href="https://twitter.com/robjtede">@robjtede</a>).</p>
+
+<h2 id="thats-all">That’s All</h2>
+
+<p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/3.0.0">in our release note</a>.
+If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author><name></name></author>
+        <summary>Announcing Hurl 3.0.0</summary>
+    </entry>
     <entry>
         <title>Hurl 2.0.0, the GraphQL Edition</title>
         <link href="https://hurl.dev/blog/2023/01/25/hurl-2.0.0-the-graphql-edition.html" rel="alternate" type="text/html" title="Hurl 2.0.0, the GraphQL Edition" />

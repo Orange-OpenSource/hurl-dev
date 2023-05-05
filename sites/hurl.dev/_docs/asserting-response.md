@@ -165,6 +165,7 @@ is shared with [captures], and can be one of :
 - [`md5`](#md5-assert)
 - [`variable`](#variable-assert)
 - [`duration`](#duration-assert)
+- [`certificate`](#ssl-certificate-assert)
 
 Queries are used to extract data from the HTTP response. Queries, in asserts and in captures, can be refined with [filters], like 
 [`count`][count] to add tests on collections sizes.
@@ -188,9 +189,10 @@ Predicates consist of a predicate function and a predicate value. Predicate func
 | __`includes`__     | Query collections includes the predicate value                                      | `jsonpath "$.nooks" includes "Dune"`                                                  |
 | __`matches`__      | Part of the query string matches the regex pattern described by the predicate value | `jsonpath "$.release" matches "\\d{4}"`<br><br>`jsonpath "$.release" matches /\d{4}/` |
 | __`exists`__       | Query returns a value                                                               | `jsonpath "$.book" exists`                                                            |
+| __`isEmpty`__      | Query returns an empty collection                                                   | `jsonpath "$.movies" isEmpty`                                                         |
 | __`isInteger`__    | Query returns an integer                                                            | `jsonpath "$.count" isInteger`                                                        |
 | __`isFloat`__      | Query returns a float                                                               | `jsonpath "$.height" isFloat`                                                         |
-| __`isBoolean`__    | Query returns a boolean                                                             | `jsonpath "$.suceeded" isBoolean`                                                     |
+| __`isBoolean`__    | Query returns a boolean                                                             | `jsonpath "$.succeeded" isBoolean`                                                    |
 | __`isString`__     | Query returns a string                                                              | `jsonpath "$.name" isString`                                                          |
 | __`isCollection`__ | Query returns a collection                                                          | `jsonpath "$.books" isCollection`                                                     |
 
@@ -367,8 +369,8 @@ HTTP 200
 # Explicit check of Set-Cookie header value. If the attributes are
 # not in this exact order, this assert will fail. 
 Set-Cookie: LSID=DQAAAKEaem_vYg; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/accounts; SameSite=Lax;
-Set-Cookie: HSID=AYQEVnDKrdst; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; HttpOnly; Path=/
-Set-Cookie: SSID=Ap4PGTEq; Domain=.localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/
+Set-Cookie: HSID=AYQEVnDKrdst; Domain=localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; HttpOnly; Path=/
+Set-Cookie: SSID=Ap4PGTEq; Domain=localhost; Expires=Wed, 13 Jan 2021 22:23:01 GMT; Secure; HttpOnly; Path=/
 
 # Using cookie assert, one can check cookie value and various attributes.
 [Asserts]
@@ -634,6 +636,23 @@ GET https://sample.org/helloworld
 HTTP 200
 [Asserts]
 duration < 1000   # Check that response time is less than one second
+```
+
+### SSL certificate assert
+
+Check the SSL certificate properties. Certificate assert consists of the keyword `certificate`, followed by the certificate attribute value.
+
+The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expire-Date` and `Serial-Number`.
+
+```hurl
+GET https://example.org
+
+HTTP 200
+[Asserts]
+certificate "Subject" == "CN=example.org"
+certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
+certificate "Expire-Date" daysAfterNow > 15
+certificate "Serial-Number" matches "[0-9af]+"
 ```
 
 ## Body

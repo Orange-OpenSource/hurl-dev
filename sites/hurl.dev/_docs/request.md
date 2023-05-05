@@ -286,6 +286,32 @@ Content type can be specified or inferred based on the filename extension:
 
 By default, content type is `application/octet-stream`.
 
+As an alternative to a `[MultipartFormData]` section, multipart forms can also be sent with a [multiline string body]:
+
+~~~hurl
+POST https://example.org/upload
+Content-Type: multipart/form-data; boundary="boundary"
+```
+--boundary
+Content-Disposition: form-data; name="key1"
+
+value1
+--boundary
+Content-Disposition: form-data; name="upload1"; filename="data.txt"
+Content-Type: text/plain
+
+Hello World!
+--boundary
+Content-Disposition: form-data; name="upload2"; filename="data.html"
+Content-Type: text/html
+
+<div>Hello <b>World</b>!</div>
+--boundary--
+```
+~~~
+
+> When using a multiline string body to send a multipart form data, files content must be inlined in the Hurl file.
+
 
 ### Cookies
 
@@ -459,7 +485,7 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
 ```
 ~~~
 
-> Contrary to JSON body, the succint syntax of XML body can not use variables. If you need to use variables in your
+> Contrary to JSON body, the succinct syntax of XML body can not use variables. If you need to use variables in your
 > XML body, use a simple [multiline string body] with variables.
 
 #### GraphQL query

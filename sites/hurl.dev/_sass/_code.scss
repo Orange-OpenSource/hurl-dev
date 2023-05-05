@@ -211,3 +211,30 @@ pre, code {
   }
 
 }
+
+.language-rust {
+  .comment-single {
+    color: $rust-comment-single-light;
+    color: var(--rust-comment-single);
+  }
+  .keyword {
+    color: $rust-keyword-light;
+    color: var(--rust-keyword);
+  }
+  .literal-number {
+    color: $rust-literal-number-light;
+    color: var(--rust-literal-number);
+  }
+  .literal-string-double {
+    color: $rust-literal-string-double-light;
+    color: var(--rust-literal-string-double);
+  }
+  .literal-constant {
+    color: $rust-literal-constant-light;
+    color: var(--rust-literal-constant);
+  }
+  .name-builtin {
+    color: $rust-name-builtin-light;
+    color: var(--rust-name-builtin);
+  }
+}
