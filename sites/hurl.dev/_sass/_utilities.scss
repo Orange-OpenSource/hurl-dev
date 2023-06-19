@@ -101,3 +101,12 @@
 .u-list-style-none {
   list-style-type: none;
 }
+
+.u-invisible {
+  display: block;
+  position: absolute;
+  height: 0; width: 0;
+  margin: 0; padding: 0;
+  border: none;
+  overflow: hidden;
+}

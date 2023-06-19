@@ -1,3 +1,11 @@
+document.getElementById("theme-toggle").addEventListener("click", () => {
+    modeSwitcher();
+});
+
+document.getElementById("menu").addEventListener("click", () => {
+    toggleMenu();
+})
+
 function toggleMenu() {
     const x = document.getElementById("top-nav-toc");
     if (x.style.display !== "block") {
@@ -6,7 +14,6 @@ function toggleMenu() {
         x.style.display = "none";
     }
 }
-
 
 // Dark mode switcher
 // Courtesy of https://derekkedziora.com/blog/dark-mode-revisited

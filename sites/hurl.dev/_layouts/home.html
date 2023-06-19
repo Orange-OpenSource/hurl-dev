@@ -3,22 +3,12 @@
     <head>
         {% include head.html %}
         <link rel="stylesheet" type="text/css" href="{{ '/assets/css/asciinema-player.css' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}" />
-        <script type="text/javascript">
-
-            function onSampleChange(sampleId) {
-                const divSample = document.querySelector(".home-sample");
-                const sample = document.querySelector("." + sampleId);
-                divSample.innerHTML = sample.outerHTML;
-            }
-
-        </script>
     </head>
     <body>
         <div>
             {% include top-nav.html docs=site.data.docs title=page.title%}
 
             <div class="home">
-
                 {% include side-nav.html docs=site.data.docs title=page.title%}
 
                 <div class="home-content" data-section="{{ page.section }}" data-indexed="true">
@@ -29,19 +19,10 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
         </div>
-        <script src="{{ '/assets/js/asciinema-player.min.js' | prepend:site.baseurl }}"></script>
-        <script>
-            AsciinemaPlayer.create('/assets/cast/hurl.cast', document.getElementById('home-demo'), {
-                loop: true,
-                speed: 3,
-                theme: "asciinema",
-                poster: "npt:1:00",
-            });
-        </script>
+        <script src="{{ '/assets/js/asciinema-player.min.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
+        <script src="{{ '/assets/js/home.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
     </body>
 </html>

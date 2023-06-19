@@ -2,20 +2,13 @@
 <html lang="en">
     <head>
         {% include head.html %}
-        <script type="text/javascript" src="{{ '/assets/js/search.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
-        <script type="text/javascript">
-            const version = "{{site.env.CI_COMMIT_SHORT_SHA}}";
-            const search = new Search("search-input", "search-results", "results");
-            search.loadIndex(version);
-            window.hurl = {};
-            window.hurl.search = search;
-        </script>
+        <script src="{{ '/assets/js/search.js' | prepend:site.baseurl }}?{{site.env.CI_COMMIT_SHORT_SHA}}"></script>
     </head>
     <body>
 
         <div>
             {% include top-nav.html docs=site.data.docs title=page.title%}
-            <div class="search">
+            <div class="search" data-version="{{site.env.CI_COMMIT_SHORT_SHA}}">
                 <div class="search-content">
                     {{ content }}
                     <p>You can <a href="https://github.com/Orange-OpenSource/hurl/issues">create an issue</a> if you don’t find what you are looking for.</p>

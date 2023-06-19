@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="top-nav-link u-d-block-md">
-                    <a class="top-nav-link-a u-pointer" role="button" alt="Theme" id="theme-toggle" onclick="modeSwitcher()"></a>
+                    <a class="top-nav-link-a u-pointer" role="button" alt="Theme" id="theme-toggle"></a>
                 </div>
                 <div class="top-nav-link">
                     <a class="top-nav-link-a" href="{{ "/search.html" | relative_url }}" aria-selected={% if page.url contains "/search" %}"true"{% else %}"false"{% endif %} alt="Search">
@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="top-nav-link u-d-none-md">
-                    <a class="top-nav-link-a u-pointer" role="button" alt="Menu" onclick="toggleMenu()">
+                    <a class="top-nav-link-a u-pointer" id="menu" role="button" alt="Menu">
                         <span class="svg-icon"><svg viewBox="0 0 448 512" width="18" height="18"><use href="#bar"></use></svg>&nbsp&nbsp;</span>
                         <span class="u-underline">Menu</span>
                     </a>
@@ -66,7 +66,7 @@
 
     </div>
 
-    <div style="display: block; position: absolute; height: 0; width: 0; margin: 0; padding: 0; border: none; overflow: hidden;">
+    <div class="u-invisible">
         {% include search-icon.svg %}
         {% include bar-icon.svg %}
         {% include moon-icon.svg %}
