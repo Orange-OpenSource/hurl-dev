@@ -8,7 +8,7 @@
 {% endunless %}
 
 <div class="doc-picker">
-    <select onchange="onPickerSelectChange(this.value)">
+    <select>
         {% for li2 in li1.items %}
         {% capture li2_url %}{{ li0.path }}{{ li1.title | remove: "'" | slugify }}.html#{{ li2.title | remove: "'" | remove: "/" | slugify }}{% endcapture %}
         <option value="{{ li2_url | prepend: site.baseurl }}">{{ li2.title }}</option>

@@ -369,7 +369,7 @@ jsonpath "$.state" == "COMPLETED"
     select_html += (
         '<label class="home-picker-label" for="samples">Choose example</label>\n'
     )
-    select_html += '<select names="samples" onchange="onSampleChange(this.value)">\n'
+    select_html += '<select id="home-samples" names="samples"">\n'
     for idx, sample in enumerate(samples):
         if idx == feature_sample:
             select = " selected"

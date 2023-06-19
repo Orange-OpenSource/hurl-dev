@@ -186,4 +186,13 @@ class Search {
 
 }
 
+function createSearch() {
+    const elt = document.querySelector(".search");
+    const version = elt.dataset.version;
+    const search = new Search("search-input", "search-results", "results");
+    search.loadIndex(version);
+    window.hurl = {};
+    window.hurl.search = search;
+}
 
+window.addEventListener("DOMContentLoaded", () => createSearch());
