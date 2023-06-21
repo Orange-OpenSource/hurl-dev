@@ -74,7 +74,7 @@ typing the URL <http://localhost:8080>:
      <img class="dark-img" src="{{ '/assets/img/quiz-dark.png' | prepend:site.baseurl }}" width="400px" alt="Quiz home page"/>
 </div>
 
-<small>Our quiz app: we've only secured a budget for integration tests and nothing for the site design...</small>
+<small class="u-greyed">Our quiz app: we've only secured a budget for integration tests and nothing for the site design...</small>
 
 ## A Basic Test
 
