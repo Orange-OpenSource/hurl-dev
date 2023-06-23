@@ -684,7 +684,7 @@ of the retry option, the <code>GET</code> request is going to be retried until <
 # Pull job status until it is completed
 GET https://api.example.org/jobs/
 [Options]
-retry: true
+retry: 10
 
 HTTP/* 200
 [Asserts]
@@ -706,7 +706,7 @@ jsonpath "$.state" == "RUNNING"
 # Pull job status until it is completed
 GET https://api.example.org/
 [Options]
-retry: true
+retry: 10
 
 HTTP/* 200
 [Asserts]
@@ -717,7 +717,7 @@ jsonpath "$.state" == "COMPLETED"
 
 <pre><code class="language-hurl">GET https://api.example.org/123456
 [Options]
-retry: true
+retry: 10
 retry-interval: 4000
 HTTP/* 200
 </code></pre>

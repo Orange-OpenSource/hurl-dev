@@ -136,8 +136,10 @@ User-Agent: My User Agent
 
 ### Method
 
-Mandatory HTTP request method, one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `CONNECT`, `OPTIONS`,
-`TRACE`, `PATCH`, `LINK`, `UNLINK`, `PURGE`, `LOCK`, `UNLOCK`, `PROPFIND`, `VIEW`.
+Mandatory HTTP request method, usually one of `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `CONNECT`, `OPTIONS`,
+`TRACE` and `PATCH`. 
+
+> Other methods can be used like `QUERY` with the constraint of using only uppercase chars.
 
 ### URL
 
@@ -658,6 +660,7 @@ compressed: true        # request a compressed response
 insecure: true          # allows insecure SSL connections and transfers
 location: true          # follow redirection for this request
 max-redirs: 10          # maximum number of redirections
+path-as-is: true        # tell curl to not handle sequences of /../ or /./ in the given URL path
 variable: country=Italy # define variable country
 variable: planet=Earth  # define variable planet
 verbose: true           # allow verbose output
