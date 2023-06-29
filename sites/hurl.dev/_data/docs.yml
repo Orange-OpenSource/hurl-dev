@@ -223,6 +223,7 @@
             - title: count
             - title: daysAfterNow
             - title: daysBeforeNow
+            - title: decode
             - title: format
             - title: htmlEscape
             - title: htmlUnescape

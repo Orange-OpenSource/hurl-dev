@@ -6,3 +6,4 @@ collections:
 highlighter: none
 kramdown:
   gfm_quirks: [no_auto_typographic]
+future: false

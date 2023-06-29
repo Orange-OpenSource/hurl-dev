@@ -122,7 +122,7 @@ HTTP 200
 Every entry can be retried upon asserts, captures or runtime errors. Retries allow polling scenarios and effective runs 
 under flaky conditions. Asserts can be explicit (with an [`[Asserts]` section][asserts]), or implicit (like [headers] or [status code]).
 
-Retries can be set globally for every request (see [`--retry`], [`--retry-interval`] and [`--retry-max-count`] options), 
+Retries can be set globally for every request (see [`--retry`] and [`--retry-interval`]), 
 or activated on a particular request with an [`[Options]` section][options].
 
 For example, in this Hurl file, first we create a new job, then we poll the new job until it's completed:
@@ -142,7 +142,7 @@ jsonpath "$.state" == "RUNNING"
 # Pull job status until it is completed
 GET http://api.example.org/jobs/{{job_id}}
 [Options]
-retry: true
+retry: 10   # maximum number of retry, -1 for unlimited
 
 HTTP 200
 [Asserts]
@@ -168,4 +168,3 @@ jsonpath "$.state" == "COMPLETED"
 [Asserts]: {% link _docs/response.md %}#asserts
 [`--retry`]: {% link _docs/manual.md %}#retry
 [`--retry-interval`]: {% link _docs/manual.md %}#retry-interval
-[`--retry-max-count`]: {% link _docs/manual.md %}#retry-max-count

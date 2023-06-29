@@ -70,7 +70,7 @@ of the retry option, the `GET` request is going to be retried until `state`'s va
 # Pull job status until it is completed
 GET https://api.example.org/jobs/{{job_id}}
 [Options]
-retry: true
+retry: 10
 
 HTTP/* 200
 [Asserts]
@@ -93,7 +93,7 @@ jsonpath "$.state" == "RUNNING"
 # Pull job status until it is completed
 GET https://api.example.org/{{job_id}}
 [Options]
-retry: true
+retry: 10
 
 HTTP/* 200
 [Asserts]
@@ -105,7 +105,7 @@ Retry work on any asserts, whether they're explicit (with an [`[Asserts]` sectio
 ```hurl
 GET https://api.example.org/123456
 [Options]
-retry: true
+retry: 10
 retry-interval: 4000
 HTTP/* 200
 ```
