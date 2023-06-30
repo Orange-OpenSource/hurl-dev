@@ -235,6 +235,7 @@
             - title: toInt
             - title: urlDecode
             - title: urlEncode
+            - title: xpath
     - title: Templates
       path: /docs/templates.html
       items:
