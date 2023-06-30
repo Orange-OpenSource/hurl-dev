@@ -15,7 +15,7 @@
 
 <div class="blog-post-date">Jun. 30, 2023</div>
 
-<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">Hurl 4.0.0</a> <picture><source srcset="/assets/img/emoji-party-popper.avif" type="image/avif" /><source srcset="/assets/img/emoji-party-popper.webp" type="image/webp" /><source srcset="/assets/img/emoji-party-popper.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" /></picture>!  !</p>
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">Hurl 4.0.0</a> <picture><source srcset="/assets/img/emoji-party-popper.avif" type="image/avif" /><source srcset="/assets/img/emoji-party-popper.webp" type="image/webp" /><source srcset="/assets/img/emoji-party-popper.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" /></picture> !</p>
 
 <p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
 in a simple plain text format:</p>

@@ -9,7 +9,7 @@ permalink: /blog/:year/:month/:day/:title.html
 
 <div class="blog-post-date">{{ page.date | date: "%b. %d, %Y" }}</div>
 
-The Hurl team is happy to announce [Hurl 4.0.0] <picture><source srcset="{{ '/assets/img/emoji-party-popper.avif' | prepend:site.baseurl }}" type="image/avif"><source srcset="{{ '/assets/img/emoji-party-popper.webp' | prepend:site.baseurl }}" type="image/webp"><source srcset="{{ '/assets/img/emoji-party-popper.png' | prepend:site.baseurl }}" type="image/png"><img class="emoji" src="{{ '/assets/img/emoji-party-popper.png' | prepend:site.baseurl }}" width="20" height="20" alt="Partying Face"></picture>!  !
+The Hurl team is happy to announce [Hurl 4.0.0] <picture><source srcset="{{ '/assets/img/emoji-party-popper.avif' | prepend:site.baseurl }}" type="image/avif"><source srcset="{{ '/assets/img/emoji-party-popper.webp' | prepend:site.baseurl }}" type="image/webp"><source srcset="{{ '/assets/img/emoji-party-popper.png' | prepend:site.baseurl }}" type="image/png"><img class="emoji" src="{{ '/assets/img/emoji-party-popper.png' | prepend:site.baseurl }}" width="20" height="20" alt="Partying Face"></picture> !
 
 [Hurl] is a command line tool powered by [curl], that runs HTTP requests defined
 in a simple plain text format:
