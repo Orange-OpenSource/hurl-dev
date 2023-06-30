@@ -3,8 +3,254 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2023-05-05T17:22:51+02:00</updated>
+    <updated>2023-06-30T18:11:19+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 4.0.0</title>
+        <link href="https://hurl.dev/blog/2023/06/30/announcing-hurl-4.0.0.html" rel="alternate" type="text/html" title="Announcing Hurl 4.0.0" />
+        <published>2023-06-30T00:00:00+02:00</published>
+        <updated>2023-06-30T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2023/06/30/announcing-hurl-4.0.0.html</id>
+        <content type="html"><![CDATA[<h1 id="announcing-hurl-400">Announcing Hurl 4.0.0</h1>
+
+<div class="blog-post-date">Jun. 30, 2023</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">Hurl 4.0.0</a> <picture><source srcset="/assets/img/emoji-party-popper.avif" type="image/avif" /><source srcset="/assets/img/emoji-party-popper.webp" type="image/webp" /><source srcset="/assets/img/emoji-party-popper.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" /></picture>!  !</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a simple plain text format:</p>
+
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+
+<p>What’s new in this release:</p>
+
+<ul>
+  <li><a href="#improved-html-report-with-request-waterfall">Improved HTML Report with Request Waterfall</a></li>
+  <li><a href="#detailed-error-for-cicd">Detailed Error for CI/CD</a></li>
+  <li><a href="#new-filters-decode-and-xpath">New Filters: decode and xpath</a></li>
+  <li><a href="#jsonpath-change">JSONPath Change</a></li>
+  <li><a href="#custom-http-methods">Custom HTTP Methods</a></li>
+</ul>
+
+<h2 id="improved-html-report-with-request-waterfall">Improved HTML Report with Request Waterfall</h2>
+
+<p>We’ve improved <a href="/docs/manual.html#report-html">Hurl HTML report</a>. The HTML report is pure HTML, without any JavaScript and with inlined CSS, so it’s should be
+easy to integrate in your favorite CI/CD solution (like <a href="https://docs.gitlab.com/ee/ci/">GitLab CI/CD</a> or <a href="https://github.com/features/actions">GitHub Actions</a> for instance). Now, each run produces:</p>
+
+<ul>
+  <li>a <strong>waterfall timeline</strong>: each request/response is displayed on a beautiful graph, with easy access to response timings (DNS,
+TCP handshake, time to first byte etc...). These timings are provided by <code>libcurl</code> and you can find an explanation of each
+indicator <a href="/docs/response.html#timings">in the documentation</a></li>
+  <li>a run log with request and response headers, certificate info etc...</li>
+  <li>a syntax colored source file with inline errors</li>
+</ul>
+
+<picture>
+  <source srcset="/assets/img/timeline.avif" type="image/avif" />
+  <source srcset="/assets/img/timeline.webp" type="image/webp" />
+  <source srcset="/assets/img/timeline.png" type="image/png" />
+  <img class="u-drop-shadow u-border" src="/assets/img/timeline.png" width="100%" alt="Requests timeline" />
+</picture>
+
+<p>The timings used to construct the requests timeline are also exposed through <a href="/docs/manual.html#json"><code>--json</code> option</a>. <code>--json</code> gives you a structured
+view of a Hurl run with errors, asserts, certificates, captures, cookies and so timings. You can even use it to produce your own report!</p>
+
+<h3 id="once-you-see-it-you-cant-unsee-it">Once you see it, you can’t unsee it</h3>
+
+<p>What’s interesting with rich visualisation is it can reveal hidden or not obvious things. For instance, you can have this
+kind of gaps on some runs:</p>
+
+<picture>
+  <source srcset="/assets/img/asserts-perf.avif" type="image/avif" />
+  <source srcset="/assets/img/asserts-perf.webp" type="image/webp" />
+  <source srcset="/assets/img/asserts-perf.png" type="image/png" />
+  <img class="u-drop-shadow u-border" src="/assets/img/asserts-perf.png" width="734" />
+</picture>
+
+<p>After analysis, the gap between requests in this sample test is caused by a huge numbers of assertions on the HTTP response. We have, as of Hurl 4.0.0, a naive
+approach of asserts computation: each asserts of the same response is independent, and we parse and recompute every assert from scratch.
+Until we see these edge cases, we were very proud of Hurl speed (due to the combination of <code>libcurl</code> and
+Rust). Now, we know that we have to improve assert performance for the next release <picture><source srcset="/assets/img/emoji-sad-pensive-face.avif" type="image/avif" /><source srcset="/assets/img/emoji-sad-pensive-face.webp" type="image/webp" /><source srcset="/assets/img/emoji-sad-pensive-face.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-sad-pensive-face.png" width="20" height="20" alt="Sad Pensive Face Emoji" /></picture> !</p>
+
+<h2 id="detailed-error-for-cicd">Detailed Error for CI/CD</h2>
+
+<p>When you’ve error in some test, the analysis can be difficult because you don’t have a lot of information apart of the expected
+values:</p>
+
+<pre><code class="language-shell">$ hurl --test test.hurl
+test.hurl: Running [1/1]
+error: Assert failure
+  --&gt; test.hurl:4:0
+   |
+ 4 | header "Control-Security-Policy" contains "default-src 'self'"
+   |   actual:   none
+   |   expected: contains string &lt;default-src 'self'&gt;
+   |
+
+test.hurl: Failure (1 request(s) in 128 ms)
+--------------------------------------------------------------------------------
+Executed files:  1
+Succeeded files: 0 (0.0%)
+Failed files:    1 (100.0%)
+Duration:        130 ms
+</code></pre>
+
+<p>With the new <a href="/docs/manual.html#error-format"><code>--error-format</code> option</a>, you can opt in for a longer error description. In this mode, the response header and the response
+body are automatically logged:</p>
+
+<pre><code class="language-shell">$ hurl --error-format long --test test.hurl
+test.hurl: Running [1/1]
+HTTP/2 200
+date: Thu, 29 Jun 2023 16:06:58 GMT
+content-type: text/html
+content-length: 58941
+last-modified: Thu, 29 Jun 2023 14:37:22 GMT
+etag: "649d9722-e63d"
+strict-transport-security: max-age=31536000; includeSubDomains
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+accept-ranges: bytes
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+&lt;link rel="apple-touch-icon" href="/assets/img/hurl-icon-120.png" /&gt;
+...
+...
+...
+    &lt;/body&gt;
+&lt;/html&gt;
+
+error: Assert failure
+  --&gt; test.hurl:4:0
+   |
+ 4 | header "Control-Security-Policy" contains "default-src 'self'"
+   |   actual:   none
+   |   expected: contains string &lt;default-src 'self'&gt;
+   |
+
+test.hurl: Failure (1 request(s) in 146 ms)
+--------------------------------------------------------------------------------
+Executed files:  1
+Succeeded files: 0 (0.0%)
+Failed files:    1 (100.0%)
+Duration:        148 ms
+</code></pre>
+
+<p>In this example, we can see that there is actually a <code>Content-Security-Policy</code> whereas we’re querying a <code>Control-Security-Policy</code>
+header. The bug is now really simple to solve because the response headers and body are logged.</p>
+
+<p>This option is really useful in CI/CD where you want to have all the available context to debug your session, without
+re-running your tests. Beware that, as the body response is logged, the log can be <em>really</em> long.</p>
+
+<h2 id="new-filters-decode-and-xpath">New Filters: decode and xpath</h2>
+
+<p>Textual asserts in Hurl work by automatically decoding the response body bytes, based on the <code>Content-Type</code> response header.
+That way, if we have a Latin 1 encoded HTML or an UFT-8 encoded HTML we can write the same assert without any encoding concern:</p>
+
+<pre><code class="language-hurl"># UTF-8 encoded document:
+GET https://example.org/charset/utf8
+HTTP 200
+Content-Type: text/html; charset=utf-8
+[Asserts]
+body == "&lt;p&gt;café&lt;/p&gt;"
+
+# Latin1 encoded document:
+GET https://example.org/charset/latin1
+HTTP 200
+Content-Type: text/html; charset=latin1
+[Asserts]
+body == "&lt;p&gt;café&lt;/p&gt;"
+</code></pre>
+
+<p>To decode a response from bytes to text, Hurl uses <code>charset</code> hint from <code>Content-Type</code> response header. But sometimes the <code>Content-Type</code>
+response header doesn’t specify any encoding. Or the encoding is indicated inside the HTML document through <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#http-equiv"><code>&lt;meta&gt;</code> tag</a>:</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv='Content-Type' content='text/html; charset=gb2312'&gt;
+    &lt;/head&gt;
+    &lt;body&gt;你好世界&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>In this case, a <a href="/docs/filters.html#decode"><code>decode</code> filter</a> can now be used to explicitly decodes bytes to text and do checks:</p>
+
+<pre><code class="language-hurl">GET https://example.com/hello_gb231
+HTTP 200
+[Asserts]
+header "Content-Type" == "text/html"
+bytes contains hex,c4e3bac3cac0bde7; # 你好世界 encoded in GB2312
+bytes decode "gb2312" xpath "string(//body)" == "你好世界"
+</code></pre>
+
+<p>As hinted in the previous Hurl snippet, you can now evaluate XPath expression on response part with a <a href="/docs/filters.html#xpath"><code>xpath</code> filter</a>.</p>
+
+<h2 id="jsonpath-change">JSONPath Change</h2>
+
+<p>In Hurl 4.0.0, we’ve slightly changed the evaluation of <a href="https://goessner.net/articles/JsonPath/">JSONPath</a> query. There is no proper specifications for JSONPath.
+The de-facto one, that Hurl tries to follow as closely as possible, is still <a href="https://goessner.net/articles/JsonPath/">https://goessner.net/articles/JsonPath/</a>.
+There are a few edge cases for which several implementations differ. For instance, standard JSONPath always returns a collection,
+which most of the time is not meaningful, and harder to test. Some implementations (such as the Java library <a href="https://github.com/json-path/JsonPath">https://github.com/json-path/JsonPath</a>)
+also distinguish between node value (definite path) and collection (indefinite path).</p>
+
+<p>Basically, in Hurl 4.0.0, the only selectors returning a value are:</p>
+
+<ul>
+  <li>array index selector (<code>$.store.book[2]</code>)</li>
+  <li>object key selector (<code>$.store.bicycle.color/$.store.bicycle['color']</code>)</li>
+</ul>
+
+<p>Other selectors, that use filters (for instance <code>?(@.price &gt;= 10)</code> or <code>$[*].id</code>) will return a collection. You can then use
+<a href="/docs/filters.html#nth"><code>nth</code> filter</a> to extract a value from this collection.</p>
+
+<pre><code class="language-hurl">GET https://example.com/books
+HTTP 200
+[Asserts]
+jsonpath "$.store.book[0].title" == "Dune"
+jsonpath "$.store.book[*].title" nth 0 == "Dune"
+</code></pre>
+
+<h2 id="custom-http-methods">Custom HTTP methods</h2>
+
+<p>Hurl 4.0.0 supports now any custom HTTP method. The only constraint is to write the method in uppercase. You can right-away
+experiment the <a href="https://www.ietf.org/archive/id/draft-ietf-httpbis-safe-method-w-body-02.html">incoming new <code>QUERY</code> method</a>:</p>
+
+<pre><code class="language-hurl">QUERY https://example.org/contacts
+Content-Type: example/query
+Accept: text/csv
+HTTP 200
+Content-Type: text/csv
+```
+surname, givenname, email
+Smith, John, john.smith@example.org
+Jones, Sally, sally.jones@example.com
+Dubois, Camille, camille.dubois@example.net
+```
+</code></pre>
+
+<h2 id="others">Others</h2>
+
+<p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">in our release note</a>.
+If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author><name></name></author>
+        <summary>The Hurl team is happy to announce a new version of Hurl, 4.0.0.</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 3.0.0</title>
         <link href="https://hurl.dev/blog/2023/05/05/announcing-hurl-3.0.0.html" rel="alternate" type="text/html" title="Announcing Hurl 3.0.0" />
