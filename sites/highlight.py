@@ -112,6 +112,7 @@ def bash_to_html(snippet: str) -> str:
         output = output.replace(word, f'<span class="name-builtin">{word}</span>')
     return output
 
+
 def rust_to_html(snippet: str) -> str:
     output = highlight(snippet, RustLexer(), HtmlFormatter(nowrap=True))
     # From https://github.com/richleland/pygments-css/blob/master/default.css
