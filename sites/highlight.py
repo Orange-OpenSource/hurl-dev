@@ -110,7 +110,7 @@ def bash_to_html(snippet: str) -> str:
     # FIXME: Simulate docker as built-in
     for word in ["docker", "wait_for_url", "sleep"]:
         output = output.replace(word, f'<span class="name-builtin">{word}</span>')
-
+    return output
 
 def rust_to_html(snippet: str) -> str:
     output = highlight(snippet, RustLexer(), HtmlFormatter(nowrap=True))
@@ -130,7 +130,6 @@ def rust_to_html(snippet: str) -> str:
     output = output.replace('class="s2"', 'class="literal-string-double"')
     output = output.replace('class="si"', 'class="literal-string-interpol"')
     output = output.replace('class="w"', "")
-
     return output
 
 
