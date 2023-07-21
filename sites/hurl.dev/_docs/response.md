@@ -113,12 +113,12 @@ On each response, libcurl response timings are available:
 
 All timings are in microsecond.
 
-<div>
-    <img class="light-img u-drop-shadow u-border u-mt-4" src="{{ '/assets/img/timings-light.svg' | prepend:site.baseurl }}" width="100%" alt="Response timings explanation"/>
-    <img class="dark-img u-drop-shadow u-border u-mt-4" src="{{ '/assets/img/timings-dark.svg' | prepend:site.baseurl }}" width="100%" alt="Response timings explanation"/>
+<div class="picture">
+    <img class="light-img u-drop-shadow u-border" src="{{ '/assets/img/timings-light.svg' | prepend:site.baseurl }}" width="100%" alt="Response timings explanation"/>
+    <img class="dark-img u-drop-shadow u-border" src="{{ '/assets/img/timings-dark.svg' | prepend:site.baseurl }}" width="100%" alt="Response timings explanation"/>
+    <a href="https://blog.cloudflare.com/a-question-of-timing/"><small>Courtesy of CloudFlare</small></a>
 </div>
 
-<a href="https://blog.cloudflare.com/a-question-of-timing/"><small>Courtesy of CloudFlare</small></a>
 
 
 [requests]: {% link _docs/request.md %}

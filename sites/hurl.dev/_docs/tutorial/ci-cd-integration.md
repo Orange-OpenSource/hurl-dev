@@ -178,10 +178,10 @@ to create a [GitHub Action]. You can also see how to integrate your tests in [Gi
 {:start="1"}
 1. Create a new empty repository in GitHub, named `quiz-project`:
 
-<p>
+<div class="picture">
     <img class="light-img u-drop-shadow u-border" src="{{ '/assets/img/github-new-repository-light.png' | prepend:site.baseurl }}" width="100%" alt="Create new GitHub repository"/>
     <img class="dark-img u-drop-shadow u-border" src="{{ '/assets/img/github-new-repository-dark.png' | prepend:site.baseurl }}" width="100%" alt="Create new GitHub repository"/>
-</p>
+</div>
 
 
 {:start="2"}
@@ -253,10 +253,10 @@ Counting objects: 100% (6/6), done.
 
 Finally, you can check on GitHub that our action is running:
 
-<p>
+<div class="picture">
     <img class="light-img u-drop-shadow u-border" src="{{ '/assets/img/github-action-light.png' | prepend:site.baseurl }}" width="100%" alt="GitHub Action"/>
     <img class="dark-img u-drop-shadow u-border" src="{{ '/assets/img/github-action-dark.png' | prepend:site.baseurl }}" width="100%" alt="GitHub Action"/>
-</p>
+</div>
 
 ## Running Tests with GitLab CI/CD
 
