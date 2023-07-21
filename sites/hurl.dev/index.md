@@ -156,9 +156,9 @@ Finally, Hurl is easy to <b>integrate in CI/CD</b>, with text, JUnit and HTML re
 # Why Hurl?
 
 <ul class="showcase-container">
- <li class="showcase-item"><h2 class="showcase-item-title">Text Format</h2>For both devops and developers</li>
- <li class="showcase-item"><h2 class="showcase-item-title">Fast CLI</h2>A command line for local dev and continuous integration</li>
- <li class="showcase-item"><h2 class="showcase-item-title">Single Binary</h2>Easy to install, with no runtime required</li>
+    <li class="showcase-item"><h2 class="showcase-item-title">Text Format</h2>For both devops and developers</li>
+    <li class="showcase-item"><h2 class="showcase-item-title">Fast CLI</h2>A command line for local dev and continuous integration</li>
+    <li class="showcase-item"><h2 class="showcase-item-title">Single Binary</h2>Easy to install, with no runtime required</li>
 </ul>
 
 # Powered by curl

@@ -142,6 +142,11 @@ def convert_to_jekyll(
                 r'''<img \1src="{{ '/\2' | prepend:site.baseurl }}"''',
                 content,
             )
+            content = re.sub(
+                r'''<source srcset="/docs/([a-z/\-.]+)"''',
+                r'''<source srcset="{{ '/\1' | prepend:site.baseurl }}"''',
+                content,
+            )
 
             # Optionally force list number to be respected, because kramdown is resetting list when they're not
             # made of consecutive items.
