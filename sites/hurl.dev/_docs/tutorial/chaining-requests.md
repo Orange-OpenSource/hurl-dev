@@ -12,19 +12,18 @@ Our basic Hurl file is for the moment:
 
 ```hurl
 # Checking our home page:
-GET http://localhost:8080
+GET http://localhost:3000
 
 HTTP 200
 [Asserts]
-xpath "string(//head/title)" == "Welcome to Quiz!"
-xpath "//button" count == 2
-xpath "string((//button)[1])" contains "Play"
-xpath "string((//button)[2])" contains "Create"
-# Testing content type:
-header "Content-Type" == "text/html;charset=UTF-8"
-# Testing session cookie:
-cookie "JSESSIONID" exists
-cookie "JSESSIONID[HttpOnly]" exists
+xpath "string(//head/title)" == "Movies Box"
+xpath "//h3" count == 2
+xpath "string((//h3)[1])" contains "Popular"
+xpath "string((//h3)[2])" contains "Featured Today"
+# Testing HTTP response headers:
+header "Content-Type" == "text/html; charset=utf-8"
+cookie "x-session-id" exists
+cookie "x-session-id[HttpOnly]" exists
 ```
 
 We're only running one HTTP request and have already added lots of tests on the response. Don't hesitate to add
@@ -38,27 +37,28 @@ request following our first request. Let's say we want to test that we have a [4
 
 ```hurl
 # Checking our home page:
-GET http://localhost:8080
+GET http://localhost:3000
 
 HTTP 200
 [Asserts]
-xpath "string(//head/title)" == "Welcome to Quiz!"
-xpath "//button" count == 2
-xpath "string((//button)[1])" contains "Play"
-xpath "string((//button)[2])" contains "Create"
-# Testing content type:
-header "Content-Type" == "text/html;charset=UTF-8"
-# Testing session cookie:
-cookie "JSESSIONID" exists
-cookie "JSESSIONID[HttpOnly]" exists
+xpath "string(//head/title)" == "Movies Box"
+xpath "//h3" count == 2
+xpath "string((//h3)[1])" contains "Popular"
+xpath "string((//h3)[2])" contains "Featured Today"
+# Testing HTTP response headers:
+header "Content-Type" == "text/html; charset=utf-8"
+cookie "x-session-id" exists
+cookie "x-session-id[HttpOnly]" exists
+
 
 # Check that we have a 404 response for broken links:
-GET http://localhost:8080/not-found
+GET http://localhost:3000/not-found
 
 HTTP 404
 [Asserts]
-header "Content-Type" == "text/html;charset=UTF-8"
-xpath "string(//h1)" == "Error 404, Page not Found!"
+header "Content-Type" == "text/html; charset=utf-8"
+xpath "string(//h2)" == "Error"
+xpath "string(//h3)" == "Not Found"
 ```
 
 Now, we have two entries in our Hurl file: each entry is composed of one request and one expected response
@@ -68,8 +68,8 @@ description.
 > our file with only requests:
 >
 > ```hurl
-> GET http://localhost:8080
-> GET http://localhost:8080/not-found
+> GET http://localhost:3000
+> GET http://localhost:3000/not-found
 > ```
 > But it would have performed nearly zero test. This type of Hurl file can be useful
 > if you use Hurl to get data for instance.
@@ -80,12 +80,12 @@ description.
 ```shell
 $ hurl --test basic.hurl
 [1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
-[1mbasic.hurl[0m: [1;32mSuccess[0m (2 request(s) in 12 ms)
+[1mbasic.hurl[0m: [1;32mSuccess[0m (2 request(s) in 20 ms)
 --------------------------------------------------------------------------------
 Executed files:  1
 Succeeded files: 1 (100.0%)
 Failed files:    0 (0.0%)
-Duration:        12 ms
+Duration:        20 ms
 ```
 
 We can see that the test is still ok, now two requests are being run in sequence, and each response can be
@@ -102,8 +102,8 @@ Let's use Hurl to check it.
 1. In a shell, use Hurl to test the </api/health> endpoint:
 
 ```shell
-$ echo 'GET http://localhost:8080/api/health' | hurl
-{"status":"RUNNING","reportedDate":"2021-06-06T14:08:27Z","healthy":true,"operationId":425276758}
+$ echo 'GET http://localhost:3000/api/health' | hurl
+{"status":"RUNNING","healthy":true,"operationId":6212054377712155,"reportedDate":"2023-07-21T16:11:24.053Z"}
 ```
 
 > Being a classic CLI application, we can use the standard input with Hurl to provide requests
@@ -111,17 +111,17 @@ $ echo 'GET http://localhost:8080/api/health' | hurl
 
 So, our health API returns this JSON resource:
 
-```
+```json
 {
   "status": "RUNNING",
-  "reportedDate": "2021-06-06T14:08:27Z",
   "healthy": true,
-  "operationId": 425276758
+  "operationId": 6212054377712155
+  "reportedDate": "2023-07-21T16:11:24.053Z",
 }
 ```
 
-We can test it with a [JsonPath assert]. JsonPath asserts have the same structure as XPath asserts: a query
-followed by a predicate. A [JsonPath query] is a simple expression to inspect a JSON object.
+We can test it with a [JSONPath assert]. JsonPath asserts have the same structure as XPath asserts: a query
+followed by a predicate. A [JSONPath query] is a simple expression to inspect a JSON object.
 
 {:start="2"}
 2. Modify `basic.hurl` to add a third request that asserts our </api/health> REST API:
@@ -134,17 +134,17 @@ followed by a predicate. A [JsonPath query] is a simple expression to inspect a 
 # ...
 
 # Check our health API:
-GET http://localhost:8080/api/health
+GET http://localhost:3000/api/health
 
 HTTP 200
 [Asserts]
-header "Content-Type" == "application/json"
+header "Content-Type" == "application/json; charset=utf-8"
 jsonpath "$.status" == "RUNNING"
 jsonpath "$.healthy" == true
 jsonpath "$.operationId" exists
 ```
 
-Like XPath assert, JsonPath predicate values are typed. String, boolean, number and
+Like XPath assert, JSONPath predicate values are typed. String, boolean, number and
 collections are supported. Let's practice writing JsonPath asserts by using another API. In our Quiz model, a
 quiz is a set of questions, and a question resource is exposed through a
 REST API exposed at <http://localhost:8080/api/questions>. We can use it to add checks on getting questions
@@ -289,7 +289,7 @@ don't hesitate to add many comments: your Hurl file will be a valuable and testa
 for your applications.
 
 [404 page]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
-[JsonPath assert]: {% link _docs/asserting-response.md %}#jsonpath-assert
-[JsonPath query]: https://goessner.net/articles/JsonPath/
+[JSONPath assert]: {% link _docs/asserting-response.md %}#jsonpath-assert
+[JSONPath query]: https://goessner.net/articles/JsonPath/
 [query parameter section]: {% link _docs/request.md %}#query-parameters
 [`--test`]: {% link _docs/manual.md %}#test
