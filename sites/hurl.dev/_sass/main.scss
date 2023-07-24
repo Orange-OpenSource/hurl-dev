@@ -11,6 +11,12 @@ html {
     /* Take fixed header into account */
     scroll-padding-top: 20px + 72px;
   }
+  /* Enable smooth scrolling for anchors */
+  scroll-behavior: smooth;
+  /* Disable smooth scrolling when users have prefers-reduced-motion enabled */
+  @media screen and (prefers-reduced-motion: reduce){
+    scroll-behavior: auto;
+  }
 }
 
 body {
