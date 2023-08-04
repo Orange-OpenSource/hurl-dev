@@ -46,33 +46,42 @@ If you want to use the Docker image, you must have Docker installed locally. If 
 just run in a shell:
 
 ```shell
-$ docker pull ghcr.io/jcamiel/quiz:latest
-$ docker run --name quiz --rm --detach --publish 8080:8080 ghcr.io/jcamiel/quiz:latest
+$ docker pull ghcr.io/jcamiel/hurl-express-tutorial:latest
+$ docker run --name movies --rm --detach --publish 3000:3000 ghcr.io/jcamiel/hurl-express-tutorial:latest
 ```
 
 And check that the container is running with:
 
 ```shell
 $ docker ps
-CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS         PORTS                                       NAMES
-922d387923ec   ghcr.io/jcamiel/quiz:latest   "java -jar app/quiz.…"   8 seconds ago   Up 6 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   quiz
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+4002ce42e507   ghcr.io/jcamiel/hurl-express-tutorial:latest   "node dist/bin/www.js"   3 seconds ago   Up 2 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   movies
 ```
 
 If you want to launch the Node application, you must have Node installed locally.
 
 ```shell
-$ git clone
-$ cd movies-box
-$ npm run build
-$ node dist/www/bin 
+$ git clone https://github.com/jcamiel/hurl-express-tutorial.git && cd hurl-express-tutorial
+$ npm install
+$ npm start 
 ```
 
 Either you're using the Docker images or the Node app, you can open a browser and test the website by
 typing the URL <http://localhost:3000>:
 
-<div>
-     <img class="light-img" src="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" width="400" alt="Quiz home page"/>
-     <img class="dark-img" src="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" width="400" alt="Quiz home page"/>
+<div class="picture">
+    <picture>
+        <source srcset="{{ '/assets/img/movies-box-light.avif' | prepend:site.baseurl }}" type="image/avif">
+        <source srcset="{{ '/assets/img/movies-box-light.webp' | prepend:site.baseurl }}" type="image/webp">
+        <source srcset="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" type="image/png">
+        <img class="light-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
+    </picture>
+    <picture>
+        <source srcset="{{ '/assets/img/movies-box-dark.avif' | prepend:site.baseurl }}" type="image/avif">
+        <source srcset="{{ '/assets/img/movies-box-dark.webp' | prepend:site.baseurl }}" type="image/webp">
+        <source srcset="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" type="image/png">
+        <img class="dark-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
+    </picture>
 </div>
 
 Play a little with the site. You can see details of each movie, search for movies (try "1982"), login to add favorites 
@@ -114,8 +123,9 @@ $ hurl basic.hurl
 </html>
 ```
 
-If the Movies Box website is running, you should see the content of the HTML file at <http://localhost:3000>. If the website
-is not running, you'll see an error:
+If the Movies Box website is running, you should see the content of the HTML file at <http://localhost:3000>. 
+
+If the website is not running, you'll see an error:
 
 ```shell
 $ hurl basic.hurl 
@@ -140,7 +150,7 @@ the response and, at least, check that the HTTP response status code is [`200 OK
 3. Open `basic.hurl` and modify it to test the status code response:
 
 ```hurl
-GET http://localhost:8080
+GET http://localhost:3000
 HTTP 200
 ```
 
@@ -191,7 +201,7 @@ Duration:        27 ms
 6. Modify `basic.hurl` to test a different HTTP response status code:
 
 ```hurl
-GET http://localhost:8080
+GET http://localhost:3000
 HTTP 500
 ```
 

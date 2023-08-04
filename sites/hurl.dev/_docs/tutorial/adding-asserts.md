@@ -42,7 +42,7 @@ An assert consists of a query and a predicate. As we want to test the value of t
 going to use the [XPath expression] `string(//head/title)`.
 
 {:start="1"}
-1. Asserts are written in an Asserts section, so modify `basic.hurl` file:
+1. Asserts are written in an `[Asserts]` section, so modify `basic.hurl` file:
 
 ```hurl
 # Our first Hurl file, just checking
@@ -71,7 +71,7 @@ Duration:        19 ms
 There is no error so everything is good!
 
 {:start="3"}
-3. Modify the predicate value to "Movies Bax"
+3. Modify the test value to "Movies Bax"
 
 ```hurl
 # Our first Hurl file, just checking
@@ -109,20 +109,26 @@ Hurl has failed now and provides information on which assert is not valid.
 
 ### Typed predicate
 
-If we decompose our assert, `xpath "string(//head/title)"` is the XPath query and `== "Movies Box"` is our
-predicate to test the query against. You can note that predicates values are typed:
+Decompose our assert:
 
-- `xpath "string(//head/title)" == "true"`    
+- __`xpath "string(//head/title)"`__    
+  is the XPath query 
+- __`== "Movies Box"`__    
+  is our predicate to test the query against
+
+You can note that tested values are typed:
+
+- `xpath "string(//head/title)" ==` __`"true"`__    
   tests that the XPath expression is returning a string, and this string is equal to the string `true`
-- `xpath "boolean(//head/title)" == true`     
+- `xpath "boolean(//head/title)" ==` __`true`__    
   tests that the XPath expression is returning a boolean, and the boolean is `true`
 
 Some queries can also return collections. For instance, the XPath expression `//button` is returning all the button
-elements present in the [DOM]. We can use it to ensure that we have exactly two h3 tag on our home page,
-with `count`:
+elements present in the [DOM]. We can use it to ensure that we have exactly two `<h3>` tag on our home page,
+with [`count`]:
 
 {:start="1"}
-1. Add a new assert in `basic.hurl` to check the number of h3 tags:
+1. Add a new assert in `basic.hurl` to check the number of `<h3>` tags:
 
 ```hurl
 # Checking our home page:
@@ -135,7 +141,7 @@ xpath "//h3" count == 2
 ```
 
 {:start="2"}
-2. We can also check each button's title:
+2. We can also check each `<h3>`'s content:
 
 ```hurl
 # Checking our home page:
@@ -216,14 +222,18 @@ xpath "string((//h3)[1])" contains "Popular"
 xpath "string((//h3)[2])" contains "Featured Today"
 ```
 
-The line `Content-Type: text/html; charset=utf-8` is testing that the header `Content-Type` is present in the response,
+The line 
+
+`Content-Type: text/html; charset=utf-8` 
+
+is testing that the header `Content-Type` is present in the response,
 and its value must be exactly `text/html; charset=utf-8`.
 
 > In the implicit assert, quotes in the header value are part of the value itself.
 
 Finally, we want to check that our server is creating a new session.
 
-When creating a new session, our Spring Boot application should return a [`Set-Cookie` HTTP response header].
+When creating a new session, our Express application returns a [`Set-Cookie` HTTP response header].
 So to test it, we can modify our Hurl file with another header assert.
 
 {:start="3"}
@@ -249,13 +259,13 @@ Not only we'll be able to easily tests [cookie attributes] (like `HttpOnly`, or 
 it simplifies tests on cookies, particularly when there are multiple `Set-Cookie` header in the HTTP response.
 
 > Hurl is not a browser, one can see it as syntactic sugar over [curl]. Hurl
-> has no Javascript runtime and stays close to the HTTP layer. With others tools relying on headless browser, it can be
+> has no JavaScript runtime and stays close to the HTTP layer. With others tools relying on headless browser, it can be
 > difficult to access some HTTP requests attributes, like `Set-Cookie` header.
 
 So to test that our server is responding with a `HttpOnly` session cookie, we can modify our file and add cookie asserts.
 
 {:start="4"}
-4. Add two cookie asserts on the cookie `JESSIONID`:
+4. Add two cookie asserts on the cookie `x-session-id`:
 
 ```hurl
 # Checking our home page:
@@ -296,7 +306,7 @@ Duration:        20 ms
 Our Hurl file is now around 10 lines long, but we're already testing a lot on our home page:
 
 - we are testing that our home page is responding with a `200 OK`
-- we are checking the basic structure of our page: a title, 2 buttons
+- we are checking the basic structure of our page: a title, 2 `<h3>` tags
 - we are checking that the content type is UTF-8 HTML
 - we are checking that our server has created a session, and that the cookie session has the `HttpOnly` attribute
 

@@ -138,18 +138,18 @@ sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 
 Finally, Hurl is easy to <b>integrate in CI/CD</b>, with text, JUnit and HTML reports
 
-<div class="picture home-html-report">
+<div class="picture">
     <picture>
         <source srcset="{{ '/assets/img/home-waterfall-light.avif' | prepend:site.baseurl }}" type="image/avif">
         <source srcset="{{ '/assets/img/home-waterfall-light.webp' | prepend:site.baseurl }}" type="image/webp">
         <source srcset="{{ '/assets/img/home-waterfall-light.png' | prepend:site.baseurl }}" type="image/png">
-        <img class="light-img u-drop-shadow u-border" src="{{ '/assets/img/home-waterfall-light.png' | prepend:site.baseurl }}" alt="HTML report"/>
+        <img class="light-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/home-waterfall-light.png' | prepend:site.baseurl }}" width="480" alt="HTML report"/>
     </picture>
     <picture>
         <source srcset="{{ '/assets/img/home-waterfall-dark.avif' | prepend:site.baseurl }}" type="image/avif">
         <source srcset="{{ '/assets/img/home-waterfall-dark.webp' | prepend:site.baseurl }}" type="image/webp">
         <source srcset="{{ '/assets/img/home-waterfall-dark.png' | prepend:site.baseurl }}" type="image/png">
-        <img class="dark-img u-drop-shadow u-border" src="{{ '/assets/img/home-waterfall-dark.png' | prepend:site.baseurl }}" alt="HTML report"/>
+        <img class="dark-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/home-waterfall-dark.png' | prepend:site.baseurl }}" width="480" alt="HTML report"/>
     </picture>
 </div>
 

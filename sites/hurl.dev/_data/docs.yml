@@ -291,6 +291,7 @@
           items:
             - title: Using --verbose and --very-verbose for all entries
             - title: Debugging a specific entry
+        - title: Use Error Format
         - title: Interactive Mode
         - title: Include Headers Like curl
         - title: Using a Proxy
@@ -304,6 +305,9 @@
       path: /docs/tutorial/security.html
       items:
         - title: Server Side Validation
+          items:
+            - title: Valid user creation
+            - title: Invalid user creation
         - title: Comments
         - title: Recap
     - title: CI/CD Integration
