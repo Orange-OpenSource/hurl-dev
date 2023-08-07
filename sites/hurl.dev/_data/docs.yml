@@ -313,6 +313,7 @@
     - title: CI/CD Integration
       path: /docs/tutorial/ci-cd-integration.html
       items:
+        - title: Templating Tests
         - title: Integration Script
         - title: Running Tests with GitHub Action
         - title: Running Tests with GitLab CI/CD

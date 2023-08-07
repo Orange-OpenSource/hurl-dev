@@ -135,7 +135,10 @@ def rust_to_html(snippet: str) -> str:
 
 
 def shell_to_html(snippet: str) -> str:
-    escaped_snippet = escape_html(snippet)
+    if "no-escape" in snippet:
+        escaped_snippet = snippet
+    else:
+        escaped_snippet = escape_html(snippet)
     output = escaped_snippet.replace("$ ", '<span class="prompt">$ </span>')
 
     # Replace ANSI escape code with HTML tag
