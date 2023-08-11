@@ -8,6 +8,7 @@
             - title: Linux
               items:
                 - title: Debian / Ubuntu
+                - title: Alpine
                 - title: Arch Linux / Manjaro
                 - title: NixOS / Nix
             - title: macOS
