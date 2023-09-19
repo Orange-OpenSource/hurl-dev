@@ -82,6 +82,7 @@
             - title: Using SOAP APIs
             - title: Capturing and Using a CSRF Token
             - title: Checking Byte Order Mark (BOM) in Response Body
+            - title: AWS Signature Version 4 Requests
     - title: Running Tests
       path: /docs/running-tests.html
       items:
