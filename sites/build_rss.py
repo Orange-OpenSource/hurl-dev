@@ -65,7 +65,7 @@ class Post:
             r"\{\{ '(.*?)' \| prepend:site.baseurl }}", r"https://hurl.dev\1", md_txt
         )
         md_txt = re.sub(
-            r"\{% link _docs/(.*).md %}", r"https://hurl.dev/docs\1.html", md_txt
+            r"\{% link _docs/(.*?).md %}", r"https://hurl.dev/docs/\1.html", md_txt
         )
 
         # Construct the HTML content
