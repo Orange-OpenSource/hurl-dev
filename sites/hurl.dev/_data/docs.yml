@@ -91,6 +91,7 @@
           items:
             - title: HTML Report
             - title: JUnit Report
+            - title: TAP Report
         - title: Use Variables in Tests
     - title: Frequently Asked Questions
       path: /docs/frequently-asked-questions.html
