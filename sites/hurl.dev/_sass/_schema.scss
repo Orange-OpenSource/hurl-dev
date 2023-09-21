@@ -53,7 +53,7 @@
 }
 
 .schema-label {
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   color: $body-text-light;
   color: var(--body-text);
   position: absolute;
@@ -88,7 +88,7 @@
 }
 
 .hurl-structure-col-1 {
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 0.85rem;
   @media only screen and (min-width: $md) {
     font-size: 1rem;
