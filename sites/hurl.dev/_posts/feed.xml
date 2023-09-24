@@ -3,8 +3,175 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2023-06-30T18:11:19+02:00</updated>
+    <updated>2023-09-24T00:00:00+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 4.1.0</title>
+        <link href="https://hurl.dev/blog/2023/09/24/announcing-hurl-4.1.0.html" rel="alternate" type="text/html" title="Announcing Hurl 4.1.0"/>
+        <published>2023-09-24T00:00:00+02:00</published>
+        <updated>2023-09-24T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2023/09/24/announcing-hurl-4.1.0.html</id>
+        <content type="html"><![CDATA[<h1>Announcing Hurl 4.1.0</h1>
+<div class="blog-post-date">Sep. 24, 2023</div>
+
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.1.0">Hurl 4.1.0</a> <picture><source srcset="https://hurl.dev/assets/img/rocket.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/rocket.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/rocket.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/rocket.png" width="20" height="20" alt="Rocket"></picture> !</p>
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
+in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+<p>What’s new in this release:</p>
+<ul>
+<li><a href="#tap-report">TAP Report</a></li>
+<li><a href="#add-delay-between-requests">Add Delay Between Requests</a></li>
+<li><a href="#-connect-to-and-resolve-per-request-option"><code>--connect-to</code> and <code>--resolve</code> per Request Option</a></li>
+<li><a href="#aws-signature-version-4">AWS Signature Version 4</a></li>
+<li><a href="#arm-64-bits-docker-image">ARM 64 bits Docker Image</a></li>
+</ul>
+<h2>TAP Report</h2>
+<p>We’ve added a new test report: TAP, the <a href="https://testanything.org">Test Anything Protocol</a>. TAP is a simple text-based
+interface between testing modules in a test harness. With <a href="https://hurl.dev/docs/running-tests.html#html-report">HTML report</a> and <a href="https://hurl.dev/docs/running-tests.html#junit-report">JUnit report</a>, Hurl supports now
+<a href="https://hurl.dev/docs/running-tests.html#tap-report">TAP report</a>.</p>
+<p>Let’s say we run some tests. We can use <code>--report-tap REPORT-FILE</code> option to set the report TAP file. If the report file
+exists, results will be appended to it.</p>
+<pre><code class="language-shell">$ hurl --test --report-tap report.txt *.hurl
+add-favorite.hurl: Running [1/6]
+add-favorite.hurl: Success (7 request(s) in 5516 ms)
+basic.hurl: Running [2/6]
+basic.hurl: Success (7 request(s) in 1537 ms)
+csrf.hurl: Running [3/6]
+error: Assert status code
+  --&gt; csrf.hurl:3:6
+   |
+ 3 | HTTP 301
+   |      ^^^ actual value is &lt;200&gt;
+   |
+
+csrf.hurl: Failure (2 request(s) in 5527 ms)
+login.hurl: Running [4/6]
+login.hurl: Success (3 request(s) in 3091 ms)
+perf.hurl: Running [5/6]
+perf.hurl: Success (4 request(s) in 1317 ms)
+security.hurl: Running [6/6]
+security.hurl: Success (5 request(s) in 2278 ms)
+write tap report report.txt
+--------------------------------------------------------------------------------
+Executed files:  6
+Succeeded files: 5 (83.3%)
+Failed files:    1 (16.7%)
+Duration:        19304 ms
+</code></pre>
+<p>Then, we can see what our TAP report looks like:</p>
+<pre><code class="language-shell">$ cat report.txt
+1..6
+ok 1 - add-favorite.hurl
+ok 2 - basic.hurl
+not ok 3 - csrf.hurl
+ok 4 - login.hurl
+ok 5 - perf.hurl
+ok 6 - security.hurl
+</code></pre>
+<p>Simple and neat! TAP has wide support across many language and there are many tools that can convert TAP
+to other formats, so it’s a nice addition to Hurl!</p>
+<h2>Add Delay Between Requests</h2>
+<p>With the new <a href="https://hurl.dev/docs/manual.html#delay"><code>--delay</code> option</a>, you can add a delay between requests:</p>
+<pre><code class="language-shell">$ hurl --delay 2000 --test *.hurl
+</code></pre>
+<p>This command add a 2 seconds delay between each request. As with a lot of Hurl command line options, you
+can specify a delay for a single request, with an <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code> section</a>,
+without impacting other requests:</p>
+<pre><code class="language-hurl">GET https://foo.com/a
+HTTP 200
+
+# This next request will be runned 5s after the
+# first one
+GET https://foo.com/b
+[Options]
+delay: 5000
+HTTP 200
+</code></pre>
+<h2>&ndash;connect-to and &ndash;resolve per Request Option</h2>
+<p>Speaking of <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code> sections</a>, <a href="https://hurl.dev/docs/manual.html#connect-to"><code>--connect-to</code></a>
+and <a href="https://hurl.dev/docs/manual.html#resolve"><code>--resolve</code></a> can now be specified per request:</p>
+<pre><code class="language-hurl">GET https://foo.com/a
+[Options]
+connect-to: foo.com:80:localhost:8000
+HTTP 200
+
+# --resolve option allow to us custom address for a specific host and port pair.
+GET http://foo.com:8000/resolve
+[Options]
+resolve: foo.com:8000:127.0.0.1
+HTTP 200
+</code></pre>
+<p>As of Hurl 4.1.0, the <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code> section</a> supports:</p>
+<pre><code class="language-hurl">GET https://example.org
+# An options section, each option is optional and applied only to this request...
+[Options]
+aws-sigv4: aws:amz:sts  # generate AWS SigV4 Authorization header
+cacert: /etc/cert.pem   # a custom certificate file
+compressed: true        # request a compressed response
+insecure: true          # allows insecure SSL connections and transfers
+location: true          # follow redirection for this request
+max-redirs: 10          # maximum number of redirections
+path-as-is: true        # tell curl to not handle sequences of /../ or /./ in the given URL path
+variable: country=Italy # define variable country
+variable: planet=Earth  # define variable planet
+verbose: true           # allow verbose output
+very-verbose: true      # allow more verbose output
+</code></pre>
+<p>If you need an Hurl command line option (which make sense for a single request) to be on this list, don’t
+hesitate to <a href="https://github.com/Orange-OpenSource/hurl/issues">fill an issue</a>!</p>
+<h2>AWS Signature Version 4</h2>
+<p>Every interaction with Amazon S3 is either authenticated or anonymous. Authenticating to AWS
+is done through <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">AWS Signature Version 4</a>. With <a href="https://hurl.dev/docs/manual.html#aws-sigv4"><code>--aws-sigv4</code></a>,
+you can use AWS Signature Version 4 to authenticate your requests</p>
+<pre><code class="language-shell">$ hurl --user someAccessKeyId:someSecretKey \
+ --aws-sigv4 aws:amz:eu-central-1:foo \
+ file.hurl
+</code></pre>
+<p>And of course, <code>--aws-sigv4</code> can be specified for a single request:</p>
+<pre><code class="language-hurl">GET https://foo.execute-api.us-east-1.amazonas.com/dev/bafe12
+[Options]
+aws-sigv4: aws:amz:eu-central-1:foo
+HTTP 200
+</code></pre>
+<h2>ARM 64 bits Docker Image</h2>
+<p>Hurl can be <a href="https://hurl.dev/docs/installation.html">installed as a native binary</a> on a large number of platforms. We also provide
+a <a href="https://github.com/Orange-OpenSource/hurl/pkgs/container/hurl">Docker image</a>. Since 4.1.0, Hurl Docker’s image is a <a href="https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way/">multi-arch build</a>: along x86 architectures,
+the image supports now ARM 64 bits targets such as Raspberry Pis, AWS A1 instances or even ARM’s Apple computers.</p>
+<pre><code class="language-shell">$ docker run -v /tmp/:/tmp/ ghcr.io/orange-opensource/hurl:4.1.0 --test example.hurl
+example.hurl: Running [1/1]
+example.hurl: Success (1 request(s) in 190 ms)
+--------------------------------------------------------------------------------
+Executed files:  1
+Succeeded files: 1 (100.0%)
+Failed files:    0 (0.0%)
+Duration:        193 ms
+</code></pre>
+<h2>Others</h2>
+<p>Changes that require a particular attention:</p>
+<ul>
+<li>we have renamed <code>--fail-at-end</code> option to
+<a href="https://hurl.dev/docs/manual.html#continue-on-error">[<code>--continue-on-error</code>]</a> as the latter is more
+understandable</li>
+<li>we have fixed <a href="https://hurl.dev/docs/manual.html#path-as-is">[<code>--path-as-is</code>]</a> option name (instead of <code>--path_as_is</code>)</li>
+</ul>
+<p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.1.0">in our release note</a>.
+If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter / X</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>The Hurl team is happy to announce a new version of Hurl, 4.1.0.</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 4.0.0</title>
         <link href="https://hurl.dev/blog/2023/06/30/announcing-hurl-4.0.0.html" rel="alternate" type="text/html" title="Announcing Hurl 4.0.0" />
