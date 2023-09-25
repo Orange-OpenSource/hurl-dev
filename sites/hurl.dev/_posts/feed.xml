@@ -14,7 +14,7 @@
         <content type="html"><![CDATA[<h1>Announcing Hurl 4.1.0</h1>
 <div class="blog-post-date">Sep. 24, 2023</div>
 
-<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.1.0">Hurl 4.1.0</a> <picture><source srcset="https://hurl.dev/assets/img/rocket.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/rocket.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/rocket.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/rocket.png" width="20" height="20" alt="Rocket"></picture> !</p>
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.1.0">Hurl 4.1.0</a> <picture><source srcset="https://hurl.dev/assets/img/emoji-rocket.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-rocket.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-rocket.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-rocket.png" width="20" height="20" alt="Rocket"></picture> !</p>
 <p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
 in a simple plain text format:</p>
 <pre><code class="language-hurl">GET https://example.org/api/tests/4567
@@ -160,9 +160,9 @@ Duration:        193 ms
 <p>Changes that require a particular attention:</p>
 <ul>
 <li>we have renamed <code>--fail-at-end</code> option to
-<a href="https://hurl.dev/docs/manual.html#continue-on-error">[<code>--continue-on-error</code>]</a> as the latter is more
+<a href="https://hurl.dev/docs/manual.html#continue-on-error"><code>--continue-on-error</code></a> as the latter is more
 understandable</li>
-<li>we have fixed <a href="https://hurl.dev/docs/manual.html#path-as-is">[<code>--path-as-is</code>]</a> option name (instead of <code>--path_as_is</code>)</li>
+<li>we have fixed <a href="https://hurl.dev/docs/manual.html#path-as-is"><code>--path-as-is</code></a> option name (instead of <code>--path_as_is</code>)</li>
 </ul>
 <p>There are other improvements and bug fixes, you can check a complete list <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.1.0">in our release note</a>.
 If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter / X</a>!</p>
