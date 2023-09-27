@@ -9,7 +9,7 @@ permalink: /blog/:year/:month/:day/:title.html
 
 <div class="blog-post-date">{{ page.date | date: "%b. %d, %Y" }}</div>
 
-The Hurl team is happy to announce [Hurl 4.1.0] <picture><source srcset="{{ '/assets/img/rocket.avif' | prepend:site.baseurl }}" type="image/avif"><source srcset="{{ '/assets/img/rocket.webp' | prepend:site.baseurl }}" type="image/webp"><source srcset="{{ '/assets/img/rocket.png' | prepend:site.baseurl }}" type="image/png"><img class="emoji" src="{{ '/assets/img/rocket.png' | prepend:site.baseurl }}" width="20" height="20" alt="Rocket"></picture> !
+The Hurl team is happy to announce [Hurl 4.1.0] <picture><source srcset="{{ '/assets/img/emoji-rocket.avif' | prepend:site.baseurl }}" type="image/avif"><source srcset="{{ '/assets/img/emoji-rocket.webp' | prepend:site.baseurl }}" type="image/webp"><source srcset="{{ '/assets/img/emoji-rocket.png' | prepend:site.baseurl }}" type="image/png"><img class="emoji" src="{{ '/assets/img/emoji-rocket.png' | prepend:site.baseurl }}" width="20" height="20" alt="Rocket"></picture> !
 
 [Hurl] is a command line tool powered by [curl], that runs HTTP requests defined
 in a simple plain text format:
@@ -196,9 +196,9 @@ Duration:        193 ms
 Changes that require a particular attention:
 
 - we have renamed `--fail-at-end` option to
-[[`--continue-on-error`]]({% link _docs/manual.md %}#continue-on-error) as the latter is more
+[`--continue-on-error`]({% link _docs/manual.md %}#continue-on-error) as the latter is more
 understandable
-- we have fixed [[`--path-as-is`]]({% link _docs/manual.md %}#path-as-is) option name (instead of `--path_as_is`)
+- we have fixed [`--path-as-is`]({% link _docs/manual.md %}#path-as-is) option name (instead of `--path_as_is`)
 
 There are other improvements and bug fixes, you can check a complete list [in our release note].
 If you like Hurl, don't hesitate to [give us a star on GitHub] or share it on [Twitter / X]!
