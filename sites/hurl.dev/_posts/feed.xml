@@ -695,7 +695,7 @@ If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSou
 <div class="blog-post-date">Jan. 25, 2023</div>
 
 <p>
-    <img class="light-img u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
+    <img class="u-theme-light u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
 </p>
 
 <p>Christmas has been busy for the Hurl team! We’re happy to announce <strong>Hurl 2.0.0</strong>, with a lot of new features

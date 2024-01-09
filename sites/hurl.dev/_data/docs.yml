@@ -24,6 +24,7 @@
                 - title: Scoop
                 - title: Windows Package Manager
             - title: Cargo
+            - title: conda-forge
             - title: Docker
             - title: npm
         - title: Building From Sources
@@ -33,6 +34,7 @@
                 - title: Debian based distributions
                 - title: Red Hat based distributions
                 - title: Arch based distributions
+                - title: Alpine based distributions
             - title: Build on macOS
             - title: Build on Windows
     - title: Manual
@@ -230,6 +232,7 @@
             - title: format
             - title: htmlEscape
             - title: htmlUnescape
+            - title: jsonpath
             - title: nth
             - title: regex
             - title: replace

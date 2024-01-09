@@ -197,10 +197,10 @@ $hurl-structure-3-back-dark: $code-background-color-dark;
   --hurl-structure-3-front: #{$hurl-structure-3-front-light};
   --hurl-structure-3-back: #{$hurl-structure-3-back-light};
 
-  .light-img {
+  .u-theme-img {
     display: inline-block;
   }
-  .dark-img {
+  .u-theme-dark {
     display: none;
   }
 }
@@ -267,10 +267,10 @@ $hurl-structure-3-back-dark: $code-background-color-dark;
   --hurl-structure-3-front: #{$hurl-structure-3-front-dark};
   --hurl-structure-3-back: #{$hurl-structure-3-back-dark};
 
-  .light-img {
+  .u-theme-light {
     display: none;
   }
-  .dark-img {
+  .u-theme-dark {
     display: inline-block;
   }
 }

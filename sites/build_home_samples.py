@@ -15,7 +15,7 @@ class Sample:
         src_padding = src
         # Count number of line in src, add padding if necessary
         nl = src_padding.count("\n")
-        max_line = 13
+        max_line = 12
         if nl < max_line:
             src_padding += "\n" * (max_line - nl)
         self.src = src_padding
@@ -116,7 +116,6 @@ user2: Bill
 user3: {{name}}
 HTTP 200
 
-
 # Or we can simply use a Cookie header
 GET https://example.org/index.html
 Cookie: theme=light; sessionToken=abc123
@@ -127,7 +126,6 @@ Cookie: theme=light; sessionToken=abc123
             src="""\
 # Get home:
 GET https://example.org
-
 HTTP 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
@@ -136,7 +134,6 @@ csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
 # Do login!
 POST https://example.org/login?user=toto&password=1234
 X-CSRF-TOKEN: {{csrf_token}}
-
 HTTP 302
 """,
         ),
@@ -222,14 +219,12 @@ file,data.bin;
             src="""\
 # Using implicit response asserts 
 GET https://example.org/index.html
-
 HTTP 200
 Set-Cookie: theme=light
 Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
 
 # Or explicit response asserts
 GET https://example.org
-
 HTTP 302
 [Asserts]
 header "Location" contains "www.example.net"
@@ -245,7 +240,6 @@ HTTP 200
 
 # Testing status code is in a 200-300 range
 GET https://example.org/order/435
-
 HTTP *
 [Asserts]
 status >= 200
@@ -255,12 +249,9 @@ status < 300
         Sample(
             name="Testing HTTP Version",
             src="""\
-# You can explicitly test HTTP version 1.0, 1.1 or 2:
-GET https://example.org/http10
-HTTP/1.0 200
-
-GET https://example.org/http11
-HTTP/1.1 200
+# You can explicitly test HTTP version 1.0, 1.1, 2 or 3:
+GET https://example.org/http3
+HTTP/3 200
 
 GET https://example.org/http2
 HTTP/2 200
@@ -275,7 +266,6 @@ HTTP 200
             src="""\
 # XPath asserts can be used to check HTML content            
 GET https://example.org
-
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
@@ -292,7 +282,6 @@ xpath "string(//div[1])" matches /Hello.*/
             src="""\
 # Testing a JSON response with JSONPath
 GET https://example.org/api/tests/4567
-
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "RUNNING"    # Check the status code
@@ -304,7 +293,6 @@ jsonpath "$.id" matches /\d{4}/     # Check the format of the id
             name="Testing Set-Cookie",
             src="""\
 GET http://myserver.com/home
-
 HTTP 200
 [Asserts]
 cookie "JSESSIONID" == "8400BAFE2F66443613DC38AE3D9D6239"
@@ -320,14 +308,12 @@ cookie "JSESSIONID[SameSite]" == "Lax"
             src="""\
 # Check the SHA-256 response body hash:             
 GET https://example.org/data.tar.gz
-
 HTTP 200
 [Asserts]
 sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
 
 # Checking Byte Order Mark (BOM) in Response Body
 GET https://example.org/data.bin
-
 HTTP 200
 [Asserts]
 bytes startsWith hex,efbbbf;
@@ -338,7 +324,6 @@ bytes startsWith hex,efbbbf;
             src="""\
 # Check attributes of the SSL certificate            
 GET https://example.org
-
 HTTP 200
 [Asserts]
 certificate "Subject" == "CN=example.org"
@@ -354,7 +339,6 @@ certificate "Serial-Number" matches /[\da-f]+/
 GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: 10  # maximum number of retry, -1 for unlimited
-
 HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"

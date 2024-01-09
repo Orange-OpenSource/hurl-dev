@@ -20,7 +20,6 @@ in the following entries.
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT
 [Asserts]
@@ -114,8 +113,8 @@ On each response, libcurl response timings are available:
 All timings are in microsecond.
 
 <div class="picture">
-    <img class="light-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/timings-light.svg' | prepend:site.baseurl }}" alt="Response timings explanation"/>
-    <img class="dark-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/timings-dark.svg' | prepend:site.baseurl }}" alt="Response timings explanation"/>
+    <img class="u-theme-light u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/timings-light.svg' | prepend:site.baseurl }}" alt="Response timings explanation"/>
+    <img class="u-theme-dark u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/timings-dark.svg' | prepend:site.baseurl }}" alt="Response timings explanation"/>
     <a href="https://blog.cloudflare.com/a-question-of-timing/"><small>Courtesy of CloudFlare</small></a>
 </div>
 
