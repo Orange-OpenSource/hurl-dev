@@ -286,7 +286,6 @@ Use implicit response asserts to test header values:
 
 ```hurl
 GET https://example.org/index.html
-
 HTTP 200
 Set-Cookie: theme=light
 Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
@@ -299,7 +298,6 @@ Or use explicit response asserts with [predicates]:
 
 ```hurl
 GET https://example.org
-
 HTTP 302
 [Asserts]
 header "Location" contains "www.example.net"
@@ -315,7 +313,6 @@ Asserting JSON body response (node values, collection count etc...) with [JSONPa
 ```hurl
 GET https://example.org/order
 screencapability: low
-
 HTTP 200
 [Asserts]
 jsonpath "$.validated" == true
@@ -335,7 +332,6 @@ Testing status code:
 
 ```hurl
 GET https://example.org/order/435
-
 HTTP 200
 ```
 
@@ -343,7 +339,6 @@ HTTP 200
 
 ```hurl
 GET https://example.org/order/435
-
 # Testing status code is in a 200-300 range
 HTTP *
 [Asserts]
@@ -358,10 +353,8 @@ status < 300
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 Content-Type: text/html; charset=UTF-8
-
 [Asserts]
 xpath "string(/html/head/title)" contains "Example" # Check title
 xpath "count(//p)" == 2  # Check the number of p
@@ -377,7 +370,6 @@ xpath "string(//div[1])" matches /Hello.*/
 
 ```hurl
 GET https://example.org/home
-
 HTTP 200
 [Asserts]
 cookie "JSESSIONID" == "8400BAFE2F66443613DC38AE3D9D6239"
@@ -396,7 +388,6 @@ Check the SHA-256 response body hash:
 
 ```hurl
 GET https://example.org/data.tar.gz
-
 HTTP 200
 [Asserts]
 sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
@@ -410,7 +401,6 @@ Check the properties of a SSL certificate:
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 [Asserts]
 certificate "Subject" == "CN=example.org"
@@ -426,11 +416,11 @@ certificate "Serial-Number" matches /[\da-f]+/
 
 ### HTTP Version
 
-Testing HTTP version (1.0, 1.1 or 2):
+Testing HTTP version (1.0, 1.1, 2 or 3):
 
 ```hurl
 GET https://example.org/order/435
-HTTP/2 200
+HTTP/3 200
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#version-status)
@@ -443,7 +433,6 @@ Retry request on any errors (asserts, captures, status code, runtime etc...):
 ```hurl
 # Create a new job
 POST https://api.example.org/jobs
-
 HTTP 201
 [Captures]
 job_id: jsonpath "$.id"
@@ -455,7 +444,6 @@ jsonpath "$.state" == "RUNNING"
 GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: 10   # maximum number of retry, -1 for unlimited
-
 HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
@@ -471,7 +459,6 @@ jsonpath "$.state" == "COMPLETED"
 
 ```hurl
 GET https://sample.org/helloworld
-
 HTTP *
 [Asserts]
 duration < 1000   # Check that response time is less than one second
@@ -494,7 +481,6 @@ SOAPAction: "http://www.w3.org/2003/05/soap-envelope"
     </m:GetStockPrice>
   </soap:Body>
 </soap:Envelope>
-
 HTTP 200
 ```
 
@@ -505,7 +491,6 @@ HTTP 200
 {% raw %}
 ```hurl
 GET https://example.org
-
 HTTP 200
 [Captures]
 csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
@@ -524,7 +509,6 @@ HTTP 302
 
 ```hurl
 GET https://example.org/data.bin
-
 HTTP 200
 [Asserts]
 bytes startsWith hex,efbbbf;

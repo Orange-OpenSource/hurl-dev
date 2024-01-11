@@ -9,12 +9,12 @@ section: File Format
 ## Asserts
 
 Asserts are used to test various properties of an HTTP response. Asserts can be implicits (such as version, status, 
-headers) or explicit within an `[Asserts]` section.
+headers) or explicit within an `[Asserts]` section. The delimiter of the request / response is `HTTP <STATUS-CODE>`: 
+after this delimiter, you'll find the implicit asserts, then an `[Asserts]` section with all the explicits checks.
 
 
 ```hurl
 GET https://api/example.org/cats
-
 HTTP 200
 Content-Type: application/json; charset=utf-8      # Implicit assert on Content-Type Hedaer
 [Asserts]                                          # Explicit asserts section 
@@ -31,7 +31,7 @@ jsonpath "$.cats[0].lives" == 9
 
 Expected protocol version and status code of the HTTP response.
 
-Protocol version is one of `HTTP/1.0`, `HTTP/1.1`, `HTTP/2` or
+Protocol version is one of `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`, `HTTP/3` or
 `HTTP`; `HTTP` describes any version. Note that there are no status text following the status code.
 
 ```hurl
@@ -43,7 +43,6 @@ Wildcard keywords `HTTP` and `*` can be used to disable tests on protocol versio
 
 ```hurl
 GET https://example.org/api/pets
-
 HTTP *
 # Check that response status code is > 400 and <= 500
 [Asserts]
@@ -51,7 +50,7 @@ status > 400
 status <= 500
 ```
 
-While `HTTP/1.0`, `HTTP/1.1` and `HTTP/2` explicitly check HTTP version:
+While `HTTP/1.0`, `HTTP/1.1`, `HTTP/2` and `HTTP/3` explicitly check HTTP version:
 
 ```hurl
 # Check that our server responds with HTTP/2
@@ -66,9 +65,10 @@ Optional list of the expected HTTP response headers that must be in the received
 
 A header consists of a name, followed by a `:` and a value.
 
-For each expected header, the received response headers are checked. If the received header is not equal to the expected,
-or not present, an error is raised. Note that the expected headers list is not fully descriptive: headers present in the response
-and not in the expected list doesn't raise error.
+For each expected header, the received response headers are checked. If the received header is not equal to the 
+expected, or not present, an error is raised. The comparison is case-insensitive for the name: expecting a 
+`Content-Type` header is equivalent to a `content-type` one. Note that the expected headers list is not fully 
+descriptive: headers present in the response and not in the expected list doesn't raise error.
 
 ```hurl
 # Check that user toto is redirected to home after login.
@@ -76,7 +76,6 @@ POST https://example.org/login
 [FormParams]
 user: toto
 password: 12345678
-
 HTTP 302
 Location: https://example.org/home
 ```
@@ -104,7 +103,6 @@ You can either test the two header values:
 ```hurl
 GET https://example.org/index.html
 Host: example.net
-
 HTTP 200
 Set-Cookie: theme=light
 Set-Cookie: sessionToken=abc123; Expires=Wed, 09 Jun 2021 10:18:14 GMT
@@ -115,7 +113,6 @@ Or only one:
 ```hurl
 GET https://example.org/index.html 
 Host: example.net
-
 HTTP 200
 Set-Cookie: theme=light
 ```
@@ -216,7 +213,6 @@ For instance, to test the presence of a h1 node in an HTML response, the followi
 
 ```hurl
 GET https://example.org/home
-
 HTTP 200
 [Asserts]
 xpath "boolean(count(//h1))" == true
@@ -239,7 +235,6 @@ The following assert will check the value of the `data-visible` attribute:
 
 ```hurl
 GET https://example.org/home
-
 HTTP 200
 [Asserts]
 xpath "string(//article/@data-visible)" == "true"
@@ -254,7 +249,6 @@ be used with strings and bytes, while `matches` only works on string. If a query
 ```hurl
 # A really well tested web page...
 GET https://example.org/home
-
 HTTP 200
 [Asserts]
 header "Content-Type" contains "text/html"
@@ -272,7 +266,6 @@ function and value.
 
 ```hurl
 GET https://example.org
-
 HTTP *
 [Asserts]
 status < 300
@@ -281,11 +274,11 @@ status < 300
 ### Header assert
 
 Check the value of a received HTTP response header. Header assert consists of the keyword `header` followed by the value
-of the header, a predicate function and a predicate value.
+of the header, a predicate function and a predicate value. Like [headers implicit asserts], the check is 
+case-insensitive for the name: comparing a `Content-Type` header is equivalent to a `content-type` one.
 
 ```hurl
 GET https://example.org
-
 HTTP 302
 [Asserts]
 header "Location" contains "www.example.net"
@@ -318,7 +311,6 @@ One can use explicit header asserts:
 
 ```hurl
 GET https://example.org/hello
-
 HTTP 200
 [Asserts]
 header "Vary" count == 2
@@ -330,7 +322,6 @@ Or implicit header asserts:
 
 ```hurl
 GET https://example.org/hello
-
 HTTP 200
 Vary: User-Agent
 Vary: Content-Type
@@ -345,7 +336,6 @@ Check the last fetched URL. This is most meaningful if you have told Hurl to fol
 GET https://example.org/redirecting
 [Options]
 location: true
-
 HTTP 200
 [Asserts]
 url == "https://example.org/redirected"
@@ -364,7 +354,6 @@ Cookie attributes value can be checked by using the following format:
 
 ```hurl
 GET http://localhost:8000/cookies/set
-
 HTTP 200
 
 # Explicit check of Set-Cookie header value. If the attributes are
@@ -400,7 +389,6 @@ value. The encoding used to decode the body is based on the `charset` value in t
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 [Asserts]
 body contains "<h1>Welcome!</h1>"
@@ -409,7 +397,6 @@ body contains "<h1>Welcome!</h1>"
 ```hurl
 # Our HTML response is encoded with GB 2312 (see https://en.wikipedia.org/wiki/GB_2312)
 GET https://example.org/cn
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "text/html; charset=gb2312"
@@ -425,7 +412,6 @@ bytes.
 # But, the 'Content-Type' HTTP response header doesn't precise any charset,
 # so we decode explicitly the bytes.
 GET https://example.org/cn
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "text/html"
@@ -440,7 +426,6 @@ consists of the keyword `bytes` followed by a predicate function and value.
 
 ```hurl
 GET https://example.org/data.bin
-
 HTTP 200
 [Asserts]
 bytes startsWith hex,efbbbf;
@@ -484,7 +469,6 @@ With Hurl, we can write multiple XPath asserts describing the DOM content:
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 Content-Type: text/html; charset=UTF-8
 [Asserts]
@@ -511,7 +495,6 @@ This XML response can be tested with the following Hurl file:
 
 ```hurl
 GET http://localhost:8000/assert-xpath
-
 HTTP 200
 [Asserts]
 
@@ -566,7 +549,6 @@ With Hurl, we can write multiple JSONPath asserts describing the DOM content:
 
 ```hurl
 GET http://httpbin.org/json
-
 HTTP 200
 [Asserts]
 jsonpath "$.slideshow.author" == "Yours Truly"
@@ -580,17 +562,18 @@ jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
 > one node is selected.
 
 In `matches` predicates, metacharacters beginning with a backslash (like `\d`, `\s`) must be escaped.
-Alternatively, `matches` predicate support [Javascript-like Regular expression syntax] to enhance
+Alternatively, `matches` predicate support [JavaScript-like Regular expression syntax] to enhance
 the readability:
 
 ```hurl
 GET https://sample.org/hello
-
 HTTP 200
 [Asserts]
+
 # Predicate value with matches predicate:
 jsonpath "$.date" matches "^\\d{4}-\\d{2}-\\d{2}$"
 jsonpath "$.name" matches "Hello [a-zA-Z]+!"
+
 # Equivalent syntax:
 jsonpath "$.date" matches /^\d{4}-\d{2}-\d{2}$/
 jsonpath "$.name" matches /Hello [a-zA-Z]+!/
@@ -602,7 +585,6 @@ Check that the HTTP received body, decoded as text, matches a regex pattern.
 
 ```hurl
 GET https://sample.org/hello
-
 HTTP 200
 [Asserts]
 regex "^(\\d{4}-\\d{2}-\\d{2})$" == "2018-12-31"
@@ -622,7 +604,6 @@ Check response body [SHA-256] hash.
 
 ```hurl
 GET https://example.org/data.tar.gz
-
 HTTP 200
 [Asserts]
 sha256 == hex,039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81;
@@ -634,7 +615,6 @@ Check response body [MD5] hash.
 
 ```hurl
 GET https://example.org/data.tar.gz
-
 HTTP 200
 [Asserts]
 md5 == hex,ed076287532e86365e841e92bfc50d8c;
@@ -646,7 +626,6 @@ md5 == hex,ed076287532e86365e841e92bfc50d8c;
 ```hurl
 # Test that the XML endpoint return 200 pets 
 GET https://example.org/api/pets
-
 HTTP 200
 [Captures]
 pets: xpath "//pets"
@@ -660,7 +639,6 @@ Check the total duration (sending plus receiving time) of the HTTP transaction.
 
 ```hurl
 GET https://sample.org/helloworld
-
 HTTP 200
 [Asserts]
 duration < 1000   # Check that response time is less than one second
@@ -674,7 +652,6 @@ The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expi
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 [Asserts]
 certificate "Subject" == "CN=example.org"
@@ -688,7 +665,7 @@ certificate "Serial-Number" matches "[0-9af]+"
 Optional assertion on the received HTTP response body. Body section can be seen
 as syntactic sugar over [body asserts] (with `equals` predicate function). If the
 body of the response is a [JSON] string or a [XML] string, the body assertion can
-be directly inserted without any modification. For a text based body that is not JSON nor XML,
+be directly inserted without any modification. For a text based body that is neither JSON nor XML,
 one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends
 with <code>&#96;&#96;&#96;</code>. For a precise byte control of the response body,
 a [Base64] encoded string or an input file can be used to describe exactly
@@ -700,7 +677,6 @@ the body byte content to check.
 ```hurl
 # Get a doggy thing:
 GET https://example.org/api/dogs/{{dog-id}}
-
 HTTP 200
 {
     "id": 0,
@@ -720,7 +696,6 @@ JSON response body can be seen as syntactic sugar of [multiline string body] wit
 ~~~hurl
 # Get a doggy thing:
 GET https://example.org/api/dogs/{{dog-id}}
-
 HTTP 200
 ```json
 {
@@ -741,7 +716,6 @@ HTTP 200
 
 ~~~hurl
 GET https://example.org/api/catalog
-
 HTTP 200
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog>
@@ -760,7 +734,6 @@ XML response body can be seen as syntactic sugar of [multiline string body] with
 
 ~~~hurl
 GET https://example.org/api/catalog
-
 HTTP 200
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -782,7 +755,6 @@ HTTP 200
 
 ~~~hurl
 GET https://example.org/models
-
 HTTP 200
 ```
 Year,Make,Model,Description,Price
@@ -809,7 +781,6 @@ For text based response body that do not contain newlines, one can use oneline s
 
 ~~~hurl
 POST https://example.org/helloworld
-
 HTTP 200
 `Hello world!`
 ~~~
@@ -823,7 +794,6 @@ ignored on decoding), and `=` padding characters might be added.
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 base64,TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIG
 FkaXBpc2NpbmcgZWxpdC4gSW4gbWFsZXN1YWRhLCBuaXNsIHZlbCBkaWN0dW0g
@@ -838,7 +808,6 @@ can be used. File body starts with `file,` and ends with `;``
 
 ```hurl
 GET https://example.org
-
 HTTP 200
 file,data.bin;
 ```
@@ -861,7 +830,7 @@ of all file nodes.
 [XML]: https://en.wikipedia.org/wiki/XML
 [Base64]: https://en.wikipedia.org/wiki/Base64
 [`--file-root` option]: {% link _docs/manual.md %}#file-root
-[Javascript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+[JavaScript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 [MD5]: https://en.wikipedia.org/wiki/MD5
 [SHA-256]: https://en.wikipedia.org/wiki/SHA-2
 [options]: {% link _docs/request.md %}#options
@@ -870,3 +839,4 @@ of all file nodes.
 [filters]: {% link _docs/filters.md %}
 [count]: {% link _docs/filters.md %}#count
 [`decode` filter]: {% link _docs/filters.md %}#decode
+[headers implicit asserts]: #headers

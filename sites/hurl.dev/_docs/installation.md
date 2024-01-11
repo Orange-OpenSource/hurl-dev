@@ -15,7 +15,7 @@ Precompiled binary is available at [Hurl latest GitHub release]:
 
 ```shell
 $ INSTALL_DIR=/tmp
-$ VERSION=4.1.0
+$ VERSION=4.2.0
 $ curl --silent --location https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl-$VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C $INSTALL_DIR
 $ export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
 ```
@@ -25,7 +25,7 @@ $ export PATH=$INSTALL_DIR/hurl-$VERSION:$PATH
 For Debian / Ubuntu, Hurl can be installed using a binary .deb file provided in each Hurl release.
 
 ```shell
-$ VERSION=4.1.0
+$ VERSION=4.2.0
 $ curl --location --remote-name https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl_$VERSION_amd64.deb
 $ sudo apt update && sudo apt install ./hurl_$VERSION_amd64.deb
 ```
@@ -104,6 +104,14 @@ If you're a Rust programmer, Hurl can be installed with cargo.
 $ cargo install hurl
 ```
 
+### conda-forge
+
+```shell
+$ conda install -c conda-forge hurl
+```
+
+Hurl can also be installed with [`conda-forge`] powered package manager like [`pixi`]. 
+
 ### Docker
 
 ```shell
@@ -140,7 +148,13 @@ $ yum install -y pkg-config gcc openssl-devel libxml2-devel
 #### Arch based distributions
 
 ```shell
-$ pacman -Sy --noconfirm pkgconf gcc glibc openssl libxml2
+$ pacman -S --noconfirm pkgconf gcc glibc openssl libxml2
+```
+
+#### Alpine based distributions
+
+```shell
+$ apk add curl-dev gcc libxml2-dev musl-dev openssl-dev 
 ```
 
 ### Build on macOS
@@ -172,7 +186,6 @@ $ ./target/release/hurl --version
 
 Please follow the [contrib on Windows section].
 
-
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [Hurl latest GitHub release]: https://github.com/Orange-OpenSource/hurl/releases/latest
 [AUR]: https://wiki.archlinux.org/index.php/Arch_User_Repository
@@ -181,3 +194,5 @@ Please follow the [contrib on Windows section].
 [Rust]: https://www.rust-lang.org
 [contrib on Windows section]: https://github.com/Orange-OpenSource/hurl/blob/master/contrib/windows/README.md
 [NixOS / Nix package]: https://search.nixos.org/packages?from=0&size=1&sort=relevance&type=packages&query=hurl
+[`conda-forge`]: https://conda-forge.org
+[`pixi`]: https://prefix.dev

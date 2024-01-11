@@ -74,13 +74,13 @@ typing the URL <http://localhost:3000>:
         <source srcset="{{ '/assets/img/movies-box-light.avif' | prepend:site.baseurl }}" type="image/avif">
         <source srcset="{{ '/assets/img/movies-box-light.webp' | prepend:site.baseurl }}" type="image/webp">
         <source srcset="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" type="image/png">
-        <img class="light-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
+        <img class="u-theme-light u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-light.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
     </picture>
     <picture>
         <source srcset="{{ '/assets/img/movies-box-dark.avif' | prepend:site.baseurl }}" type="image/avif">
         <source srcset="{{ '/assets/img/movies-box-dark.webp' | prepend:site.baseurl }}" type="image/webp">
         <source srcset="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" type="image/png">
-        <img class="dark-img u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
+        <img class="u-theme-dark u-drop-shadow u-border u-max-width-100" src="{{ '/assets/img/movies-box-dark.png' | prepend:site.baseurl }}" width="600" alt="Movies Box home page"/>
     </picture>
 </div>
 
