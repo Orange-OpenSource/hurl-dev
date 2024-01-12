@@ -6,6 +6,271 @@
     <updated>2023-09-24T00:00:00+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
     <entry>
+        <title>Hurl 4.2.0, the HTTP/3 Edition</title>
+        <link href="https://hurl.dev/blog/2024/01/12/hurl-4.2.0-the-http3-edition.html" rel="alternate" type="text/html" title="Hurl 4.2.0, the HTTP/3 Edition"/>
+        <published>2024-01-12T00:00:00+01:00</published>
+        <updated>2024-01-12T00:00:00+01:00</updated>
+        <id>https://hurl.dev/blog/2024/01/12/hurl-4.2.0-the-http3-edition.html</id>
+        <content type="html"><![CDATA[<h1>Hurl 4.2.0, the HTTP/3 Edition</h1>
+<div class="blog-post-date">Jan. 12, 2024</div>
+
+<p>
+<picture>
+    <source srcset="https://hurl.dev/assets/img/hurl-http3.avif" type="image/avif">
+    <source srcset="https://hurl.dev/assets/img/hurl-http3.webp" type="image/webp">
+    <source srcset="https://hurl.dev/assets/img/hurl-http3.png" type="image/png">
+    <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/hurl-http3-light.png" width="100%" alt="Hurl loves HTTP3"/>
+</picture>
+</p>
+
+<p>The Hurl team is thrilled to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.2.0">Hurl 4.2.0</a> <picture><source srcset="https://hurl.dev/assets/img/emoji-rocket.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-rocket.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-rocket.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-rocket.png" width="20" height="20" alt="Rocket"></picture> !</p>
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#http3-support">HTTP/3 Support</a></li>
+<li><a href="#install-with-conda-forge">Install With conda-forge</a></li>
+<li><a href="#save-response-per-request">Save Response per Request</a></li>
+<li><a href="#jsonpath-filter">jsonpath Filter</a></li>
+<li><a href="#more-curl-options-ipv6ipv4-unix-socket-etc">More curl options: IPv6/IPv4, unix-socket etc...</a></li>
+<li><a href="#others">Others</a></li>
+</ul>
+<h2>HTTP/3 Support</h2>
+<p>Hurl HTTP engine is powered by <a href="https://curl.se">curl</a>, one of the most reliable HTTP libraries, available in millions of softwares, devices
+(TVs, cars, printers etc..), and is <a href="https://daniel.haxx.se/blog/2021/12/03/why-curl-is-used-everywhere-even-on-mars/">even used on Mars</a>. In details, Hurl is written in Rust, offloading the HTTP
+layer to <a href="https://curl.se/libcurl/">libcurl</a>. We like this design a lot because Hurl benefits directly from curl’s power and capabilities &ldquo;for
+free&rdquo;, adding some nice <a href="https://hurl.dev/docs/asserting-response.html">asserts</a> and <a href="https://hurl.dev/docs/capturing-response.html">captures</a> possibilities to chain and test HTTP requests.</p>
+<p>Started with <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.2.0">Hurl 4.2.0</a>, Hurl supports now <a href="https://en.wikipedia.org/wiki/HTTP/3">HTTP/3</a>! Running a Hurl file with HTTP/3 can be done on the command line,
+with [<code>--http3</code>] option:</p>
+<pre><code class="language-shell">$ hurl --http3 test.hurl
+</code></pre>
+<p>Like curl, there are also [<code>--http2</code>], [<code>--http1.1</code>] and [<code>--http1.0</code>] options to force a certain version of HTTP. With
+<a href="https://hurl.dev/docs/request.html#options">options sections</a>, we can specify an HTTP version per request, in the same Hurl file:</p>
+<pre><code class="language-hurl">GET https://myserver.com
+[Options]
+http3: true
+HTTP/3 200
+
+GET https://myserver.com
+[Options]
+http2: true
+HTTP/2 200
+</code></pre>
+<p>To use HTTP/3, the underlying libcurl used by Hurl must expose HTTP/3 features. Simply run <code>hurl --version</code> to check
+which libcurl features are supported:</p>
+<pre><code class="language-shell">$ hurl --version
+hurl 4.2.0 (x86_64-apple-darwin23.0) libcurl/8.1.2 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.55.1
+Features (libcurl):  alt-svc AsynchDNS HSTS HTTP2 HTTP3 IPv6 Largefile libz NTLM NTLM_WB SPNEGO SSL UnixSockets
+Features (built-in): brotli
+</code></pre>
+<blockquote>
+<p>If installed on macOS with <a href="https://brew.sh">Homebrew</a>, Hurl uses the system libcurl that does not support HTTP/3 yet. To use HTTP/3 on macOS,
+you can: </p>
+<ol>
+<li>compile your own version of libcurl to support HTTP/3. Cloudflare has a simple Homebrew formula to <a href="https://github.com/cloudflare/homebrew-cloudflare/blob/master/curl.rb">build libcurl with HTTP/3</a></li>
+<li><a href="https://hurl.dev/docs/frequently-asked-questions.html#how-can-i-use-a-custom-libcurl-from-homebrew-by-instance">link Hurl with this updated libcurl</a></li>
+<li>Enjoy!</li>
+</ol>
+</blockquote>
+<p>There are very few HTTP clients that support HTTP/3, so we’re very happy with this new feature and look forward for
+feedbacks!</p>
+<h2>Install With conda-forge</h2>
+<p>Thanks to <a href="https://twitter.com/humphd">@humphd</a>, a recurring provider of new features, Hurl can now be installed through <a href="https://conda-forge.org">conda-forge</a>, a
+community-led packet manager for Conda:</p>
+<pre><code class="language-shell">$ conda install -c conda-forge hurl
+</code></pre>
+<p>conda-forge Hurl installation supports macOS, Linux, Windows, on x86 and ARM 64 bits architectures so we’ve got you
+covered!</p>
+<p>What’s very interesting with conda-forge is that other packet managers use it as a distribution source. For instance,
+<a href="https://pixi.sh">pixi</a>, a powerful and fast package management tool, uses the existing conda ecosystem, so Hurl can be installed
+with pixi:</p>
+<pre><code class="language-shell">$ pixi init hello-world
+$ cd hello-world
+$ pixi add hurl
+</code></pre>
+<p>There are, of course, a lot of <a href="https://hurl.dev/docs/installation.html">other ways to install Hurl</a>. If your preferred platform is not yet supported, drop-us
+<a href="https://github.com/Orange-OpenSource/hurl/issues">an issue on GitHub</a>!</p>
+<h2>Save Response per Request</h2>
+<p>Hurl can be used as a <a href="https://hurl.dev/docs/tutorial/adding-asserts.html">testing tool</a>, but it can be also simply used to get HTTP response when you’ve to chain multiple
+dependant requests (download a resource behind a login for instance). In a Hurl file, you can chain multiple requests,
+passing data from one to another:</p>
+
+<pre><code class="language-hurl"># Get home:
+GET https://example.org
+HTTP 200
+[Captures]
+csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
+
+# Do login!
+POST https://example.org/login?user=toto&amp;password=1234
+X-CSRF-TOKEN: {{csrf_token}}
+HTTP 302
+
+# Get our precisous resource:
+GET https://example.org/protected
+HTTP 200
+</code></pre>
+
+<p>When run, Hurl outputs the last response body on the standard output (in this case the response of
+<code>GET https://example.org/protected</code>). Like curl, this response can be saved to a file with [<code>--output</code>] option:</p>
+<pre><code class="language-shell">$ hurl --output /tmp/response.json api.hurl
+</code></pre>
+<p>With <a href="https://hurl.dev/docs/request.html#options">options sections</a>, we can now save to file each individual response of
+any request. </p>
+<p>Let’s imagine we have a cat API that returns a JSON response for a given cat. If we want to
+save multiple cat images on disk, we can write this Hurl file:</p>
+<ol>
+<li>Get the JSON response data for our first cat</li>
+<li>Extract the image’s URL of this cat</li>
+<li>Save it to disk with [<code>--output</code>]</li>
+<li>Get the JSON response data for our second cat</li>
+<li>Extract the image’s URL of this cat</li>
+<li>Save it to disk with [<code>--output</code>]</li>
+<li>Repeat...</li>
+</ol>
+<p>Our Hurl file will look like this:</p>
+
+<pre><code class="language-hurl"># Get our first cat resource and capture its image
+GET https://catapi.com/cats/1
+HTTP 200
+[Captures]
+img: jsonpath "$.url"
+
+# Download its image and save it to disk
+GET {{img}}
+[Options]
+output: cat1.jpg
+HTTP 200
+
+# Do the same with the second cat:
+GET https://catapi.com/cats/2
+HTTP 200
+[Captures]
+img: jsonpath "$.url"
+
+# Download its image and save it to disk
+GET {{img}}
+[Options]
+output: cat2.jpg
+HTTP 200
+</code></pre>
+
+<h2>jsonpath Filter</h2>
+<p>Data can be captured and/or tested from HTTP responses using <a href="https://hurl.dev/docs/asserting-response.html#jsonpath-assert">JSONPath</a>, <a href="https://hurl.dev/docs/asserting-response.html#xpath-assert">XPath</a>, <a href="https://hurl.dev/docs/asserting-response.html#regex-assert">regex</a> etc... <a href="https://hurl.dev/docs/filters.html">Filters</a> allow us to
+even refine the extracted data. With the [new <code>jsonpath</code> filter], we’re able to chain XPath or regex queries with a
+JSONPath filter:</p>
+<p>For instance, given this HTML file:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;p id="user"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+var s = '{"first_name" : "Sammy", "last_name" : "Shark", "location" : "Ocean"}';
+
+var obj = JSON.parse(s);
+
+document.getElementById("user").innerHTML =
+"Name: " + obj.first_name + " " + obj.last_name + "&lt;br&gt;" +
+"Location: " + obj.location;
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>We want to extract the string <code>{"first_name" : "Sammy", "last_name" : "Shark", "location" : "Ocean"}</code> and analyse it as
+a JSON:</p>
+<ol>
+<li>First, with a [<code>regex</code> query], we extract this string  <br />
+<code>regex /var s = '(.*)';/</code></li>
+<li>Then, with a [<code>jsonpath</code> filter], we test the data  <br />
+<code>jsonpath "$.first_name" == "Sammy"</code></li>
+</ol>
+<p>So our Hurl file will be:</p>
+<pre><code class="language-hurl">GET https://example.com/test.html
+HTTP 200
+[Asserts]
+regex /var s = '(.*)';/ jsonpath "$.first_name" == "Sammy"
+regex /var s = '(.*)';/ jsonpath "$.last_name" == "Shark"
+regex /var s = '(.*)';/ jsonpath "$.location" == "Ocean"
+</code></pre>
+<p>Or with an intermediate <a href="https://hurl.dev/docs/capturing-response.html">capture</a>:</p>
+<pre><code class="language-hurl">GET https://example.com/test.html
+HTTP 200
+[Captures]
+s: regex /var s = '(.*)';/
+[Asserts]
+variable "s" jsonpath "$.first_name" == "Sammy"
+variable "s" jsonpath "$.last_name" == "Shark"
+variable "s" jsonpath "$.location" == "Ocean"
+</code></pre>
+<p>Check out <a href="https://hurl.dev/docs/filters.html">all the available filters</a> to get the data you want from the HTTP responses.</p>
+<h2>More curl options: IPv6/IPv4, unix-socket etc...</h2>
+<p>Finally, in Hurl 4.2.0, more curl options have been implemented [<code>--ipv4</code> / <code>--ipv6</code>], [<code>--unix-socket</code>] and
+[<code>--location-trusted</code>].</p>
+<h3><code>--ipv4</code> / <code>--ipv6</code></h3>
+<p>In a shell:</p>
+<pre><code class="language-shell">$ hurl --ipv6 foo.hurl
+</code></pre>
+<p>Or for a specific request in a Hurl file:</p>
+<pre><code class="language-hurl">GET https://foo.com
+[Options]
+ipv6: true
+HTTP 200
+
+GET https://foo.com
+[Options]
+ipv4: true
+HTTP 200
+</code></pre>
+<h3><code>--unix-socket</code></h3>
+<p>In a shell:</p>
+<pre><code class="language-shell">$ hurl --unix-socket pid bar.hurl
+</code></pre>
+<p>Or for a specific request in a Hurl file:</p>
+<pre><code class="language-hurl">GET https://bar.com
+[Options]
+unix-socket: "pid"
+HTTP 200
+</code></pre>
+<h3><code>--location-trusted</code></h3>
+<p>In a shell:</p>
+<pre><code class="language-shell">$ hurl --location-trusted baz.hurl
+</code></pre>
+<p>Or for a specific request in a Hurl file:</p>
+<pre><code class="language-hurl">GET https://baz.com
+[Options]
+location-trusted: true
+HTTP 200
+</code></pre>
+<p>All the options can, of course, be combined on a specific request:</p>
+<pre><code class="language-hurl">GET https://baz.com
+[Options]
+ipv6: true
+location-trusted: true
+skip: false
+HTTP 200
+</code></pre>
+<h2>Others</h2>
+<p>There are other improvements with Hurl 4.2.0 (dark mode for HTML report, skip option request, etc...) and also a lot of bug fixes,
+you can check the complete list of enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.2.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>The Hurl team is thrilled to announce Hurl 4.2.0</summary>
+    </entry>
+    <entry>
         <title>Announcing Hurl 4.1.0</title>
         <link href="https://hurl.dev/blog/2023/09/24/announcing-hurl-4.1.0.html" rel="alternate" type="text/html" title="Announcing Hurl 4.1.0"/>
         <published>2023-09-24T00:00:00+02:00</published>

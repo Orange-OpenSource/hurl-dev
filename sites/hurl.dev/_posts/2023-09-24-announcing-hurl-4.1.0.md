@@ -26,7 +26,7 @@ jsonpath "$.tests" count == 25      # Check the number of items
 jsonpath "$.id" matches /\d{4}/     # Check the format of the id
 ```
 
-What's new in this release:
+## What’s New in This Release
 
 - [TAP Report](#tap-report)
 - [Add Delay Between Requests](#add-delay-between-requests)
