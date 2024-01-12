@@ -9,9 +9,9 @@ indexed: false
 # {{ page.title }}
 
 
-{% for year in (2021..2023) reversed %}
+{% for year in (2021..2024) reversed %}
 
-## Posts in {{year}}
+## {{year}}
 
 <ul class="u-list-style-none">
   {% for post in site.posts %}
