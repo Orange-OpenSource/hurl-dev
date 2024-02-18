@@ -80,6 +80,8 @@
           items:
             - title: HTTP Version
             - title: Polling and Retry
+            - title: Delaying Requests
+            - title: Skipping Requests
             - title: Testing Endpoint Performance
             - title: Using SOAP APIs
             - title: Capturing and Using a CSRF Token
