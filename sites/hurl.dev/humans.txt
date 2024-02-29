@@ -8,16 +8,15 @@ Hurl is a command line tool that runs HTTP requests defined in a simple plain te
 
 A simple sample with multiple requests:
 
-    # First request, create a contact, and 
+    # First request, create a contact, and
     # capture its id:
     # ------------------------------------
-    
+
     POST https://example.net/api/contacts
     [FormParams]
     token: {{token}}
     email: toto@rookie.net
-
-    HTTP/1.1 201
+    HTTP 201
     [Captures]
     contact-id: jsonpath "$.id"
 
@@ -26,8 +25,7 @@ A simple sample with multiple requests:
     # ------------------------------------
 
     GET https://example.net/api/contacts/{{contact-id}}
-
-    HTTP/1.1 200
+    HTTP 200
     [Asserts]
     jsonpath "$.id" == "toto@rookie.net"
 
@@ -35,4 +33,4 @@ A simple sample with multiple requests:
     # ------------------------------------
 
     DELETE https://example.net/api/contacts/{{contact-id}}
-    HTTP/1.1 200
+    HTTP 200
