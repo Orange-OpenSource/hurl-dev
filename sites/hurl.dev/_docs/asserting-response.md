@@ -10,13 +10,13 @@ section: File Format
 
 Asserts are used to test various properties of an HTTP response. Asserts can be implicits (such as version, status, 
 headers) or explicit within an `[Asserts]` section. The delimiter of the request / response is `HTTP <STATUS-CODE>`: 
-after this delimiter, you'll find the implicit asserts, then an `[Asserts]` section with all the explicits checks.
+after this delimiter, you'll find the implicit asserts, then an `[Asserts]` section with all the explicit checks.
 
 
 ```hurl
 GET https://api/example.org/cats
 HTTP 200
-Content-Type: application/json; charset=utf-8      # Implicit assert on Content-Type Hedaer
+Content-Type: application/json; charset=utf-8      # Implicit assert on Content-Type Header
 [Asserts]                                          # Explicit asserts section 
 bytes count == 120
 header "Content-Type" contains "utf-8"
@@ -174,7 +174,7 @@ Predicates consist of a predicate function and a predicate value. Predicate func
 
 | Predicate          | Description                                                                         | Example                                                                               | 
 |--------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| __`==`__           | Query and predicate value are equals                                                | `jsonpath "$.book" == "Dune"`                                                         |
+| __`==`__           | Query and predicate value are equal                                                 | `jsonpath "$.book" == "Dune"`                                                         |
 | __`!=`__           | Query and predicate value are different                                             | `jsonpath "$.color" != "red"`                                                         |
 | __`>`__            | Query number is greater than predicate value                                        | `jsonpath "$.year" > 1978`                                                            |
 | __`>=`__           | Query number is greater than or equal to the predicate value                        | `jsonpath "$.year" >= 1978`                                                           |
@@ -188,10 +188,11 @@ Predicates consist of a predicate function and a predicate value. Predicate func
 | __`exists`__       | Query returns a value                                                               | `jsonpath "$.book" exists`                                                            |
 | __`isBoolean`__    | Query returns a boolean                                                             | `jsonpath "$.succeeded" isBoolean`                                                    |
 | __`isCollection`__ | Query returns a collection                                                          | `jsonpath "$.books" isCollection`                                                     |
-| __`isDate`__       | Query returns a date                                                                | `jsonpath "$.publication_date" isDate`                                                |
 | __`isEmpty`__      | Query returns an empty collection                                                   | `jsonpath "$.movies" isEmpty`                                                         |
 | __`isFloat`__      | Query returns a float                                                               | `jsonpath "$.height" isFloat`                                                         |
 | __`isInteger`__    | Query returns an integer                                                            | `jsonpath "$.count" isInteger`                                                        |
+| __`isIsoDate`__    | Query string returns a [RFC 3339] date (`YYYY-MM-DDTHH:mm:ss.sssZ`)                 | `jsonpath "$.publication_date" isIsoDate`                                             |
+| __`isNumber`__     | Query returns an integer or a float                                                 | `jsonpath "$.count" isNumber`                                                         |
 | __`isString`__     | Query returns a string                                                              | `jsonpath "$.name" isString`                                                          |
 
 
@@ -373,7 +374,7 @@ cookie "LSID[Domain]" not exists
 cookie "LSID[Path]" == "/accounts"
 cookie "LSID[Secure]" exists
 cookie "LSID[HttpOnly]" exists
-cookie "LSID[SameSite]" equals "Lax"
+cookie "LSID[SameSite]" == "Lax"
 ```
 
 > `Secure` and `HttpOnly` attributes can only be tested with `exists` or `not exists` predicates
@@ -663,7 +664,7 @@ certificate "Serial-Number" matches "[0-9af]+"
 ## Body
 
 Optional assertion on the received HTTP response body. Body section can be seen
-as syntactic sugar over [body asserts] (with `equals` predicate function). If the
+as syntactic sugar over [body asserts] (with `==` predicate). If the
 body of the response is a [JSON] string or a [XML] string, the body assertion can
 be directly inserted without any modification. For a text based body that is neither JSON nor XML,
 one can use multiline string that starts with <code>&#96;&#96;&#96;</code> and ends
@@ -840,3 +841,4 @@ of all file nodes.
 [count]: {% link _docs/filters.md %}#count
 [`decode` filter]: {% link _docs/filters.md %}#decode
 [headers implicit asserts]: #headers
+[RFC 3339]: https://www.rfc-editor.org/rfc/rfc3339
