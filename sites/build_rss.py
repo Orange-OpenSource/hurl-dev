@@ -57,6 +57,9 @@ class Post:
 
         # Process Jekyll tag
         md_txt = md_txt.replace("{{ page.title }}", self.title)
+        md_txt = md_txt.replace("{% raw %}", "")
+        md_txt = md_txt.replace("{% endraw %}", "")
+
         md_txt = md_txt.replace(
             '{{ page.date | date: "%b. %d, %Y" }}',
             self.publication_date.strftime("%b. %d, %Y"),

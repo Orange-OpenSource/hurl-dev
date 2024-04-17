@@ -184,6 +184,10 @@ pre, code {
     color: $ansi-green-light;
     color: var(--ansi-green);
   }
+  .gray {
+    color: $ansi-gray-light;
+    color: var(--ansi-gray);
+  }
   .bright-cyan {
     color: $ansi-bright-cyan-light;
     color: var(--ansi-bright-cyan);
@@ -209,7 +213,6 @@ pre, code {
     color: var(--ansi-bright-magenta);
     font-weight: bold;
   }
-
 }
 
 .language-rust {
