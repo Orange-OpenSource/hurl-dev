@@ -76,6 +76,13 @@
             - title: Testing Set-Cookie Attributes
             - title: Testing Bytes Content
             - title: SSL Certificate
+            - title: Checking Full Body
+        - title: Reports
+          items:
+            - title: HTML Report
+            - title: JUnit Report
+            - title: TAP Report
+            - title: JSON Output
         - title: Others
           items:
             - title: HTTP Version
