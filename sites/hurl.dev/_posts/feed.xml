@@ -3,8 +3,205 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2023-09-24T00:00:00+02:00</updated>
+    <updated>2024-04-24T00:00:00+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 4.3.0</title>
+        <link href="https://hurl.dev/blog/2024/04/24/announcing-hurl-4.3.0.html" rel="alternate" type="text/html" title="Announcing Hurl 4.3.0"/>
+        <published>2024-04-24T00:00:00+02:00</published>
+        <updated>2024-04-24T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2024/04/24/announcing-hurl-4.3.0.html</id>
+        <content type="html"><![CDATA[<h1>Announcing Hurl 4.3.0</h1>
+<div class="blog-post-date">Apr. 24, 2024</div>
+
+<p>The Hurl team is thrilled to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.3.0">Hurl 4.3.0</a> <picture><source srcset="https://hurl.dev/assets/img/emoji-surfer.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-surfer.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-surfer.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-surfer.png" width="20" height="20" alt="Surfer"></picture> !</p>
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#quality-of-life-improvements">Quality of Life Improvements</a></li>
+<li><a href="#shell-completion">Shell Completion</a></li>
+<li><a href="#one-more-thing">One More Thing...</a></li>
+<li><a href="#others">Others</a></li>
+</ul>
+<h2>Quality of Life Improvements</h2>
+<p>Hurl 4.3.0 is about bringing various <strong>quality of life improvements</strong>. Nothing fancy, but Hurl keeps iterating,
+improving and increasing usefulness on each new release.  </p>
+<h3>Error display</h3>
+<p>Errors display have been slightly improved, with request line displayed to give context without having to look in
+the Hurl source file.</p>
+<p>Before 4.3.0:</p>
+<pre><code class="language-shell">error: Undefined variable
+--&gt; tests_ok/post_file.hurl:6:8
+   |
+ 6 | file,{{filename}};
+   |        ^^^^^^^^ you must set the variable filename
+   |
+</code></pre>
+<p>With 4.3.0:</p>
+<pre><code class="language-shell">error: Undefined variable
+--&gt; tests_ok/post_file.hurl:6:8
+   |
+   | POST http://localhost:8000/post-file
+   | ...
+ 6 | file,{{filename}};
+   |        ^^^^^^^^ you must set the variable filename
+   |
+</code></pre>
+<h3>&ndash;netrc, &ndash;netrc-file, &ndash;netrc-optional</h3>
+<p>Like its HTTP engine <a href="https://curl.se">curl</a>, Hurl supports now the classic <code>.netrc</code> file (typically stored in a user’s home directory).
+With <a href="https://hurl.dev/docs/manual.html#netrc"><code>--netrc</code></a> option, you can tells Hurl to look for and use the <code>.netrc</code> file. <a href="https://hurl.dev/docs/manual.html#netrc-file"><code>--netrc-file</code></a> is similar to <code>--netrc</code>, except that you can provide the path to the actual file to use.</p>
+<pre><code class="language-shell">$ hurl --test --netrc-file /home/foo/.netrc *.hurl
+</code></pre>
+<h3>Per request &ndash;user</h3>
+<p>Let’s keep talking about curl options. Like curl, one can use the command line option <a href="https://hurl.dev/docs/manual.html#user"><code>--user</code></a>
+to add basic authentication to all the requests of a Hurl file:</p>
+<pre><code class="language-shell">$ hurl --user bob:secret login.hurl
+</code></pre>
+<p><code>--user</code> option can now be set <em>per request</em>, in an <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code> section</a>:</p>
+<pre><code class="language-hurl"># Login with Bob is OK
+POST http://foo.com/login
+[Options]
+user: bob:secret
+location: true
+HTTP 200
+
+# Login with Alice is KO
+POST http://foo.com/login
+[Options]
+user: alice:secret
+location: true
+HTTP 401
+</code></pre>
+<p><code>--user</code> is useful when using <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">AWS Signature Version 4</a>: Amazon S3 authenticated sessions can be set now per
+request:</p>
+<pre><code class="language-hurl">GET https://foo.execute-api.us-east-1.amazonas.com/dev/bafe12
+[Options]
+aws-sigv4: aws:amz:eu-central-1:foo
+user: someAccessKeyId:someSecretKey
+HTTP 200
+</code></pre>
+<p>And, last but not least, <code>--user</code> option can use <a href="https://hurl.dev/docs/templates.html#injecting-variables">variables</a>:</p>
+<pre><code class="language-hurl">GET https://foo.execute-api.us-east-1.amazonas.com/dev/bafe12
+[Options]
+aws-sigv4: aws:amz:eu-central-1:foo
+user: {{login}}:{{password}}
+HTTP 200
+</code></pre>
+<p>Like many other Hurl option, <code>--user</code> option can be used in the command line (take effect for all requests of a Hurl
+file), or per request, with an <code>[Options]</code> section:</p>
+<pre><code class="language-hurl">GET https://example.org
+# An options section, each option is optional and applied only to this request...
+[Options]
+aws-sigv4: aws:amz:sts  # generate AWS SigV4 Authorization header
+cacert: /etc/cert.pem   # custom certificate file
+compressed: true        # request a compressed response
+delay: 3000             # delay in ms for this request
+http3: true             # use HTTP/3 protocol version
+insecure: true          # allow insecure SSL connections and transfers
+ipv6: true              # use IPv6 addresses
+location: true          # follow redirection for this request
+max-redirs: 10          # maximum number of redirections
+output: out.html        # dump the response to this file
+path-as-is: true        # do not handle sequences of /../ or /./ in URL path
+skip: false             # skip this request
+unix-socket: sock       # use Unix socket for transfer
+user: bob:secret        # use basic authentication
+variable: country=Italy # define variable country
+variable: planet=Earth  # define variable planet
+verbose: true           # allow verbose output
+very-verbose: true      # allow more verbose output
+</code></pre>
+<p>The <a href="https://hurl.dev/docs/manual.html#options">options documentation</a> and the Hurl man page have been improved to show which option can be used only in command line
+and which option can be used in command line <em>and</em> in an <code>[Options]</code> section. When option can only be used in command line
+the option is tagged &ldquo;cli-only option&rdquo;. For instance:</p>
+<pre><code>--color
+    Colorize debug output (the HTTP response output is not colorized).
+    This is a cli-only option.
+</code></pre>
+<p>When &ldquo;cli-only option&rdquo; is not specified, the option can be set per request within an <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code></a> section.</p>
+<h3>&ndash;max-size</h3>
+<p>One last new option backported from curl, <a href="https://hurl.dev/docs/manual.html#max-size"><code>--max-size</code></a> allows to limit the size of HTTP response data (in bytes):</p>
+<pre><code class="language-shell">$ hurl --max-size 100000 https://example.com/
+</code></pre>
+<h3>New Predicates: isNumber, isIsoDate</h3>
+<p><a href="https://hurl.dev/docs/asserting-response.html#predicates">Predicates</a> are used to check HTTP responses:</p>
+<pre><code class="language-hurl">GET http://httpbin.org/json
+HTTP 200
+[Asserts]
+jsonpath "$.slideshow.author" == "Yours Truly"
+jsonpath "$.slideshow.slides[0].title" contains "Wonder"
+jsonpath "$.slideshow.slides" count == 2
+jsonpath "$.slideshow.date" != null
+jsonpath "$.slideshow.slides[*].title" includes "Mind Blowing!"
+</code></pre>
+<p>Two new predicates are introduced with 4.3.0:</p>
+<ul>
+<li><code>isNumber</code>: a companion to <code>isInteger</code> / <code>isFloat</code> existing predicates to test if a certain value is a number</li>
+<li><code>isIsoDate</code>: check if a string value conforms to the <a href="https://www.rfc-editor.org/rfc/rfc3339">RFC-3339</a> date format <code>YYYY-MM-DDTHH:mm:sssZ</code></li>
+</ul>
+<pre><code class="language-hurl">GET http://httpbin.org/json
+HTTP 200
+[Asserts]
+jsonpath "$.slideshow.version" isNumber
+jsonpath "$.slideshow.date" isIsoDate
+jsonpath "$.slideshow.date" == "1937-01-01T12:00:27.87+00:20"
+</code></pre>
+<h2>Shell Completion</h2>
+<p>Hurl now offers shell completion scripts for various shell: <a href="https://ftp.gnu.org/gnu/bash/">bash</a>, <a href="https://fishshell.com">fish</a>, <a href="https://ohmyz.sh">zsh</a> and <a href="https://learn.microsoft.com/en-us/powershell/">PowerShell</a>. Usually, packet
+managers package the completion scripts, but you can still install it yourself from <a href="https://github.com/Orange-OpenSource/hurl/tree/master/completions">Hurl’s GitHub repository</a>.</p>
+<h2>One More Thing...</h2>
+<p>One last thing, and this is a pretty big thing (at least for us <picture><source srcset="https://hurl.dev/assets/img/emoji-smiling-face.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-smiling-face.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-smiling-face.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-smiling-face.png" width="20" height="20" alt="Surfer"></picture>) !</p>
+<p>In Hurl 4.3.0, we’ve addressed <a href="https://github.com/Orange-OpenSource/hurl/issues/87">one of our oldest issue</a>, proposed in 2020: <strong>a <code>--parallel</code> option!</strong></p>
+<p>
+    <picture>
+        <source srcset="https://hurl.dev/assets/img/pinto-dark.avif" type="image/avif">
+        <source srcset="https://hurl.dev/assets/img/pinto-dark.webp" type="image/webp">
+        <source srcset="https://hurl.dev/assets/img/pinto-dark.png" type="image/png">
+        <img class="u-theme-dark u-drop-shadow u-border u-max-width-100" src="https://hurl.dev/assets/img/pinto-dark.png" width="600" alt="Parallel GitHub issue"/>
+    </picture>
+</p>
+
+<p>It has been a long run since this issue, but we always kept in our mind that, at a moment, we want to be able to
+run Hurl files in parallel. Now, with 4.3.0, we’re introducing an opt-in <a href="https://hurl.dev/docs/manual.html#parallel"><code>--parallel</code></a>
+option that will enable parallel
+execution of Hurl files.</p>
+<p>In Hurl 4.3.0, running files in test mode is (no change):</p>
+<pre><code class="language-shell">$ hurl --test *.hurl
+</code></pre>
+<p>With <code>--parallel</code>, you can choose to run your tests in parallel:</p>
+<pre><code class="language-shell">$ hurl --test --parallel *.hurl
+</code></pre>
+<p>To develop this feature, we take a lot of inspiration of the venerable <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a>.</p>
+<p>In the parallel mode, each Hurl file is executed on its own thread, sharing nothing with other jobs. There is a thread
+pool which size is roughly the current amount of CPUs and that can be configured with <a href="https://hurl.dev/docs/manual.html#jobs"><code>--jobs</code></a> option. During parallel execution, standard output and error are buffered for each file and only displayed on screen when a job file is finished. This way, debug logs and messages are never interleaved between execution. Order of execution is not guaranteed
+in <code>--parallel</code> mode but reports (<a href="https://hurl.dev/docs/running-tests.html#html-report">HTML</a>, <a href="https://hurl.dev/docs/running-tests.html#tap-report">TAP</a>, <a href="https://hurl.dev/docs/running-tests.html#junit-report">Junit</a>) keep the input files order.</p>
+<p>The parallelism used is multithread sync: the thread pool is instantiated for the whole run, each Hurl file is run
+in its own thread, synchronously . We’ve not gone through the full multithreaded async route for implementation
+simplicity. Moreover, there is no additional dependency, only the standard Rust lib with &ldquo;classic&rdquo; threads and
+<a href="https://doc.rust-lang.org/book/ch16-02-message-passing.html">multiple producers / single consumer channels</a> to communicate between threads.</p>
+<p>For the 4.3.0, we’ve marked the <code>--parallel</code> option as &ldquo;experimental&rdquo; as we want to have feedbacks on it and insure that
+everything works as designed. We plan to make this mode of execution the default when executing Hurl files with <code>--test</code>
+in the Hurl 5.0.0 version.</p>
+<p>Give it a try, if you think Hurl is fast, Oh Boy... Wait until you see the new parallel mode!   </p>
+<h2>Others</h2>
+<p>There are a lot other improvements with Hurl 4.3.0 and also a lot of bug fixes,
+you can check the complete list of enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.3.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://twitter.com/HurlDev">Twitter</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary/>
+    </entry>
     <entry>
         <title>Hurl 4.2.0, the HTTP/3 Edition</title>
         <link href="https://hurl.dev/blog/2024/01/12/hurl-4.2.0-the-http3-edition.html" rel="alternate" type="text/html" title="Hurl 4.2.0, the HTTP/3 Edition"/>
