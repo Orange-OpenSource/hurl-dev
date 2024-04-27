@@ -128,9 +128,9 @@ the option is tagged &ldquo;cli-only option&rdquo;. For instance:</p>
     This is a cli-only option.
 </code></pre>
 <p>When &ldquo;cli-only option&rdquo; is not specified, the option can be set per request within an <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code></a> section.</p>
-<h3>&ndash;max-size</h3>
-<p>One last new option backported from curl, <a href="https://hurl.dev/docs/manual.html#max-size"><code>--max-size</code></a> allows to limit the size of HTTP response data (in bytes):</p>
-<pre><code class="language-shell">$ hurl --max-size 100000 https://example.com/
+<h3>&ndash;max-filesize</h3>
+<p>One last new option backported from curl, <a href="https://hurl.dev/docs/manual.html#max-filesize"><code>--max-filesize</code></a> allows to limit the size of HTTP response data (in bytes):</p>
+<pre><code class="language-shell">$ hurl --max-filesize 100000 https://example.com/
 </code></pre>
 <h3>New Predicates: isNumber, isIsoDate</h3>
 <p><a href="https://hurl.dev/docs/asserting-response.html#predicates">Predicates</a> are used to check HTTP responses:</p>
@@ -183,7 +183,7 @@ execution of Hurl files.</p>
 <p>To develop this feature, we take a lot of inspiration of the venerable <a href="https://www.gnu.org/software/parallel/">GNU Parallel</a>.</p>
 <p>In the parallel mode, each Hurl file is executed on its own thread, sharing nothing with other jobs. There is a thread
 pool which size is roughly the current amount of CPUs and that can be configured with <a href="https://hurl.dev/docs/manual.html#jobs"><code>--jobs</code></a> option. During parallel execution, standard output and error are buffered for each file and only displayed on screen when a job file is finished. This way, debug logs and messages are never interleaved between execution. Order of execution is not guaranteed
-in <code>--parallel</code> mode but reports (<a href="https://hurl.dev/docs/running-tests.html#html-report">HTML</a>, <a href="https://hurl.dev/docs/running-tests.html#tap-report">TAP</a>, <a href="https://hurl.dev/docs/running-tests.html#junit-report">Junit</a>) keep the input files order.</p>
+in <code>--parallel</code> mode but reports (<a href="https://hurl.dev/docs/running-tests.html#html-report">HTML</a>, <a href="https://hurl.dev/docs/running-tests.html#tap-report">TAP</a>, <a href="https://hurl.dev/docs/running-tests.html#junit-report">JUnit</a>) keep the input files order.</p>
 <p>The parallelism used is multithread sync: the thread pool is instantiated for the whole run, each Hurl file is run
 in its own thread, synchronously . We’ve not gone through the full multithreaded async route for implementation
 simplicity. Moreover, there is no additional dependency, only the standard Rust lib with &ldquo;classic&rdquo; threads and

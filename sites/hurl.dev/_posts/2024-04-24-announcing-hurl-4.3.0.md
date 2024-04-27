@@ -168,12 +168,12 @@ the option is tagged "cli-only option". For instance:
 
 When "cli-only option" is not specified, the option can be set per request within an [`[Options]`]({% link _docs/request.md %}#options) section.
 
-### --max-size
+### --max-filesize
 
-One last new option backported from curl, [`--max-size`]({% link _docs/manual.md %}#max-size) allows to limit the size of HTTP response data (in bytes):
+One last new option backported from curl, [`--max-filesize`]({% link _docs/manual.md %}#max-filesize) allows to limit the size of HTTP response data (in bytes):
 
 ```shell
-$ hurl --max-size 100000 https://example.com/
+$ hurl --max-filesize 100000 https://example.com/
 ```
 
 ### New Predicates: isNumber, isIsoDate
@@ -252,7 +252,7 @@ To develop this feature, we take a lot of inspiration of the venerable [GNU Para
 
 In the parallel mode, each Hurl file is executed on its own thread, sharing nothing with other jobs. There is a thread
 pool which size is roughly the current amount of CPUs and that can be configured with [`--jobs`]({% link _docs/manual.md %}#jobs) option. During parallel execution, standard output and error are buffered for each file and only displayed on screen when a job file is finished. This way, debug logs and messages are never interleaved between execution. Order of execution is not guaranteed 
-in `--parallel` mode but reports ([HTML], [TAP], [Junit]) keep the input files order.
+in `--parallel` mode but reports ([HTML], [TAP], [JUnit]) keep the input files order.
 
 The parallelism used is multithread sync: the thread pool is instantiated for the whole run, each Hurl file is run 
 in its own thread, synchronously . We've not gone through the full multithreaded async route for implementation 
