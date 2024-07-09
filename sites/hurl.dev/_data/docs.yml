@@ -32,6 +32,7 @@
             - title: Build on Linux
               items:
                 - title: Debian based distributions
+                - title: Fedora based distributions
                 - title: Red Hat based distributions
                 - title: Arch based distributions
                 - title: Alpine based distributions
