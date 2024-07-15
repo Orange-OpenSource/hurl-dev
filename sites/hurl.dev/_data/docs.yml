@@ -99,9 +99,16 @@
       path: /docs/running-tests.html
       items:
         - title: Use --test Option
+          items:
+            - title: Selecting Tests
+        - title: Debugging
+          items:
+            - title: Debug Logs
+            - title: HTTP Responses
         - title: Generating Report
           items:
             - title: HTML Report
+            - title: JSON Report
             - title: JUnit Report
             - title: TAP Report
         - title: Use Variables in Tests
@@ -140,6 +147,7 @@
             - title: Cookie storage
             - title: Redirects
             - title: Retry
+            - title: Control flow
     - title: Request
       path: /docs/request.html
       items:
