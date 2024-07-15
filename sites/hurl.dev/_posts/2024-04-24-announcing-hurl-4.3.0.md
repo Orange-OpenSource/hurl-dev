@@ -255,7 +255,7 @@ pool which size is roughly the current amount of CPUs and that can be configured
 in `--parallel` mode but reports ([HTML], [TAP], [JUnit]) keep the input files order.
 
 The parallelism used is multithread sync: the thread pool is instantiated for the whole run, each Hurl file is run 
-in its own thread, synchronously . We've not gone through the full multithreaded async route for implementation 
+in its own thread, synchronously. We've not gone through the full multithreaded async route for implementation 
 simplicity. Moreover, there is no additional dependency, only the standard Rust lib with "classic" threads and 
 [multiple producers / single consumer channels] to communicate between threads.
 

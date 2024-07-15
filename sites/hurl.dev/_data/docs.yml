@@ -81,6 +81,7 @@
         - title: Reports
           items:
             - title: HTML Report
+            - title: JSON Report
             - title: JUnit Report
             - title: TAP Report
             - title: JSON Output
@@ -95,13 +96,21 @@
             - title: Capturing and Using a CSRF Token
             - title: Checking Byte Order Mark (BOM) in Response Body
             - title: AWS Signature Version 4 Requests
+            - title: Using curl Options
     - title: Running Tests
       path: /docs/running-tests.html
       items:
         - title: Use --test Option
+          items:
+            - title: Selecting Tests
+        - title: Debugging
+          items:
+            - title: Debug Logs
+            - title: HTTP Responses
         - title: Generating Report
           items:
             - title: HTML Report
+            - title: JSON Report
             - title: JUnit Report
             - title: TAP Report
         - title: Use Variables in Tests
@@ -140,6 +149,7 @@
             - title: Cookie storage
             - title: Redirects
             - title: Retry
+            - title: Control flow
     - title: Request
       path: /docs/request.html
       items:
@@ -308,6 +318,7 @@
             - title: Using --verbose and --very-verbose for all entries
             - title: Debugging a specific entry
         - title: Use Error Format
+        - title: Get Response Body
         - title: Interactive Mode
         - title: Include Headers Like curl
         - title: Using a Proxy
