@@ -36,6 +36,12 @@ GET https://example.ord/dogs/567
 HTTP 200
 ```
 
+Finally, Hurl can take files as input, or directories. In the latter case, Hurl will search files with `.hurl` extension recursively.
+
+```shell
+$ hurl --test integration/*.hurl
+$ hurl --test .
+```
 
 You can check [Hurl tests suite] for more samples.
 
@@ -595,6 +601,15 @@ $ hurl --test --report-html build/report/ *.hurl
 
 [Doc]({% link _docs/running-tests.md %}#generating-report)
 
+### JSON Report
+
+```shell
+$ hurl --test --report-json build/report/ *.hurl
+```
+
+[Doc]({% link _docs/running-tests.md %}#generating-report)
+
+
 ### JUnit Report
 
 ```shell
@@ -656,6 +671,7 @@ jsonpath "$.state" == "RUNNING"
 GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: 10   # maximum number of retry, -1 for unlimited
+retry-interval: 500ms
 HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
@@ -667,13 +683,13 @@ jsonpath "$.state" == "COMPLETED"
 
 ### Delaying Requests
 
-Add delay for every request, or a particular requests:
+Add delay for every request, or a particular request:
 
 ```hurl
-# Delaying this request by 5s
+# Delaying this request by 5 seconds
 GET https://example.org/turtle
 [Options]
-delay: 5000
+delay: 5s
 HTTP 200
 
 # No delay!
@@ -789,6 +805,31 @@ Version: 2011-06-15
 
 [Doc]({% link _docs/manual.md %}#aws-sigv4)
 
+### Using curl Options
+
+curl options (for instance [`--resolve`] or [`--connect-to`]) can be used as CLI argument. In this case, they're applicable
+to each request of an Hurl file.
+
+```shell
+$ hurl --resolve foo.com:8000:127.0.0.1 foo.hurl
+```
+
+Use  [`[Options]` section][option] to configure a specific request:
+
+```hurl
+GET http://bar.com
+HTTP 200
+
+
+GET http://foo.com:8000/resolve
+[Options]
+resolve: foo.com:8000:127.0.0.1
+HTTP 200
+`Hello World!`
+```
+
+[Doc]({% link _docs/request.md %}#options)
+
 
 [JSON body]: {% link _docs/request.md %}#json-body
 [XML body]: {% link _docs/request.md %}#xml-body
@@ -810,3 +851,5 @@ Version: 2011-06-15
 [Captures]: {% link _docs/capturing-response.md %}
 [option]: {% link _docs/request.md %}#options
 [`--json` option]: {% link _docs/manual.md %}#json
+[`--resolve`]: {% link _docs/manual.md %}#resolve
+[`--connect-to`]: {% link _docs/manual.md %}#connect-to

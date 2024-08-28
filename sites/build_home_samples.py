@@ -286,7 +286,7 @@ HTTP 200
 [Asserts]
 jsonpath "$.status" == "RUNNING"    # Check the status code
 jsonpath "$.tests" count == 25      # Check the number of items
-jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+jsonpath "$.id" matches /\\d{4}/     # Check the format of the id
 """,
         ),
         Sample(
@@ -329,7 +329,7 @@ HTTP 200
 certificate "Subject" == "CN=example.org"
 certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
 certificate "Expire-Date" daysAfterNow > 15
-certificate "Serial-Number" matches /[\da-f]+/
+certificate "Serial-Number" matches /[\\da-f]+/
 """,
         ),
         Sample(
@@ -339,6 +339,7 @@ certificate "Serial-Number" matches /[\da-f]+/
 GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: 10  # maximum number of retry, -1 for unlimited
+retry-interval: 300ms
 HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
