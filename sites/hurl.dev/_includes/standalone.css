@@ -1,0 +1,2091 @@
+body,
+h1,
+h2,
+h3,
+blockquote,
+p,
+ol,
+ul,
+pre,
+figure {
+    margin: 0;
+    padding: 0;
+}
+
+html, html[data-theme=light] {
+    --background-color: #fff;
+    --primary-color: #ff0288;
+    --body-text: #222;
+    --secondary-color: royalblue;
+    --code-background-color: #f5f5f5;
+    --footer-background-color: #f0f0f0;
+    --separator-color: #b3b3b3;
+    --hurl-string: darkgreen;
+    --hurl-regex: darkgreen;
+    --hurl-name: darkgreen;
+    --hurl-number: blue;
+    --hurl-boolean: blue;
+    --hurl-null: blue;
+    --hurl-json: darkgreen;
+    --hurl-xml: darkgreen;
+    --hurl-hex: darkgreen;
+    --hurl-base64: darkgreen;
+    --hurl-filename: darkgreen;
+    --hurl-url: darkblue;
+    --hurl-method: #222;
+    --hurl-version: #222;
+    --hurl-section-header: darkmagenta;
+    --hurl-query-type: teal;
+    --hurl-filter-type: darkblue;
+    --hurl-not: darkblue;
+    --hurl-predicate-type: darkblue;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: teal;
+    --bash-literal-number: blue;
+    --bash-literal-string-double: darkgreen;
+    --bash-name-builtin: teal;
+    --shell-prompt: dimgray;
+    --ansi-green: darkgreen;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: #35bbc7;
+    --ansi-bright-green: #33bd25;
+    --ansi-bright-red: #c33820;
+    --ansi-bright-blue: #4427b7;
+    --ansi-bright-magenta: #bb34b9;
+    --rust-comment-single: dimgray;
+    --rust-keyword: teal;
+    --rust-literal-number: blue;
+    --rust-literal-string-double: darkgreen;
+    --rust-literal-constant: blue;
+    --rust-name-builtin: teal;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #f5f5f5;
+    --row-n1: #fff;
+    --schema-token-1: #0000ff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #f5f5f5;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #f5f5f5;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #f5f5f5;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #f5f5f5;
+}
+html .u-theme-img, html[data-theme=light] .u-theme-img {
+    display: inline-block;
+}
+html .u-theme-dark, html[data-theme=light] .u-theme-dark {
+    display: none;
+}
+
+html[data-theme=dark] {
+    --background-color: #19191c;
+    --primary-color: #ff0288;
+    --body-text: #c2c2c2;
+    --secondary-color: #34a7ff;
+    --code-background-color: #27272c;
+    --footer-background-color: #0a0a0a;
+    --separator-color: #444;
+    --hurl-string: forestgreen;
+    --hurl-regex: forestgreen;
+    --hurl-name: forestgreen;
+    --hurl-number: dodgerblue;
+    --hurl-boolean: dodgerblue;
+    --hurl-null: dodgerblue;
+    --hurl-json: forestgreen;
+    --hurl-xml: forestgreen;
+    --hurl-hex: forestgreen;
+    --hurl-base64: forestgreen;
+    --hurl-filename: forestgreen;
+    --hurl-url: cyan;
+    --hurl-method: orange;
+    --hurl-version: white;
+    --hurl-section-header: magenta;
+    --hurl-query-type: cyan;
+    --hurl-filter-type: orange;
+    --hurl-not: orange;
+    --hurl-predicate-type: orange;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: #ff8000;
+    --bash-literal-number: dodgerblue;
+    --bash-literal-string-double: forestgreen;
+    --bash-name-builtin: #ff8000;
+    --shell-prompt: dimgray;
+    --ansi-green: #00c300;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: cyan;
+    --ansi-bright-green: lime;
+    --ansi-bright-red: #ff6e67;
+    --ansi-bright-blue: #7277cc;
+    --ansi-bright-magenta: #ff76ff;
+    --rust-comment-single: dimgray;
+    --rust-keyword: #ff8000;
+    --rust-literal-number: dodgerblue;
+    --rust-literal-string-double: forestgreen;
+    --rust-literal-constant: dodgerblue;
+    --rust-name-builtin: #ff8000;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #27272c;
+    --row-n1: #19191c;
+    --schema-token-1: #007fff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #27272c;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #27272c;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #27272c;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #27272c;
+}
+html[data-theme=dark] .u-theme-light {
+    display: none;
+}
+html[data-theme=dark] .u-theme-dark {
+    display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+    html, html[data-theme=dark] {
+        --background-color: #19191c;
+        --primary-color: #ff0288;
+        --body-text: #c2c2c2;
+        --secondary-color: #34a7ff;
+        --code-background-color: #27272c;
+        --footer-background-color: #0a0a0a;
+        --separator-color: #444;
+        --hurl-string: forestgreen;
+        --hurl-regex: forestgreen;
+        --hurl-name: forestgreen;
+        --hurl-number: dodgerblue;
+        --hurl-boolean: dodgerblue;
+        --hurl-null: dodgerblue;
+        --hurl-json: forestgreen;
+        --hurl-xml: forestgreen;
+        --hurl-hex: forestgreen;
+        --hurl-base64: forestgreen;
+        --hurl-filename: forestgreen;
+        --hurl-url: cyan;
+        --hurl-method: orange;
+        --hurl-version: white;
+        --hurl-section-header: magenta;
+        --hurl-query-type: cyan;
+        --hurl-filter-type: orange;
+        --hurl-not: orange;
+        --hurl-predicate-type: orange;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: #ff8000;
+        --bash-literal-number: dodgerblue;
+        --bash-literal-string-double: forestgreen;
+        --bash-name-builtin: #ff8000;
+        --shell-prompt: dimgray;
+        --ansi-green: #00c300;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: cyan;
+        --ansi-bright-green: lime;
+        --ansi-bright-red: #ff6e67;
+        --ansi-bright-blue: #7277cc;
+        --ansi-bright-magenta: #ff76ff;
+        --rust-comment-single: dimgray;
+        --rust-keyword: #ff8000;
+        --rust-literal-number: dodgerblue;
+        --rust-literal-string-double: forestgreen;
+        --rust-literal-constant: dodgerblue;
+        --rust-name-builtin: #ff8000;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #27272c;
+        --row-n1: #19191c;
+        --schema-token-1: #007fff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #27272c;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #27272c;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #27272c;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #27272c;
+    }
+    html .u-theme-light, html[data-theme=dark] .u-theme-light {
+        display: none;
+    }
+    html .u-theme-dark, html[data-theme=dark] .u-theme-dark {
+        display: inline-block;
+    }
+    html[data-theme=light] {
+        --background-color: #fff;
+        --primary-color: #ff0288;
+        --body-text: #222;
+        --secondary-color: royalblue;
+        --code-background-color: #f5f5f5;
+        --footer-background-color: #f0f0f0;
+        --separator-color: #b3b3b3;
+        --hurl-string: darkgreen;
+        --hurl-regex: darkgreen;
+        --hurl-name: darkgreen;
+        --hurl-number: blue;
+        --hurl-boolean: blue;
+        --hurl-null: blue;
+        --hurl-json: darkgreen;
+        --hurl-xml: darkgreen;
+        --hurl-hex: darkgreen;
+        --hurl-base64: darkgreen;
+        --hurl-filename: darkgreen;
+        --hurl-url: darkblue;
+        --hurl-method: #222;
+        --hurl-version: #222;
+        --hurl-section-header: darkmagenta;
+        --hurl-query-type: teal;
+        --hurl-filter-type: darkblue;
+        --hurl-not: darkblue;
+        --hurl-predicate-type: darkblue;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: teal;
+        --bash-literal-number: blue;
+        --bash-literal-string-double: darkgreen;
+        --bash-name-builtin: teal;
+        --shell-prompt: dimgray;
+        --ansi-green: darkgreen;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: #35bbc7;
+        --ansi-bright-green: #33bd25;
+        --ansi-bright-red: #c33820;
+        --ansi-bright-blue: #4427b7;
+        --ansi-bright-magenta: #bb34b9;
+        --rust-comment-single: dimgray;
+        --rust-keyword: teal;
+        --rust-literal-number: blue;
+        --rust-literal-string-double: darkgreen;
+        --rust-literal-constant: blue;
+        --rust-name-builtin: teal;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #f5f5f5;
+        --row-n1: #fff;
+        --schema-token-1: #0000ff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #f5f5f5;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #f5f5f5;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #f5f5f5;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #f5f5f5;
+    }
+    html[data-theme=light] .u-theme-img {
+        display: inline-block;
+    }
+    html[data-theme=light] .u-theme-dark {
+        display: none;
+    }
+}
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.u-d-block-md {
+    display: none;
+}
+@media only screen and (min-width: 768px) {
+    .u-d-block-md {
+        display: block;
+    }
+}
+
+.u-d-block-lg {
+    display: none;
+}
+@media only screen and (min-width: 1024px) {
+    .u-d-block-lg {
+        display: block;
+    }
+}
+
+.u-d-none-md {
+    display: block;
+}
+@media only screen and (min-width: 768px) {
+    .u-d-none-md {
+        display: none;
+    }
+}
+
+.u-d-none {
+    display: none;
+}
+
+.u-underline {
+    text-decoration: underline;
+}
+
+.u-pointer {
+    cursor: pointer;
+}
+
+.u-align-center {
+    text-align: center;
+}
+
+.u-font-size-0 {
+    font-size: 1rem;
+}
+
+.u-font-size-1 {
+    font-size: 1.125rem;
+}
+
+@media only screen and (min-width: 375px) {
+    .u-font-size-1-sm {
+        font-size: 1.125rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .u-font-size-1-md {
+        font-size: 1.125rem;
+    }
+}
+
+.u-font-size-2 {
+    font-size: 1.25rem;
+}
+
+@media only screen and (min-width: 375px) {
+    .u-font-size-2-sm {
+        font-size: 1.25rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .u-font-size-2-md {
+        font-size: 1.25rem;
+    }
+}
+
+.u-font-size-3 {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 375px) {
+    .u-font-size-3-sm {
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .u-font-size-3-md {
+        font-size: 1.5rem;
+    }
+}
+
+.u-drop-shadow {
+    box-shadow: 0 4px 8px -8px gray;
+}
+
+.u-border {
+    border: 1px solid #b3b3b3;
+    border: 1px solid var(--separator-color);
+}
+
+.u-list-style-none {
+    list-style-type: none;
+}
+
+.u-invisible {
+    display: block;
+    position: absolute;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+.u-mt-4 {
+    margin-top: 2rem;
+}
+
+.u-greyed {
+    color: #8c8c8c;
+}
+
+.u-max-width-100 {
+    max-width: 100%;
+}
+
+html {
+    /* Add some space to the anchor */
+    scroll-padding-top: 20px;
+    /* Enable smooth scrolling for anchors */
+    scroll-behavior: smooth;
+    /* Disable smooth scrolling when users have prefers-reduced-motion enabled */
+}
+@media only screen and (min-width: 768px) {
+    html {
+        /* Take fixed header into account */
+        scroll-padding-top: 92px;
+    }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.125rem; /* 18 px */
+    line-height: 1.4;
+    background-color: #fff;
+    background-color: var(--background-color);
+    color: #222;
+    color: var(--body-text);
+}
+
+a, a:visited, a:focus, a:hover, a:active {
+    color: royalblue;
+    color: var(--secondary-color);
+}
+
+a[aria-selected=true] {
+    color: #ff0288;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url("../font/opensans-700.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+h1 {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+h1 a, h1 a:visited, h1 a:focus, h1 a:hover, h1 a:active {
+    color: #ff0288;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+h2 a, h2 a:visited, h2 a:focus, h2 a:hover, h2 a:active, h3 a, h3 a:visited, h3 a:focus, h3 a:hover, h3 a:active, h4 a, h4 a:visited, h4 a:focus, h4 a:hover, h4 a:active, h5 a, h5 a:visited, h5 a:focus, h5 a:hover, h5 a:active, h6 a, h6 a:visited, h6 a:focus, h6 a:hover, h6 a:active {
+    color: #222;
+    color: var(--body-text);
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 700;
+    color: #ff0288;
+    color: var(--primary-color);
+    margin: 3.5rem 0 1.5rem;
+}
+
+h1:first-of-type {
+    margin-top: 0;
+}
+
+h2 {
+    margin: 3rem 0 1rem;
+}
+
+h3 {
+    margin: 2.5rem 0 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    padding-left: 40px;
+    margin-bottom: 1rem;
+}
+
+.picture {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+blockquote {
+    border-left: 4px solid;
+    border-left-color: #b3b3b3;
+    border-left-color: var(--separator-color);
+    padding-left: 1rem;
+    color: #8c8c8c;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+select {
+    font-size: 0.8rem;
+    font-weight: bold;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-color: var(--background-color);
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b3b3b3;
+    padding: 6px 6px 6px 12px;
+    border-radius: 6px;
+    color: #b3b3b3;
+    max-width: 100%;
+}
+
+.emoji {
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+.top-nav {
+    padding: 1rem;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    background-color: var(--background-color);
+}
+@media only screen and (min-width: 768px) {
+    .top-nav {
+        position: fixed;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        z-index: 1;
+    }
+}
+
+.top-nav-header {
+    display: flex;
+    justify-content: flex-end;
+    height: 37px;
+}
+
+.top-nav-logo {
+    margin-right: auto;
+    line-height: 44px;
+}
+
+.top-nav-logo-img source, .top-nav-logo-img img {
+    width: 120px;
+}
+@media only screen and (max-width: 320px) {
+    .top-nav-logo-img source, .top-nav-logo-img img {
+        width: 80px;
+    }
+}
+
+.top-nav-links {
+    display: flex;
+    font-weight: bold;
+    line-height: 37px;
+    color: royalblue;
+    color: var(--secondary-color);
+}
+
+.top-nav-link {
+    margin-left: 1rem;
+    fill: currentColor;
+}
+
+.top-nav-toc ul {
+    padding: 0;
+}
+.top-nav-toc ul li {
+    list-style-type: none;
+    margin-bottom: 0.5rem;
+}
+
+.top-nav-link-a {
+    display: flex;
+    text-decoration: none;
+}
+
+.svg-icon {
+    margin-top: 3px;
+}
+
+details summary {
+    cursor: pointer;
+}
+
+details summary > * {
+    display: inline;
+}
+
+/* Height of side nav is 100% less the height of top nav */
+.side-nav {
+    position: fixed;
+    width: 250px;
+    height: calc(100vh - 69px);
+    overflow-y: auto;
+    padding: 1.5rem 1rem 2rem 2rem;
+}
+@media only screen and (min-width: 1024px) {
+    .side-nav {
+        width: 300px;
+    }
+}
+.side-nav details {
+    margin: 2.5rem 0 1rem;
+}
+.side-nav details summary {
+    margin-bottom: 1rem;
+}
+.side-nav details:first-child {
+    margin-top: 0;
+}
+.side-nav ul {
+    padding: 0;
+}
+.side-nav ul li {
+    list-style-type: none;
+    margin-bottom: 0.5rem;
+}
+
+footer {
+    margin: 0 -1rem 0 -1rem;
+}
+
+.footer-content {
+    display: flex;
+    margin-left: 0;
+    margin-top: 2.5rem;
+    padding: 2rem 1rem;
+    color: #8c8c8c;
+    border-top: 1px solid;
+    border-top-color: #b3b3b3;
+    border-top-color: var(--separator-color);
+    background-color: #f0f0f0;
+    background-color: var(--footer-background-color);
+}
+
+.footer-dev-by {
+    margin-left: auto;
+}
+
+.home {
+    display: flex;
+    padding: 0;
+}
+@media only screen and (min-width: 768px) {
+    .home {
+        margin-top: 72px;
+    }
+}
+
+.home-logo {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.home-picker {
+    text-align: right;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.home-picker-label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #b3b3b3;
+}
+
+.home-sample {
+    margin-bottom: 2rem;
+}
+
+.home-content {
+    margin-left: 0;
+    padding: 1rem 1rem 0 1rem;
+    width: 100%;
+}
+@media only screen and (min-width: 768px) {
+    .home-content {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .home-content {
+        margin-left: 300px;
+        width: calc(85% - 300px);
+    }
+}
+
+#home-demo {
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.home-content-col {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.showcase-container {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+}
+
+.showcase-item {
+    width: 100%;
+    margin: 0;
+}
+@media only screen and (min-width: 768px) {
+    .showcase-item {
+        width: 31%;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .showcase-item:first-child {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .showcase-item:last-child {
+        margin-right: 0;
+    }
+}
+
+.showcase-item-title {
+    margin-top: 1rem;
+}
+
+.doc {
+    display: flex;
+    padding: 0;
+}
+@media only screen and (min-width: 768px) {
+    .doc {
+        margin-top: 72px;
+    }
+}
+
+.doc-content {
+    margin-left: 0;
+    padding: 1rem 1rem 0 1rem;
+    width: 100%;
+    min-height: calc(100vh - 244px);
+}
+@media only screen and (min-width: 768px) {
+    .doc-content {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .doc-content {
+        margin-left: 300px;
+        width: calc(85% - 300px);
+    }
+}
+
+.doc-content-col {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.doc-content-edit-page {
+    text-align: right;
+    margin: 2rem 0;
+}
+
+.doc-content-browse {
+    display: flex;
+    margin-top: 2.5rem;
+}
+
+.doc-content-browse-next {
+    margin-left: auto;
+}
+
+.doc-toc {
+    position: fixed;
+    right: 0;
+    font-size: 0.9rem;
+    padding: 30px 1rem 2rem 1rem;
+    color: #b3b3b3;
+    width: 15%;
+    max-height: calc(100% - 64px);
+    overflow-y: auto;
+}
+.doc-toc h3:first-child {
+    margin-top: 0;
+}
+.doc-toc ul {
+    padding: 0;
+}
+.doc-toc ul li {
+    list-style-type: none;
+    margin: 0.5rem 0;
+}
+.doc-toc ul li ul li {
+    margin-left: 0.5rem;
+}
+.doc-toc a, .doc-toc a:visited, .doc-toc a:focus, .doc-toc a:hover, .doc-toc a:active {
+    color: #8c8c8c;
+    width: 100%;
+    display: inline-block;
+    border-right-width: 4px;
+    border-right-style: solid;
+    border-right-color: #fff;
+    border-right-color: var(--background-color);
+}
+.doc-toc .visible > a {
+    color: #ff0288;
+    color: var(--primary-color);
+    border-right-color: #ff0288;
+    border-right-color: var(--primary-color);
+}
+
+.doc-picker {
+    text-align: right;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.player {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1rem 1rem 0 1rem;
+}
+@media only screen and (min-width: 768px) {
+    .player {
+        margin-top: 72px;
+        padding: 1rem 2rem 0 2rem;
+    }
+}
+
+.player-content {
+    min-height: calc(100vh - 202px);
+}
+
+.search {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1rem 1rem 0 1rem;
+}
+@media only screen and (min-width: 768px) {
+    .search {
+        margin-top: 72px;
+        padding: 1rem 2rem 0 2rem;
+    }
+}
+.search ul {
+    padding: 0;
+}
+.search ul li {
+    margin-bottom: 2.5rem;
+    margin-left: 2rem;
+}
+
+.search-content {
+    min-height: calc(100vh - 202px);
+}
+
+.search-results summary {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.search-result-link {
+    font-size: 1.375rem;
+    font-weight: bold;
+}
+
+#search-input {
+    font-size: 1.125rem; /* 18 px */
+    min-width: 50%;
+}
+
+.blog {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1rem 1rem 0 1rem;
+}
+@media only screen and (min-width: 768px) {
+    .blog {
+        margin-top: 72px;
+        padding: 1rem 2rem 0 2rem;
+    }
+}
+
+.blog-content {
+    min-height: calc(100vh - 276px);
+}
+
+.blog-post-link {
+    margin-left: 1rem;
+}
+
+.blog-post-date {
+    color: #b3b3b3;
+    line-height: 1.25;
+    font-size: 1.2rem; /* 40px */
+    margin: 1.5rem 0;
+    text-align: right;
+}
+
+.blog-feed-link {
+    display: flex;
+    justify-content: end;
+    margin: 2rem 0;
+}
+
+.blog-feed-link .svg-icon {
+    color: royalblue;
+    color: var(--secondary-color);
+}
+
+.marked {
+    background-color: #fdff00;
+    background-color: var(--marked-background);
+    color: #222;
+    color: var(--marked-text);
+    font-weight: bold;
+}
+
+.drawing {
+    text-align: center;
+}
+.drawing source, .drawing img {
+    max-width: 100%;
+}
+table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+th, td {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b3b3b3;
+    border-color: var(--separator-color);
+}
+
+th {
+    background-color: #f5f5f5;
+    background-color: var(--row-n0);
+    padding: 12px 1rem;
+}
+
+td {
+    padding: 12px 1rem;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f5f5f5;
+    background-color: var(--row-n0);
+}
+
+table tr:nth-child(2n+1) {
+    background-color: #fff;
+    background-color: var(--row-n1);
+}
+
+svg.defs-only {
+    display: block;
+    position: absolute;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+}
+
+/* Temporary id, to clean and remove*/
+#running-test-1 {
+    max-width: 670px;
+    width: 100%;
+}
+
+#running-test-2 {
+    max-width: 380px;
+    width: 100%;
+}
+
+html, html[data-theme=light] {
+    --background-color: #fff;
+    --primary-color: #ff0288;
+    --body-text: #222;
+    --secondary-color: royalblue;
+    --code-background-color: #f5f5f5;
+    --footer-background-color: #f0f0f0;
+    --separator-color: #b3b3b3;
+    --hurl-string: darkgreen;
+    --hurl-regex: darkgreen;
+    --hurl-name: darkgreen;
+    --hurl-number: blue;
+    --hurl-boolean: blue;
+    --hurl-null: blue;
+    --hurl-json: darkgreen;
+    --hurl-xml: darkgreen;
+    --hurl-hex: darkgreen;
+    --hurl-base64: darkgreen;
+    --hurl-filename: darkgreen;
+    --hurl-url: darkblue;
+    --hurl-method: #222;
+    --hurl-version: #222;
+    --hurl-section-header: darkmagenta;
+    --hurl-query-type: teal;
+    --hurl-filter-type: darkblue;
+    --hurl-not: darkblue;
+    --hurl-predicate-type: darkblue;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: teal;
+    --bash-literal-number: blue;
+    --bash-literal-string-double: darkgreen;
+    --bash-name-builtin: teal;
+    --shell-prompt: dimgray;
+    --ansi-green: darkgreen;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: #35bbc7;
+    --ansi-bright-green: #33bd25;
+    --ansi-bright-red: #c33820;
+    --ansi-bright-blue: #4427b7;
+    --ansi-bright-magenta: #bb34b9;
+    --rust-comment-single: dimgray;
+    --rust-keyword: teal;
+    --rust-literal-number: blue;
+    --rust-literal-string-double: darkgreen;
+    --rust-literal-constant: blue;
+    --rust-name-builtin: teal;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #f5f5f5;
+    --row-n1: #fff;
+    --schema-token-1: #0000ff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #f5f5f5;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #f5f5f5;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #f5f5f5;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #f5f5f5;
+}
+html .u-theme-img, html[data-theme=light] .u-theme-img {
+    display: inline-block;
+}
+html .u-theme-dark, html[data-theme=light] .u-theme-dark {
+    display: none;
+}
+
+html[data-theme=dark] {
+    --background-color: #19191c;
+    --primary-color: #ff0288;
+    --body-text: #c2c2c2;
+    --secondary-color: #34a7ff;
+    --code-background-color: #27272c;
+    --footer-background-color: #0a0a0a;
+    --separator-color: #444;
+    --hurl-string: forestgreen;
+    --hurl-regex: forestgreen;
+    --hurl-name: forestgreen;
+    --hurl-number: dodgerblue;
+    --hurl-boolean: dodgerblue;
+    --hurl-null: dodgerblue;
+    --hurl-json: forestgreen;
+    --hurl-xml: forestgreen;
+    --hurl-hex: forestgreen;
+    --hurl-base64: forestgreen;
+    --hurl-filename: forestgreen;
+    --hurl-url: cyan;
+    --hurl-method: orange;
+    --hurl-version: white;
+    --hurl-section-header: magenta;
+    --hurl-query-type: cyan;
+    --hurl-filter-type: orange;
+    --hurl-not: orange;
+    --hurl-predicate-type: orange;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: #ff8000;
+    --bash-literal-number: dodgerblue;
+    --bash-literal-string-double: forestgreen;
+    --bash-name-builtin: #ff8000;
+    --shell-prompt: dimgray;
+    --ansi-green: #00c300;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: cyan;
+    --ansi-bright-green: lime;
+    --ansi-bright-red: #ff6e67;
+    --ansi-bright-blue: #7277cc;
+    --ansi-bright-magenta: #ff76ff;
+    --rust-comment-single: dimgray;
+    --rust-keyword: #ff8000;
+    --rust-literal-number: dodgerblue;
+    --rust-literal-string-double: forestgreen;
+    --rust-literal-constant: dodgerblue;
+    --rust-name-builtin: #ff8000;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #27272c;
+    --row-n1: #19191c;
+    --schema-token-1: #007fff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #27272c;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #27272c;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #27272c;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #27272c;
+}
+html[data-theme=dark] .u-theme-light {
+    display: none;
+}
+html[data-theme=dark] .u-theme-dark {
+    display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+    html, html[data-theme=dark] {
+        --background-color: #19191c;
+        --primary-color: #ff0288;
+        --body-text: #c2c2c2;
+        --secondary-color: #34a7ff;
+        --code-background-color: #27272c;
+        --footer-background-color: #0a0a0a;
+        --separator-color: #444;
+        --hurl-string: forestgreen;
+        --hurl-regex: forestgreen;
+        --hurl-name: forestgreen;
+        --hurl-number: dodgerblue;
+        --hurl-boolean: dodgerblue;
+        --hurl-null: dodgerblue;
+        --hurl-json: forestgreen;
+        --hurl-xml: forestgreen;
+        --hurl-hex: forestgreen;
+        --hurl-base64: forestgreen;
+        --hurl-filename: forestgreen;
+        --hurl-url: cyan;
+        --hurl-method: orange;
+        --hurl-version: white;
+        --hurl-section-header: magenta;
+        --hurl-query-type: cyan;
+        --hurl-filter-type: orange;
+        --hurl-not: orange;
+        --hurl-predicate-type: orange;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: #ff8000;
+        --bash-literal-number: dodgerblue;
+        --bash-literal-string-double: forestgreen;
+        --bash-name-builtin: #ff8000;
+        --shell-prompt: dimgray;
+        --ansi-green: #00c300;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: cyan;
+        --ansi-bright-green: lime;
+        --ansi-bright-red: #ff6e67;
+        --ansi-bright-blue: #7277cc;
+        --ansi-bright-magenta: #ff76ff;
+        --rust-comment-single: dimgray;
+        --rust-keyword: #ff8000;
+        --rust-literal-number: dodgerblue;
+        --rust-literal-string-double: forestgreen;
+        --rust-literal-constant: dodgerblue;
+        --rust-name-builtin: #ff8000;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #27272c;
+        --row-n1: #19191c;
+        --schema-token-1: #007fff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #27272c;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #27272c;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #27272c;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #27272c;
+    }
+    html .u-theme-light, html[data-theme=dark] .u-theme-light {
+        display: none;
+    }
+    html .u-theme-dark, html[data-theme=dark] .u-theme-dark {
+        display: inline-block;
+    }
+    html[data-theme=light] {
+        --background-color: #fff;
+        --primary-color: #ff0288;
+        --body-text: #222;
+        --secondary-color: royalblue;
+        --code-background-color: #f5f5f5;
+        --footer-background-color: #f0f0f0;
+        --separator-color: #b3b3b3;
+        --hurl-string: darkgreen;
+        --hurl-regex: darkgreen;
+        --hurl-name: darkgreen;
+        --hurl-number: blue;
+        --hurl-boolean: blue;
+        --hurl-null: blue;
+        --hurl-json: darkgreen;
+        --hurl-xml: darkgreen;
+        --hurl-hex: darkgreen;
+        --hurl-base64: darkgreen;
+        --hurl-filename: darkgreen;
+        --hurl-url: darkblue;
+        --hurl-method: #222;
+        --hurl-version: #222;
+        --hurl-section-header: darkmagenta;
+        --hurl-query-type: teal;
+        --hurl-filter-type: darkblue;
+        --hurl-not: darkblue;
+        --hurl-predicate-type: darkblue;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: teal;
+        --bash-literal-number: blue;
+        --bash-literal-string-double: darkgreen;
+        --bash-name-builtin: teal;
+        --shell-prompt: dimgray;
+        --ansi-green: darkgreen;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: #35bbc7;
+        --ansi-bright-green: #33bd25;
+        --ansi-bright-red: #c33820;
+        --ansi-bright-blue: #4427b7;
+        --ansi-bright-magenta: #bb34b9;
+        --rust-comment-single: dimgray;
+        --rust-keyword: teal;
+        --rust-literal-number: blue;
+        --rust-literal-string-double: darkgreen;
+        --rust-literal-constant: blue;
+        --rust-name-builtin: teal;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #f5f5f5;
+        --row-n1: #fff;
+        --schema-token-1: #0000ff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #f5f5f5;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #f5f5f5;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #f5f5f5;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #f5f5f5;
+    }
+    html[data-theme=light] .u-theme-img {
+        display: inline-block;
+    }
+    html[data-theme=light] .u-theme-dark {
+        display: none;
+    }
+}
+pre {
+    background-color: #f5f5f5;
+    background-color: var(--code-background-color);
+    margin: 1rem 0;
+    padding: 1rem;
+    word-wrap: normal;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+pre, code {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", " Courier New", monospace;
+    font-size: 1rem;
+}
+
+.language-hurl {
+    color: #222;
+    color: var(--body-text);
+}
+.language-hurl .string {
+    color: darkgreen;
+    color: var(--hurl-string);
+}
+.language-hurl .name {
+    color: darkgreen;
+    color: var(--hurl-name);
+}
+.language-hurl .multiline {
+    color: darkgreen;
+    color: var(--hurl-string);
+}
+.language-hurl .number {
+    color: blue;
+    color: var(--hurl-number);
+}
+.language-hurl .unit {
+    color: blue;
+    color: var(--hurl-number);
+}
+.language-hurl .boolean {
+    color: blue;
+    color: var(--hurl-boolean);
+}
+.language-hurl .null {
+    color: blue;
+    color: var(--hurl-null);
+}
+.language-hurl .json {
+    color: darkgreen;
+    color: var(--hurl-json);
+}
+.language-hurl .xml {
+    color: darkgreen;
+    color: var(--hurl-xml);
+}
+.language-hurl .hex {
+    color: darkgreen;
+    color: var(--hurl-hex);
+}
+.language-hurl .base64 {
+    color: darkgreen;
+    color: var(--hurl-base64);
+}
+.language-hurl .filename {
+    color: darkgreen;
+    color: var(--hurl-filename);
+}
+.language-hurl .url {
+    color: darkblue;
+    color: var(--hurl-url);
+}
+.language-hurl .method {
+    color: #222;
+    color: var(--hurl-method);
+}
+.language-hurl .version {
+    color: #222;
+    color: var(--hurl-version);
+}
+.language-hurl .regex {
+    color: darkgreen;
+    color: var(--hurl-regex);
+}
+.language-hurl .section-header {
+    color: darkmagenta;
+    color: var(--hurl-section-header);
+}
+.language-hurl .query-type {
+    color: teal;
+    color: var(--hurl-query-type);
+}
+.language-hurl .filter-type {
+    color: darkblue;
+    color: var(--hurl-filter-type);
+}
+.language-hurl .not {
+    color: darkblue;
+    color: var(--hurl-not);
+}
+.language-hurl .predicate-type {
+    color: darkblue;
+    color: var(--hurl-predicate-type);
+}
+.language-hurl .comment {
+    color: dimgray;
+    color: var(--hurl-comment);
+}
+
+.language-bash .comment-hashbang {
+    font-weight: bold;
+}
+.language-bash .comment-single {
+    color: dimgray;
+    color: var(--bash-comment-single);
+}
+.language-bash .keyword {
+    color: teal;
+    color: var(--bash-keyword);
+}
+.language-bash .literal-number {
+    color: blue;
+    color: var(--bash-literal-number);
+}
+.language-bash .literal-string-double {
+    color: darkgreen;
+    color: var(--bash-literal-string-double);
+}
+.language-bash .name-builtin {
+    color: teal;
+    color: var(--bash-name-builtin);
+}
+
+.language-shell .prompt {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: dimgray;
+    color: var(--shell-prompt);
+}
+.language-shell .bold {
+    font-weight: bold;
+}
+.language-shell .green {
+    color: darkgreen;
+    color: var(--ansi-green);
+}
+.language-shell .gray {
+    color: dimgray;
+    color: var(--ansi-gray);
+}
+.language-shell .bright-cyan {
+    color: #35bbc7;
+    color: var(--ansi-bright-cyan);
+    font-weight: bold;
+}
+.language-shell .bright-green {
+    color: #33bd25;
+    color: var(--ansi-bright-green);
+    font-weight: bold;
+}
+.language-shell .bright-red {
+    color: #c33820;
+    color: var(--ansi-bright-red);
+    font-weight: bold;
+}
+.language-shell .bright-blue {
+    color: #4427b7;
+    color: var(--ansi-bright-blue);
+    font-weight: bold;
+}
+.language-shell .bright-magenta {
+    color: #bb34b9;
+    color: var(--ansi-bright-magenta);
+    font-weight: bold;
+}
+
+.language-rust .comment-single {
+    color: dimgray;
+    color: var(--rust-comment-single);
+}
+.language-rust .keyword {
+    color: teal;
+    color: var(--rust-keyword);
+}
+.language-rust .literal-number {
+    color: blue;
+    color: var(--rust-literal-number);
+}
+.language-rust .literal-string-double {
+    color: darkgreen;
+    color: var(--rust-literal-string-double);
+}
+.language-rust .literal-constant {
+    color: blue;
+    color: var(--rust-literal-constant);
+}
+.language-rust .name-builtin {
+    color: teal;
+    color: var(--rust-name-builtin);
+}
+
+/*
+.grammar {
+  font-family: Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  margin-top: $m4;
+  margin-bottom: $m4;
+  .rule {
+    display: table;
+    margin-bottom: 20px;
+  }
+  .non-terminal {
+    display: table-cell;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+  .terminal {
+    color: #009c00;
+  }
+  .definition {
+    color: darkcyan;
+  }
+  .tokens {
+    display: table-cell;
+    width: 100%;
+  }
+}
+ */
+.grammar-usedby {
+    color: #999;
+    font-size: 1rem;
+}
+
+.grammar-ruleset {
+    margin-bottom: 40px;
+}
+
+.grammar-rule {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.grammar-rule-id {
+    font-weight: bold;
+}
+
+.grammar-rule-expression {
+    margin-left: 20px;
+}
+
+.grammar-literal {
+    color: #009c00;
+}
+
+.grammar-regex {
+    color: darkcyan;
+}
+
+html, html[data-theme=light] {
+    --background-color: #fff;
+    --primary-color: #ff0288;
+    --body-text: #222;
+    --secondary-color: royalblue;
+    --code-background-color: #f5f5f5;
+    --footer-background-color: #f0f0f0;
+    --separator-color: #b3b3b3;
+    --hurl-string: darkgreen;
+    --hurl-regex: darkgreen;
+    --hurl-name: darkgreen;
+    --hurl-number: blue;
+    --hurl-boolean: blue;
+    --hurl-null: blue;
+    --hurl-json: darkgreen;
+    --hurl-xml: darkgreen;
+    --hurl-hex: darkgreen;
+    --hurl-base64: darkgreen;
+    --hurl-filename: darkgreen;
+    --hurl-url: darkblue;
+    --hurl-method: #222;
+    --hurl-version: #222;
+    --hurl-section-header: darkmagenta;
+    --hurl-query-type: teal;
+    --hurl-filter-type: darkblue;
+    --hurl-not: darkblue;
+    --hurl-predicate-type: darkblue;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: teal;
+    --bash-literal-number: blue;
+    --bash-literal-string-double: darkgreen;
+    --bash-name-builtin: teal;
+    --shell-prompt: dimgray;
+    --ansi-green: darkgreen;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: #35bbc7;
+    --ansi-bright-green: #33bd25;
+    --ansi-bright-red: #c33820;
+    --ansi-bright-blue: #4427b7;
+    --ansi-bright-magenta: #bb34b9;
+    --rust-comment-single: dimgray;
+    --rust-keyword: teal;
+    --rust-literal-number: blue;
+    --rust-literal-string-double: darkgreen;
+    --rust-literal-constant: blue;
+    --rust-name-builtin: teal;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #f5f5f5;
+    --row-n1: #fff;
+    --schema-token-1: #0000ff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #f5f5f5;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #f5f5f5;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #f5f5f5;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #f5f5f5;
+}
+html .u-theme-img, html[data-theme=light] .u-theme-img {
+    display: inline-block;
+}
+html .u-theme-dark, html[data-theme=light] .u-theme-dark {
+    display: none;
+}
+
+html[data-theme=dark] {
+    --background-color: #19191c;
+    --primary-color: #ff0288;
+    --body-text: #c2c2c2;
+    --secondary-color: #34a7ff;
+    --code-background-color: #27272c;
+    --footer-background-color: #0a0a0a;
+    --separator-color: #444;
+    --hurl-string: forestgreen;
+    --hurl-regex: forestgreen;
+    --hurl-name: forestgreen;
+    --hurl-number: dodgerblue;
+    --hurl-boolean: dodgerblue;
+    --hurl-null: dodgerblue;
+    --hurl-json: forestgreen;
+    --hurl-xml: forestgreen;
+    --hurl-hex: forestgreen;
+    --hurl-base64: forestgreen;
+    --hurl-filename: forestgreen;
+    --hurl-url: cyan;
+    --hurl-method: orange;
+    --hurl-version: white;
+    --hurl-section-header: magenta;
+    --hurl-query-type: cyan;
+    --hurl-filter-type: orange;
+    --hurl-not: orange;
+    --hurl-predicate-type: orange;
+    --hurl-comment: dimgray;
+    --bash-comment-single: dimgray;
+    --bash-keyword: #ff8000;
+    --bash-literal-number: dodgerblue;
+    --bash-literal-string-double: forestgreen;
+    --bash-name-builtin: #ff8000;
+    --shell-prompt: dimgray;
+    --ansi-green: #00c300;
+    --ansi-gray: dimgray;
+    --ansi-bright-cyan: cyan;
+    --ansi-bright-green: lime;
+    --ansi-bright-red: #ff6e67;
+    --ansi-bright-blue: #7277cc;
+    --ansi-bright-magenta: #ff76ff;
+    --rust-comment-single: dimgray;
+    --rust-keyword: #ff8000;
+    --rust-literal-number: dodgerblue;
+    --rust-literal-string-double: forestgreen;
+    --rust-literal-constant: dodgerblue;
+    --rust-name-builtin: #ff8000;
+    --marked-background: #fdff00;
+    --marked-text: #222;
+    --row-n0: #27272c;
+    --row-n1: #19191c;
+    --schema-token-1: #007fff;
+    --schema-token-2: #009900;
+    --schema-token-3: #ff8000;
+    --hurl-structure-0-front: #ff0288;
+    --hurl-structure-0-back: #27272c;
+    --hurl-structure-1-front: #009900;
+    --hurl-structure-1-back: #27272c;
+    --hurl-structure-2-front: #ff8000;
+    --hurl-structure-2-back: #27272c;
+    --hurl-structure-3-front: dodgerblue;
+    --hurl-structure-3-back: #27272c;
+}
+html[data-theme=dark] .u-theme-light {
+    display: none;
+}
+html[data-theme=dark] .u-theme-dark {
+    display: inline-block;
+}
+
+@media (prefers-color-scheme: dark) {
+    html, html[data-theme=dark] {
+        --background-color: #19191c;
+        --primary-color: #ff0288;
+        --body-text: #c2c2c2;
+        --secondary-color: #34a7ff;
+        --code-background-color: #27272c;
+        --footer-background-color: #0a0a0a;
+        --separator-color: #444;
+        --hurl-string: forestgreen;
+        --hurl-regex: forestgreen;
+        --hurl-name: forestgreen;
+        --hurl-number: dodgerblue;
+        --hurl-boolean: dodgerblue;
+        --hurl-null: dodgerblue;
+        --hurl-json: forestgreen;
+        --hurl-xml: forestgreen;
+        --hurl-hex: forestgreen;
+        --hurl-base64: forestgreen;
+        --hurl-filename: forestgreen;
+        --hurl-url: cyan;
+        --hurl-method: orange;
+        --hurl-version: white;
+        --hurl-section-header: magenta;
+        --hurl-query-type: cyan;
+        --hurl-filter-type: orange;
+        --hurl-not: orange;
+        --hurl-predicate-type: orange;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: #ff8000;
+        --bash-literal-number: dodgerblue;
+        --bash-literal-string-double: forestgreen;
+        --bash-name-builtin: #ff8000;
+        --shell-prompt: dimgray;
+        --ansi-green: #00c300;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: cyan;
+        --ansi-bright-green: lime;
+        --ansi-bright-red: #ff6e67;
+        --ansi-bright-blue: #7277cc;
+        --ansi-bright-magenta: #ff76ff;
+        --rust-comment-single: dimgray;
+        --rust-keyword: #ff8000;
+        --rust-literal-number: dodgerblue;
+        --rust-literal-string-double: forestgreen;
+        --rust-literal-constant: dodgerblue;
+        --rust-name-builtin: #ff8000;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #27272c;
+        --row-n1: #19191c;
+        --schema-token-1: #007fff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #27272c;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #27272c;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #27272c;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #27272c;
+    }
+    html .u-theme-light, html[data-theme=dark] .u-theme-light {
+        display: none;
+    }
+    html .u-theme-dark, html[data-theme=dark] .u-theme-dark {
+        display: inline-block;
+    }
+    html[data-theme=light] {
+        --background-color: #fff;
+        --primary-color: #ff0288;
+        --body-text: #222;
+        --secondary-color: royalblue;
+        --code-background-color: #f5f5f5;
+        --footer-background-color: #f0f0f0;
+        --separator-color: #b3b3b3;
+        --hurl-string: darkgreen;
+        --hurl-regex: darkgreen;
+        --hurl-name: darkgreen;
+        --hurl-number: blue;
+        --hurl-boolean: blue;
+        --hurl-null: blue;
+        --hurl-json: darkgreen;
+        --hurl-xml: darkgreen;
+        --hurl-hex: darkgreen;
+        --hurl-base64: darkgreen;
+        --hurl-filename: darkgreen;
+        --hurl-url: darkblue;
+        --hurl-method: #222;
+        --hurl-version: #222;
+        --hurl-section-header: darkmagenta;
+        --hurl-query-type: teal;
+        --hurl-filter-type: darkblue;
+        --hurl-not: darkblue;
+        --hurl-predicate-type: darkblue;
+        --hurl-comment: dimgray;
+        --bash-comment-single: dimgray;
+        --bash-keyword: teal;
+        --bash-literal-number: blue;
+        --bash-literal-string-double: darkgreen;
+        --bash-name-builtin: teal;
+        --shell-prompt: dimgray;
+        --ansi-green: darkgreen;
+        --ansi-gray: dimgray;
+        --ansi-bright-cyan: #35bbc7;
+        --ansi-bright-green: #33bd25;
+        --ansi-bright-red: #c33820;
+        --ansi-bright-blue: #4427b7;
+        --ansi-bright-magenta: #bb34b9;
+        --rust-comment-single: dimgray;
+        --rust-keyword: teal;
+        --rust-literal-number: blue;
+        --rust-literal-string-double: darkgreen;
+        --rust-literal-constant: blue;
+        --rust-name-builtin: teal;
+        --marked-background: #fdff00;
+        --marked-text: #222;
+        --row-n0: #f5f5f5;
+        --row-n1: #fff;
+        --schema-token-1: #0000ff;
+        --schema-token-2: #009900;
+        --schema-token-3: #ff8000;
+        --hurl-structure-0-front: #ff0288;
+        --hurl-structure-0-back: #f5f5f5;
+        --hurl-structure-1-front: #009900;
+        --hurl-structure-1-back: #f5f5f5;
+        --hurl-structure-2-front: #ff8000;
+        --hurl-structure-2-back: #f5f5f5;
+        --hurl-structure-3-front: dodgerblue;
+        --hurl-structure-3-back: #f5f5f5;
+    }
+    html[data-theme=light] .u-theme-img {
+        display: inline-block;
+    }
+    html[data-theme=light] .u-theme-dark {
+        display: none;
+    }
+}
+.schema-container {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+.schema {
+    display: inline-block;
+    height: 120px;
+    margin: 1em auto;
+}
+
+.schema-token {
+    position: relative;
+}
+
+.schema-color-1 {
+    color: #0000ff;
+    color: var(--schema-token-1);
+}
+
+.schema-color-2 {
+    color: #009900;
+    color: var(--schema-token-2);
+}
+
+.schema-color-3 {
+    color: #ff8000;
+    color: var(--schema-token-3);
+}
+
+.schema-token::after {
+    content: "";
+    position: absolute;
+    top: 2.2rem;
+    width: 94%;
+    left: 3%;
+    height: 0.5em;
+    border-bottom: 2px solid #222;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom: 2px solid var(--body-text);
+    border-left: 1px solid var(--body-text);
+    border-right: 1px solid var(--body-text);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.schema-label {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #222;
+    color: var(--body-text);
+    position: absolute;
+    top: 3.4rem;
+    left: 3%;
+    width: 94%;
+    text-align: center;
+    font-size: 75%;
+}
+
+.hurl-structure-schema {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+@media only screen and (min-width: 768px) {
+    .hurl-structure-schema {
+        margin: 3rem 2rem;
+    }
+}
+
+.hurl-structure {
+    display: flex;
+}
+
+.hurl-structure-col-0 {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", " Courier New", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+@media only screen and (min-width: 768px) {
+    .hurl-structure-col-0 {
+        font-size: 1rem;
+    }
+}
+
+.hurl-structure-col-1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+@media only screen and (min-width: 768px) {
+    .hurl-structure-col-1 {
+        font-size: 1rem;
+    }
+}
+
+.hurl-part-0 {
+    background-color: #f5f5f5;
+    background-color: var(--hurl-structure-0-back);
+    color: #ff0288;
+    color: var(--hurl-structure-0-front);
+    border-right: 4px solid;
+    border-color: #ff0288;
+    border-color: var(--hurl-structure-0-front);
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+    border-bottom: dashed 1px;
+    border-bottom-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-0 {
+    padding: 10px 10px 2px;
+}
+
+.hurl-part-1 {
+    background-color: #f5f5f5;
+    background-color: var(--hurl-structure-1-back);
+    color: #009900;
+    color: var(--hurl-structure-1-front);
+    border-right: 4px solid;
+    border-color: #009900;
+    border-color: var(--hurl-structure-1-front);
+    padding-top: 2px;
+    padding-right: 40px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+    border-bottom: dashed 1px;
+    border-bottom-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-1 {
+    padding: 2px 10px;
+}
+
+.hurl-part-2 {
+    background-color: #f5f5f5;
+    background-color: var(--hurl-structure-2-back);
+    color: #ff8000;
+    color: var(--hurl-structure-2-front);
+    border-right: 4px solid;
+    border-color: #ff8000;
+    border-color: var(--hurl-structure-2-front);
+    padding-top: 1px;
+    padding-right: 40px;
+    padding-left: 10px;
+    padding-bottom: 1px;
+}
+
+.hurl-request-explanation-part-2 {
+    padding: 2px 10px;
+}
+
+.hurl-part-3 {
+    background-color: #f5f5f5;
+    background-color: var(--hurl-structure-3-back);
+    color: dodgerblue;
+    color: var(--hurl-structure-3-front);
+    border-right: 4px solid;
+    border-color: dodgerblue;
+    border-color: var(--hurl-structure-3-front);
+    padding-top: 2px;
+    padding-right: 40px;
+    padding-left: 10px;
+    padding-bottom: 2px;
+    border-top: dashed 1px;
+    border-top-color: #8c8c8c;
+}
+
+.hurl-request-explanation-part-3 {
+    padding: 2px 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+}
+
+.col1 {
+    flex: 1;
+}
+
+.col2 {
+    flex: 2;
+}
+
+.col3 {
+    flex: 3;
+}
+
+.col4 {
+    flex: 4;
+}
+
+.col5 {
+    flex: 5;
+}
+
+.col6 {
+    flex: 6;
+}
+
+@media print {
+    body {
+        zoom: 60%;
+    }
+    h1 {
+        page-break-before: always;
+    }
+    hr {
+        display: none;
+    }
+}
+

@@ -184,7 +184,7 @@ HTTP 200
 
 [Tutorial]
 
-[Documentation]
+[Documentation] (download [HTML], [PDF], [Markdown]) 
 
 [GitHub]
 
@@ -201,3 +201,6 @@ HTTP 200
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [libcurl]: https://curl.se/libcurl/
 [star Hurl on GitHub]: https://github.com/Orange-OpenSource/hurl/stargazers
+[HTML]: {{ '/assets/docs/hurl-5.0.1.html.gz' | prepend:site.baseurl }}
+[PDF]: {{ '/assets/docs/hurl-5.0.1.pdf.gz' | prepend:site.baseurl }}
+[Markdown]: {{ '/assets/docs/hurl-5.0.1.md.gz' | prepend:site.baseurl }}

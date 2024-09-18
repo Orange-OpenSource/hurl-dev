@@ -3,10 +3,17 @@
 
 This script use Hurl canonical docs to build a Jekyll powered site.
 
+Each Markdown file form the canonical is transformed:
+
+- insert a FrontMatter header for Jekyll
+- Hurl code snippets are escaped for Jekyll
+- Local links are converted to Jekyll Links
+
 Examples:
     $ python3 sites/generate/build_jekyll_md.py
 """
 import re
+import gzip
 import shutil
 from pathlib import Path
 from typing import Optional
@@ -124,7 +131,7 @@ def convert_to_jekyll(
 
             # Convert local links to Jekyll link
             content = re.sub(
-                r"\[(?P<title>.+)]\((?P<link>.+\.md#?.*)\)",
+                r"\[(?P<title>.+)]\((?P<link>/.+\.md#?.*)\)",
                 process_canonical_link,
                 content,
             )
@@ -381,6 +388,12 @@ def build():
             FrontMatter(layout="doc", section="Resources"),
             False,
         ),
+        (
+            Path("../hurl/docs/standalone/hurl-5.0.1.md"),
+            Path("sites/hurl.dev/_docs/standalone/hurl-5.0.1.md"),
+            FrontMatter(layout="standalone", section="Standalone", title="Hurl 5.0.1", indexed=False),
+            False,
+        ),
     ]
 
     for src, dst, front_matter, force_list_numbering in docs:
@@ -432,6 +445,27 @@ def build():
         "../hurl/docs/assets/img/quiz-light.png",
         "sites/hurl.dev/assets/img/quiz-light.png",
     )
+    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.md"))
+    shutil.move(
+        "../hurl/docs/standalone/hurl-5.0.1.md.gz",
+        "sites/hurl.dev/assets/docs/",
+    )
+    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.html"))
+    shutil.move(
+        "../hurl/docs/standalone/hurl-5.0.1.html.gz",
+        "sites/hurl.dev/assets/docs/",
+    )
+    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.pdf"))
+    shutil.move(
+        "../hurl/docs/standalone/hurl-5.0.1.pdf.gz",
+        "sites/hurl.dev/assets/docs/",
+    )
+
+
+def compress(src: Path):
+    with src.open("rb") as f_in:
+        with gzip.open(str(src) + ".gz", "wb") as f_out:
+            shutil.copyfileobj(f_in, f_out)
 
 
 def main():
