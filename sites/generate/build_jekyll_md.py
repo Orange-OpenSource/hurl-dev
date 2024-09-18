@@ -391,7 +391,12 @@ def build():
         (
             Path("../hurl/docs/standalone/hurl-5.0.1.md"),
             Path("sites/hurl.dev/_docs/standalone/hurl-5.0.1.md"),
-            FrontMatter(layout="standalone", section="Standalone", title="Hurl 5.0.1", indexed=False),
+            FrontMatter(
+                layout="standalone",
+                section="Standalone",
+                title="Hurl 5.0.1",
+                indexed=False,
+            ),
             False,
         ),
     ]
