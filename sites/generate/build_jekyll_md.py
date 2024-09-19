@@ -453,17 +453,17 @@ def build():
     compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.md"))
     shutil.move(
         "../hurl/docs/standalone/hurl-5.0.1.md.gz",
-        "sites/hurl.dev/assets/docs/",
+        "sites/hurl.dev/assets/docs/hurl-5.0.1.md.gz",
     )
     compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.html"))
     shutil.move(
         "../hurl/docs/standalone/hurl-5.0.1.html.gz",
-        "sites/hurl.dev/assets/docs/",
+        "sites/hurl.dev/assets/docs/hurl-5.0.1.html.gz",
     )
     compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.pdf"))
     shutil.move(
         "../hurl/docs/standalone/hurl-5.0.1.pdf.gz",
-        "sites/hurl.dev/assets/docs/",
+        "sites/hurl.dev/assets/docs/hurl-5.0.1.pdf.gz",
     )
 
 
