@@ -82,9 +82,9 @@ def hurl_to_html(snippet: str) -> str:
         print(f"Error highlighting snippet:\n{snippet}")
         raise
     output = ret.stdout
-    # sys.stderr.write('<<<' + output + '>>>\n')
-    # On extrait le code html
-    # return extract(output, "<pre><code>", "</code></pre>")
+
+    # PATCH: https://github.com/Orange-OpenSource/hurl/issues/3242
+    output = output.replace("cert.pem\\", "cert.pem")
     return extract(output, '<pre><code class="language-hurl">', "</code></pre>")
 
 
