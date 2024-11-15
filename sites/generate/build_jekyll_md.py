@@ -77,6 +77,9 @@ def convert_to_jekyll(
 ) -> str:
     text = path.read_text()
 
+    # Replace links to standalone docs to gzip assets.
+    text = re.sub("/docs/standalone/(.+)", r"https://hurl.dev/assets/docs/\1.gz", text)
+
     md_raw = parse_markdown(text)
     md_escaped = MarkdownDoc()
 
