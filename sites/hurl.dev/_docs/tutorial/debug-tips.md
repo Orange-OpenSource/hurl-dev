@@ -377,6 +377,14 @@ GET https://foo.com/success
 HTTP 200
 ```
 
+To get more information, one can also used a JSON report with [`--report-json`]. This option produces a structured export
+of all run datas (request headers, response headers, response body, curl debug command line etc...)
+
+```shell
+$ hurl --report-json /tmp/report *.hurl
+```
+
+
 ## Interactive Mode
 
 We can run the whole Hurl file request by request, with the [`--interactive` option]:
@@ -474,6 +482,21 @@ $ hurl -i --to-entry 2 basic.hurl
 </html>
 ```
 
+## Export curl Commands
+
+[`--curl`] command line option can be used to produce a file of curl commands of a run. This is equivalent of running 
+Hurl in verbose and grepping the standard error for the debug curl command. The produced file is just a text list of 
+curl debug commands, one line per entry (retry command are not written).
+
+```shell
+$ echo 'HEAD https://example.org' | hurl --repeat 3 --curl /tmp/curl.txt
+$ cat /tmp/curl.txt
+curl --head 'https://example.org'
+curl --head 'https://example.org'
+curl --head 'https://example.org'
+```
+
+
 ## Using a Proxy
 
 Finally, you can use a proxy between Hurl and your server to inspect requests and responses.
@@ -513,3 +536,5 @@ the returned response to Hurl.
 [response timings]: {% link _docs/response.md %}#timings
 [`--ignore-asserts`]: {% link _docs/manual.md %}#ignore-asserts
 [`--output`]: {% link _docs/manual.md %}#output
+[`--curl`]: {% link _docs/manual.md %}#curl
+[`--report-json`]: {% link _docs/manual.md %}#report-json

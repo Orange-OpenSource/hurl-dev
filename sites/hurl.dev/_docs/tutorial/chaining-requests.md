@@ -13,7 +13,6 @@ Our basic Hurl file is for the moment:
 ```hurl
 # Checking our home page:
 GET http://localhost:3000
-
 HTTP 200
 [Asserts]
 xpath "string(//head/title)" == "Movies Box"
@@ -38,7 +37,6 @@ request following our first request. Let's say we want to test that our server r
 ```hurl
 # Checking our home page:
 GET http://localhost:3000
-
 HTTP 200
 [Asserts]
 xpath "string(//head/title)" == "Movies Box"
@@ -53,7 +51,6 @@ cookie "x-session-id[HttpOnly]" exists
 
 # Check that we have a 404 response for broken links:
 GET http://localhost:3000/not-found
-
 HTTP 404
 [Asserts]
 header "Content-Type" == "text/html; charset=utf-8"
@@ -79,16 +76,16 @@ description.
 
 ```shell
 $ hurl --test basic.hurl
-[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
-[1mbasic.hurl[0m: [1;32mSuccess[0m (2 request(s) in 20 ms)
+[1mbasic.hurl[0m: [1;32mSuccess[0m (2 request(s) in 21 ms)
 --------------------------------------------------------------------------------
-Executed files:  1
-Succeeded files: 1 (100.0%)
-Failed files:    0 (0.0%)
-Duration:        20 ms
+Executed files:    1
+Executed requests: 2 (90.9/s)
+Succeeded files:   1 (100.0%)
+Failed files:      0 (0.0%)
+Duration:          22 ms
 ```
 
-We can see that the test is still ok. Now two requests are being run in sequence, and each response can be
+We can see that the test is still OK. Now two requests are being run in sequence, and each response can be
 tested independently.
 
 ## Test REST API
@@ -134,7 +131,6 @@ followed by a test. A [JSONPath query] is a simple expression to inspect a JSON 
 
 # Check our health API:
 GET http://localhost:3000/api/health
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -180,7 +176,6 @@ We can use this REST API to add checks on search results through the API endpoin
 
 # Check search API:
 GET http://localhost:3000/api/search?q=1982&sort=name
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -220,7 +215,6 @@ GET http://localhost:3000/api/search
 [QueryStringParams]
 q: 1982
 sort: name
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -252,7 +246,6 @@ GET http://localhost:3000/api/search
 [QueryStringParams]
 q: 1982
 sort: name
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -284,7 +277,6 @@ GET http://localhost:3000/api/search
 [QueryStringParams]
 q: 1982
 sort: name
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -313,7 +305,6 @@ Finally, our basic Hurl file with four HTTP requests looks like:
 ```hurl
 # Checking our home page:
 GET http://localhost:3000
-
 HTTP 200
 [Asserts]
 xpath "string(//head/title)" == "Movies Box"
@@ -328,7 +319,6 @@ cookie "x-session-id[HttpOnly]" exists
 
 # Check that we have a 404 response for broken links:
 GET http://localhost:3000/not-found
-
 HTTP 404
 [Asserts]
 header "Content-Type" == "text/html; charset=utf-8"
@@ -338,7 +328,6 @@ xpath "string(//h3)" == "Not Found"
 
 # Check our health API:
 GET http://localhost:3000/api/health
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -352,7 +341,6 @@ GET http://localhost:3000/api/search
 [QueryStringParams]
 q: 1982
 sort: name
-
 HTTP 200
 [Asserts]
 header "Content-Type" == "application/json; charset=utf-8"
@@ -367,13 +355,13 @@ jsonpath "$[0].release_date" regex /(\d{4})-\d{2}-\d{2}/ == "1982"
 
 ```shell
 $ hurl --test basic.hurl
-[1mbasic.hurl[0m: [1;36mRunning[0m [1/1]
-[1mbasic.hurl[0m: [1;32mSuccess[0m (4 request(s) in 20 ms)
+[1mbasic.hurl[0m: [1;32mSuccess[0m (4 request(s) in 21 ms)
 --------------------------------------------------------------------------------
-Executed files:  1
-Succeeded files: 1 (100.0%)
-Failed files:    0 (0.0%)
-Duration:        21 ms
+Executed files:    1
+Executed requests: 4 (181.8/s)
+Succeeded files:   1 (100.0%)
+Failed files:      0 (0.0%)
+Duration:          22 ms
 ```
 
 ## Recap

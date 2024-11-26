@@ -12,9 +12,13 @@ Each Markdown file form the canonical is transformed:
 Examples:
     $ python3 sites/generate/build_jekyll_md.py
 """
+
+import argparse
 import re
 import gzip
 import shutil
+import sys
+import tomllib
 from pathlib import Path
 from typing import Optional
 
@@ -204,7 +208,15 @@ class ConvertTask:
         self.file_dst.write_text(md)
 
 
-def build():
+def build(standalone: bool):
+    """Build a jekyll project for documentation from original repo"""
+    # Identify version
+    with open("../hurl/packages/hurl/Cargo.toml", "rb") as f:
+        data = tomllib.load(f)
+        version = data["package"]["version"]
+        version = version.replace("-SNAPSHOT", "")
+        sys.stderr.write(f"version:{version}\n")
+
     docs = [
         (
             Path("../hurl/docs/home.md"),
@@ -391,18 +403,22 @@ def build():
             FrontMatter(layout="doc", section="Resources"),
             False,
         ),
-        (
-            Path("../hurl/docs/standalone/hurl-5.0.1.md"),
-            Path("sites/hurl.dev/_docs/standalone/hurl-5.0.1.md"),
-            FrontMatter(
-                layout="standalone",
-                section="Standalone",
-                title="Hurl 5.0.1",
-                indexed=False,
-            ),
-            False,
-        ),
     ]
+
+    if standalone:
+        docs.append(
+            (
+                Path(f"../hurl/docs/standalone/hurl-{version}.md"),
+                Path(f"sites/hurl.dev/_docs/standalone/hurl-{version}.md"),
+                FrontMatter(
+                    layout="standalone",
+                    section="Standalone",
+                    title=f"Hurl {version}",
+                    indexed=False,
+                ),
+                False,
+            ),
+        )
 
     for src, dst, front_matter, force_list_numbering in docs:
         task = ConvertTask(
@@ -453,21 +469,22 @@ def build():
         "../hurl/docs/assets/img/quiz-light.png",
         "sites/hurl.dev/assets/img/quiz-light.png",
     )
-    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.md"))
-    shutil.move(
-        "../hurl/docs/standalone/hurl-5.0.1.md.gz",
-        "sites/hurl.dev/assets/docs/hurl-5.0.1.md.gz",
-    )
-    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.html"))
-    shutil.move(
-        "../hurl/docs/standalone/hurl-5.0.1.html.gz",
-        "sites/hurl.dev/assets/docs/hurl-5.0.1.html.gz",
-    )
-    compress(src=Path("../hurl/docs/standalone/hurl-5.0.1.pdf"))
-    shutil.move(
-        "../hurl/docs/standalone/hurl-5.0.1.pdf.gz",
-        "sites/hurl.dev/assets/docs/hurl-5.0.1.pdf.gz",
-    )
+    if standalone:
+        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.md"))
+        shutil.move(
+            f"../hurl/docs/standalone/hurl-{version}.md.gz",
+            f"sites/hurl.dev/assets/docs/hurl-{version}.md.gz",
+        )
+        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.html"))
+        shutil.move(
+            f"../hurl/docs/standalone/hurl-{version}.html.gz",
+            f"sites/hurl.dev/assets/docs/hurl-{version}.html.gz",
+        )
+        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.pdf"))
+        shutil.move(
+            f"../hurl/docs/standalone/hurl-{version}.pdf.gz",
+            f"sites/hurl.dev/assets/docs/hurl-{version}.pdf.gz",
+        )
 
 
 def compress(src: Path):
@@ -476,9 +493,19 @@ def compress(src: Path):
             shutil.copyfileobj(f_in, f_out)
 
 
-def main():
-    build()
+def main(standalone: bool):
+    build(standalone=standalone)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Build jekyll source from https://github.com/Orange-OpenSource/hurl"
+    )
+    parser.add_argument(
+        "--standalone",
+        action="store_true",
+        default=False,
+        help="Generate standalone docs",
+    )
+    args = parser.parse_args()
+    main(standalone=args.standalone)
