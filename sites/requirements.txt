@@ -4,3 +4,4 @@ black
 Markdown
 lxml
 pytz
+requests
