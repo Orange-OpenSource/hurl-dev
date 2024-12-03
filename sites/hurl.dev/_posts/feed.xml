@@ -3,8 +3,147 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2024-08-29T00:00:00+02:00</updated>
+    <updated>2024-12-04T00:00:00+01:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 6.0.0</title>
+        <link href="https://hurl.dev/blog/2024/12/04/announcing-hurl-6.0.0.html" rel="alternate" type="text/html" title="Announcing Hurl 6.0.0"/>
+        <published>2024-12-04T00:00:00+01:00</published>
+        <updated>2024-12-04T00:00:00+01:00</updated>
+        <id>https://hurl.dev/blog/2024/12/04/announcing-hurl-6.0.0.html</id>
+        <content type="html"><![CDATA[<h1>Announcing Hurl 6.0.0</h1>
+<div class="blog-post-date">Dec. 04, 2024</div>
+
+<p>Christmas is early this year: <picture><source srcset="https://hurl.dev/assets/img/emoji-father-christmas.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-father-christmas.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-father-christmas.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-father-christmas.png" width="20" height="20" alt="Father Christmas emoji"></picture> the Hurl team is thrilled to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/6.0.0">Hurl 6.0.0</a>!</p>
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#generating-dynamic-values-with-functions">Generating Dynamic Values with Functions</a></li>
+<li><a href="#curl-run-export">curl Run Export</a></li>
+<li><a href="#shorter-syntax-for-sections">Shorter Syntax for Sections</a></li>
+</ul>
+<h2>Generating Dynamic Values with Functions</h2>
+<p>Before 6.0.0, Hurl files could be only <a href="https://hurl.dev/docs/templates.html">templatized</a> with variables. Variables are either injected in the command line,
+in <code>[Options]</code> section or through <a href="https://hurl.dev/docs/capturing-response.html">captures</a>.</p>
+<p>For instance, let’s take this Hurl file:</p>
+<pre><code class="language-hurl">PUT https://example.org/api/hits
+Content-Type: application/json
+{
+    "key0": "{{a_string}}",
+    "key1": {{a_bool}},
+    "key2": {{a_null}},
+    "key3": {{a_number}}
+}
+</code></pre>
+<p>When called with these options:</p>
+<pre><code class="language-shell">$ hurl --variable a_string=apple \
+       --variable a_bool=true \
+       --variable a_null=null \
+       --variable a_number=42 \
+       test.hurl
+</code></pre>
+<p>it runs a PUT request with the following JSON body:</p>
+<pre><code>{
+    "key0": "apple",
+    "key1": true,
+    "key2": null,
+    "key3": 42
+}
+</code></pre>
+<p>With Hurl 6.0.0, we’re introducing <a href="https://hurl.dev/docs/templates.html#functions">functions</a> to generate dynamic values. Current functions are:</p>
+<ul>
+<li><code>newUuid</code> to generate an <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID v4 random string</a>,</li>
+<li><code>newDate</code> to generate an <a href="https://www.rfc-editor.org/rfc/rfc3339">RFC 3339</a> UTC date string, at the current time.</li>
+</ul>
+<p>In the following example, we use the <code>newDate</code> function to generate a dynamic query parameter:</p>
+<pre><code class="language-hurl">GET https://example.org/api/foo
+[QueryStringParams]
+date: {{newDate}}
+HTTP 200
+</code></pre>
+<p>We run a <code>GET</code> request to <code>https://example.org/api/foo?date=2024%2D12%2D02T10%3A35%3A44%2E461731Z</code> where the <code>date</code>
+query parameter value is <code>2024-12-02T10:35:44.461731Z</code> URL encoded.</p>
+<p>In this second example, we use the <code>newUuid</code> function to generate an email dynamically:</p>
+<pre><code class="language-hurl">POST https://example.org/api/foo
+{
+  "name": "foo",
+  "email": "{{newUuid}}@test.com"
+}
+</code></pre>
+<p>When run, the request body will be:</p>
+<pre><code>{
+  "name": "foo",
+  "email": "0531f78f-7f87-44be-a7f2-969a1c4e6d97@test.com"
+}
+</code></pre>
+<p>Functions are a really nice addition to the Hurl file format, we’ve started small with these two functions, but we plan to add many more; don’t hesitate <a href="https://github.com/Orange-OpenSource/hurl/discussions">to open a discussion</a> for
+your use case!  </p>
+<h2>curl Run Export</h2>
+<p>In 6.0.0, we have added a new option to help debug and export your Hurl files: with the new [<code>--curl</code> option], we can export
+run files to a list of curl commands. It’s really convenient:</p>
+<pre><code class="language-shell">$ hurl --curl commands.txt *.hurl
+$ cat commands.txt
+curl 'https://google.com'
+curl --head 'https://google.com'
+curl 'https://google.com'
+</code></pre>
+<p>Debug curl command for each request is still available with [<code>--verbose</code>] mode but <code>--curl</code> makes it easy to get instead of
+grepping the standard error.</p>
+<p>Speaking of debug curl command, we have also added it to <a href="https://hurl.dev/docs/running-tests.html#json-report">JSON</a> and <a href="https://hurl.dev/docs/running-tests.html#html-report">HTML report</a>, nice! </p>
+<h2>Shorter Syntax for Sections</h2>
+<p>With this new version, we have made the syntax a little shorter for sections: instead of <code>[QueryStringParams]</code> we can
+use <code>[Query]</code> now, <code>[FormParams]</code> becomes <code>[Form]</code> and <code>[MultipartFormData]</code> becomes <code>[Multipart]</code>. </p>
+<pre><code class="language-hurl">POST https://foo.com/login
+[Form]
+user: alice
+password: secret
+token: 1234578
+HTTP 302
+</code></pre>
+<pre><code class="language-hurl">GET https://foo.com/search
+[Query]
+q: Mbappé
+HTTP 200
+</code></pre>
+<p>Shorter names make a nicer Hurl file and are simpler to remember. We will support longer sections names for a long time
+of course, but we’ll remove them someday! For the moment, documentation is still using longer names and, progressively,
+it will be updated with shorter names.</p>
+<h2>Others</h2>
+<p>In this new version we have implemented two curl options:</p>
+<ul>
+<li><a href="https://hurl.dev/docs/manual.html#limit-rate"><code>--limit-rate</code></a>: limit request to the specified speed in bytes per second. This option is available as a CLI option
+and can be set on a specific request</li>
+<li><a href="https://hurl.dev/docs/manual.html#connect-timeout"><code>--connect-timeout</code></a>: maximum time that connections are allowed to take. This option is set in seconds, but can also
+use <a href="http://hurl.dev/blog/2024/08/29/hurl-5.0.0-the-parallel-edition.html#time-units">time units</a> like <code>10s</code>, <code>20000ms</code> etc...</li>
+</ul>
+<pre><code class="language-hurl">GET https://foo.com
+[Options]
+connect-timeout: 30s
+limit-rate: 32000
+</code></pre>
+<p>Speaking of CLI options, help in <code>hurl --help</code> has been redesigned and categorized, to make ot a little more readable.</p>
+<p>We have also fixed a lot of bugs: a particular one <a href="https://github.com/Orange-OpenSource/hurl/issues/3297">was a nasty (but rare) bug</a> in our parallel implementation.
+Shout-out to <a href="https://www.lambrospetrou.com">Lambros Petrou</a> for having identified this one: TLDR, don’t exit a main entry point program when there
+are still living threads... Lambros is the mind behind <a href="https://www.skybear.net">Skybear.NET</a>, a managed platform to automate HTTP API
+testing. Give it a try, it’s really powerful, simple and super cool (besides using Hurl of course!)</p>
+<p>There are a lot of other improvements with Hurl 6.0.0 and also a lot of bug fixes, you can check the complete list of
+enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/6.0.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">give us a star on GitHub</a> or share it on <a href="https://x.com/HurlDev">𝕏 / Twitter</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>the Hurl team is thrilled to announce Hurl 6.0.0</summary>
+    </entry>
     <entry>
         <title>Hurl 5.0.0, the Parallel Edition</title>
         <link href="https://hurl.dev/blog/2024/08/29/hurl-5.0.0-the-parallel-edition.html" rel="alternate" type="text/html" title="Hurl 5.0.0, the Parallel Edition"/>
