@@ -69,6 +69,7 @@
             - title: Templating a JSON Body
             - title: Templating a XML Body
             - title: Using GraphQL Query
+            - title: Using Dynamic Datas
         - title: Testing Response
           items:
             - title: Testing Response Headers
@@ -161,6 +162,7 @@
             - title: Method
             - title: URL
             - title: Headers
+            - title: Options
             - title: Query parameters
             - title: Form parameters
             - title: Multipart Form Data
@@ -176,7 +178,6 @@
                 - title: Base64 body
                 - title: Hex body
                 - title: File body
-            - title: Options
     - title: Response
       path: /docs/response.html
       items:
@@ -266,6 +267,7 @@
       path: /docs/templates.html
       items:
         - title: Variables
+        - title: Functions
         - title: Types
         - title: Injecting Variables
           items:
@@ -321,6 +323,7 @@
         - title: Get Response Body
         - title: Interactive Mode
         - title: Include Headers Like curl
+        - title: Export curl Commands
         - title: Using a Proxy
     - title: Captures
       path: /docs/tutorial/captures.html

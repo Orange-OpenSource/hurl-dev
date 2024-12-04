@@ -343,6 +343,38 @@ GraphQL queries can also use [Hurl templates].
 
 [Doc]({% link _docs/request.md %}#graphql-body)
 
+### Using Dynamic Datas
+
+[Functions] like `newUuid` and `newDate` can be used in templates to create dynamic datas:
+
+
+A file that creates a dynamic email (i.e `0531f78f-7f87-44be-a7f2-969a1c4e6d97@test.com`):
+
+{% raw %}
+```hurl
+POST https://example.org/api/foo
+{
+  "name": "foo",
+  "email": "{{newUuid}}@test.com"
+}
+```
+{% endraw %}
+
+
+A file that creates a dynamic query parameter (i.e `2024-12-02T10:35:44.461731Z`):
+
+{% raw %}
+```hurl
+GET https://example.org/api/foo
+[QueryStringParams]
+date: {{newDate}}
+HTTP 200
+```
+{% endraw %}
+
+
+[Doc]({% link _docs/templates.md %}#functions)
+
 ## Testing Response
 
 Responses are optional, everything after `HTTP` is part of the response asserts.
@@ -852,3 +884,4 @@ HTTP 200
 [`--json` option]: {% link _docs/manual.md %}#json
 [`--resolve`]: {% link _docs/manual.md %}#resolve
 [`--connect-to`]: {% link _docs/manual.md %}#connect-to
+[Functions]: {% link _docs/templates.md %}#functions
