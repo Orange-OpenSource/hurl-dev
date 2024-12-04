@@ -174,7 +174,7 @@ connect-timeout: 30s
 limit-rate: 32000
 ```
 
-Speaking of CLI options, help in `hurl --help` has been redesigned and categorized, to make ot a little more readable.
+Speaking of CLI options, help in `hurl --help` has been redesigned and categorized, to make it a little more readable.
 
 We have also fixed a lot of bugs: a particular one [was a nasty (but rare) bug] in our parallel implementation. 
 Shout-out to [Lambros Petrou] for having identified this one: TLDR, don't exit a main entry point program when there

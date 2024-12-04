@@ -130,7 +130,7 @@ use <a href="http://hurl.dev/blog/2024/08/29/hurl-5.0.0-the-parallel-edition.htm
 connect-timeout: 30s
 limit-rate: 32000
 </code></pre>
-<p>Speaking of CLI options, help in <code>hurl --help</code> has been redesigned and categorized, to make ot a little more readable.</p>
+<p>Speaking of CLI options, help in <code>hurl --help</code> has been redesigned and categorized, to make it a little more readable.</p>
 <p>We have also fixed a lot of bugs: a particular one <a href="https://github.com/Orange-OpenSource/hurl/issues/3297">was a nasty (but rare) bug</a> in our parallel implementation.
 Shout-out to <a href="https://www.lambrospetrou.com">Lambros Petrou</a> for having identified this one: TLDR, don’t exit a main entry point program when there
 are still living threads... Lambros is the mind behind <a href="https://www.skybear.net">Skybear.NET</a>, a managed platform to automate HTTP API
