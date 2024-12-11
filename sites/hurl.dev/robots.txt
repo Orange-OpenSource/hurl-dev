@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /docs/standalone/*
 
 Sitemap: https://hurl.dev/sitemap.txt
