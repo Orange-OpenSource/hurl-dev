@@ -27,6 +27,7 @@ jsonpath "$.cats[0].lives" == 9
 
 Body responses can be encoded by server (see [`Content-Encoding` HTTP header]) but asserts in Hurl files are not 
 affected by this content compression. All body asserts (`body`, `bytes`, `sha256` etc...) work _after_ content decoding.
+
 Finally, body text asserts (`body`, `jsonpath`, `xpath` etc...) are also decoded to strings based on [`Content-Type` header] 
 so these asserts can be written with usual strings. 
 
