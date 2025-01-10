@@ -16,8 +16,10 @@ after this delimiter, you'll find the implicit asserts, then an `[Asserts]` sect
 ```hurl
 GET https://example.org/api/cats
 HTTP 200
-Content-Type: application/json; charset=utf-8      # Implicit assert on Content-Type Header
-[Asserts]                                          # Explicit asserts section 
+# Implicit assert on `Content-Type` Header
+Content-Type: application/json; charset=utf-8
+[Asserts]
+# Explicit asserts section 
 bytes count == 120
 header "Content-Type" contains "utf-8"
 jsonpath "$.cats" count == 49
