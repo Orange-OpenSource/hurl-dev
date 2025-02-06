@@ -142,19 +142,19 @@ def shell_to_html(snippet: str) -> str:
     output = escaped_snippet.replace("$ ", '<span class="prompt">$ </span>')
 
     # Replace ANSI escape code with HTML tag
-    output = output.replace("\x1B[1m", '<span class="bold">')
-    output = output.replace("\x1B[0m", "</span>")
-    output = output.replace("\x1B[31m", '<span class="red">')
-    output = output.replace("\x1B[32m", '<span class="green">')
-    output = output.replace("\x1B[34m", '<span class="blue">')
-    output = output.replace("\x1B[35m", '<span class="magenta">')
-    output = output.replace("\x1B[90m", '<span class="gray">')
-    output = output.replace("\x1B[1;36m", '<span class="bright-cyan">')
-    output = output.replace("\x1B[1;31m", '<span class="bright-red">')
-    output = output.replace("\x1B[1;32m", '<span class="bright-green">')
-    output = output.replace("\x1B[1;34m", '<span class="bright-blue">')
-    output = output.replace("\x1B[1;35m", '<span class="bright-magenta">')
-    output = output.replace("\x1B[1;36m", '<span class="bright-cyan">')
+    output = output.replace("\x1b[1m", '<span class="bold">')
+    output = output.replace("\x1b[0m", "</span>")
+    output = output.replace("\x1b[31m", '<span class="red">')
+    output = output.replace("\x1b[32m", '<span class="green">')
+    output = output.replace("\x1b[34m", '<span class="blue">')
+    output = output.replace("\x1b[35m", '<span class="magenta">')
+    output = output.replace("\x1b[90m", '<span class="gray">')
+    output = output.replace("\x1b[1;36m", '<span class="bright-cyan">')
+    output = output.replace("\x1b[1;31m", '<span class="bright-red">')
+    output = output.replace("\x1b[1;32m", '<span class="bright-green">')
+    output = output.replace("\x1b[1;34m", '<span class="bright-blue">')
+    output = output.replace("\x1b[1;35m", '<span class="bright-magenta">')
+    output = output.replace("\x1b[1;36m", '<span class="bright-cyan">')
     return output
 
 
