@@ -159,7 +159,7 @@ Finally, Hurl is easy to <b>integrate in CI/CD</b>, with text, JUnit, TAP and HT
 Hurl is a lightweight binary written in [Rust]. Under the hood, Hurl HTTP engine is
 powered by [libcurl], one of the most powerful and reliable file transfer libraries.
 With its text file format, Hurl adds syntactic sugar to run and test HTTP requests,
-but it's still the [curl] that we love: __fast__, __efficient__ and __HTTP/3 ready__.
+but it's still the [curl] that we love: __fast__, __efficient__ and __IPv6 / HTTP/3 ready__.
 
 # Feedbacks
 
@@ -201,6 +201,6 @@ HTTP 200
 [GitHub]: https://github.com/Orange-OpenSource/hurl
 [libcurl]: https://curl.se/libcurl/
 [star Hurl on GitHub]: https://github.com/Orange-OpenSource/hurl/stargazers
-[HTML]: https://hurl.dev/assets/docs/hurl-6.0.0.html.gz
-[PDF]: https://hurl.dev/assets/docs/hurl-6.0.0.pdf.gz
-[Markdown]: https://hurl.dev/assets/docs/hurl-6.0.0.md.gz
+[HTML]: https://hurl.dev/assets/docs/hurl-6.1.0.html.gz
+[PDF]: https://hurl.dev/assets/docs/hurl-6.1.0.pdf.gz
+[Markdown]: https://hurl.dev/assets/docs/hurl-6.1.0.md.gz

@@ -212,7 +212,7 @@ in the URL, or use a [query parameter section].
 
 # Check search API:
 GET http://localhost:3000/api/search
-[QueryStringParams]
+[Query]
 q: 1982
 sort: name
 HTTP 200
@@ -243,7 +243,7 @@ test that the `release_date` of Blade Runner is 1982:
 
 # Check search API:
 GET http://localhost:3000/api/search
-[QueryStringParams]
+[Query]
 q: 1982
 sort: name
 HTTP 200
@@ -274,7 +274,7 @@ going to use a `regex` filter to extract part of a string:
 
 # Check search API:
 GET http://localhost:3000/api/search
-[QueryStringParams]
+[Query]
 q: 1982
 sort: name
 HTTP 200
@@ -338,7 +338,7 @@ jsonpath "$.operationId" exists
 
 # Check search API:
 GET http://localhost:3000/api/search
-[QueryStringParams]
+[Query]
 q: 1982
 sort: name
 HTTP 200

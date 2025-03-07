@@ -53,7 +53,7 @@ in the following requests:
 # Create a new job
 POST https://api.example.org/jobs
 
-HTTP/* 201
+HTTP 201
 [Captures]
 job_id: jsonpath "$.id"
 [Asserts]
@@ -72,7 +72,7 @@ GET https://api.example.org/jobs/{{job_id}}
 [Options]
 retry: 10
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
 ```
@@ -83,7 +83,7 @@ So, the full scenario looks like:
 # Create a new job
 POST https://api.example.org/jobs
 
-HTTP/* 201
+HTTP 201
 [Captures]
 job_id: jsonpath "$.id"
 [Asserts]
@@ -95,7 +95,7 @@ GET https://api.example.org/{{job_id}}
 [Options]
 retry: 10
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
 ```
@@ -107,7 +107,7 @@ GET https://api.example.org/123456
 [Options]
 retry: 10
 retry-interval: 4000
-HTTP/* 200
+HTTP 200
 ```
 
 will poll until `https://api.example.org/123456` returns a `200 OK`, with a 4 seconds delay between each retry.
@@ -116,7 +116,7 @@ Finally, one common need in shell script is to wait until a specific URL is read
 easily done now with Hurl:
 
 ```shell
-$ echo -e 'GET https://example.org/health\nHTTP/* 200' | hurl --retry
+$ echo -e 'GET https://example.org/health\nHTTP 200' | hurl --retry
 ```
 
 ## URL Assert
@@ -130,7 +130,7 @@ GET http://example.org
 [Options]
 location: true
 
-HTTP/* 200
+HTTP 200
 [Asserts]
 url == "https://example.org"
 ```

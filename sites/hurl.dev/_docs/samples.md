@@ -83,7 +83,7 @@ Connection: keep-alive
 
 ```hurl
 GET https://example.org/news
-[QueryStringParams]
+[Query]
 order: newest
 search: something to search
 count: 100
@@ -95,7 +95,7 @@ Or:
 GET https://example.org/news?order=newest&search=something%20to%20search&count=100
 ```
 
-> With `[QueryStringParams]` section, params don't need to be URL escaped.
+> With `[Query]` section, params don't need to be URL escaped.
 
 [Doc]({% link _docs/request.md %}#query-parameters)
 
@@ -164,7 +164,7 @@ HTTP 200
 {% raw %}
 ```hurl
 POST https://example.org/contact
-[FormParams]
+[Form]
 default: false
 token: {{token}}
 email: john.doe@rookie.org
@@ -179,7 +179,7 @@ number: 33611223344
 
 ```hurl
 POST https://example.org/upload
-[MultipartFormData]
+[Multipart]
 field1: value1
 field2: file,example.txt;
 # One can specify the file content type:
@@ -366,7 +366,7 @@ A file that creates a dynamic query parameter (i.e `2024-12-02T10:35:44.461731Z`
 {% raw %}
 ```hurl
 GET https://example.org/api/foo
-[QueryStringParams]
+[Query]
 date: {{newDate}}
 HTTP 200
 ```
@@ -622,7 +622,6 @@ file,data.bin;
 
 [Doc]({% link _docs/asserting-response.md %}#file-body)
 
-
 ## Reports
 
 ### HTML Report
@@ -667,12 +666,11 @@ A structured output of running Hurl files can be obtained with [`--json` option]
 $ hurl --json *.hurl
 ```
 
-
 ## Others
 
 ### HTTP Version
 
-Testing HTTP version (HTTP/1.0, HTTP/1.1, HTTP/2 or HTTP/3):
+Testing HTTP version (HTTP/1.0, HTTP/1.1, HTTP/2 or HTTP/3) can be done using implicit asserts:
 
 ```hurl
 GET https://foo.com
@@ -683,6 +681,37 @@ HTTP/2 200
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#version-status)
+
+Or explicit:
+
+```hurl
+GET https://foo.com
+HTTP 200
+[Asserts]
+version == "3"
+
+GET https://bar.com
+HTTP 200
+[Asserts]
+version == "2"
+version toFloat > 1.1
+```
+
+[Doc]({% link _docs/asserting-response.md %}#version-assert)
+
+### IP Address
+
+Testing the IP address of the response, as a string. This string may be IPv6 address:
+
+```hurl
+GET https://foo.com
+HTTP 200
+[Asserts]
+ip == "2001:0db8:85a3:0000:0000:8a2e:0370:733"
+ip startsWith "2001"
+ip isIpv6
+```
+
 
 ### Polling and Retry
 
@@ -748,7 +777,6 @@ GET https://example.org/d
 
 [Doc]({% link _docs/manual.md %}#skip)
 
-
 ### Testing Endpoint Performance
 
 ```hurl
@@ -799,6 +827,53 @@ HTTP 302
 
 [Doc]({% link _docs/capturing-response.md %}#xpath-capture)
 
+### Redacting Secrets
+
+Using command-line for known values:
+
+```shell
+$ hurl --secret token=1234 file.hurl
+```
+
+{% raw %}
+```hurl
+POST https://example.org
+X-Token: {{token}}
+{
+  "name": "Alice",
+  "value": 100
+}
+HTTP 200
+```
+{% endraw %}
+
+
+[Doc]({% link _docs/templates.md %}#secrets)
+
+Using `redact` for dynamic values:
+
+{% raw %}
+```hurl
+# Get an authorization token:
+GET https://example.org/token
+HTTP 200
+[Captures]
+token: header "X-Token" redact
+
+# Send an authorized request:
+POST https://example.org
+X-Token: {{token}}
+{
+  "name": "Alice",
+  "value": 100
+}
+HTTP 200
+```
+{% endraw %}
+
+
+[Doc]({% link _docs/capturing-response.md %}#redacting-secrets)
+
 ### Checking Byte Order Mark (BOM) in Response Body
 
 ```hurl
@@ -818,7 +893,7 @@ Generate signed API requests with [AWS Signature Version 4], as used by several 
 POST https://sts.eu-central-1.amazonaws.com/
 [Options]
 aws-sigv4: aws:amz:eu-central-1:sts
-[FormParams]
+[Form]
 Action: GetCallerIdentity
 Version: 2011-06-15
 ```
@@ -830,7 +905,7 @@ POST https://sts.eu-central-1.amazonaws.com/
 [Options]
 aws-sigv4: aws:amz:eu-central-1:sts
 user: bob=secret
-[FormParams]
+[Form]
 Action: GetCallerIdentity
 Version: 2011-06-15
 ```
