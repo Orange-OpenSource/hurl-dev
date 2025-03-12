@@ -89,12 +89,14 @@
         - title: Others
           items:
             - title: HTTP Version
+            - title: IP Address
             - title: Polling and Retry
             - title: Delaying Requests
             - title: Skipping Requests
             - title: Testing Endpoint Performance
             - title: Using SOAP APIs
             - title: Capturing and Using a CSRF Token
+            - title: Redacting Secrets
             - title: Checking Byte Order Mark (BOM) in Response Body
             - title: AWS Signature Version 4 Requests
             - title: Using curl Options
@@ -195,17 +197,22 @@
           items:
             - title: Query
             - title: Status capture
+            - title: Version capture
             - title: Header capture
-            - title: URL capture
             - title: Cookie capture
             - title: Body capture
             - title: Bytes capture
             - title: XPath capture
             - title: JSONPath capture
             - title: Regex capture
+            - title: SHA-256 capture
+            - title: MD5 capture
+            - title: URL capture
+            - title: IP address capture
             - title: Variable capture
             - title: Duration capture
             - title: SSL certificate capture
+        - title: Redacting Secrets
     - title: Asserting Response
       path: /docs/asserting-response.html
       items:
@@ -218,8 +225,8 @@
           items:
             - title: Predicates
             - title: Status assert
+            - title: Version assert
             - title: Header assert
-            - title: URL assert
             - title: Cookie assert
             - title: Body assert
             - title: Bytes assert
@@ -228,6 +235,8 @@
             - title: Regex assert
             - title: SHA-256 assert
             - title: MD5 assert
+            - title: URL assert
+            - title: IP address assert
             - title: Variable assert
             - title: Duration assert
             - title: SSL certificate assert
@@ -246,6 +255,8 @@
         - title: Example
         - title: Description
           items:
+            - title: base64Decode
+            - title: base64Encode
             - title: count
             - title: daysAfterNow
             - title: daysBeforeNow
@@ -259,7 +270,9 @@
             - title: replace
             - title: split
             - title: toDate
+            - title: toFloat
             - title: toInt
+            - title: toString
             - title: urlDecode
             - title: urlEncode
             - title: xpath

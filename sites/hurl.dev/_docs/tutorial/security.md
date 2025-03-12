@@ -76,7 +76,7 @@ csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 
 
 POST http://localhost:3000/signup
-[FormParams]
+[Form]
 _csrf: {{csrf_token}}
 username: {{username}}
 name: Bob
@@ -115,7 +115,7 @@ csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 POST http://localhost:3000/signup
 [Options]
 location: true
-[FormParams]
+[Form]
 _csrf: {{csrf_token}}
 username: {{username}}
 name: Bob
@@ -171,7 +171,7 @@ csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 POST http://localhost:3000/signup
 [Options]
 location: true
-[FormParams]
+[Form]
 _csrf: {{csrf_token}}
 username: bo
 name: Bob
@@ -200,7 +200,7 @@ xpath "string(//div[@class='form-errors'])" contains "Username must be 3 to 32 c
 
 # Test CSRF token is mandatory:
 POST http://localhost:3000/signup
-[FormParams]
+[Form]
 username: bob
 name: Bob
 email: bob78@example.net
@@ -301,7 +301,7 @@ xpath "//comment" count == 0     # Check that we don't leak comments
 POST http://localhost:3000/signup
 [Options]
 location: true
-[FormParams]
+[Form]
 _csrf: {{csrf_token}}
 username: {{username}}
 name: Bob
@@ -324,7 +324,7 @@ csrf_token: xpath "string(//input[@name='_csrf']/@value)"
 POST http://localhost:3000/signup
 [Options]
 location: true
-[FormParams]
+[Form]
 _csrf: {{csrf_token}}
 username: bo
 name: Bob
@@ -338,7 +338,7 @@ xpath "string(//div[@class='form-errors'])" contains "Username must be 3 to 32 c
 
 # Test CSRF is mandatory:
 POST http://localhost:3000/signup
-[FormParams]
+[Form]
 username: bob
 name: Bob
 email: bob78@example.net

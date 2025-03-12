@@ -151,7 +151,7 @@ Error on asserts are also colored now:
 [1;31merror[0m: [1mAssert status code[0m
   [1;34m-->[0m /tmp/test.hurl:2:8
    [1;34m|[0m
-[1;34m 2[0m [1;34m|[0m HTTP/* 200
+[1;34m 2[0m [1;34m|[0m HTTP 200
    [1;34m|[0m        [1;31m^^^[0m [1;31mactual value is <301>[0m
    [1;34m|[0m
 ```
@@ -188,15 +188,15 @@ So, given this Hurl file
 
 ```hurl
 GET https://google.fr
-HTTP/* 301
+HTTP 301
 
 GET https://google.fr
 [Options]
 location: true
-HTTP/* 200
+HTTP 200
 
 GET https://google.fr
-HTTP/* 301
+HTTP 301
 ```
 
 The second entry will follow location (and so we can test the status code to be 200 instead of 301).
@@ -210,7 +210,7 @@ GET https://api.example.org
 [Options]
 very-verbose: true
 
-HTTP/* 200
+HTTP 200
 
 # ... next entries
 ```

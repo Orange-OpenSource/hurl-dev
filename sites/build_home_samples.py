@@ -62,7 +62,7 @@ GET https://example.org/news?order=newest&search=something%20to%20search&count=1
 
 # Or with a query param section:            
 GET https://example.org/news
-[QueryStringParams]
+[Query]
 order: newest
 search: something to search
 count: 100
@@ -86,7 +86,7 @@ Authorization: Basic Ym9iOnNlY3JldA==
             name="Form",
             src="""\
 POST https://example.org/contact
-[FormParams]
+[Form]
 default: false
 token: {{token}}
 email: john.doe@rookie.org
@@ -97,7 +97,7 @@ number: 33611223344
             name="Multipart",
             src="""\
 POST https://example.org/upload
-[MultipartFormData]
+[Multipart]
 field1: value1
 field2: file,example.txt;
 # One can specify the file content type:
@@ -322,7 +322,7 @@ bytes startsWith hex,efbbbf;
         Sample(
             name="SSL Certificate",
             src="""\
-# Check attributes of the SSL certificate            
+# Check attributes of the SSL certificate
 GET https://example.org
 HTTP 200
 [Asserts]
@@ -343,6 +343,23 @@ retry-interval: 300ms
 HTTP 200
 [Asserts]
 jsonpath "$.state" == "COMPLETED"
+""",
+        ),
+        Sample(
+            name="IP Address",
+            src="""\
+GET https://example.org
+HTTP 200
+[Asserts]
+ip == "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+ip startsWith "2001"
+
+GET https://example.org
+[Options]
+ipv4: true
+HTTP 200
+[Asserts]
+ip not isIpv6
 """,
         ),
     ]
