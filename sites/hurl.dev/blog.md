@@ -9,7 +9,7 @@ indexed: false
 # {{ page.title }}
 
 
-{% for year in (2021..2024) reversed %}
+{% for year in (2021..2025) reversed %}
 
 ## {{year}}
 
