@@ -55,7 +55,7 @@ HTTP 200
 <p>To run this file, traditionally we set the variable value with an environment variable: </p>
 <pre><code class="language-shell">$ hurl --variable password=$PASSWORD foo.hurl
 </code></pre>
-<p>But, if we run this file with [<code>--verbose</code>] option, we can accidentally leak the value of the secret header:</p>
+<p>But, if we run this file with <a href="https://hurl.dev/docs/manual.html#verbose"><code>--verbose</code></a> option, we can accidentally leak the value of the secret header:</p>
 <pre><code class="language-shell">$ hurl --verbose foo.hurl
 * ------------------------------------------------------------------------------
 * Executing entry 1
@@ -106,7 +106,7 @@ error: Assert status code
    |      ^^^ actual value is &lt;200&gt;
    |
 </code></pre>
-<p>Started with Hurl 6.1.0, you can inject a variable whose value will be redacted from any logs using [<code>--secret</code> option]:</p>
+<p>Started with Hurl 6.1.0, you can inject a variable whose value will be redacted from any logs using <a href="{%link _docs/templates.md %}#secrets"><code>--secret</code> option</a>:</p>
 <pre><code>$ hurl --secret password=$PASSWORD foo.hurl
 </code></pre>
 <p>You can use <code>--secret</code> also to hide values even if these variables are not used in a Hurl file. This way, you can also protect
@@ -123,7 +123,7 @@ $ hurl --secret password=$PASSWORD \
 But secrets in Hurl are also redacted from the reports (<a href="https://hurl.dev/docs/running-tests.html#html-report">HTML</a>, <a href="https://hurl.dev/docs/running-tests.html#json-report">JSON</a>, <a href="https://hurl.dev/docs/running-tests.html#junit-report">JUnit</a> etc...) so you can safely store these reports
 as artifacts of your CI/CD pipelines.</p>
 <p>Finally, sometimes you don’t know a secret value beforehand, or the secret value is not static. In that case, the keyword
-[<code>redact</code> combined with captures] allows you to extract data from HTTP responses and redact it through the run:</p>
+<a href="https://hurl.dev/docs/capturing-response.html#redacting-secrets"><code>redact</code> combined with captures</a> allows you to extract data from HTTP responses and redact it through the run:</p>
 <pre><code class="language-hurl">GET http://bar.com/api/get-token
 HTTP 200
 [Captures]
@@ -223,7 +223,7 @@ status toString matches /(200|204)/
 location: true
 HTTP 200
 </code></pre>
-<p>With this new version, we have added [<code>--header</code>] option, that will add a specific HTTP header to all requests of a run: </p>
+<p>With this new version, we have added <a href="https://hurl.dev/docs/manual.html#header"><code>--header</code></a> option, that will add a specific HTTP header to all requests of a run: </p>
 <pre><code class="language-shell">$ hurl --header 'x-header-b:baz' --header 'x-header-c:qux' foo.hurl
 </code></pre>
 <p><strong>That’s all for today!</strong></p>

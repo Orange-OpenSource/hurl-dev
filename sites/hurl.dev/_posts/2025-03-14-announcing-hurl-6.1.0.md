@@ -66,7 +66,7 @@ To run this file, traditionally we set the variable value with an environment va
 $ hurl --variable password=$PASSWORD foo.hurl
 ```
 
-But, if we run this file with [`--verbose`] option, we can accidentally leak the value of the secret header:
+But, if we run this file with [`--verbose`]({% link _docs/manual.md %}#verbose) option, we can accidentally leak the value of the secret header:
 
 ```shell
 $ hurl --verbose foo.hurl
@@ -123,7 +123,7 @@ error: Assert status code
    |
 ```
 
-Started with Hurl 6.1.0, you can inject a variable whose value will be redacted from any logs using [`--secret` option]:
+Started with Hurl 6.1.0, you can inject a variable whose value will be redacted from any logs using [`--secret` option]({%link _docs/templates.md %}#secrets):
 
 ```
 $ hurl --secret password=$PASSWORD foo.hurl
@@ -147,7 +147,7 @@ But secrets in Hurl are also redacted from the reports ([HTML], [JSON], [JUnit] 
 as artifacts of your CI/CD pipelines.
 
 Finally, sometimes you don't know a secret value beforehand, or the secret value is not static. In that case, the keyword
-[`redact` combined with captures] allows you to extract data from HTTP responses and redact it through the run:
+[`redact` combined with captures]({% link _docs/capturing-response.md %}#redacting-secrets) allows you to extract data from HTTP responses and redact it through the run:
 
 ```hurl
 GET http://bar.com/api/get-token
@@ -280,7 +280,7 @@ location: true
 HTTP 200
 ```
 
-With this new version, we have added [`--header`] option, that will add a specific HTTP header to all requests of a run: 
+With this new version, we have added [`--header`]({% link _docs/manual.md %}#header) option, that will add a specific HTTP header to all requests of a run: 
 
 ```shell
 $ hurl --header 'x-header-b:baz' --header 'x-header-c:qux' foo.hurl
@@ -300,11 +300,8 @@ We'll be happy to hear from you, either for enhancement requests or for sharing 
 [Hurl]: https://hurl.dev
 [curl]: https://curl.se
 [to use a variable]: {% link _docs/templates.md %}#injecting-variables
-[`--verbose`]: {% link _docs/manual.md %}#verbose
-[`--secret` option]: {% link _docs/templates.md %}#secrets
 [GitHub Actions]: https://github.com/features/actions
 [GitLab CI/CD]: https://docs.gitlab.com/ci/
-[`redact` combined with captures]: {% link _docs/capturing-response.md %}#redacting-secrets
 [to capture]: {% link _docs/capturing-response.md %}
 [assert data]: {% link _docs/asserting-response.md %}
 [libcurl HTTP engine]: https://curl.se/libcurl/
@@ -312,7 +309,6 @@ We'll be happy to hear from you, either for enhancement requests or for sharing 
 [use IPv6 addresses]: {% link _docs/manual.md %}#ipv6
 [HTTP version]: {% link _docs/asserting-response.md %}#version-status
 [filters]: {% link _docs/filters.md %}
-[`--header`]: {% link _docs/manual.md %}#header
 [HTML]: {% link _docs/running-tests.md %}#html-report
 [JSON]: {% link _docs/running-tests.md %}#json-report
 [JUnit]: {% link _docs/running-tests.md %}#junit-report
