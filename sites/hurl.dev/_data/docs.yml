@@ -221,6 +221,14 @@
           items:
             - title: Version - Status
             - title: Headers
+            - title: Body
+              items:
+               - title: JSON body
+               - title: XML body
+               - title: Multiline string body
+               - title: Oneline string body
+               - title: Base64 body
+               - title: File body
         - title: Explicit asserts
           items:
             - title: Predicates
@@ -240,14 +248,7 @@
             - title: Variable assert
             - title: Duration assert
             - title: SSL certificate assert
-        - title: Body
-          items:
-            - title: JSON body
-            - title: XML body
-            - title: Multiline string body
-            - title: Oneline string body
-            - title: Base64 body
-            - title: File body
+
     - title: Filters
       path: /docs/filters.html
       items:
