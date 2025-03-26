@@ -217,6 +217,8 @@
       path: /docs/asserting-response.html
       items:
         - title: Asserts
+          items:
+            - title: Structure
         - title: Implicit asserts
           items:
             - title: Version - Status
@@ -248,7 +250,6 @@
             - title: Variable assert
             - title: Duration assert
             - title: SSL certificate assert
-
     - title: Filters
       path: /docs/filters.html
       items:
