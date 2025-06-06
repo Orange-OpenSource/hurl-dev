@@ -48,6 +48,12 @@ def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
                 f'<pre><code class="language-{language}">{snippet}</code></pre>',
                 f'<pre><code class="language-{language}">{colored_snippet}</code></pre>',
             )
+
+            # Patch for <https://github.com/Orange-OpenSource/hurl/issues/4117> to delete with 7.0.0
+            dst = dst.replace(
+                '<span class="line"><span class="multiline">variable {',
+                '<span class="line"><span class="multiline">variables {',
+            )
         Path(filename).write_text(dst)
 
 
