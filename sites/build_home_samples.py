@@ -15,7 +15,7 @@ class Sample:
         src_padding = src
         # Count number of line in src, add padding if necessary
         nl = src_padding.count("\n")
-        max_line = 12
+        max_line = 14
         if nl < max_line:
             src_padding += "\n" * (max_line - nl)
         self.src = src_padding
@@ -85,6 +85,7 @@ Authorization: Basic Ym9iOnNlY3JldA==
         Sample(
             name="Form",
             src="""\
+# Sending form data
 POST https://example.org/contact
 [Form]
 default: false
@@ -124,7 +125,7 @@ Cookie: theme=light; sessionToken=abc123
         Sample(
             name="Capture Data",
             src="""\
-# Get home:
+# Go home and capture token
 GET https://example.org
 HTTP 200
 [Captures]
@@ -132,15 +133,19 @@ csrf_token: xpath "string(//meta[@name='_csrf_token']/@content)"
 
 
 # Do login!
-POST https://example.org/login?user=toto&password=1234
+POST https://example.org/login
 X-CSRF-TOKEN: {{csrf_token}}
+[Form]
+user: toto
+password: 1234
 HTTP 302
 """,
         ),
         Sample(
             name="JSON Body",
             src="""\
-# Create a new doggy thing with JSON body:
+# Create a new doggy thing with JSON body.
+# JSON body can be inlined:
 POST https://example.org/api/dogs
 {
     "id": 0,
@@ -155,6 +160,7 @@ POST https://example.org/api/dogs
         Sample(
             name="SOAP / XML Body",
             src="""\
+# Like JSON body, XML bidy can be inlined to use SOAP APIs:
 POST https://example.org/InStock
 Content-Type: application/soap+xml; charset=utf-8
 SOAPAction: "http://www.w3.org/2003/05/soap-envelope"

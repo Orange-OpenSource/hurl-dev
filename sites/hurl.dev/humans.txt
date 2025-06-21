@@ -13,7 +13,7 @@ A simple sample with multiple requests:
     # ------------------------------------
 
     POST https://example.net/api/contacts
-    [FormParams]
+    [Form]
     token: {{token}}
     email: toto@rookie.net
     HTTP 201
