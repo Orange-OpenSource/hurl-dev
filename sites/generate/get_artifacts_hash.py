@@ -5,6 +5,7 @@ Example:
     $ python3 get_artifacts_hash.py 1.7.0
 
 """
+
 import argparse
 import hashlib
 import json

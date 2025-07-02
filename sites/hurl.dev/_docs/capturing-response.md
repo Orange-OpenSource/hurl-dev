@@ -71,6 +71,7 @@ A query can extract data from
   - [`md5`](#md5-capture)
 - others:
   - [`url`](#url-capture)
+  - [`redirects`](#redirects-capture)
   - [`ip`](#ip-address-capture)
   - [`variable`](#variable-capture)
   - [`duration`](#duration-capture)
@@ -299,7 +300,17 @@ name: regex "Hello ([a-zA-Z]+)"
 
 The regex pattern must have at least one capture group, otherwise the
 capture will fail. When the pattern is a double-quoted string, metacharacters beginning with a backslash in the pattern
-(like `\d`, `\s`) must be escaped; literal pattern enclosed by `/` can also be used to avoid metacharacters escaping. 
+(like `\d`, `\s`) must be escaped; literal pattern enclosed by `/` can also be used to avoid metacharacters escaping.
+
+The regex syntax is documented at <https://docs.rs/regex/latest/regex/#syntax>. For instance, one can use [flags](https://docs.rs/regex/latest/regex/#grouping-and-flags)
+to enable case-insensitive match:
+
+```hurl
+GET https://example.org/hello
+HTTP 200
+[Captures]
+word: regex /(?i)hello (\w+)!/
+```
 
 ### SHA-256 capture
 
@@ -341,6 +352,25 @@ location: true
 HTTP 200
 [Captures]
 landing_url: url
+```
+
+### Redirects capture
+
+Capture each step of redirection. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section][options] or
+[`--location` option]). Redirects capture consists of a variable name, followed by a `:`, and the keyword `redirects`.
+Redirects query returns a collection so each step of the redirection can be capture.
+
+```hurl
+GET https://example.org/redirecting/1
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 3
+[Captures]
+step1: redirects nth 0 location
+step2: redirects nth 1 location
+step3: redirects nth 2 location
 ```
 
 ### IP address capture
