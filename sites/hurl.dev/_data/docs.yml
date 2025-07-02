@@ -79,6 +79,14 @@
             - title: Testing Bytes Content
             - title: SSL Certificate
             - title: Checking Full Body
+            - title: Testing Redirections
+        - title: Debug Tips
+          items:
+            - title: Verbose Mode
+            - title: Error Format
+            - title: Output Response Body
+            - title: Export curl Commands
+            - title: Using Proxy
         - title: Reports
           items:
             - title: HTML Report
@@ -208,6 +216,7 @@
             - title: SHA-256 capture
             - title: MD5 capture
             - title: URL capture
+            - title: Redirects capture
             - title: IP address capture
             - title: Variable capture
             - title: Duration capture
@@ -246,6 +255,7 @@
             - title: SHA-256 assert
             - title: MD5 assert
             - title: URL assert
+            - title: URL redirect
             - title: IP address assert
             - title: Variable assert
             - title: Duration assert
@@ -259,17 +269,23 @@
           items:
             - title: base64Decode
             - title: base64Encode
+            - title: base64UrlSafeDecode
+            - title: base64UrlSafeEncode
             - title: count
             - title: daysAfterNow
             - title: daysBeforeNow
             - title: decode
+            - title: first
             - title: format
             - title: htmlEscape
             - title: htmlUnescape
             - title: jsonpath
+            - title: last
+            - title: location
             - title: nth
             - title: regex
             - title: replace
+            - title: replaceRegex
             - title: split
             - title: toDate
             - title: toFloat
@@ -277,6 +293,7 @@
             - title: toString
             - title: urlDecode
             - title: urlEncode
+            - title: urlQueryParam
             - title: xpath
     - title: Templates
       path: /docs/templates.html
@@ -338,7 +355,6 @@
             - title: Debugging a specific entry
         - title: Use Error Format
         - title: Get Response Body
-        - title: Interactive Mode
         - title: Include Headers Like curl
         - title: Export curl Commands
         - title: Using a Proxy
