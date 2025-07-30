@@ -216,8 +216,6 @@ In that case, files have to be inlined in the Hurl file.
 
 [Doc]({% link _docs/request.md %}#multiline-string-body)
 
-
-
 ### Posting a JSON Body
 
 With an inline JSON:
@@ -414,7 +412,6 @@ status < 300
 
 [Doc]({% link _docs/asserting-response.md %}#status-assert)
 
-
 ### Testing Response Headers
 
 Use implicit response asserts to test header values:
@@ -467,12 +464,12 @@ jsonpath "$.hasDevice" == false
 jsonpath "$.links" count == 12
 jsonpath "$.state" != null
 jsonpath "$.order" matches "^order-\\d{8}$"
-jsonpath "$.order" matches /^order-\d{8}$/     # Alternative syntax with regex literal
+jsonpath "$.order" matches /^order-\d{8}$/  # Alternative syntax with regex literal
+jsonpath "$.id" matches /(?i)[a-z]*/        # See syntax for flags <https://docs.rs/regex/latest/regex/#grouping-and-flags>
 jsonpath "$.created" isIsoDate
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#jsonpath-assert)
-
 
 ### Testing HTML Response
 
@@ -622,6 +619,124 @@ file,data.bin;
 
 [Doc]({% link _docs/asserting-response.md %}#file-body)
 
+### Testing Redirections
+
+By default, Hurl doesn't follow redirection so each step of a redirect must be run manually and can be analysed:
+
+```hurl
+GET https://example.org/step1
+HTTP 301
+[Asserts]
+header "Location" == "https://example.org/step2"
+
+
+GET https://example.org/step2
+HTTP 301
+[Asserts]
+header "Location" == "https://example.org/step3"
+
+
+GET https://example.org/step3
+HTTP 200
+```
+
+[Doc]({% link _docs/asserting-response.md %})
+
+Using [`--location`] and [`--location-trusted`] (either with command line option or per request), Hurl follows 
+redirection and each step of the redirection can be checked.
+
+```hurl
+GET https://example.org/step1
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 2
+redirects nth 0 location == "https://example.org/step2"
+redirects nth 1 location == "https://example.org/step3"
+```
+
+```hurl
+GET https://example.org/step1
+[Options]
+location-trusted: true
+HTTP 200
+[Asserts]
+redirects last location == "https://example.org/step2"
+```
+
+[Doc]({% link _docs/asserting-response.md %}#redirects-assert)
+
+## Debug Tips
+
+### Verbose Mode
+
+To get more info on a given request/response, use [`[Options]` section]({% link _docs/request.md %}#options):
+
+```hurl
+GET https://example.org
+HTTP 200
+
+GET https://example.org/api/cats/123
+[Options]
+very-verbose: true
+HTTP 200
+```
+
+`--verbose` and `--very-verbose` can be also used globally as command line options.
+
+[Doc]({% link _docs/manual.md %}#very-verbose)
+
+### Error Format
+
+```shell
+$ hurl --test --error-format long *.hurl
+```
+
+[Doc]({% link _docs/manual.md %}#error-format)
+
+### Output Response Body
+
+Use `--output` on a specific request to get the response body (`-` can be used as standard output):
+
+```hurl
+GET https://foo.com/failure
+[Options]
+# use - to output on standard output, foo.bin to save on disk 
+output: -
+HTTP 200
+
+GET https://foo.com/success
+HTTP 200
+```
+
+[Doc]({% link _docs/manual.md %}#output)
+
+### Export curl Commands
+
+```shell
+$ hurl ---curl /tmp/curl.txt *.hurl
+```
+
+[Doc]({% link _docs/manual.md %}#curl)
+
+### Using Proxy
+
+Use `--proxy` on a specific request or globally as command line option:
+
+```hurl
+GET https://foo.com/a
+HTTP 200
+
+GET https://foo.com/b
+[Options]
+proxy: localhost:8888
+HTTP 200
+
+GET https://foo.com/c
+HTTP 200
+```
+
 ## Reports
 
 ### HTML Report
@@ -639,7 +754,6 @@ $ hurl --test --report-json build/report/ *.hurl
 ```
 
 [Doc]({% link _docs/running-tests.md %}#generating-report)
-
 
 ### JUnit Report
 
@@ -711,7 +825,6 @@ ip == "2001:0db8:85a3:0000:0000:8a2e:0370:733"
 ip startsWith "2001"
 ip isIpv6
 ```
-
 
 ### Polling and Retry
 
@@ -960,3 +1073,5 @@ HTTP 200
 [`--resolve`]: {% link _docs/manual.md %}#resolve
 [`--connect-to`]: {% link _docs/manual.md %}#connect-to
 [Functions]: {% link _docs/templates.md %}#functions
+[`--location`]: {% link _docs/manual.md %}#location
+[`--location-trusted`]: {% link _docs/manual.md %}#location-trusted

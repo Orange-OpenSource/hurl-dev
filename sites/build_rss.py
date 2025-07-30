@@ -3,7 +3,11 @@
 
 Examples:
     $ python3 build_rss.py hurl.dev/_posts/2023-06-30-announcing-hurl-4.0.0.md
+
+Note: reference links that contains backtick, like `[`location`]: {% link _docs/filters.md %}#location` are
+not well-supported and should be inlined.
 """
+
 from _datetime import datetime
 import re
 import sys

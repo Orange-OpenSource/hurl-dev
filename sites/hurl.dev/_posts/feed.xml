@@ -3,8 +3,193 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2025-03-14T00:00:00+01:00</updated>
+    <updated>2025-07-30T00:00:00+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 7.0.0</title>
+        <link href="https://hurl.dev/blog/2025/07/30/announcing-hurl-7.0.0.html" rel="alternate" type="text/html"
+              title="Announcing Hurl 7.0.0"/>
+        <published>2025-07-30T00:00:00+02:00</published>
+        <updated>2025-07-30T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2025/07/30/announcing-hurl-7.0.0.html</id>
+        <content type="html"><![CDATA[<h1>Announcing Hurl 7.0.0</h1>
+<div class="blog-post-date">Jul. 30, 2025</div>
+
+<p>
+<picture><source srcset="https://hurl.dev/assets/img/emoji-desert-island.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-desert-island.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-desert-island.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-desert-island.png" width="20" height="20" alt="Partying Face"></picture> In this hot summer, the Hurl team is super happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/7.0.0">Hurl 7.0.0</a>!
+</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+# Some tests on the HTTP layer:
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+ip == "2001:0db8:85a3:0000:0000:8a2e:0370:733"
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#more-redirections-checks">More Redirections Checks</a></li>
+<li><a href="#new-template-filters">New Template Filters</a></li>
+<li><a href="#new-supported-curl-options">New Supported curl Options</a></li>
+</ul>
+<h2>More Redirections Checks</h2>
+<p>Like its HTTP engine libcurl, Hurl doesn’t follow redirection by default: on a 30x response status code, Hurl returns
+the HTTP response and does not trigger a new request following <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Location"><code>Location</code> header</a>.
+Redirections have to be done manually:</p>
+<pre><code class="language-hurl"># First request, users are redirected to /login
+GET https://foo.com/home
+HTTP 302
+[Asserts]
+header "Location" == "/login"
+
+# We manually follow the redirection
+GET https://foo.com/login
+HTTP 200
+</code></pre>
+<p>This way, one can test each step of a redirection and insure that everything works as expected.</p>
+<p>Like <code>curl</code>, we can use <a href="https://hurl.dev/docs/manual.html#location"><code>--location</code></a> option to ask Hurl to follow redirection,
+either globally using the command line option:</p>
+<pre><code class="language-shell">$ hurl --location foo.hurl
+</code></pre>
+<p>Or per request using <a href="https://hurl.dev/docs/request.html#options"><code>[Options]</code> section</a>:</p>
+<pre><code class="language-hurl">GET https://foo.com/home
+[Options]
+location: true
+HTT 200
+</code></pre>
+<p>Using <a href="https://hurl.dev/docs/manual.html#location"><code>--location</code></a> (or <a href="https://hurl.dev/docs/manual.html#location-trusted"><code>--location-trusted</code></a>),
+Hurl obeys the redirection and will issue requests until redirection ends. Before Hurl 7.0.0, we were losing the ability
+to check each redirection steps using this option. The only check we could have done was using <a href="https://hurl.dev/docs/asserting-response.html#url-assert"><code>url</code> query</a>
+to give us the final effective URL:</p>
+<pre><code class="language-hurl">GET https://foo.com/home
+[Options]
+location: true
+HTTP 200
+[Asserts]
+url == "https://foo.com/login"
+</code></pre>
+<p>Starting with Hurl 7.0.0, we’re introducing the <code>redirects</code> query, that give us access to each redirection step:</p>
+<pre><code class="language-hurl">GET https://foo.com/home
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 3
+redirects nth 0 location == "https://foo.com/redirect-1"
+redirects nth 1 location == "https://foo.com/redirect-2"
+redirects nth 2 location == "https://foo.com/landing"
+</code></pre>
+<p>The <code>redirects</code> query returns the list of each step followed during redirection. By combining <a href="https://hurl.dev/docs/filters.html#nth"><code>nth</code></a>
+and <a href="https://hurl.dev/docs/filters.html#location"><code>location</code></a> filters, we are now able to check redirection steps while letting
+Hurl runs automatically to the final URL.  </p>
+<h2>New Template Filters</h2>
+<p><a href="https://hurl.dev/docs/filters.html">Filters</a> allow to transform data extracted from HTTP responses. In the following sample, <code>replaceRegex</code>, <code>split</code>, <code>count</code> and <code>nth</code>
+are filters that process input; they can be chained to transform values in asserts and captures:</p>
+<pre><code class="language-hurl">GET https://example.org/api
+HTTP 200
+[Captures]
+name: jsonpath "$.user.id" replaceRegex /\d/ "x"
+[Asserts]
+header "x-servers" split "," count == 2
+header "x-servers" split "," nth 0 == "rec1"
+header "x-servers" split "," nth 1 == "rec3"
+jsonpath "$.books" count == 12
+</code></pre>
+<p>In Hurl 7.0.0, we’ve added new filters:</p>
+<ul>
+<li><strong><code>urlQueryParam</code></strong></li>
+<li><strong><code>base64UrlSafeDecode</code></strong> and <strong><code>base64UrlSafeEncode</code></strong></li>
+<li><strong><code>location</code></strong></li>
+<li><strong><code>toHex</code></strong></li>
+<li><strong><code>first</code></strong> and <strong><code>last</code></strong></li>
+</ul>
+<p>In detail, </p>
+<ul>
+<li><strong><code>urlQueryParam</code></strong>: extracts the value of a query parameter from an URL</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/foo
+HTTP 200
+[Asserts]
+jsonpath "$.url" urlQueryParam "x" == "шеллы"
+</code></pre>
+<p>This filter can be useful when you need to process URL received in payload, like a back URL.</p>
+<ul>
+<li><strong><code>base64UrlSafeDecode</code></strong> and <strong><code>base64UrlSafeEncode</code></strong>: decodes and encodes using <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5">Base64 URL safe encoding</a>. There is also
+<code>base64Decode</code> and <code>base64Encode</code> for their <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-4">Base 64 encoding</a> variants.</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/api
+HTTP 200
+[Asserts]
+jsonpath "$.token" base64UrlSafeDecode == hex,3c3c3f3f3f3e3e;
+</code></pre>
+<ul>
+<li><strong><code>location</code></strong>: returns the target URL location of a redirection. Combined with the new <code>redirects</code> query, you can
+check each step of a redirection:</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/step1
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 2
+redirects nth 0 location == "https://example.org/step2"
+redirects nth 1 location == "https://example.org/step3"
+</code></pre>
+<ul>
+<li><strong><code>toHex</code></strong>: converts bytes to an hexadecimal string.</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/foo
+HTTP 200
+[Asserts]
+bytes toHex == "d188d0b5d0bbd0bbd18b"
+</code></pre>
+<ul>
+<li><strong><code>first</code></strong> and <strong><code>last</code></strong>: applied to a list, returns the first and last element:</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/api
+HTTP 200
+[Asserts]
+jsonpath "$..books" last jsonpath "$.title" == "Dune"
+</code></pre>
+<p>Alongside <code>first</code> and <code>last</code>, <code>nth</code> filter now supports negative index value for indexing from the end of the
+collection:</p>
+<pre><code class="language-hurl">GET https://example.org/api
+HTTP 200
+[Asserts]
+jsonpath "$..books" nth -2 jsonpath "$.title" == "Dune"
+</code></pre>
+<h2>New Supported curl Options</h2>
+<p>Using libcurl as its HTTP engine, Hurl exposes many curl options. In Hurl 7.0.0, we have added these two options:</p>
+<ul>
+<li><a href="https://hurl.dev/docs/manual.html#max-time"><code>--max-time</code> per request</a>: allows you to configure timeout per request, </li>
+<li><a href="https://hurl.dev/docs/manual.html#ntlm"><code>--ntlm</code></a>: uses NTLM authentication,</li>
+<li><a href="https://hurl.dev/docs/manual.html#ntlm"><code>--negotiate</code></a>: uses Negotiate (SPNEGO) authentication,</li>
+<li><a href="https://hurl.dev/docs/manual.html#pinnedpubkey"><code>--pinnedpubkey</code></a>: compares the certificate public key to a local public key
+  and abort connection if not match. Can be use either globally on command line or per request:</li>
+</ul>
+<pre><code class="language-hurl">GET https://foo.com/hello
+[Options]
+# With a pinned public key local file
+pinnedpubkey: tests_ssl/certs/server/key.pub.pem
+# With a pinned public Hash
+pinnedpubkey: "sha256//dGhpc2lzbm5vdGFyZWFsa2V5"
+HTTP 200
+</code></pre>
+<p><strong>That’s all for today!</strong></p>
+<p>There are a lot of other improvements with Hurl 7.0.0 and also a lot of bug fixes, you can check the complete list of
+enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/7.0.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">support us with a star on GitHub</a> and share it on [𝕏] and <a href="https://bsky.app/profile/hurldev.bsky.social">Bluesky</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>In this hot summer, the Hurl team is super happy to announce Hurl 7.0.0</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 6.1.0</title>
         <link href="https://hurl.dev/blog/2025/03/14/announcing-hurl-6.1.0.html" rel="alternate" type="text/html"
@@ -234,7 +419,7 @@ enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/re
         <author>
             <name/>
         </author>
-        <summary/>
+        <summary>The Hurl team is thrilled to announce Hurl 6.1.0</summary>
     </entry>
     <entry>
         <title>Announcing Hurl 6.0.0</title>
@@ -604,7 +789,7 @@ you can check the complete list of enhancements and bug fixes <a href="https://g
         <author>
             <name/>
         </author>
-        <summary/>
+        <summary>The Hurl team is thrilled to announce Hurl 5.0.0</summary>
     </entry>
     <entry>
         <title>Announcing Hurl 4.3.0</title>
@@ -801,7 +986,7 @@ you can check the complete list of enhancements and bug fixes <a href="https://g
         <author>
             <name/>
         </author>
-        <summary/>
+        <summary>The Hurl team is thrilled to announce Hurl 4.3.0</summary>
     </entry>
     <entry>
         <title>Hurl 4.2.0, the HTTP/3 Edition</title>
@@ -1245,7 +1430,7 @@ If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSou
 
 <div class="blog-post-date">Jun. 30, 2023</div>
 
-<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">Hurl 4.0.0</a> <picture><source srcset="/assets/img/emoji-party-popper.avif" type="image/avif" /><source srcset="/assets/img/emoji-party-popper.webp" type="image/webp" /><source srcset="/assets/img/emoji-party-popper.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" /></picture> !</p>
+<p>The Hurl team is happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/4.0.0">Hurl 4.0.0</a> <picture><source srcset="https://hurl.dev/assets/img/emoji-party-popper.avif" type="image/avif" /><source srcset="https://hurl.dev/assets/img/emoji-party-popper.webp" type="image/webp" /><source srcset="https://hurl.dev/assets/img/emoji-party-popper.png" type="image/png" /><img class="emoji" src="https://hurl.dev/assets/img/emoji-party-popper.png" width="20" height="20" alt="Partying Face" /></picture> !</p>
 
 <p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined
 in a simple plain text format:</p>
@@ -1285,10 +1470,10 @@ indicator <a href="/docs/response.html#timings">in the documentation</a></li>
 </ul>
 
 <picture>
-  <source srcset="/assets/img/timeline.avif" type="image/avif" />
-  <source srcset="/assets/img/timeline.webp" type="image/webp" />
-  <source srcset="/assets/img/timeline.png" type="image/png" />
-  <img class="u-drop-shadow u-border" src="/assets/img/timeline.png" width="100%" alt="Requests timeline" />
+  <source srcset="https://hurl.dev/assets/img/timeline.avif" type="image/avif" />
+  <source srcset="https://hurl.dev/assets/img/timeline.webp" type="image/webp" />
+  <source srcset="https://hurl.dev/assets/img/timeline.png" type="image/png" />
+  <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/timeline.png" width="100%" alt="Requests timeline" />
 </picture>
 
 <p>The timings used to construct the requests timeline are also exposed through <a href="/docs/manual.html#json"><code>--json</code> option</a>. <code>--json</code> gives you a structured
@@ -1300,16 +1485,16 @@ view of a Hurl run with errors, asserts, certificates, captures, cookies and so 
 kind of gaps on some runs:</p>
 
 <picture>
-  <source srcset="/assets/img/asserts-perf.avif" type="image/avif" />
-  <source srcset="/assets/img/asserts-perf.webp" type="image/webp" />
-  <source srcset="/assets/img/asserts-perf.png" type="image/png" />
-  <img class="u-drop-shadow u-border" src="/assets/img/asserts-perf.png" width="734" />
+  <source srcset="https://hurl.dev/assets/img/asserts-perf.avif" type="image/avif" />
+  <source srcset="https://hurl.dev/assets/img/asserts-perf.webp" type="image/webp" />
+  <source srcset="https://hurl.dev/assets/img/asserts-perf.png" type="image/png" />
+  <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/asserts-perf.png" width="734" />
 </picture>
 
 <p>After analysis, the gap between requests in this sample test is caused by a huge numbers of assertions on the HTTP response. We have, as of Hurl 4.0.0, a naive
 approach of asserts computation: each asserts of the same response is independent, and we parse and recompute every assert from scratch.
 Until we see these edge cases, we were very proud of Hurl speed (due to the combination of <code>libcurl</code> and
-Rust). Now, we know that we have to improve assert performance for the next release <picture><source srcset="/assets/img/emoji-sad-pensive-face.avif" type="image/avif" /><source srcset="/assets/img/emoji-sad-pensive-face.webp" type="image/webp" /><source srcset="/assets/img/emoji-sad-pensive-face.png" type="image/png" /><img class="emoji" src="/assets/img/emoji-sad-pensive-face.png" width="20" height="20" alt="Sad Pensive Face Emoji" /></picture> !</p>
+Rust). Now, we know that we have to improve assert performance for the next release <picture><source srcset="https://hurl.dev/assets/img/emoji-sad-pensive-face.avif" type="image/avif" /><source srcset="https://hurl.dev/assets/img/emoji-sad-pensive-face.webp" type="image/webp" /><source srcset="https://hurl.dev/assets/img/emoji-sad-pensive-face.png" type="image/png" /><img class="emoji" src="https://hurl.dev/assets/img/emoji-sad-pensive-face.png" width="20" height="20" alt="Sad Pensive Face Emoji" /></picture> !</p>
 
 <h2 id="detailed-error-for-cicd">Detailed Error for CI/CD</h2>
 
@@ -1693,7 +1878,7 @@ insecure: true
 Firefox, in the Developer Tools / Network tab, you can export an HTTP request to a curl command:</p>
 
 <p>
-    <img class="u-drop-shadow u-border" src="/assets/img/firefox.png" width="100%" alt="Export request to curl in Firefox" />
+    <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/firefox.png" width="100%" alt="Export request to curl in Firefox" />
 </p>
 
 <p>Then using <code>hurlfmt</code>, you will be able to convert this request to Hurl. We’re very happy to have
@@ -1758,7 +1943,7 @@ If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSou
 <div class="blog-post-date">Jan. 25, 2023</div>
 
 <p>
-    <img class="u-theme-light u-drop-shadow u-border" src="/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
+    <img class="u-theme-light u-drop-shadow u-border" src="https://hurl.dev/assets/img/hurl-plus-graphql-light.png" width="100%" alt="Hurl plus GraphQL equals love" />
 </p>
 
 <p>Christmas has been busy for the Hurl team! We’re happy to announce <strong>Hurl 2.0.0</strong>, with a lot of new features

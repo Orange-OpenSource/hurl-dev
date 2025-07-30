@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Use this file to get a local HTML preview of `feed.xml` -->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Atom Feed Viewer</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .entry {
+            margin-bottom: 1.5em;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 1em;
+        }
+
+        .entry-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .entry-date {
+            color: #555;
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+
+        .entry-summary {
+            margin: 20px 0;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px 10px;
+        }
+
+        details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: 0.5em 0.5em 0;
+            margin: 1em 0;
+        }
+
+        summary {
+            font-weight: bold;
+            margin: -0.5em -0.5em 0;
+            padding: 0.5em;
+        }
+
+        details[open] {
+            padding: 0.5em;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: 0.5em;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Atom Feed</h1>
+<div id="feed"></div>
+
+<script>
+    fetch('feed.xml')
+        .then(response => response.text())
+        .then(str => (new window.DOMParser()).parseFromString(str, "application/xml"))
+        .then(data => {
+            const entries = data.querySelectorAll("entry");
+            let html = "";
+
+            entries.forEach(entry => {
+                const title = entry.querySelector("title")?.textContent || "No title";
+                const link = entry.querySelector("link")?.getAttribute("href") || "#";
+                const updated = entry.querySelector("updated")?.textContent || "";
+                const summary = entry.querySelector("summary")?.textContent || "No summary";
+                const content = entry.querySelector("content")?.textContent || "No content";
+
+                html += `
+            <details>
+                <summary>
+                    <span class="entry-title"><a href="${link}" target="_blank">${title}</a></span>
+                    <div class="entry-date">${updated}</div>
+                    <div class="entry-summary">${summary}</div>
+                </summary>
+                <div class="entry">
+                    <div class="entry-description">${content}</div>
+                </div>
+            </details>
+          `;
+            });
+
+            document.getElementById("feed").innerHTML = html;
+        })
+        .catch(err => {
+            document.getElementById("feed").innerHTML = "Failed to load feed: " + err;
+        });
+</script>
+</body>
+</html>

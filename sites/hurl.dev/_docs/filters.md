@@ -55,7 +55,7 @@ __can be chained__, allowing for fine-grained data extraction.
 GET https://example.org/api
 HTTP 200
 [Captures]
-name: jsonpath "$user.id" replace /\d/ "x"
+name: jsonpath "$.user.id" replaceRegex /\d/ "x"
 [Asserts]
 header "x-servers" split "," count == 2
 header "x-servers" split "," nth 0 == "rec1"
@@ -65,26 +65,80 @@ jsonpath "$.books" count == 12
 
 ## Description
 
+| Filter                                      | Description                                                                                                                            | Input            | Output |
+|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------|--------|
+| [base64Decode](#base64decode)               | Decodes a [Base64 encoded string] into bytes.                                                                                          | string           | bytes  |
+| [base64Encode](#base64encode)               | Encodes bytes into [Base64 encoded string].                                                                                            | bytes            | string |
+| [base64UrlSafeDecode](#base64urlsafedecode) | Decodes a Base64 encoded string into bytes (using [Base64 URL safe encoding]).                                                         | string           | bytes  |
+| [base64UrlSafeEncode](#base64urlsafeencode) | Encodes bytes into Base64 encoded string (using [Base64 URL safe encoding]).                                                           | bytes            | string |
+| [count](#count)                             | Counts the number of items in a collection.                                                                                            | collection       | number |
+| [daysAfterNow](#daysafternow)               | Returns the number of days between now and a date in the future.                                                                       | date             | number |
+| [daysBeforeNow](#daysbeforenow)             | Returns the number of days between now and a date in the past.                                                                         | date             | number |
+| [decode](#decode)                           | Decodes bytes to string using encoding.                                                                                                | bytes            | string |
+| [first](#first)                             | Returns the first element from a collection.                                                                                           | collection       | any    |
+| [format](#format)                           | Formats a date to a string given [a specification format].                                                                             | date             | string |
+| [htmlEscape](#htmlescape)                   | Converts the characters `&`, `<` and `>` to HTML-safe sequence.                                                                        | string           | string |
+| [htmlUnescape](#htmlunescape)               | Converts all named and numeric character references (e.g. `&gt;`, `&#62;`, `&#x3e;`) to the corresponding Unicode characters.          | string           | string |
+| [jsonpath](#jsonpath)                       | Evaluates a [JSONPath] expression.                                                                                                     | string           | any    |
+| [last](#last)                               | Returns the last element from a collection.                                                                                            | collection       | any    |
+| [location](#location)                       | Returns the target location URL of a redirection.                                                                                      | response         | string |
+| [nth](#nth)                                 | Returns the element from a collection at a zero-based index, accepts negative indices for indexing from the end of the collection.     | collection       | any    |
+| [regex](#regex)                             | Extracts regex capture group. Pattern must have at least one capture group.                                                            | string           | string |
+| [replace](#replace)                         | Replaces all occurrences of old string with new string.                                                                                | string           | string |
+| [replaceRegex](#replaceregex)               | Replaces all occurrences of a pattern with new string.                                                                                 | string           | string |
+| [split](#split)                             | Splits to a list of strings around occurrences of the specified delimiter.                                                             | string           | string |
+| [toDate](#toDate)                           | Converts a string to a date given [a specification format].                                                                            | string           | date   |
+| [toFloat](#tofloat)                         | Converts value to float number.                                                                                                        | string \| number | number |
+| [toHex](#tohex)                             | Converts bytes to hexadecimal string.                                                                                                  | bytes            | string |
+| [toInt](#toint)                             | Converts value to integer number.                                                                                                      | string \| number | number |
+| [toString](#tostring)                       | Converts value to string.                                                                                                              | any              | string |
+| [urlDecode](#urldecode)                     | Replaces %xx escapes with their single-character equivalent.                                                                           | string           | string |
+| [urlEncode](#urlencode)                     | Percent-encodes all the characters which are not included in unreserved chars (see [RFC3986]) with the exception of forward slash (/). | string           | string |
+| [urlQueryParam](#urlqueryparam)             | Returns the value of a query parameter in a URL.                                                                                       | string           | string |
+| [xpath](#xpath)                             | Evaluates a [XPath] expression.                                                                                                        | string           | string |
+
 ### base64Decode
 
-Decode a base 64 encoded string into bytes.
+Decodes a [Base64 encoded string] into bytes.
 
 ```hurl
 GET https://example.org/api
 HTTP 200
 [Asserts]
-jsonpath "$.token" base64Decode == hex,e4bda0e5a5bde4b896e7958c;
+jsonpath "$.token" base64Decode == hex,3c3c3f3f3f3e3e;
 ```
 
 ### base64Encode
 
-Encode bytes into base 64 encoded string.
+Encodes bytes into [Base64 encoded string].
 
 ```hurl
 GET https://example.org/api
 HTTP 200
 [Asserts]
-bytes base64Encode == "5L2g5aW95LiW55WM"
+bytes base64Encode == "PDw/Pz8+Pg=="
+```
+
+### base64UrlSafeDecode
+
+Decodes a Base64 encoded string into bytes (using [Base64 URL safe encoding]).
+
+```hurl
+GET https://example.org/api
+HTTP 200
+[Asserts]
+jsonpath "$.token" base64UrlSafeDecode == hex,3c3c3f3f3f3e3e;
+```
+
+### base64UrlSafeEncode
+
+Encodes bytes into Base64 encoded string (using [Base64 URL safe encoding]).
+
+```hurl
+GET https://example.org/api
+HTTP 200
+[Asserts]
+bytes base64UrlSafeEncode == "PDw_Pz8-Pg"
 ```
 
 ### count
@@ -122,7 +176,7 @@ certificate "Start-Date" daysBeforeNow < 100
 
 ### decode
 
-Decode bytes to string using encoding.
+Decodes bytes to string using encoding.
 
 ```hurl
 # The 'Content-Type' HTTP response header does not precise the charset 'gb2312'
@@ -133,6 +187,17 @@ HTTP 200
 header "Content-Type" == "text/html"
 # Content-Type has no encoding clue, we must decode ourselves the body response.
 bytes decode "gb2312" xpath "string(//body)" == "你好世界"
+```
+
+### first
+
+Returns the first element from a collection.
+
+```hurl
+GET https://example.org
+HTTP 200
+[Asserts]
+jsonpath "$.books" first == "Dune"
 ```
 
 ### format
@@ -182,10 +247,36 @@ variable "books" jsonpath "$[0].name" == "Dune"
 variable "books" jsonpath "$[0].author" == "Franck Herbert"
 ```
 
+### last
+
+Returns the last element from a collection.
+
+```hurl
+GET https://example.org
+HTTP 200
+[Asserts]
+jsonpath "$.books" last == "Les Misérables"
+```
+
+### location
+
+Returns the target URL location of a redirection; the returned URL is always absolute, contrary to the `Location` header from
+which it's originated that can be absolute or relative.
+
+```hurl
+GET https://example.org/step1
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 2
+redirects nth 0 location == "https://example.org/step2"
+redirects nth 1 location == "https://example.org/step3"
+```
 
 ### nth
 
-Returns the element from a collection at a zero-based index.
+Returns the element from a collection at a zero-based index, accepts negative indices for indexing from the end of the collection.
 
 ```hurl
 GET https://example.org/api
@@ -205,7 +296,10 @@ HTTP 200
 param1: header "header1"
 param2: header "header2" regex "Hello (.*)!"
 param3: header "header2" regex /Hello (.*)!/
+param3: header "header2" regex /(?i)Hello (.*)!/
 ```
+
+The regex syntax is documented at <https://docs.rs/regex/latest/regex/#syntax>.
 
 ### replace
 
@@ -218,6 +312,19 @@ HTTP 200
 url: jsonpath "$.url" replace "http://" "https://"
 [Asserts]
 jsonpath "$.ips" replace ", " "|" == "192.168.2.1|10.0.0.20|10.0.0.10"
+```
+
+### replaceRegex
+
+Replaces all occurrences of a pattern with new string.
+
+```hurl
+GET https://example.org/foo
+HTTP 200
+[Captures]
+url: jsonpath "$.id" replaceRegex /\d/ "x"
+[Asserts]
+jsonpath "$.message" replaceRegex "B[aoi]b" "Dude" == "Welcome Dude!"
 ```
 
 ### split
@@ -264,6 +371,17 @@ HTTP 200
 jsonpath "$.pi" toFloat == 3.14
 ```
 
+### toHex
+
+Converts bytes to hexadecimal string.
+
+```hurl
+GET https://example.org/foo
+HTTP 200
+[Asserts]
+bytes toHex == "d188d0b5d0bbd0bbd18b"
+```
+
 ### toInt
 
 Converts value to integer number.
@@ -308,6 +426,17 @@ HTTP 200
 jsonpath "$.url" urlEncode == "https%3A//mozilla.org/%3Fx%3D%D1%88%D0%B5%D0%BB%D0%BB%D1%8B"
 ```
 
+### urlQueryParam
+
+Returns the value of a query parameter in a URL.
+
+```hurl
+GET https://example.org/foo
+HTTP 200
+[Asserts]
+jsonpath "$.url" urlQueryParam "x" == "шеллы"
+```
+
 ### xpath
 
 Evaluates a [XPath] expression.
@@ -326,3 +455,5 @@ bytes decode "gb2312" xpath "string(//body)" == "你好世界"
 [a specification format]: https://docs.rs/chrono/latest/chrono/format/strftime/index.html
 [XPath]: https://en.wikipedia.org/wiki/XPath
 [JSONPath]: https://goessner.net/articles/JsonPath/
+[Base64 encoded string]: https://datatracker.ietf.org/doc/html/rfc4648#section-4
+[Base64 URL safe encoding]: https://datatracker.ietf.org/doc/html/rfc4648#section-5

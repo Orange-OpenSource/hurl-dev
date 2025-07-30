@@ -1,10 +1,11 @@
-#!/usr/bin/env/python3
+#!/usr/bin/env python3
 """Create SHASUM from GitHub release artifacts for a given version
 
 Example:
     $ python3 get_artifacts_hash.py 1.7.0
 
 """
+
 import argparse
 import hashlib
 import json

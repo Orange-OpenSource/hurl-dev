@@ -92,7 +92,6 @@ The asserts order in a Hurl file is:
 </div>
 </div>
 
-
 ## Implicit asserts
 
 ### Version - Status
@@ -383,6 +382,7 @@ can extract data from
   - [`md5`](#md5-assert)
 - others:
   - [`url`](#url-assert)
+  - [`redirects`](#redirects-assert)
   - [`ip`](#ip-address-assert)
   - [`variable`](#variable-assert)
   - [`duration`](#duration-assert)
@@ -399,14 +399,14 @@ Predicates consist of a predicate function and a predicate value. Predicate func
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | __`==`__           | Query and predicate value are equal                                                                                                                                                                                         | `jsonpath "$.book" == "Dune"`                                                                                      |
 | __`!=`__           | Query and predicate value are different                                                                                                                                                                                     | `jsonpath "$.color" != "red"`                                                                                      |
-| __`>`__            | Query number is greater than predicate value                                                                                                                                                                                | `jsonpath "$.year" > 1978`                                                                                         |
-| __`>=`__           | Query number is greater than or equal to the predicate value                                                                                                                                                                | `jsonpath "$.year" >= 1978`                                                                                        |
-| __`<`__            | Query number is less than that predicate value                                                                                                                                                                              | `jsonpath "$.year" < 1978`                                                                                         |
-| __`<=`__           | Query number is less than or equal to the predicate value                                                                                                                                                                   | `jsonpath "$.year" <= 1978`                                                                                        |
+| __{% raw %}`>`__            | Query number or date is greater than predicate value                                                                                                                                                                        | `jsonpath "$.year" > 1978`<br><br>`jsonpath "$.createdAt" toDate "%+"  > {{ a_date }}`{% endraw %}                             |
+| __`>=`__           | Query number or date is greater than or equal to the predicate value                                                                                                                                                        | `jsonpath "$.year" >= 1978`                                                                                        |
+| __`<`__            | Query number or date is less than that predicate value                                                                                                                                                                      | `jsonpath "$.year" < 1978`                                                                                         |
+| __`<=`__           | Query number or date is less than or equal to the predicate value                                                                                                                                                           | `jsonpath "$.year" <= 1978`                                                                                        |
 | __`startsWith`__   | Query starts with the predicate value<br>Value is string or a binary content                                                                                                                                                | `jsonpath "$.movie" startsWith "The"`<br><br>`bytes startsWith hex,efbbbf;`                                        |
 | __`endsWith`__     | Query ends with the predicate value<br>Value is string or a binary content                                                                                                                                                  | `jsonpath "$.movie" endsWith "Back"`<br><br>`bytes endsWith hex,ab23456;`                                          |
 | __`contains`__     | If query returns a collection of string or numbers, query collection includes the predicate value (string or number)<br>If query returns a string or a binary content, query contains the predicate value (string or bytes) | `jsonpath "$.movie" contains "Empire"`<br><br>`bytes contains hex,beef;`<br><br>`jsonpath "$.numbers" contains 42` |
-| __`matches`__      | Part of the query string matches the regex pattern described by the predicate value                                                                                                                                         | `jsonpath "$.release" matches "\\d{4}"`<br><br>`jsonpath "$.release" matches /\d{4}/`                              |
+| __`matches`__      | Part of the query string matches the regex pattern described by the predicate value (see [regex syntax](https://docs.rs/regex/latest/regex/#syntax))                                                                        | `jsonpath "$.release" matches "\\d{4}"`<br><br>`jsonpath "$.release" matches /\d{4}/`                              |
 | __`exists`__       | Query returns a value                                                                                                                                                                                                       | `jsonpath "$.book" exists`                                                                                         |
 | __`isBoolean`__    | Query returns a boolean                                                                                                                                                                                                     | `jsonpath "$.succeeded" isBoolean`                                                                                 |
 | __`isCollection`__ | Query returns a collection                                                                                                                                                                                                  | `jsonpath "$.books" isCollection`                                                                                  |
@@ -418,10 +418,7 @@ Predicates consist of a predicate function and a predicate value. Predicate func
 | __`isString`__     | Query returns a string                                                                                                                                                                                                      | `jsonpath "$.name" isString`                                                                                       |
 | __`isIpv4`__       | Query returns an IPv4 address                                                                                                                                                                                               | `ip isIpv4`                                                                                                        |
 | __`isIpv6`__       | Query returns an IPv6 address                                                                                                                                                                                               | `ip isIpv6`                                                                                                        |
-
-Query contains the predicate value if query returns a collection of string or numbers<br>
-Query 
-
+| __`isUuid`__       | Query returns a UUID                                                                                                                                                                                                        | `ip isUuid`                                                                                                        |
 
 
 Each predicate can be negated by prefixing it with `not` (for instance, `not contains` or `not exists`)
@@ -843,6 +840,16 @@ captured group value. When the regex pattern is a double-quoted string, metachar
 pattern (like `\d`, `\s`) must be escaped; literal pattern enclosed by `/` can also be used to avoid metacharacters
 escaping.
 
+The regex syntax is documented at <https://docs.rs/regex/latest/regex/#syntax>. For instance, once can use [flags](https://docs.rs/regex/latest/regex/#grouping-and-flags)
+to enable case-insensitive match:
+
+```hurl
+GET https://example.org/hello
+HTTP 200
+[Asserts]
+regex /(?i)hello (\w+)!/ == "World"
+```
+
 ### SHA-256 assert
 
 Check response body [SHA-256] hash.
@@ -900,6 +907,24 @@ location: true
 HTTP 200
 [Asserts]
 url == "https://example.org/redirected"
+```
+
+### Redirects assert
+
+Check each step of redirection. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section][options] or
+[`--location` option]). Redirects assert consists of the keyword `redirects` followed by a predicate function and value. The `redirects`
+query returns a collection of redirections that can be tested with a [`location` filter]:
+
+```hurl
+GET https://example.org/redirecting/1
+[Options]
+location: true
+HTTP 200
+[Asserts]
+redirects count == 3
+redirects nth 0 location == "https://example.org/redirecting/2"
+redirects nth 1 location == "https://example.org/redirecting/3"
+redirects nth 2 location == "https://example.org/redirected"
 ```
 
 ### IP address assert
@@ -985,3 +1010,4 @@ certificate "Serial-Number" matches "[0-9af]+"
 [`Content-Encoding` HTTP header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
 [`Content-Type` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
 [`body` assert]: #body-assert
+[`location` filter]: {% link _docs/filters.md %}#location
