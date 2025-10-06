@@ -214,4 +214,4 @@ Please follow the [contrib on Windows section].
 [NixOS / Nix package]: https://search.nixos.org/packages?from=0&size=1&sort=relevance&type=packages&query=hurl
 [`conda-forge`]: https://conda-forge.org
 [`pixi`]: https://prefix.dev
-[extra]: https://archlinux.org/packages/extra/x86   _64/hurl/
+[extra]: https://archlinux.org/packages/extra/x86_64/hurl/

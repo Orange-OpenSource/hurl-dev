@@ -118,6 +118,7 @@
           items:
             - title: Debug Logs
             - title: HTTP Responses
+        - title: Stress and Performance Tests
         - title: Generating Report
           items:
             - title: HTML Report

@@ -36,6 +36,13 @@ HTTP 302
 {% endraw %}
 
 
+Body responses can be encoded by server (see [`Content-Encoding` HTTP header]) but captures in Hurl files are not
+affected by this content compression. All body captures (`body`, `bytes`, `sha256` etc...) work _after_ content decoding.
+
+Finally, body text captures (`body`, `jsonpath`, `xpath` etc...) are also decoded to strings based on [`Content-Type` header]
+so these queries can be captures as usual strings.
+
+
 Structure of a capture:
 
 <div class="schema-container schema-container u-font-size-2 u-font-size-3-sm">
@@ -175,6 +182,8 @@ HTTP 200
 my_body: bytes decode "gb2312"
 ```
 
+`body` capture works _after_ content encoding decompression (so the captured value is not affected by `Content-Encoding` response header).
+
 ### Bytes capture
 
 Capture the entire body (as a raw bytestream) from the received HTTP response
@@ -185,6 +194,9 @@ HTTP 200
 [Captures]
 my_data: bytes
 ```
+
+Like `body` capture, `bytes` capture works _after_ content encoding decompression (so the captured value is not
+affected by `Content-Encoding` response header).
 
 ### XPath capture
 
