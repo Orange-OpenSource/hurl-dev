@@ -2,6 +2,7 @@
 import subprocess
 from subprocess import CalledProcessError
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Callable
 import platform
@@ -15,6 +16,15 @@ def main():
     highlight_code(language="bash", to_html_func=bash_to_html)
     highlight_code(language="shell", to_html_func=shell_to_html)
     highlight_code(language="rust", to_html_func=rust_to_html)
+
+
+@dataclass
+class Snippet:
+    """Represents a code snippet."""
+
+    content: str
+    title: str | None
+    language: str
 
 
 def get_os() -> str:
@@ -42,18 +52,17 @@ def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
         print(f"    Highlighting {filename}")
         dst = src
         for snippet in snippets:
-            unescaped_snippet = unescape_html(snippet)
-            colored_snippet = to_html_func(unescaped_snippet.strip())
-            dst = dst.replace(
-                f'<pre><code class="language-{language}">{snippet}</code></pre>',
-                f'<pre><code class="language-{language}">{colored_snippet}</code></pre>',
-            )
-
-            # Patch for <https://github.com/Orange-OpenSource/hurl/issues/4117> to delete with 7.0.0
-            dst = dst.replace(
-                '<span class="line"><span class="multiline">variable {',
-                '<span class="line"><span class="multiline">variables {',
-            )
+            title = snippet.title
+            content = snippet.content
+            unescaped_content = unescape_html(content)
+            colored_content = to_html_func(unescaped_content)
+            if title:
+                old = f'<pre><code class="language-{language}:{title}">{content}</code></pre>'
+                new = f'<div class="code-block"><div class="code-title">{title}</div>\n<pre><code class="language-{language}">{colored_content}</code></pre></div>'
+            else:
+                old = f'<pre><code class="language-{language}">{content}</code></pre>'
+                new = f'<div class="code-block"><pre><code class="language-{language}">{colored_content}</code></pre></div>'
+            dst = dst.replace(old, new)
         Path(filename).write_text(dst)
 
 
@@ -91,6 +100,7 @@ def hurl_to_html(snippet: str) -> str:
 
     # PATCH: https://github.com/Orange-OpenSource/hurl/issues/3242
     output = output.replace("cert.pem\\", "cert.pem")
+    # To be uniform with other snippets, we're removing the <pre><code> tag
     return extract(output, '<pre><code class="language-hurl">', "</code></pre>")
 
 
@@ -164,24 +174,29 @@ def shell_to_html(snippet: str) -> str:
     return output
 
 
-def extract_snippet(language: str, text: str) -> List[str]:
-    prefix = f'<pre><code class="language-{language}">'
+def extract_snippet(language: str, text: str) -> List[Snippet]:
+    prefix = re.compile(f'<pre><code class="language\\-{language}(?P<title>:.*)?">')
     suffix = "</code></pre>"
     index = 0
 
-    snippets: List[str] = []
+    snippets: List[Snippet] = []
     while True:
-        begin = text.find(prefix, index)
-        if begin == -1:
+        match = prefix.search(text, index)
+        if not match:
             break
-        end = text.find(suffix, begin)
+        prefix_end = match.end(0)
+        title = match.group("title")
+        if title:
+            title = title[1:]
+        end = text.find(suffix, prefix_end)
         index = end
-        snippet = text[begin + len(prefix) : end]
+        content = text[prefix_end:end]
+        snippet = Snippet(content=content, title=title, language=language)
         snippets.append(snippet)
     return snippets
 
 
-def extract(text, prefix, suffix):
+def extract(text: str, prefix: str, suffix: str) -> str | None:
     reg = re.compile(f"""{prefix}(.+?){suffix}""", re.DOTALL)
     match = reg.search(text)
     if match:

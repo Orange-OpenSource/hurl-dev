@@ -2,8 +2,6 @@
 import re
 from pathlib import Path
 
-import highlight
-
 
 class Sample:
     name: str
@@ -12,15 +10,15 @@ class Sample:
 
     def __init__(self, name: str, src: str):
         self.name = name
-        src_padding = src
+        src_padded = src
         # Count number of line in src, add padding if necessary
-        nl = src_padding.count("\n")
+        nl = src_padded.count("\n")
         max_line = 14
         if nl < max_line:
-            src_padding += "\n" * (max_line - nl)
-        self.src = src_padding
+            src_padded += "\n" * (max_line - nl)
+        self.src = src_padded
         html = '<pre><code class="language-hurl">'
-        html += highlight.hurl_to_html(src_padding)
+        html += src_padded
         html += "</code></pre>\n"
         self.html = html
 
@@ -375,9 +373,9 @@ ip not isIpv6
     select_html = ""
     select_html += '<div class="home-picker">\n'
     select_html += (
-        '<label class="home-picker-label" for="samples">Choose example</label>\n'
+        '<label class="home-picker-label" for="home-samples">Choose example</label>\n'
     )
-    select_html += '<select id="home-samples" names="samples"">\n'
+    select_html += '<select id="home-samples" name="samples">\n'
     for idx, sample in enumerate(samples):
         if idx == feature_sample:
             select = " selected"
@@ -386,7 +384,7 @@ ip not isIpv6
         select_html += (
             f'    <option value="home-sample-{idx}"{select}>{sample.name}</option>\n'
         )
-    select_html += "/<select>\n"
+    select_html += "</select>\n"
     select_html += "</div>\n"
     select_html += '<div class="home-sample">\n'
     select_html += samples[feature_sample].html

@@ -24,13 +24,11 @@ echo_step 'Second pass static build'
 # Second pass to take the rebuilt search index into account.
 jekyll build --source hurl.dev --destination hurl.dev/_site --future
 
-echo_step 'Highlight code snippets'
-# Second pass to take the rebuilt search index into account.
-# Highlight Hurl snippet.
-python3 highlight.py
-
 echo_step 'Replace home samples'
 python3 build_home_samples.py
+
+echo_step 'Highlight code snippets'
+python3 highlight.py
 
 echo_step 'Add title anchors'
 python3 build_anchors.py
