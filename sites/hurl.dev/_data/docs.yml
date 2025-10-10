@@ -256,7 +256,7 @@
             - title: SHA-256 assert
             - title: MD5 assert
             - title: URL assert
-            - title: URL redirect
+            - title: Redirects assert
             - title: IP address assert
             - title: Variable assert
             - title: Duration assert
