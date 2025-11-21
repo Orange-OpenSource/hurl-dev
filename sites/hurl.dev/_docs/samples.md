@@ -458,6 +458,7 @@ screencapability: low
 HTTP 200
 [Asserts]
 jsonpath "$.validated" == true
+jsonpath "$.userInfo" isObject
 jsonpath "$.userInfo.firstName" == "Franck"
 jsonpath "$.userInfo.lastName" == "Herbert"
 jsonpath "$.hasDevice" == false

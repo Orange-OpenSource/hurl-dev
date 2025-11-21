@@ -76,7 +76,7 @@ jsonpath "$.books" count == 12
 | [daysBeforeNow](#daysbeforenow)             | Returns the number of days between now and a date in the past.                                                                         | date             | number |
 | [decode](#decode)                           | Decodes bytes to string using encoding.                                                                                                | bytes            | string |
 | [first](#first)                             | Returns the first element from a collection.                                                                                           | collection       | any    |
-| [format](#format)                           | Formats a date to a string given [a specification format].                                                                             | date             | string |
+| [dateFormat](#dateFormat)                   | Formats a date to a string given [a specification format].                                                                             | date             | string |
 | [htmlEscape](#htmlescape)                   | Converts the characters `&`, `<` and `>` to HTML-safe sequence.                                                                        | string           | string |
 | [htmlUnescape](#htmlunescape)               | Converts all named and numeric character references (e.g. `&gt;`, `&#62;`, `&#x3e;`) to the corresponding Unicode characters.          | string           | string |
 | [jsonpath](#jsonpath)                       | Evaluates a [JSONPath] expression.                                                                                                     | string           | any    |
@@ -95,6 +95,8 @@ jsonpath "$.books" count == 12
 | [urlDecode](#urldecode)                     | Replaces %xx escapes with their single-character equivalent.                                                                           | string           | string |
 | [urlEncode](#urlencode)                     | Percent-encodes all the characters which are not included in unreserved chars (see [RFC3986]) with the exception of forward slash (/). | string           | string |
 | [urlQueryParam](#urlqueryparam)             | Returns the value of a query parameter in a URL.                                                                                       | string           | string |
+| [utf8Decode](#utf8Decode)                   | Decodes bytes to string using UTF-8 encoding.                                                                                          | bytes            | string |
+| [utf8Encode](#utf8Encode)                   | Encodes a string to bytes using UTF-8 encoding.                                                                                        | string           | bytes  |
 | [xpath](#xpath)                             | Evaluates a [XPath] expression.                                                                                                        | string           | string |
 
 ### base64Decode
@@ -176,7 +178,7 @@ certificate "Start-Date" daysBeforeNow < 100
 
 ### decode
 
-Decodes bytes to string using encoding.
+Decodes bytes to string using encoding. Encoding labels are defined in [Encoding Standard].
 
 ```hurl
 # The 'Content-Type' HTTP response header does not precise the charset 'gb2312'
@@ -200,7 +202,9 @@ HTTP 200
 jsonpath "$.books" first == "Dune"
 ```
 
-### format
+### dateFormat
+
+*Formerly known as `format`, which is deprecated and will be removed in a future major version.*
 
 Formats a date to a string given [a specification format].
 
@@ -208,7 +212,7 @@ Formats a date to a string given [a specification format].
 GET https://example.org
 HTTP 200
 [Asserts]
-cookie "LSID[Expires]" format "%a, %d %b %Y %H:%M:%S" == "Wed, 13 Jan 2021 22:23:01"
+cookie "LSID[Expires]" dateFormat "%a, %d %b %Y %H:%M:%S" == "Wed, 13 Jan 2021 22:23:01"
 ```
 
 ### htmlEscape
@@ -356,8 +360,8 @@ GET https://example.org/api/books
 HTTP 200
 [Asserts]
 jsonpath "$.published" == "2023-01-23T18:25:43.511Z"
-jsonpath "$.published" toDate "%Y-%m-%dT%H:%M:%S%.fZ" format "%A" == "Monday"
-jsonpath "$.published" toDate "%+" format "%A" == "Monday" # %+ can be used to parse ISO 8601 / RFC 3339
+jsonpath "$.published" toDate "%Y-%m-%dT%H:%M:%S%.fZ" dateFormat "%A" == "Monday"
+jsonpath "$.published" toDate "%+" dateFormat "%A" == "Monday" # %+ can be used to parse ISO 8601 / RFC 3339
 ```
 
 ### toFloat
@@ -417,7 +421,7 @@ jsonpath "$.encoded_url" urlDecode == "https://mozilla.org/?x=шеллы"
 
 ### urlEncode
 
-Percent-encodes all the characters which are not included in unreserved chars (see [RFC3986]) with the exception of forward slash (/).
+Percent-encodes all the characters which are not included in unreserved chars (see [RFC3986]) except forward slash (/).
 
 ```hurl
 GET https://example.org/foo
@@ -435,6 +439,29 @@ GET https://example.org/foo
 HTTP 200
 [Asserts]
 jsonpath "$.url" urlQueryParam "x" == "шеллы"
+```
+
+### utf8Decode
+
+Decodes bytes to string using UTF-8 encoding.
+
+```hurl
+GET https://example.org/messages
+HTTP 200
+[Asserts]
+# From a Base64 string to UTF-8 bytes to final string 
+jsonpath "$.bytesInBase64" base64Decode utf8Decode == "Hello World" 
+```
+
+### utf8Encode
+
+Encodes a string to bytes using UTF-8 encoding.
+
+```hurl
+GET https://example.org/drinks
+HTTP 200
+[Asserts]
+jsonpath "$.beverage" utf8Encode toHex == "636166C3A9"
 ```
 
 ### xpath
@@ -457,3 +484,4 @@ bytes decode "gb2312" xpath "string(//body)" == "你好世界"
 [JSONPath]: https://goessner.net/articles/JsonPath/
 [Base64 encoded string]: https://datatracker.ietf.org/doc/html/rfc4648#section-4
 [Base64 URL safe encoding]: https://datatracker.ietf.org/doc/html/rfc4648#section-5
+[Encoding labels]: https://encoding.spec.whatwg.org/]https://encoding.spec.whatwg.org/#concept-encoding-get
