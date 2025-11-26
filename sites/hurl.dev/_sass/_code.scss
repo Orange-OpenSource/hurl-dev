@@ -184,6 +184,14 @@ pre, code {
   .bold {
     font-weight: bold;
   }
+  .blue {
+    color: $ansi-blue-light;
+    color: var(--ansi-blue);
+  }
+  .cyan {
+    color: $ansi-cyan-light;
+    color: var(--ansi-cyan);
+  }
   .green {
     color: $ansi-green-light;
     color: var(--ansi-green);
@@ -191,6 +199,10 @@ pre, code {
   .gray {
     color: $ansi-gray-light;
     color: var(--ansi-gray);
+  }
+  .yellow {
+    color: $ansi-yellow-light;
+    color: var(--ansi-yellow);
   }
   .bright-cyan {
     color: $ansi-bright-cyan-light;

@@ -218,7 +218,7 @@ __That's all for today!__
 There are a lot of other improvements with Hurl 7.0.0 and also a lot of bug fixes, you can check the complete list of
 enhancements and bug fixes [in our release note].
 
-If you like Hurl, don't hesitate to [support us with a star on GitHub] and share it on [𝕏] and [Bluesky]!
+If you like Hurl, don't hesitate to [support us with a star on GitHub] and share it on [𝕏 / Twitter] and [Bluesky]!
 
 We'll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!
 
