@@ -3,8 +3,280 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2025-07-30T00:00:00+02:00</updated>
+    <updated>2025-11-26T00:00:00+01:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Hurl 7.1.0, the Pretty Edition</title>
+        <link href="https://hurl.dev/blog/2025/11/26/hurl-7.1.0-the-pretty-edition.html" rel="alternate"
+              type="text/html" title="Hurl 7.1.0, the Pretty Edition"/>
+        <published>2025-11-26T00:00:00+01:00</published>
+        <updated>2025-11-26T00:00:00+01:00</updated>
+        <id>https://hurl.dev/blog/2025/11/26/hurl-7.1.0-the-pretty-edition.html</id>
+        <content type="html"><![CDATA[<h1>Hurl 7.1.0, the Pretty Edition</h1>
+<div class="blog-post-date">Nov. 26, 2025</div>
+
+<p>
+<picture>
+    <source srcset="https://hurl.dev/assets/img/curl-plus-jq.avif" type="image/avif">
+    <source srcset="https://hurl.dev/assets/img/curl-plus-jq.webp" type="image/webp">
+    <source srcset="https://hurl.dev/assets/img/curl-plus-jq.png" type="image/png">
+    <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/curl-plus-jq.png" width="100%" alt="Hurl 7.1.0, the pretty edition"/>
+</picture>
+</p>
+
+<p>The Hurl team is thrilled to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/7.1.0">Hurl 7.1.0</a> <picture><source srcset="https://hurl.dev/assets/img/emoji-rocket.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-rocket.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-rocket.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-rocket.png" width="20" height="20" alt="Partying face emoji"></picture> !</p>
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+
+# Some tests on the HTTP layer:
+GET https://example.org
+HTTP 200
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+ip == "2001:0db8:85a3:0000:0000:8a2e:0370:733"
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#json-response-automatic-prettifying">JSON Response Automatic prettifying</a></li>
+<li><a href="#new-predicates-isobject-islist">New Predicates <code>isObject</code>, <code>isList</code></a></li>
+<li><a href="#new-supported-curl-options">New Supported curl options</a></li>
+<li><a href="#new-filters-utf8decode-utf8encode">New Filters <code>utf8Decode</code>, <code>utf8Encode</code></a></li>
+</ul>
+<h2>JSON Response Automatic prettifying</h2>
+<p>Hurl supports two running modes:</p>
+<ul>
+<li>
+<p>the &ldquo;default&rdquo; one</p>
+<p>hurl books.hurl</p>
+</li>
+<li>
+<p>the test-oriented one</p>
+<p>hurl &ndash;test books.hurl</p>
+</li>
+</ul>
+<p>In both cases, asserts and captures are run, the difference between these two modes is about what is written on standard output and standard error.</p>
+<p>With default mode, the last HTTP response is written on standard output, as received from the network. You can use this mode
+when you want to get data from a server, and you need a kind of workflow to get it. It’s like curl, but it’s easier to chain requests and pass
+data from response to request (like <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a>, <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> etc...).</p>
+<p>With test mode, no response is written on standard output, but the display is tweaked for a test run, with a succinct summary:</p>
+<pre><code>$ hurl --test *.hurl
+...
+--------------------------------------------------------------------------------
+Executed files:    100
+Executed requests: 100 (1612.9/s)
+Succeeded files:   100 (100.0%)
+Failed files:      0 (0.0%)
+Duration:          62 ms (0h:0m:0s:62ms)
+</code></pre>
+<p>Starting with Hurl 7.1.0, we’ve improved the default mode, when response is displayed on standard output.
+If the response is a JSON, we’re displaying now a pretty, colored, indented version of it: </p>
+<pre><code class="language-shell">$ hurl books.hurl
+{
+  "store": {
+    "book": [
+      {
+        "category": "reference",
+        "author": "Nigel Rees",
+        "title": "Sayings of the Century",
+        "price": 8.95
+      },
+      {
+        "category": "fiction",
+        "author": "J. R. R. Tolkien",
+        "title": "The Lord of the Rings",
+        "isbn": "0-395-19395-8",
+        "price": 22.99
+      }
+    ],
+    "bicycle": {
+      "color": "red",
+      "price": 399
+    }
+  }
+}
+</code></pre>
+<p>Before Hurl 7.1.0, you can achieve the same result with piping to <a href="https://jqlang.org">jq</a>: </p>
+<pre><code class="language-shell">$ hurl foo.hurl | jq
+</code></pre>
+<p>Now, you can just run:</p>
+<pre><code class="language-shell">$ hurl foo.hurl
+</code></pre>
+<p>and the response will be pretty printed. This improvement adresses one of our top-voted issues
+since 2023, so we’re very happy to have implemented it in this release!</p>
+<p>
+<picture>
+    <source srcset="https://hurl.dev/assets/img/top-voted-issue.avif" type="image/avif">
+    <source srcset="https://hurl.dev/assets/img/top-voted-issue.webp" type="image/webp">
+    <source srcset="https://hurl.dev/assets/img/top-voted-issue.png" type="image/png">
+    <img class="u-drop-shadow u-border" src="https://hurl.dev/assets/img/top-voted-issue.png" width="100%" alt="Top-voted issue"/>
+</picture>
+</p>
+
+<h3>Under the hood</h3>
+<p>Prettifying JSON response is optimized to consume the fewest possible ressources, so there is no performance
+hits for a normal usage, even with big responses.</p>
+<p>Some implementation details worth noting:</p>
+<h4>No Unicode escape transformation</h4>
+<p>In JSON, characters can be written directly using UTF-8 or using Unicode escapes. For instance, a string containing an emoji can be written like this:</p>
+<pre><code class="language-json">{
+  "an emoji with UTF-8": "🏝️",
+  "an emoji with Unicode escapes": "\uD83C\uDFDD"
+}
+</code></pre>
+<p>The two strings represent exactly the same Unicode char. With this input, different program will prettify
+JSON differently. Let’s take <a href="https://jqlang.org">jq</a>, the de facto standard to manipulate JSON data, and <a href="https://httpie.io">HTTPie</a>,
+one of the best HTTP client. </p>
+<p>jq, by default, will normalize Unicode escapes, rendering Unicode escapes to their UTF-8 representation:</p>
+<pre><code class="language-shell">$ cat island.json | jq
+{
+  "an emoji with UTF-8": "🏝️",
+  "an emoji with Unicode escapes": "🏝"
+}
+</code></pre>
+<p>HTTPie renders also Unicode escapes:</p>
+<pre><code class="language-shell">$ http http://localhost:8000/island.json
+HTTP/1.0 200 OK
+Content-Length: 83
+...
+
+{
+    "an emoji with UTF-8": "🏝️",
+    "an emoji with Unicode escapes": "🏝"
+}
+</code></pre>
+<p>Contrary to jq and HTTPie, Hurl will minimally prettify JSON, just coloring Unicode escapes:</p>
+<pre><code class="language-shell">$ echo 'GET http://localhost:8000/island.json' | hurl
+{
+  "an emoji with UTF-8": "🏝️",
+  "an emoji with Unicode escapes": "\uD83C\uDFDD"
+}
+</code></pre>
+<p>The idea is to add colors and indentations, but leave the input source &ldquo;unchanged&rdquo; otherwise.</p>
+<h3>Numbers are left untouched</h3>
+<p>In JSON, float numbers can be represented in different ways, for instance 1,234 can be written <code>1234</code>, <code>1.234e3</code> or
+even <code>1.234E+3</code>. </p>
+<p>Given this input:</p>
+<pre><code>{
+  "scientific_notation_positive": 1.23e4,
+  "scientific_notation_negative": 6.02e-3,
+  "scientific_uppercase_E": 9.81E+2
+}
+</code></pre>
+<p>jq normalizes numbers, keeping fields order: <code>1.23e4</code> becomes <code>1.23E+4</code>, <code>6.02e-3</code> becomes <code>0.00602</code> and <code>9.81E+2</code>
+becomes <code>981</code>.  </p>
+<pre><code class="language-shell">$ cat numbers.json | jq
+{
+  "scientific_notation_positive": 1.23E+4,
+  "scientific_notation_negative": 0.00602,
+  "scientific_uppercase_E": 981
+}
+</code></pre>
+<p>HTTPie normalizes numbers differently from jq, and also re-orders field (<code>scientific_notation_negative</code> is now before
+<code>scientific_notation_positive</code>):</p>
+<pre><code class="language-shell">$ http http://localhost:8000/numbers.json
+HTTP/1.0 200 OK
+Content-Length: 83
+...
+
+{
+    "scientific_notation_negative": 0.00602,
+    "scientific_notation_positive": 12300.0,
+    "scientific_uppercase_E": 981.0
+}
+</code></pre>
+<p>With Hurl, once again, we’ve chosen not to normalize anything and just augment user input with colors and spacing:</p>
+<pre><code class="language-shell">$ echo 'GET http://localhost:8000/numbers.json'
+{
+  "scientific_notation_positive": 1.23e4,
+  "scientific_notation_negative": 6.02e-3,
+  "scientific_uppercase_E": 9.81E+2
+}
+</code></pre>
+<p>Which is exactly the JSON response, minus color and spaces:</p>
+<pre><code>{
+  "scientific_notation_positive": 1.23e4,
+  "scientific_notation_negative": 6.02e-3,
+  "scientific_uppercase_E": 9.81E+2
+}
+</code></pre>
+<p>If Hurl pretty printing is too minimalist for you, you can still pipe Hurl output through <code>jq</code> for instance and it will work.
+When Hurl’s output is redirected to a file or through a pipe, all pretty printing is disable, so tools that expect a plain
+JSON response will work as usual.</p>
+<h2>New Predicates isObject, isList</h2>
+<p><a href="https://hurl.dev/docs/asserting-response.html#predicates">Predicates</a> are used to check HTTP responses:</p>
+<pre><code class="language-hurl">GET http://httpbin.org/json
+HTTP 200
+[Asserts]
+jsonpath "$.slideshow.author" startsWith "Yours Truly"
+jsonpath "$.slideshow.slides[0].title" contains "Wonder"
+jsonpath "$.slideshow.slides" count == 2
+jsonpath "$.slideshow.date" != null
+</code></pre>
+<p>Two new predicates are introduced with 7.1.0:</p>
+<ul>
+<li><code>isObject</code>: check is a value is an object (when working with JSONPath for instance)</li>
+<li><code>isList</code>: check if a value is an array</li>
+</ul>
+<pre><code class="language-hurl">GET https://example.org/order
+HTTP 200
+[Asserts]
+jsonpath "$.userInfo" isObject
+jsonpath "$.userInfo.books" isList
+</code></pre>
+<h2>New Supported curl options</h2>
+<p>Introduced in <a href="https://hurl.dev/blog/2025/07/30/announcing-hurl-7.0.0.html">Hurl 7.0.0</a>, <a href="https://hurl.dev/docs/manual.html#ntlm"><code>--ntlm</code></a> and <a href="https://hurl.dev/docs/manual.html#negotiate"><code>--negotiate</code></a>
+curl options can now be set per request:</p>
+<pre><code class="language-hurl">GET http://petfactory.com/sharepoint
+[Options]
+user: alice:1234
+ntlm: true
+HTTP 200
+</code></pre>
+<h2>New Filters utf8Decode, utf8Encode</h2>
+<p><a href="https://hurl.dev/docs/filters.html">Filters</a> allow to transform data extracted from HTTP responses. In the following sample, <code>replaceRegex</code>, <code>split</code>,
+<code>count</code> and <code>nth</code> are filters that process input; they can be chained to transform values in asserts and captures:</p>
+<pre><code class="language-hurl">GET https://example.org/api
+HTTP 200
+[Captures]
+name: jsonpath "$.user.id" replaceRegex /\d/ "x"
+[Asserts]
+header "x-servers" split "," count == 2
+header "x-servers" split "," nth 0 == "rec1"
+header "x-servers" split "," nth 1 == "rec3"
+jsonpath "$.books" count == 12
+</code></pre>
+<p>In Hurl 7.1.0, we’ve added new filters <code>utf8Decode</code> and <code>utf8Encode</code> to encode and decode from bytes to string. In the next
+example, we get bytes from a Base64 encoded string, then decode these bytes to a string using UTF-8 encoding:</p>
+<pre><code class="language-hurl">GET https://example.org/messages
+HTTP 200
+[Asserts]
+# From a Base64 string to UTF-8 bytes to final string
+jsonpath "$.bytesInBase64" base64Decode utf8Decode == "Hello World"
+</code></pre>
+<h2><strong>That’s all for today!</strong></h2>
+<p>There are a lot of other improvements with Hurl 7.1.0 and also a lot of bug fixes. Among other things, we have added
+the following features to 7.1.0:</p>
+<ul>
+<li>new ways to add <a href="https://hurl.dev/docs/templates.html#secrets">secrets</a> </li>
+<li>by setting environment variables <code>HURL_SECRET_my_secret</code></li>
+<li>using secrets files with <a href="https://hurl.dev/docs/manual.html#secrets-file"><code>--secrets-file</code></a></li>
+<li>improve <code>--test</code> progress bar to display retry status</li>
+<li>small improvments to HTML report </li>
+</ul>
+<p>You can check the complete list of enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/7.1.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">support us with a star on GitHub</a> and share it on <a href="https://x.com/HurlDev">𝕏</a> and <a href="https://bsky.app/profile/hurldev.bsky.social">Bluesky</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>The Hurl team is thrilled to announce Hurl 7.1.0</summary>
+    </entry>
     <entry>
         <title>Announcing Hurl 7.0.0</title>
         <link href="https://hurl.dev/blog/2025/07/30/announcing-hurl-7.0.0.html" rel="alternate" type="text/html"

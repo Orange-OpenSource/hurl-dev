@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /docs/standalone/*
+Disallow: /assets/docs/*
 
 Sitemap: https://hurl.dev/sitemap.txt
