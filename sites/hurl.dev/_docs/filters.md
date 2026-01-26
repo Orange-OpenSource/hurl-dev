@@ -72,7 +72,7 @@ jsonpath "$.books" count == 12
 | [base64UrlSafeDecode](#base64urlsafedecode) | Decodes a Base64 encoded string into bytes (using [Base64 URL safe encoding]).                                                         | string           | bytes  |
 | [base64UrlSafeEncode](#base64urlsafeencode) | Encodes bytes into Base64 encoded string (using [Base64 URL safe encoding]).                                                           | bytes            | string |
 | [count](#count)                             | Counts the number of items in a collection.                                                                                            | collection       | number |
-| [dateFormat](#dateFormat)                   | Formats a date to a string given [a specification format].                                                                             | date             | string |
+| [dateFormat](#dateformat)                   | Formats a date to a string given [a specification format].                                                                             | date             | string |
 | [daysAfterNow](#daysafternow)               | Returns the number of days between now and a date in the future.                                                                       | date             | number |
 | [daysBeforeNow](#daysbeforenow)             | Returns the number of days between now and a date in the past.                                                                         | date             | number |
 | [decode](#decode)                           | Decodes bytes to string using encoding.                                                                                                | bytes            | string |
