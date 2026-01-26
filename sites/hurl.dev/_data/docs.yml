@@ -273,11 +273,11 @@
             - title: base64UrlSafeDecode
             - title: base64UrlSafeEncode
             - title: count
+            - title: dateFormat
             - title: daysAfterNow
             - title: daysBeforeNow
             - title: decode
             - title: first
-            - title: format
             - title: htmlEscape
             - title: htmlUnescape
             - title: jsonpath
@@ -295,6 +295,8 @@
             - title: urlDecode
             - title: urlEncode
             - title: urlQueryParam
+            - title: utf8Decode
+            - title: utf8Encode
             - title: xpath
     - title: Templates
       path: /docs/templates.html
