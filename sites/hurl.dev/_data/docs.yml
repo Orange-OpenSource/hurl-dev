@@ -290,6 +290,7 @@
             - title: split
             - title: toDate
             - title: toFloat
+            - title: toHex
             - title: toInt
             - title: toString
             - title: urlDecode
