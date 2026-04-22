@@ -36,14 +36,14 @@ HTTP 302
 {% endraw %}
 
 
-Body responses can be encoded by server (see [`Content-Encoding` HTTP header]) but captures in Hurl files are not
-affected by this content compression. All body captures (`body`, `bytes`, `sha256` etc...) work _after_ content decoding.
+Body responses can be encoded by server (see [`Content-Encoding` HTTP header][content-encoding]) but captures in Hurl files are not
+affected by this content compression. All body captures (`body`, `bytes`, `sha256` etc...) except `rawbytes` work _after_ content decoding.
 
 Finally, body text captures (`body`, `jsonpath`, `xpath` etc...) are also decoded to strings based on [`Content-Type` header]
 so these queries can be captures as usual strings.
 
 
-Structure of a capture:
+__Structure of a capture:__
 
 <div class="schema-container schema-container u-font-size-2 u-font-size-3-sm">
  <div class="schema">
@@ -71,6 +71,7 @@ A query can extract data from
 - body:
   - [`body`](#body-capture)
   - [`bytes`](#bytes-capture)
+  - [`rawbytes`](#bytes-capture)
   - [`xpath`](#xpath-capture)
   - [`jsonpath`](#jsonpath-capture)
   - [`regex`](#regex-capture)
@@ -197,6 +198,19 @@ my_data: bytes
 
 Like `body` capture, `bytes` capture works _after_ content encoding decompression (so the captured value is not
 affected by `Content-Encoding` response header).
+
+### RawBytes capture
+
+Capture the entire body as a raw bytestream from the received HTTP response, _before_ any content decoding.
+
+```hurl
+GET https://example.org/data.bin
+HTTP 200
+[Captures]
+raw_data: rawbytes
+```
+
+Unlike `bytes` capture, `rawbytes` returns the raw bytes before content encoding decompression. For uncompressed responses, `rawbytes` and `bytes` capture the same data.
 
 ### XPath capture
 
@@ -423,7 +437,8 @@ duration_in_ms: duration
 
 Capture the SSL certificate properties. Certificate capture consists of the keyword `certificate`, followed by the certificate attribute value.
 
-The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expire-Date` and `Serial-Number`.
+The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expire-Date`, `Serial-Number`,
+`Subject-Alt-Name` and `Value`.
 
 ```hurl
 GET https://example.org
@@ -433,6 +448,8 @@ cert_subject: certificate "Subject"
 cert_issuer: certificate "Issuer"
 cert_expire_date: certificate "Expire-Date"
 cert_serial_number: certificate "Serial-Number"
+san: certificate "Serial-Number"
+value: certificate "Value"
 ```
 
 ## Redacting Secrets
@@ -469,3 +486,5 @@ pass: header "token" redact
 [`--secret` option]: {% link _docs/templates.md %}#secrets
 [MD5]: https://en.wikipedia.org/wiki/MD5
 [SHA-256]: https://en.wikipedia.org/wiki/SHA-2
+[content-encoding]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
+[`Content-Type` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type

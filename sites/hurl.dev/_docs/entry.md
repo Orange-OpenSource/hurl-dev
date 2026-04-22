@@ -77,7 +77,8 @@ HTTP 200
 
 ### Cookie storage
 
-Requests in the same Hurl file share the cookie storage, enabling, for example, session based scenario.
+By default, requests in the same Hurl file share cookie storage, enabling session-based scenario. The shared cookie store can
+be disabled with [`--no-cookie-store`] option.
 
 ### Redirects
 
@@ -260,3 +261,4 @@ For complete reference, below is a diagram for the executed entries.
 [`repeat`]: {% link _docs/manual.md %}#repeat
 [`redirects` query]: {% link _docs/asserting-response.md %}#redirects-assert
 [`url` query]: {% link _docs/asserting-response.md %}#url-assert
+[`--no-coookie-store`]: {% link _docs/manual.md %}#no-cookie-store

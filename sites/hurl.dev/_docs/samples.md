@@ -530,6 +530,9 @@ certificate "Subject" == "CN=example.org"
 certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
 certificate "Expire-Date" daysAfterNow > 15
 certificate "Serial-Number" matches /[\da-f]+/
+certificate "Subject-Alt-Name" contains "DNS:example.org"
+certificate "Subject-Alt-Name" split "," count == 2
+certificate "Value" startsWith "-----BEGIN CERTIFICATE-----"
 ```
 
 [Doc]({% link _docs/asserting-response.md %}#ssl-certificate-assert)
