@@ -26,8 +26,8 @@ jsonpath "$.cats[0].name" == "Felix"
 jsonpath "$.cats[0].lives" == 9
 ```
 
-Body responses can be encoded by server (see [`Content-Encoding` HTTP header]) but asserts in Hurl files are not 
-affected by this content compression. All body asserts (`body`, `bytes`, `sha256` etc...) work _after_ content decoding.
+Body responses can be encoded by server (see [`Content-Encoding` HTTP header][content-encoding]) but asserts in Hurl files are not 
+affected by this content compression. All body asserts (`body`, `bytes`, `sha256` etc...) except `rawbytes` work _after_ content decoding.
 
 Finally, body text asserts (`body`, `jsonpath`, `xpath` etc...) are also decoded to strings based on [`Content-Type` header] 
 so these asserts can be written with usual strings. 
@@ -91,6 +91,7 @@ The asserts order in a Hurl file is:
     </div>
 </div>
 </div>
+
 
 ## Implicit asserts
 
@@ -344,7 +345,7 @@ to specify the root directory of all file nodes.
 Optional list of assertions on the HTTP response within an `[Asserts]` section. Assertions can describe checks
 on status code, on the received body (or part of it) and on response headers.
 
-Structure of an assert:
+__Structure of an explicit assert:__
 
 <div class="schema-container schema-container u-font-size-1 u-font-size-2-sm u-font-size-3-md">
  <div class="schema">
@@ -375,6 +376,7 @@ can extract data from
 - body:
   - [`body`](#body-assert)
   - [`bytes`](#bytes-assert)
+  - [`rawbytes`](#rawbytes-assert)
   - [`xpath`](#xpath-assert)
   - [`jsonpath`](#jsonpath-assert)
   - [`regex`](#regex-assert)
@@ -681,6 +683,25 @@ header "Content-Length" == "12424"
 Like `body` assert, `bytes` assert works _after_ content encoding decompression (so the predicates values are not
 affected by `Content-Encoding` response header value).
 
+### RawBytes assert
+
+Check the value of the received HTTP response body as a raw bytestream. RawBytes assert consists of the keyword `rawbytes`
+followed by a predicate function and value.
+
+```hurl
+GET https://example.org/data.bin
+HTTP 200
+Content-Encoding: gzip
+[Asserts]
+header "Content-Length" == "32"
+rawbytes count == 32               # matches Content-Length (compressed size)
+bytes count == 100                 # decompressed size is larger
+rawbytes startsWith hex,1f8b;      # gzip magic bytes
+bytes startsWith hex,48656c6c6f;   # decompressed content starts with "Hello"
+```
+
+Unlike `bytes` assert, `rawbytes` returns the raw bytes _before_ any content decoding. For uncompressed responses, `rawbytes` and `bytes` return the same data.
+
 ### XPath assert
 
 Check the value of a [XPath] query on the received HTTP body decoded as a string (using the `charset` value in the
@@ -972,7 +993,8 @@ duration < 1000   # Check that response time is less than one second
 Check the SSL certificate properties. Certificate assert consists of the keyword `certificate`, followed by the 
 certificate attribute value.
 
-The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expire-Date` and `Serial-Number`.
+The following attributes are supported: `Subject`, `Issuer`, `Start-Date`, `Expire-Date`, `Serial-Number`, 
+`Subject-Alt-Name` and `Value`.
 
 ```hurl
 GET https://example.org
@@ -982,6 +1004,9 @@ certificate "Subject" == "CN=example.org"
 certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
 certificate "Expire-Date" daysAfterNow > 15
 certificate "Serial-Number" matches "[0-9af]+"
+certificate "Subject-Alt-Name" contains "DNS:example.org"
+certificate "Subject-Alt-Name" split "," count == 2
+certificate "Value" startsWith "-----BEGIN CERTIFICATE-----"
 ```
 
 [predicates]: #predicates
@@ -1008,7 +1033,7 @@ certificate "Serial-Number" matches "[0-9af]+"
 [`decode` filter]: {% link _docs/filters.md %}#decode
 [headers implicit asserts]: #headers
 [RFC 3339]: https://www.rfc-editor.org/rfc/rfc3339
-[`Content-Encoding` HTTP header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
+[content-encoding]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
 [`Content-Type` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
 [`body` assert]: #body-assert
 [`location` filter]: {% link _docs/filters.md %}#location

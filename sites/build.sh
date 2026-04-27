@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -eu
 
+original_dir="$(pwd)"
+cd "$(dirname "$0")"
+
 function echo_step () {
   echo ''
   echo -e "\033[32m\033[1m$1...\033[0m"
@@ -39,8 +42,9 @@ python3 build_sitemap.py > hurl.dev/_site/sitemap.txt
 echo_step 'Generating feed.xml'
 cp hurl.dev/_posts/feed.xml hurl.dev/_site/blog/
 
+sites_dir=$(realpath --relative-to="$original_dir" "$(pwd)")
 echo ''
 echo 'Run local site'
 echo '-------------------'
-echo '    Build & watch: jekyll serve --source hurl.dev --destination hurl.dev/_site'
-echo '    Static: python3 -m http.server --dir hurl.dev/_site 4000'
+echo "    Build & watch: jekyll serve --source $sites_dir/hurl.dev --destination $sites_dir/hurl.dev/_site"
+echo "    Static: python3 -m http.server --dir $sites_dir/hurl.dev/_site 4000"

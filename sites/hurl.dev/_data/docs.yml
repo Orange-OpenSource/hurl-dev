@@ -48,8 +48,13 @@
             items:
               - title: Capturing values
               - title: Asserts
-          - title: Options
-          - title: Environment
+          - title: Configuration
+          - title: All Options
+            items:
+              - title: HTTP options
+              - title: Output options
+              - title: Report options
+              - title: Other options
           - title: Exit Codes
           - title: WWW
           - title: See Also
@@ -211,6 +216,7 @@
             - title: Cookie capture
             - title: Body capture
             - title: Bytes capture
+            - title: RawBytes capture
             - title: XPath capture
             - title: JSONPath capture
             - title: Regex capture
@@ -250,6 +256,7 @@
             - title: Cookie assert
             - title: Body assert
             - title: Bytes assert
+            - title: RawBytes assert
             - title: XPath assert
             - title: JSONPath assert
             - title: Regex assert
@@ -272,11 +279,11 @@
             - title: base64Encode
             - title: base64UrlSafeDecode
             - title: base64UrlSafeEncode
+            - title: charsetDecode
             - title: count
             - title: dateFormat
             - title: daysAfterNow
             - title: daysBeforeNow
-            - title: decode
             - title: first
             - title: htmlEscape
             - title: htmlUnescape

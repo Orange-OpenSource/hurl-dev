@@ -466,7 +466,7 @@ Now, we can add more Hurl tests and start developing new features with confidenc
 [`integration/signup.hurl`]: https://github.com/jcamiel/hurl-express-tutorial/raw/main/integration/signup.hurl
 [GitHub Actions]: https://github.com/features/actions
 [GitLab CI/CD pipelines]: https://docs.gitlab.com/ee/ci/pipelines/
-[`bin/integration.sh`]: https://github.com/jcamiel/quiz/blob/master/bin/integration.sh
+[`bin/integration.sh`]: https://github.com/jcamiel/hurl-express-tutorial/blob/master/bin/integration.sh
 [GitLab CI/CD here]: https://about.gitlab.com/blog/2022/12/14/how-to-continously-test-web-apps-apis-with-hurl-and-gitlab-ci-cd/
 [GitLab CI/CD]: https://about.gitlab.com/why-gitlab/
 [this detailed tutorial]: https://about.gitlab.com/blog/2022/12/14/how-to-continously-test-web-apps-apis-with-hurl-and-gitlab-ci-cd/

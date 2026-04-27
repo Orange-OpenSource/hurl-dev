@@ -3,8 +3,237 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2025-11-26T00:00:00+01:00</updated>
+    <updated>2026-04-27T00:00:00+02:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
+    <entry>
+        <title>Announcing Hurl 8.0.0</title>
+        <link href="https://hurl.dev/blog/2026/04/27/announcing-hurl-8.0.0.html" rel="alternate" type="text/html"
+              title="Announcing Hurl 8.0.0"/>
+        <published>2026-04-27T00:00:00+02:00</published>
+        <updated>2026-04-27T00:00:00+02:00</updated>
+        <id>https://hurl.dev/blog/2026/04/27/announcing-hurl-8.0.0.html</id>
+        <content type="html"><![CDATA[<h1>Announcing Hurl 8.0.0</h1>
+<div class="blog-post-date">Apr. 27, 2026</div>
+
+<p>The Hurl team is thrilled to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/8.0.0">Hurl 8.0.0</a>!
+<picture><source srcset="https://hurl.dev/assets/img/emoji-partying-face.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-partying-face.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-partying-face.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-partying-face.png" width="20" height="20" alt="Partying Face"></picture>
+</p>
+
+<p><a href="https://hurl.dev">Hurl</a> is a command line tool powered by <a href="https://curl.se">curl</a>, that runs HTTP requests defined in a simple plain text format:</p>
+<pre><code class="language-hurl">GET https://example.org/api/tests/4567
+HTTP 200
+[Asserts]
+jsonpath "$.status" == "RUNNING"    # Check the status code
+jsonpath "$.tests" count == 25      # Check the number of items
+jsonpath "$.id" matches /\d{4}/     # Check the format of the id
+
+
+POST https://example.org/api/tests
+{
+  "name": "foo"
+}
+HTTP 201
+[Asserts]
+header "x-foo" contains "bar"
+certificate "Expire-Date" daysAfterNow &gt; 15
+ip == "2001:0db8:85a3:0000:0000:8a2e:0370:733"
+</code></pre>
+<h2>What’s New in This Release</h2>
+<ul>
+<li><a href="#brand-new-jsonpath-rfc-9535-support">Brand New JSONPath - RFC 9535 Support</a></li>
+<li><a href="#hurl-support-in-github">Hurl Support in GitHub</a></li>
+<li><a href="#configure-hurl-with-environment-variables">Configure Hurl with Environment Variables</a></li>
+<li><a href="#-no-cookie-store-option-to-test-cookie-less-workflows">&ndash;no-cookie-store Option to Test Cookie-less Workflows</a></li>
+<li><a href="#ssltls-certificate-improvements">SSL/TLS Certificate Improvements</a></li>
+<li><a href="#others">Others</a> </li>
+</ul>
+<h3>Brand New JSONPath - RFC 9535 Support</h3>
+<p>In Feb 2024, the JSONPath RFC (<a href="https://datatracker.ietf.org/doc/rfc9535">RFC 9535</a>) standard was published, 17 years after Stefan Gössner wrote his
+influential blog post JSONPath – XPath for JSON that resulted in some 50 implementations in various languages (with,
+unfortunately, differences among them).</p>
+<p>When the JSONPath was originally introduced in Hurl, no formal specification existed, the only reference was the original
+article from <a href="https://goessner.net/articles/JsonPath">goessner.net</a>, and we based our code on it.</p>
+<p>With <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/8.0.0">Hurl 8.0.0</a>, the star of the show is our full <a href="https://datatracker.ietf.org/doc/rfc9535">RFC 9535</a> implementation!</p>
+<p>You can now write more powerful queries such as <code>$[?length(@.authors) &gt;= 5]</code> or
+<code>$.store.book[?(@.category == 'fiction' &amp;&amp; @.price &gt;= 10)]</code></p>
+<p><a href="https://datatracker.ietf.org/doc/rfc9535">RFC 9535</a> also defines functions <code>length</code>, <code>count</code>, <code>match</code>, <code>search</code> and <code>value</code>:</p>
+<pre><code class="language-hurl">GET http://localhost:8000/jsonpath/function
+HTTP 200
+[Asserts]
+jsonpath "$.items[?length(@.name) &gt; 3]" count == 2
+jsonpath "$.items[?count(@.tags) == 1]" count == 3
+jsonpath "$.items[?match(@.name, '^ca.*')].name" == "car"
+jsonpath "$.items[?search(@.name, 'ca')].name" == "car"
+jsonpath "$.items[?search(@.name, $.string)].name" == "car"
+jsonpath "$.items[?value(@.heavy) == true]" count == 2
+</code></pre>
+<p>Combining filters and booleans expression is now possible: </p>
+<pre><code class="language-hurl">GET http://localhost:8000/json/store
+HTTP 200
+[Asserts]
+jsonpath "$.store.book[?(@.published==true)].title" == "Moby Dick"         # filter on published books
+jsonpath "$.store.book[?(@.category == 'fiction' &amp;&amp; @.price &gt;= 10)]" count == 2 # filter all fiction books with price &gt;= 10
+</code></pre>
+<h4>Normalized JSONPath results</h4>
+<p>With this brand-new implementation, JSONPath results in Hurl have been standardized and aligned with
+other queries (like XPath).</p>
+<p>JSONPath queries always return arrays, the Hurl <a href="https://hurl.dev/docs/filters.html#jsonpath">jsonpath</a> filter/query now maps the results as follows:</p>
+<ol>
+<li>empty array → None value</li>
+</ol>
+<p><code>jsonpath "$.store.book[5].title" not exists</code></p>
+<ol>
+<li>single-element array → the element itself</li>
+</ol>
+<p><code>jsonpath "$.store.book[1].title" == "Sword of Honour"</code></p>
+<ol>
+<li>multiple elements → the full array of elements</li>
+</ol>
+<p><code>jsonpath "$.store.book[0,2]" count == 2</code></p>
+<h4>Breaking Changes</h4>
+<p>Unfortunately, this new <a href="https://datatracker.ietf.org/doc/rfc9535">RFC 9535</a> support forces us to make breaking changes. While most of the
+existing JSONPath queries works without any modification in your Hurl files when upgrading to 8.0.0,
+you might have some changes to make.</p>
+<p>Notably, &lsquo;-’ in keypath: it’s not supported by the new spec and this kind of JSONPath </p>
+<p><code>$.headers.X-Custom</code> </p>
+<p>must be rewritten as</p>
+<p><code>$.headers['X-Custom']</code></p>
+<p>For instance, before Hurl 8.0.0:</p>
+<pre><code class="language-hurl">GET http://localhost:8000/json/store
+HTTP 200
+[Asserts]
+jsonpath "$.not-exist" count == 5
+jsonpath "$.not-exist" startsWith "foo"
+jsonpath "$.not-exist" endsWith "foo"
+</code></pre>
+<p>With Hurl 8.0.0:</p>
+<pre><code class="language-hurl">GET http://localhost:8000/json/store
+HTTP 200
+[Asserts]
+jsonpath "$['not-exist']" count == 5
+jsonpath "$['not-exist']" startsWith "foo"
+jsonpath "$['not-exist']" endsWith "foo"
+</code></pre>
+<p>You can test the validity of your JSONPath expression with <a href="https://jsonpath.com">https://jsonpath.com</a>, selecting RFC 9535: </p>
+<p><picture><source srcset="https://hurl.dev/assets/img/jsonpath.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/jsonpath.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/jsonpath.png" type="image/png"><img  src="https://hurl.dev/assets/img/jsonpath.png" width="600" height="374" alt="jsonpath.com"></picture></p>
+<p>Finally, our new JSONPath evaluation might also break existing tests written for previous versions.</p>
+<p>For example:</p>
+<p><code>jsonpath "$..book[5:7].title" count == 0</code></p>
+<p>If there are only 4 books, this query now returns no value instead of an empty array. You will therefore get the following
+error:</p>
+<pre><code>error: Filter error
+  --&gt; /tmp/test.hurl:4:31
+   |
+   | GET http://localhost:8000/books.json
+   | ...
+ 4 | jsonpath "$..book[5:7].title" count == 0
+   |                               ^^^^^ missing value to apply filter
+   |
+</code></pre>
+<p>You must fix the assertion as follows:</p>
+<p><code>jsonpath "$..book[5:7].title" not exists</code></p>
+<p>Because of the potential breaking changes, we’re trying to contact public repos on GitHub that are using Hurl when we
+detect that they may have some changes to make for Hurl 8.0.0. Usually the changes are simple so this should not be a
+big issue. In exchange, we hope that the new RFC 9535 will give you some useful new test capabilities.</p>
+<h3>Hurl Support in GitHub</h3>
+<p>Not specifically tied to this new 8.0.0 version, but Hurl is now an official language on GitHub!</p>
+<p>You can search for Hurl snippets:</p>
+<p><picture><source srcset="https://hurl.dev/assets/img/github-hurl-search.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/github-hurl-search.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/github-hurl-search.png" type="image/png"><img  src="https://hurl.dev/assets/img/github-hurl-search.png" width="600" height="407" alt="Search on GitHub for Hurl snippet"></picture></p>
+<p>Repo top languages shows Hurl support:</p>
+<p><picture><source srcset="https://hurl.dev/assets/img/github-repo-languages.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/github-repo-languages.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/github-repo-languages.png" type="image/png"><img  src="https://hurl.dev/assets/img/github-repo-languages.png" width="375" height="172" alt="Repo top languages with Hurl"></picture></p>
+<p>And Hurl code is syntactically colored:</p>
+<p><picture><source srcset="https://hurl.dev/assets/img/github-highlight.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/github-highlight.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/github-highlight.png" type="image/png"><img  src="https://hurl.dev/assets/img/github-highlight.png" width="600" height="512" alt="Repo top languages with Hurl"></picture></p>
+<p>Thanks to Niklas Mollenhauer (<a href="https://github.com/nikeee">@nikee</a>) and all other people that have made this possible, you rock! </p>
+<h3>Configure Hurl with Environment Variables</h3>
+<p>Hurl options can be used in command line like <code>--location</code> to follow redirection, and overridden per request in <code>[Options]</code>
+section. For instance, this Hurl file:</p>
+<pre><code class="language-hurl">GET https://example.org
+HTTP 301
+
+GET https://example.org
+[Options]
+location: true
+HTTP 200
+</code></pre>
+<p>will follow a redirection only for the second entry.</p>
+<p>With Hurl 8.0.0, most of the options can also be defined with environment variables (like <code>HURL_INSECURE</code> for <a href="https://hurl.dev/docs/manual.html#insecure"><code>--insecure</code></a>).
+So, in order to configure Hurl, there are three sources from the lowest priority (most easily overridden) to highest
+(overrides all others):</p>
+<ul>
+<li>Environment variables (ex: <code>HURL_INSECURE</code>)</li>
+<li>Command-line options (ex: <code>--insecure</code>)</li>
+<li>Options section options (ex: <code>insecure: true</code> in file)</li>
+</ul>
+<p>You can check the <a href="https://hurl.dev/docs/manual.html">Hurl manual</a> to see all the configurable environment variables, there are plenty (i.e. <code>HURL_COMPRESSED</code>,
+<code>HURL_CONNECT_TIMEOUT</code>, <code>HURL_HEADER</code>, <code>HURL_HTTP3</code> etc...)</p>
+<h3>&ndash;no-cookie-store Option to Test Cookie-less Workflows</h3>
+<p>By default, requests in the same Hurl file share cookie storage. A new option <a href="https://hurl.dev/docs/manual.html#no-cookie-store"><code>--no-cookie-store</code></a>
+deactivates cookie engine allowing you to test cookie-less workflows. And you can configure it by environment variable
+with <code>export HURL_NO_COOKIE_STORE=1</code>.</p>
+<h3>SSL/TLS Certificate Improvements</h3>
+<p>Certificate queries allow you to assert and capture TLS/SSL certificates attributes like: subject, issue, start date,
+expire date and serial number. With Hurl 8.0.0, you can now get subject alternative name and certificate value.</p>
+<pre><code class="language-hurl">GET https://example.org
+HTTP 200
+[Asserts]
+certificate "Subject" == "CN=example.org"
+certificate "Issuer" == "C=US, O=Let's Encrypt, CN=R3"
+certificate "Expire-Date" daysAfterNow &gt; 15
+certificate "Serial-Number" matches "[0-9af]+"
+certificate "Subject-Alt-Name" contains "DNS:example.org"
+certificate "Subject-Alt-Name" split "," count == 2
+certificate "Value" startsWith "-----BEGIN CERTIFICATE-----"
+</code></pre>
+<h3>Others</h3>
+<h4>Raw multilines</h4>
+<p>Making a JSON body request in Hurl is super simple, you just have to write a JSON body without any modification and it will be
+sent as is, with the right <code>application/json</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type">Content-Type</a> header. With this body, templates are also supported, in order
+to set variations on your requests.</p>
+<pre><code class="language-hurl">POST https://example.org/api/cats
+{
+  "id": 42,
+  "name": "{{ name }}"
+}
+</code></pre>
+<p><code>{{name}}</code> is evaluated as a template and the file will fail if there is no <code>name</code> variable.</p>
+<p>With Hurl 8.0.0, you can disable variable rendering and send <code>{{ foo }}</code> as it is, without Hurl trying to render it with
+    a variable. Using <a href="https://hurl.dev/docs/request.html#multiline-string-body">multiline string body</a> and <code>raw</code> identifier you can send an unmodified body over the wire.</p>
+<pre><code class="language-hurl">POST https://example.org/api/cats
+Content-Type: application/json
+```raw
+{
+  "id": 42,
+  "name": "{{ name }}"
+}
+```
+</code></pre>
+<p>Without the <code>raw</code> identifier, the body will be a classic multiline body and will render every variable.</p>
+<h4>rawbytes query</h4>
+<p>HTTP body responses can be encoded by server but captures and asserts in Hurl files are not affected by the content
+compression. In Hurl, captures and asserts work automatically on the decompressed response body, as if there weren’t
+any compression.</p>
+<p>Unlike <code>bytes</code> query, the new <code>rawbytes</code> query returns the raw bytes before any content decoding. For uncompressed responses, <code>rawbytes</code>
+and <code>bytes</code> return the same data.</p>
+<pre><code class="language-hurl">GET https://example.org/data.bin
+HTTP 200
+Content-Encoding: gzip
+[Asserts]
+header "Content-Length" == "32"
+rawbytes count == 32 # matches Content-Length (compressed size)
+bytes count == 100 # decompressed size is larger
+rawbytes startsWith hex,1f8b; # gzip magic bytes
+bytes startsWith hex,48656c6c6f; # decompressed content starts with "Hello"
+</code></pre>
+<p><strong>That’s all for today!</strong></p>
+<p>There are a lot of other improvements with Hurl 8.0.0 and also a lot of bug fixes, you can check the complete list of
+enhancements and bug fixes <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/8.0.0">in our release note</a>.</p>
+<p>If you like Hurl, don’t hesitate to <a href="https://github.com/Orange-OpenSource/hurl/stargazers">support us with a star on GitHub</a> and share it on <a href="https://x.com/HurlDev">𝕏 / Twitter</a> and <a href="https://bsky.app/profile/hurldev.bsky.social">Bluesky</a>!</p>
+<p>We’ll be happy to hear from you, either for enhancement requests or for sharing your success story using Hurl!</p>]]></content>
+        <author>
+            <name/>
+        </author>
+        <summary>The Hurl team is thrilled to announce Hurl 8.0.0</summary>
+    </entry>
     <entry>
         <title>Hurl 7.1.0, the Pretty Edition</title>
         <link href="https://hurl.dev/blog/2025/11/26/hurl-7.1.0-the-pretty-edition.html" rel="alternate"

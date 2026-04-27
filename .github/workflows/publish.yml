@@ -25,13 +25,9 @@ jobs:
           pip3 install --user -r ./sites/requirements.txt
           sudo gem install jekyll
       - name: Check style
-        run: |
-          cd sites
-          ./check_fmt.sh
+        run: sites/check_fmt.sh
       - name: Build
-        run: |
-          cd sites
-          ./build.sh
+        run: sites/build.sh
       - name: Publish
         if: github.ref == 'refs/heads/master'
         env:
