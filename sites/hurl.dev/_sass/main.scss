@@ -555,9 +555,8 @@ footer {
 
 table {
   display: block;
-  width: 100%;
   max-width: 100%;
-  overflow: auto;
+  overflow-x: auto;
   border-collapse: collapse;
   margin-top: $m4;
   margin-bottom: $m4;
