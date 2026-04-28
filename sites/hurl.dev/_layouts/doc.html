@@ -22,7 +22,7 @@
 
                 <div class="doc-content" data-section="{{ page.section }}" data-indexed="{{ indexed }}">
 
-                    <div class="doc-content-col">
+                    <div class="doc-content-col doc-{{ page.title | slugify }}">
 
                         {% include doc-picker.html docs=site.data.docs title=page.title %}
 

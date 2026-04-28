@@ -554,9 +554,8 @@ footer {
 }
 
 table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
+  width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   margin-top: $m4;
   margin-bottom: $m4;
@@ -577,6 +576,12 @@ th {
 
 td {
   padding: 12px $m2;
+}
+
+.doc-manual table td:first-child,
+.doc-manual table th:first-child {
+  width: 35%;
+  overflow-wrap: break-word;
 }
 
 table tr:nth-child(2n) {
