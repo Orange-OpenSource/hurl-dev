@@ -339,7 +339,7 @@ variables {
 
 GraphQL queries can also use [Hurl templates].
 
-[Doc]({% link _docs/request.md %}#graphql-body)
+[Doc]({% link _docs/request.md %}#graphql-query)
 
 ### Using Dynamic Datas
 
