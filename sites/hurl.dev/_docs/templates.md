@@ -177,6 +177,7 @@ Variables can be injected in a Hurl file:
 - by using [`--variables-file` option]
 - by defining environment variables, for instance `HURL_VARIABLE_foo=bar`
 - by defining variables in an [`[Options]` section][options]
+- by defining variables in [Hurl configuration file]
 
 Lets' see how to inject variables, given this `test.hurl`:
 
@@ -345,3 +346,4 @@ Resulting in a PUT request with the following JSON body:
 [`--include`]: {% link _docs/manual.md %}#include
 [`--json`]: {% link _docs/manual.md %}#json
 [JSON report]: {% link _docs/running-tests.md %}#json-report
+[Hurl configuration file]: {% link _docs/manual.md %}#configuration
