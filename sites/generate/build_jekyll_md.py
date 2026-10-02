@@ -200,6 +200,7 @@ class ConvertTask:
         self.force_list_numbering = force_list_numbering
 
     def convert(self):
+        sys.stderr.write(f"- Converting {self.file_src} => {self.file_dst}\n")
         md = convert_to_jekyll(
             path=self.file_src,
             front_matter=self.front_matter,
@@ -470,26 +471,18 @@ def build(standalone: bool):
         "sites/hurl.dev/assets/img/quiz-light.png",
     )
     if standalone:
-        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.md"))
-        shutil.move(
-            f"../hurl/docs/standalone/hurl-{version}.md.gz",
-            f"sites/hurl.dev/assets/docs/hurl-{version}.md.gz",
-        )
-        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.html"))
-        shutil.move(
-            f"../hurl/docs/standalone/hurl-{version}.html.gz",
-            f"sites/hurl.dev/assets/docs/hurl-{version}.html.gz",
-        )
-        compress(src=Path(f"../hurl/docs/standalone/hurl-{version}.pdf"))
-        shutil.move(
-            f"../hurl/docs/standalone/hurl-{version}.pdf.gz",
-            f"sites/hurl.dev/assets/docs/hurl-{version}.pdf.gz",
-        )
+        src_dir = Path("../hurl/docs/standalone")
+        dst_dir = Path("sites/hurl.dev/assets/docs")
+        for ext in ["md", "html", "pdf"]:
+            doc = src_dir / f"hurl-{version}.{ext}"
+            if doc.exists():
+                compress(src=doc, dst=dst_dir / f"{doc.name}.gz")
 
 
-def compress(src: Path):
+def compress(src: Path, dst: Path):
+    sys.stderr.write(f"- Compressing {src} => {dst}\n")
     with src.open("rb") as f_in:
-        with gzip.open(str(src) + ".gz", "wb") as f_out:
+        with gzip.open(dst, "wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
 
 

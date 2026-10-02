@@ -215,6 +215,7 @@ key: /etc/client-cert.key  # client authentication certificate key
 compressed: true           # request a compressed response
 connect-timeout: 20s       # connect timeout
 delay: 3s                  # delay for this request (aka sleep)
+fail-with-body: true       # Output HTTP response even if there are assert errors
 http3: true                # use HTTP/3 protocol version
 insecure: true             # allow insecure SSL connections and transfers
 ipv6: true                 # use IPv6 addresses
@@ -222,11 +223,14 @@ limit-rate: 32000          # limit this request to the specidied speed (bytes/s)
 location: true             # follow redirection for this request
 max-redirs: 10             # maximum number of redirections
 max-time: 30s              # maximum time for a request/response
+no-header: Accept          # header name to remove from the request
+no-jsonpath-coercion: true # disable JSONPath result coercion for this request
 output: out.html           # dump the response to this file
 path-as-is: true           # do not handle sequences of /../ or /./ in URL path
 retry: 10                  # number of retry if HTTP/asserts errors
 retry-interval: 500ms      # interval between retry
 skip: false                # skip this request
+tls-max: 1.2               # maximum TLS version
 unix-socket: sock          # use Unix socket for transfer
 user: bob:secret           # use basic authentication
 proxy: my.proxy:8012       # define proxy (host:port where host can be an IP address)
@@ -236,8 +240,9 @@ verbose: true              # allow verbose output
 very-verbose: true         # allow more verbose output    
 ```
 
-> Variable defined in an `[Options]` section are defined also for the next entries. This is
-> the exception, all other options are defined only for the current request.
+> Variables defined in an `[Options]` section, including values loaded from `variables-file`, are
+> defined also for the next entries. This is the exception, all other options are defined only for
+> the current request.
 
 ### Query parameters
 
