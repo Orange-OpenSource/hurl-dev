@@ -187,7 +187,7 @@ HTTP 200
 
 [Tutorial]
 
-[Documentation] (download [HTML], [PDF], [Markdown]) 
+[Documentation] (download [HTML], [PDF], [Markdown], [EPUB]) 
 
 [GitHub]
 
@@ -207,3 +207,4 @@ HTTP 200
 [HTML]: https://hurl.dev/assets/docs/hurl-8.1.0.html.gz
 [PDF]: https://hurl.dev/assets/docs/hurl-8.1.0.pdf.gz
 [Markdown]: https://hurl.dev/assets/docs/hurl-8.1.0.md.gz
+[EPUB]: https://hurl.dev/assets/docs/hurl-8.1.0.epub.gz

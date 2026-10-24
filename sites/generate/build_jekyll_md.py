@@ -406,21 +406,6 @@ def build(standalone: bool):
         ),
     ]
 
-    if standalone:
-        docs.append(
-            (
-                Path(f"../hurl/docs/standalone/hurl-{version}.md"),
-                Path(f"sites/hurl.dev/_docs/standalone/hurl-{version}.md"),
-                FrontMatter(
-                    layout="standalone",
-                    section="Standalone",
-                    title=f"Hurl {version}",
-                    indexed=False,
-                ),
-                False,
-            ),
-        )
-
     for src, dst, front_matter, force_list_numbering in docs:
         task = ConvertTask(
             file_src=src,
@@ -498,7 +483,7 @@ if __name__ == "__main__":
         "--standalone",
         action="store_true",
         default=False,
-        help="Generate standalone docs",
+        help="Generate standalone docs assets",
     )
     args = parser.parse_args()
     main(standalone=args.standalone)
