@@ -1,4 +1,5 @@
-@import "variables";
+@use "colors" as *;
+@use "variables" as *;
 
 .u-d-block-md {
   display: none;

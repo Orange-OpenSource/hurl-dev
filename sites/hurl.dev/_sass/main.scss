@@ -1,8 +1,10 @@
-@import "reset";
-@import "variables";
-@import "colors";
-@import "boxsizing";
-@import "utilities";
+@use "sass:meta";
+@use "reset";
+@use "variables" as *;
+@use "colors" as *;
+@use "theme";
+@use "boxsizing";
+@use "utilities";
 
 html {
   /* Add some space to the anchor */
@@ -621,7 +623,7 @@ svg.defs-only {
   margin-left: 6px;
 }
 
-@import "code";
-@import "grammar";
-@import "schema";
-@import "grid";
+@include meta.load-css("code");
+@include meta.load-css("grammar");
+@include meta.load-css("schema");
+@include meta.load-css("grid");

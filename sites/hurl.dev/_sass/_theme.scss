@@ -1,0 +1,19 @@
+@use "colors" as *;
+
+html, html[data-theme="light"] {
+  @include light;
+}
+
+html[data-theme="dark"] {
+  @include dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, html[data-theme="dark"] {
+    @include dark;
+  }
+
+  html[data-theme="light"] {
+    @include light;
+  }
+}

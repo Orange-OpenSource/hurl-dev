@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
+"""Highlight code snippets in place in HTML files.
+
+Language code snippet are identified with the tag `<pre><code class="language-LANGUAGE-ID">...</code></pre>`
+where LANGUAGE-ID can be of one `hurl`, `bash`, `shell`, `rust`.
+
+Examples:
+    $ python3 hightlight.py hurl.dev/_posts/2023-06-30-announcing-hurl-4.0.0.md
+"""
 import subprocess
 from subprocess import CalledProcessError
+import sys
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -11,11 +20,15 @@ from pygments.lexers import BashLexer, RustLexer
 from pygments.formatters import HtmlFormatter
 
 
-def main():
-    highlight_code(language="hurl", to_html_func=hurl_to_html)
-    highlight_code(language="bash", to_html_func=bash_to_html)
-    highlight_code(language="shell", to_html_func=shell_to_html)
-    highlight_code(language="rust", to_html_func=rust_to_html)
+def main(files: [Path]):
+    highlight_code(language="hurl", to_html_func=hurl_to_html, files=files)
+    highlight_code(language="bash", to_html_func=bash_to_html, files=files)
+    highlight_code(language="shell", to_html_func=shell_to_html, files=files)
+    highlight_code(language="rust", to_html_func=rust_to_html, files=files)
+
+
+def eprintln(msg: str):
+    sys.stderr.write(msg + '\n')
 
 
 @dataclass
@@ -39,17 +52,18 @@ def get_os() -> str:
         raise EnvironmentError("Invalid Platform " + platform.system())
 
 
-def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
-    print(f"Highlighting {language.title()} snippets...")
+def highlight_code(language: str, to_html_func: Callable[[str], str], files: [Path]) -> None:
+    eprintln(f"Highlighting {language.title()} snippets...")
 
-    for filename in Path("hurl.dev", "_site").glob("**/*.html"):
-        print(f"    Processing {filename}...")
-        src = Path(filename).read_text()
+    for file in files:
+        print(f"    Processing {file}...")
+        src = file.read_text()
         snippets = extract_snippet(language=language, text=src)
+        eprintln(f"      - Found {len(snippets)} snippets")
         if not len(snippets):
             continue
 
-        print(f"    Highlighting {filename}")
+        eprintln(f"    Highlighting {file}")
         dst = src
         for snippet in snippets:
             title = snippet.title
@@ -63,12 +77,13 @@ def highlight_code(language: str, to_html_func: Callable[[str], str]) -> None:
                 old = f'<pre><code class="language-{language}">{content}</code></pre>'
                 new = f'<div class="code-block"><pre><code class="language-{language}">{colored_content}</code></pre></div>'
             dst = dst.replace(old, new)
-        Path(filename).write_text(dst)
+        file.write_text(dst)
 
 
 def unescape_html(text: str) -> str:
     text = text.replace("&lt;", "<")
     text = text.replace("&gt;", ">")
+    text = text.replace("&quot;", "\"")
     text = text.replace("&amp;", "&")
     return text
 
@@ -81,8 +96,7 @@ def escape_html(text: str) -> str:
 
 
 def hurl_to_html(snippet: str) -> str:
-    # import sys
-    # sys.stderr.write('<<<' + snippet + '>>>\n')
+
     cmd = [get_os() + "/hurlfmt", "--out", "html"]
     try:
         ret = subprocess.run(
@@ -94,7 +108,7 @@ def hurl_to_html(snippet: str) -> str:
             input=snippet,
         )
     except CalledProcessError:
-        print(f"Error highlighting snippet:\n{snippet}")
+        eprintln(f"Error highlighting snippet:\n{snippet}")
         raise
     output = ret.stdout
 
@@ -215,4 +229,4 @@ def extract(text: str, prefix: str, suffix: str) -> str | None:
 
 
 if __name__ == "__main__":
-    main()
+    main(files=[Path(f) for f in sys.argv[1:]])
