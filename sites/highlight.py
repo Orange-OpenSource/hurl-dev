@@ -84,6 +84,7 @@ def unescape_html(text: str) -> str:
     text = text.replace("&lt;", "<")
     text = text.replace("&gt;", ">")
     text = text.replace("&quot;", "\"")
+    text = text.replace("&#39;", "'")
     text = text.replace("&amp;", "&")
     return text
 

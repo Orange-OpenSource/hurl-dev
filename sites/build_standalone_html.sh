@@ -3,7 +3,7 @@
 # Usage:
 # $ ./build_standalone_html.sh INPUT.md CSS_FILE
 # Example:
-# $ ./build_standalone_html.sh hurl.dev/_docs/standalone/hurl-8.1.0.md hurl.dev/_includes/standalone.css
+# $ ./build_standalone_html.sh ../../hurl/docs/standalone/hurl-8.1.0.md hurl.dev/_includes/standalone.css
 #
 # CSS_FILE is the site CSS. To regenerate hurl.dev/_includes/standalone.css from the site Sass sources:
 # $ sass --no-source-map --load-path hurl.dev/_sass hurl.dev/_sass/main.scss > hurl.dev/_includes/standalone.css
@@ -20,7 +20,7 @@ title="Hurl Documentation"
 echo "Building ${base}.html"
 
 pandoc "$input" \
-    --from markdown-native_divs \
+    --from markdown-native_divs-markdown_in_html_blocks \
     --syntax-highlighting=none \
     --standalone \
     --variable pagetitle:"$title" \
