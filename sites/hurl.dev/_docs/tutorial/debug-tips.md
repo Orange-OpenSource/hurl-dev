@@ -290,7 +290,7 @@ $ hurl --no-output basic.hurl
 ## Use Error Format
 
 When you’ve asserts errors, the analysis can be difficult because you don’t have a lot of information apart 
-of the expected values:
+from the expected values:
 
 ```shell
 $ hurl --test basic.hurl
@@ -378,7 +378,7 @@ HTTP 200
 ```
 
 - use [`--fail-with-body` option]: this option changes the Hurl's default behavior when there are errors and output
-HTTP response regardless of asserts / HTTP runtime errors. Like many other options, this option can be use as a command
+HTTP response regardless of asserts / HTTP runtime errors. Like many other options, this option can be used as a command
 line option (`hurl --fail-with-body foo.hurl`), with environment variable (`export HURL_FAIL_WITH_BODY=true`), with [Hurl 
 configuration file], or per request with `[Options]` section.
 
@@ -408,7 +408,7 @@ $ hurl --fail-with-body foo.hurl
 [1;34m   |[0m
 ```
 
-To get more information, one can also used a JSON report with [`--report-json`]. This option produces a structured export
+To get more information, one can also use a JSON report with [`--report-json`]. This option produces a structured export
 of all run datas (request headers, response headers, response body, curl debug command line etc...)
 
 ```shell
@@ -498,7 +498,6 @@ the returned response to Hurl.
 [`-v/--verbose` option]: {% link _docs/manual.md %}#verbose
 [`--very-verbose`]: {% link _docs/manual.md %}#very-verbose
 [`--verbose`]: {% link _docs/manual.md %}#verbose
-[`--interactive` option]: {% link _docs/manual.md %}#interactive
 [`-i/--include` option]: {% link _docs/manual.md %}#include
 [`--to-entry` option]: {% link _docs/manual.md %}#to-entry
 [mitmproxy]: https://mitmproxy.org

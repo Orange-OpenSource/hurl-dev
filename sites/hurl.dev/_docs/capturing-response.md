@@ -411,7 +411,7 @@ affected by `Content-Encoding` response header)
 
 ### URL capture
 
-Capture the last fetched URL. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]` section][options] or
+Capture the last fetched URL. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]` section]({% link _docs/request.md %}#options) or
 [`--location` option]). URL capture consists of a variable name, followed by a `:`, and the keyword `url`.
 
 ```hurl
@@ -425,7 +425,7 @@ landing_url: url
 
 ### Redirects capture
 
-Capture each step of redirection. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section][options] or
+Capture each step of redirection. This is most meaningful if you have told Hurl to follow redirection (see [`[Options]`section]({% link _docs/request.md %}#options) or
 [`--location` option]). Redirects capture consists of a variable name, followed by a `:`, and the keyword `redirects`.
 Redirects query returns a collection so each step of the redirection can be capture.
 
@@ -521,7 +521,6 @@ pass: header "token" redact
 [JSONPath]: https://www.rfc-editor.org/info/rfc9535/
 [XPath captures]: #xpath-capture
 [JavaScript-like Regular expression syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-[options]: {% link _docs/request.md %}#options
 [`--location` option]: {% link _docs/manual.md %}#location
 [filters]: {% link _docs/filters.md %}
 [`xpath` filter]: {% link _docs/filters.md %}#xpath
@@ -532,6 +531,6 @@ pass: header "token" redact
 [content-encoding]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
 [`Content-Type` header]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
 [RFC 9535: JSONPATH: Query Expression for JSON]: https://www.rfc-editor.org/info/rfc9535/
-[coercion to the JSONPATH]: {% link _docs/capturing-response.md %}#jsonpath-coercion
+[coercion to the JSONPath]: {% link _docs/capturing-response.md %}#jsonpath-coercion
 [`--no-jsonpath-coercion` option]: {% link _docs/manual.md %}#no-jsonpath-coercion
 [Hurl configuration file]: {% link _docs/manual.md %}#configuration

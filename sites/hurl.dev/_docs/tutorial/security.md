@@ -95,7 +95,7 @@ HTTP 200
 
 
 Writing each step of a redirection can be a little tedious so we can ask Hurl to automatically follow redirection 
-after the POST login. An [`[Options]` section][options] can be used to modify how a request is played:
+after the POST login. An [`[Options]` section]({% link _docs/request.md %}#options) can be used to modify how a request is played:
 
 {:start="3"}
 3. Use an `[Options]` section to follow redirection on the user account creation:
@@ -363,6 +363,5 @@ it is to integrate Hurl in a CI/CD pipeline like [GitHub Action] or [GitLab CI/C
 [GitHub Action]: https://github.com/features/actions
 [GitLab CI/CD]: https://docs.gitlab.com/ee/ci/
 [previous part]: {% link _docs/tutorial/captures.md %}
-[options]: {% link _docs/request.md %}#options
 [`url` assert]: {% link _docs/asserting-response.md %}#url-assert
 [validation HTML attributes]: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
