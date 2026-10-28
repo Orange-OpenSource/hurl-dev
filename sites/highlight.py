@@ -7,6 +7,7 @@ where LANGUAGE-ID can be of one `hurl`, `bash`, `shell`, `rust`.
 Examples:
     $ python3 hightlight.py hurl.dev/_posts/2023-06-30-announcing-hurl-4.0.0.md
 """
+
 import subprocess
 from subprocess import CalledProcessError
 import sys
@@ -28,7 +29,7 @@ def main(files: [Path]):
 
 
 def eprintln(msg: str):
-    sys.stderr.write(msg + '\n')
+    sys.stderr.write(msg + "\n")
 
 
 @dataclass
@@ -52,7 +53,9 @@ def get_os() -> str:
         raise EnvironmentError("Invalid Platform " + platform.system())
 
 
-def highlight_code(language: str, to_html_func: Callable[[str], str], files: [Path]) -> None:
+def highlight_code(
+    language: str, to_html_func: Callable[[str], str], files: [Path]
+) -> None:
     eprintln(f"Highlighting {language.title()} snippets...")
 
     for file in files:
@@ -83,7 +86,7 @@ def highlight_code(language: str, to_html_func: Callable[[str], str], files: [Pa
 def unescape_html(text: str) -> str:
     text = text.replace("&lt;", "<")
     text = text.replace("&gt;", ">")
-    text = text.replace("&quot;", "\"")
+    text = text.replace("&quot;", '"')
     text = text.replace("&#39;", "'")
     text = text.replace("&amp;", "&")
     return text

@@ -13,7 +13,7 @@ Use the HTML file in `sites/hurl.dev/_posts/feed.html` to have a preview of the 
 $ cd sites/hurl.dev/_posts
 $ python3 -m http.server
 ```
- 
+
 """
 
 from _datetime import datetime
