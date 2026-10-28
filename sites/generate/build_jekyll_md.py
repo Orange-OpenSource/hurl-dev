@@ -458,7 +458,7 @@ def build(standalone: bool):
     if standalone:
         src_dir = Path("../hurl/docs/standalone")
         dst_dir = Path("sites/hurl.dev/assets/docs")
-        for ext in ["md", "html", "pdf"]:
+        for ext in ["md", "html", "pdf", "epub"]:
             doc = src_dir / f"hurl-{version}.{ext}"
             if doc.exists():
                 compress(src=doc, dst=dst_dir / f"{doc.name}.gz")
