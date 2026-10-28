@@ -3,16 +3,16 @@
     <title>Hurl Blog</title>
     <link href="https://hurl.dev/blog/feed.xml" rel="self" type="application/atom+xml" />
     <link href="https://hurl.dev/blog" rel="alternate" type="text/html" />
-    <updated>2026-10-30T00:00:00+01:00</updated>
+    <updated>2026-10-28T00:00:00+01:00</updated>
     <id>https://hurl.dev/blog/feed.xml</id>
     <entry>
         <title>Hurl 8.1.0, of Config and Security</title>
-        <link href="https://hurl.dev/blog/2026/10/30/hurl-8.1.0-of-config-and-security.html" rel="alternate" type="text/html" title="Hurl 8.1.0, of Config and Security"/>
-        <published>2026-10-30T00:00:00+01:00</published>
-        <updated>2026-10-30T00:00:00+01:00</updated>
-        <id>https://hurl.dev/blog/2026/10/30/hurl-8.1.0-of-config-and-security.html</id>
+        <link href="https://hurl.dev/blog/2026/10/28/hurl-8.1.0-of-config-and-security.html" rel="alternate" type="text/html" title="Hurl 8.1.0, of Config and Security"/>
+        <published>2026-10-28T00:00:00+01:00</published>
+        <updated>2026-10-28T00:00:00+01:00</updated>
+        <id>https://hurl.dev/blog/2026/10/28/hurl-8.1.0-of-config-and-security.html</id>
         <content type="html"><![CDATA[<h1>Hurl 8.1.0, of Config and Security</h1>
-<div class="blog-post-date">Oct. 30, 2026</div>
+<div class="blog-post-date">Oct. 28, 2026</div>
 
 <p>The Hurl team is super happy to announce <a href="https://github.com/Orange-OpenSource/hurl/releases/tag/8.1.0">Hurl 8.1.0</a>!
 <picture><source srcset="https://hurl.dev/assets/img/emoji-surfer.avif" type="image/avif"><source srcset="https://hurl.dev/assets/img/emoji-surfer.webp" type="image/webp"><source srcset="https://hurl.dev/assets/img/emoji-surfer.png" type="image/png"><img class="emoji" src="https://hurl.dev/assets/img/emoji-surfer.png" width="20" height="20" alt="Surfer"></picture>
