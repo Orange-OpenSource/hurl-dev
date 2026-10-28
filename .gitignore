@@ -7,6 +7,10 @@ __pycache__/
 .sass-cache
 .jekyll-cache/
 _site/
+sites/.bundle/
+sites/vendor/
+
+
 # Hurl generated stuff
 sites/hurl.dev/assets/data/index.json
 

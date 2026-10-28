@@ -6,6 +6,14 @@ Examples:
 
 Note: reference links that contains backtick, like `[`location`]: {% link _docs/filters.md %}#location` are
 not well-supported and should be inlined.
+
+Use the HTML file in `sites/hurl.dev/_posts/feed.html` to have a preview of the file `feed.xml
+
+```shell
+$ cd sites/hurl.dev/_posts
+$ python3 -m http.server
+```
+
 """
 
 from _datetime import datetime

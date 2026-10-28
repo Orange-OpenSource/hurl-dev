@@ -290,7 +290,7 @@ $ hurl --no-output basic.hurl
 ## Use Error Format
 
 When you’ve asserts errors, the analysis can be difficult because you don’t have a lot of information apart 
-of the expected values:
+from the expected values:
 
 ```shell
 $ hurl --test basic.hurl
@@ -359,7 +359,7 @@ GET https://foo.com/success
 HTTP 200
 ```
 
-- use [`--output`] per-request and [`--ignore-asserts`]: `--ignore-asserts` will disable any check, while `--output` can
+- use [`--output`] per-request and [`--no-assert`]: `--no-assert` will disable any check, while `--output` can
 be used to output any particular response body. With this file, the response of `https://foo.com/failure` will be outputted
 on standard output:
 
@@ -377,7 +377,38 @@ GET https://foo.com/success
 HTTP 200
 ```
 
-To get more information, one can also used a JSON report with [`--report-json`]. This option produces a structured export
+- use [`--fail-with-body` option]: this option changes the Hurl's default behavior when there are errors and output
+HTTP response regardless of asserts / HTTP runtime errors. Like many other options, this option can be used as a command
+line option (`hurl --fail-with-body foo.hurl`), with environment variable (`export HURL_FAIL_WITH_BODY=true`), with [Hurl 
+configuration file], or per request with `[Options]` section.
+
+```shell
+$ hurl --fail-with-body foo.hurl
+[1;39m{[0m
+  [1;34m"slideshow"[0m[1;39m:[0m [1;39m{[0m
+    [1;34m"author"[0m[1;39m:[0m [0;32m"Yours Truly"[0m[1;39m,[0m
+    [1;34m"date"[0m[1;39m:[0m [0;32m"date of publication"[0m[1;39m,[0m
+    [1;34m"slides"[0m[1;39m:[0m [1;39m[[0m
+      [1;39m{[0m
+        [1;34m"title"[0m[1;39m:[0m [0;32m"Wake up to WonderWidgets!"[0m[1;39m,[0m
+        [1;34m"type"[0m[1;39m:[0m [0;32m"all"[0m
+      [1;39m}[0m
+    [1;39m][0m[1;39m,[0m
+    [1;34m"title"[0m[1;39m:[0m [0;32m"Sample Slide Show"[0m
+  [1;39m}[0m
+[1;39m}[0m
+[1;31merror[0m: [1mAssert failure[0m
+  [1;34m-->[0m foo.hurl:4:0
+[1;34m   |[0m
+[1;34m   |[0m [90mGET https://httpbin.org/json[0m
+[1;34m   |[0m[90m ...[0m
+[1;34m 4 |[0m jsonpath "$.slideshow.author" == "Someone"
+[1;34m   |[0m[1;31m   actual:   string <Yours Truly>[0m
+[1;34m   |[0m[1;31m   expected: string <Someone>[0m
+[1;34m   |[0m
+```
+
+To get more information, one can also use a JSON report with [`--report-json`]. This option produces a structured export
 of all run datas (request headers, response headers, response body, curl debug command line etc...)
 
 ```shell
@@ -467,7 +498,6 @@ the returned response to Hurl.
 [`-v/--verbose` option]: {% link _docs/manual.md %}#verbose
 [`--very-verbose`]: {% link _docs/manual.md %}#very-verbose
 [`--verbose`]: {% link _docs/manual.md %}#verbose
-[`--interactive` option]: {% link _docs/manual.md %}#interactive
 [`-i/--include` option]: {% link _docs/manual.md %}#include
 [`--to-entry` option]: {% link _docs/manual.md %}#to-entry
 [mitmproxy]: https://mitmproxy.org
@@ -475,7 +505,9 @@ the returned response to Hurl.
 [`--error-format`]: {% link _docs/manual.md %}#error-format
 [`libcurl`]: https://curl.se/libcurl/
 [response timings]: {% link _docs/response.md %}#timings
-[`--ignore-asserts`]: {% link _docs/manual.md %}#ignore-asserts
+[`--no-assert`]: {% link _docs/manual.md %}#no-assert
 [`--output`]: {% link _docs/manual.md %}#output
 [`--curl`]: {% link _docs/manual.md %}#curl
 [`--report-json`]: {% link _docs/manual.md %}#report-json
+[`--fail-with-body` option]: {% link _docs/manual.md %}#fail-with-body
+[Hurl configuration file]: {% link _docs/manual.md %}#configuration

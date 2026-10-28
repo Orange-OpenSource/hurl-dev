@@ -177,7 +177,7 @@ $hurl-structure-3-back-dark: $code-background-color-dark;
   --bash-literal-string-double: #{$bash-literal-string-double-light};
   --bash-name-builtin: #{$bash-name-builtin-light};
   --shell-prompt: #{$shell-prompt-light};
-  --ansi-blue: #{ansi-blue-light};
+  --ansi-blue: #{$ansi-blue-light};
   --ansi-cyan: #{$ansi-cyan-light};
   --ansi-green: #{$ansi-green-light};
   --ansi-gray: #{$ansi-gray-light};
@@ -288,24 +288,5 @@ $hurl-structure-3-back-dark: $code-background-color-dark;
   }
   .u-theme-dark {
     display: inline-block;
-  }
-}
-
-
-html, html[data-theme="light"] {
-  @include light;
-}
-
-html[data-theme="dark"] {
-  @include dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  html, html[data-theme="dark"] {
-    @include dark;
-  }
-
-  html[data-theme="light"] {
-    @include light;
   }
 }

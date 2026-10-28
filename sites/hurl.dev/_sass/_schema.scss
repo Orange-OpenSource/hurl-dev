@@ -1,5 +1,5 @@
-@import "colors";
-@import "variables";
+@use "colors" as *;
+@use "variables" as *;
 
 .schema-container {
   //font-family: Menlo, Monaco, Consolas, "Liberation Mono"," Courier New", monospace;

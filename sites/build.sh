@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Build the hurl.dev static site with Jekyll.
+# Usage:
+# $ ./build.sh
 set -eu
 
 original_dir="$(pwd)"
@@ -31,7 +34,7 @@ echo_step 'Replace home samples'
 python3 build_home_samples.py
 
 echo_step 'Highlight code snippets'
-python3 highlight.py
+find hurl.dev/_site -type f -name '*.html' -exec python3 highlight.py {} +
 
 echo_step 'Add title anchors'
 python3 build_anchors.py

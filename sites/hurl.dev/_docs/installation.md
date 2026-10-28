@@ -15,7 +15,7 @@ Precompiled binary (depending on libc >=2.35) is available at [Hurl latest GitHu
 
 ```shell
 $ INSTALL_DIR=/tmp
-$ VERSION=8.0.0
+$ VERSION=8.0.1
 $ curl --silent --location https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl-$VERSION-x86_64-unknown-linux-gnu.tar.gz | tar xvz -C $INSTALL_DIR
 $ export PATH=$INSTALL_DIR/hurl-$VERSION-x86_64-unknown-linux-gnu/bin:$PATH
 ```
@@ -25,7 +25,7 @@ $ export PATH=$INSTALL_DIR/hurl-$VERSION-x86_64-unknown-linux-gnu/bin:$PATH
 For Debian >=12 / Ubuntu 22.04 and 24.04, Hurl can be installed using a binary .deb file provided in each Hurl release.
 
 ```shell
-$ VERSION=8.0.0
+$ VERSION=8.0.1
 $ curl --location --remote-name https://github.com/Orange-OpenSource/hurl/releases/download/$VERSION/hurl_${VERSION}_amd64.deb
 $ sudo apt update && sudo apt install ./hurl_${VERSION}_amd64.deb
 ```
@@ -33,7 +33,7 @@ $ sudo apt update && sudo apt install ./hurl_${VERSION}_amd64.deb
 For Ubuntu >=22.04, Hurl can be installed from `ppa:lepapareil/hurl`
 
 ```shell
-$ VERSION=8.0.0
+$ VERSION=8.0.1
 $ sudo apt-add-repository -y ppa:lepapareil/hurl
 $ sudo apt install hurl="${VERSION}"*
 ```
@@ -57,6 +57,12 @@ $ pacman -Sy hurl
 #### NixOS / Nix
 
 [NixOS / Nix package] is available on stable channel.
+
+#### Guix
+
+```shell
+$ guix install hurl
+```
 
 ### macOS
 
@@ -149,25 +155,25 @@ Hurl depends on libssl, libcurl and libxml2 native libraries. You will need thei
 #### Debian based distributions
 
 ```shell
-$ apt install -y build-essential pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libclang-dev
+$ apt install build-essential pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libclang-dev
 ```
 
 #### Fedora based distributions
 
 ```shell
-$ dnf install -y pkgconf-pkg-config gcc openssl-devel libxml2-devel clang-devel
+$ dnf install pkgconf-pkg-config gcc openssl-devel libxml2-devel clang-devel
 ```
 
 #### Red Hat based distributions
 
 ```shell
-$ yum install -y pkg-config gcc openssl-devel libxml2-devel clang-devel
+$ yum install pkg-config gcc openssl-devel libxml2-devel clang-devel
 ```
 
 #### Arch based distributions
 
 ```shell
-$ pacman -S --noconfirm pkgconf gcc glibc openssl libxml2 clang
+$ pacman -S pkgconf gcc glibc openssl libxml2 clang
 ```
 
 #### Alpine based distributions
@@ -180,7 +186,7 @@ $ apk add curl-dev gcc libxml2-dev musl-dev openssl-dev clang-dev
 
 ```shell
 $ xcode-select --install
-$ brew install pkg-config
+$ brew install pkg-config openssl
 ```
 
 Hurl is written in [Rust]. You should [install] the latest stable release.

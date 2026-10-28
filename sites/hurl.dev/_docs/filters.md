@@ -145,6 +145,8 @@ bytes base64UrlSafeEncode == "PDw_Pz8-Pg"
 
 ### charsetDecode
 
+*Formerly known as `decode`, which is deprecated and will be removed in a future major version.*
+
 Decodes bytes to string using a charset encoding. Encoding labels are defined in [Encoding Standard].
 
 ```hurl
@@ -474,7 +476,7 @@ Evaluates a [XPath] expression.
 GET https://example.org/hello_gb2312
 HTTP 200
 [Asserts]
-bytes decode "gb2312" xpath "string(//body)" == "你好世界"
+bytes charsetDecode "gb2312" xpath "string(//body)" == "你好世界"
 ```
 
 [Captures]: {% link _docs/capturing-response.md %}

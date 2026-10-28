@@ -219,6 +219,8 @@
             - title: RawBytes capture
             - title: XPath capture
             - title: JSONPath capture
+              items:
+                - title: JSONPath coercion
             - title: Regex capture
             - title: SHA-256 capture
             - title: MD5 capture
@@ -259,6 +261,8 @@
             - title: RawBytes assert
             - title: XPath assert
             - title: JSONPath assert
+              items:
+                - title: JSONPath coercion
             - title: Regex assert
             - title: SHA-256 assert
             - title: MD5 assert

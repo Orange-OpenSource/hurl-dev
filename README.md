@@ -51,7 +51,7 @@ In this mode, Hurl code snippets haven't any syntax coloring.
 
 - [`build.sh`]: uber-script to build <hurl.dev> from scratch
 - [`build_anchors.py`]: add anchors to every HTML tag. Exemple: `<h2 id="some-stuff">Some Title</h2>` becomes `<h2 id="some-stuff"><a href="#some-stuff">Some Title</a></h2>`
-- [`build_index.py`]: construct search index (search is entirely done viz Javascript in the browser, without any server apis.) 
+- [`build_index.py`]: construct search index (search is entirely done viz JavaScript in the browser, without any server apis.) 
 - [`build_sitemap.py`]: generate <https://hurl.dev/sitemap.txt>
 - [`deploy.sh`]: deploy a local build to <https://hurl.dev>
 - [`highlight.py`]: generate syntax coloring for Hurl snippets
